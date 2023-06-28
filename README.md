@@ -1,2 +1,2 @@
-# Flitter-Frontend
+# Flumbr-Frontend
 Tumblr / Twitter Hybrid
