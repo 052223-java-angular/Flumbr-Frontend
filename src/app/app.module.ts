@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatListModule} from '@angular/material/list'
+import { MatListModule} from '@angular/material/list';
+import {MatBadgeModule} from '@angular/material/badge';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NotificationComponent } from './components/notification/notification.component';
 
@@ -20,6 +21,7 @@ import { NotificationComponent } from './components/notification/notification.co
     MatSlideToggleModule,
     MatExpansionModule,
     MatListModule,
+    MatBadgeModule,
     HttpClientModule
   ],
   providers: [],
