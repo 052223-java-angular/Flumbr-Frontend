@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [AppComponent, ProfileComponent],
@@ -14,6 +16,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
