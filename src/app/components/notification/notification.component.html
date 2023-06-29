@@ -1,0 +1,19 @@
+<mat-expansion-panel 
+  (opened)="panelOpenState = true"
+  (closed)="panelOpenState = false">
+
+    <!-- Header UI is a unique component that dispays at all times -->
+    <mat-expansion-panel-header>
+      <mat-panel-title> Notification Icon </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <!-- Lazy load message content -->
+    <ng-template matExpansionPanelContent>
+      <mat-list *ngFor="let notification of notifications | async; index as i">
+        <ng-container >
+          <mat-list-item> {{i}}: {{notification.message }} </mat-list-item>
+        </ng-container>
+      </mat-list>
+    </ng-template>
+
+</mat-expansion-panel>
