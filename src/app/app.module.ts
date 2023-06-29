@@ -6,9 +6,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 @NgModule({
-  declarations: [AppComponent, ProfileComponent],
+  declarations: [AppComponent, ProfileComponent, NavbarComponent, NotfoundComponent],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
