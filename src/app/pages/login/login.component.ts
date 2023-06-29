@@ -3,8 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth-service.service";
 import {TokenService} from "../../services/tokenservice.service";
 import {LoginPayload} from "../../models/login-payload";
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import {data} from "autoprefixer";
+
+
 
 @Component({
   selector: 'app-login',
@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit{
 
   submitLoginForm()
   {
+    console.log("called submitLoginForm")
+
     if (this.loginForm.invalid) {
       this.loginForm.controls['username'].markAsTouched();
       this.loginForm.controls['password'].markAsTouched();
@@ -46,6 +48,7 @@ export class LoginComponent implements OnInit{
     this.authService.login(payload).subscribe({
       next:(result)=>
       {
+
         //this.tokenService.saveUser(result)
         //this.tokenService.saveToken(result.token)// need to revise when backend is done
 

@@ -1,19 +1,37 @@
-<div>
-  <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()">
 
-      <mat-form-field>
-        <mat-label>Username:</mat-label>
-        <input matInput placeholder="login" formControlName="username" required>
+
+
+
+<div class="flex flex-col items-center mb-40 bg-gray-100">
+  <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" class="bg-white m-10 flex flex-col gap-10 p-10 shadow-2xl rounded-md">
+
+    <h1 class="text-4xl text-emerald-600">Login to Fumbler</h1>
+
+      <mat-form-field class="flex flex-col items-center gap-5 ">
+        <mat-label>Username</mat-label>
+        <input class="mt-5" matInput placeholder="Username" formControlName="username" >
+        <mat-error class="text-red-600" *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">
+          Username is required
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="flex flex-col items-center gap-5  -m-4">
         <mat-label>Password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+        <input class="mt-5" placeholder="Password" matInput [type]="hide ? 'password' : 'text'" formControlName="password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
+        <mat-error class="text-red-600" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+          Password is required
+        </mat-error>
       </mat-form-field>
 
+
+    <button type="submit" mat-raised-button >Primary</button>
+
+    <div class="flex justify-center text-emerald-600">
+      <a routerLink="/new-user">New user?</a>
+    </div>
   </form>
 
 </div>
