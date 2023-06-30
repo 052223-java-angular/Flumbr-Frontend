@@ -1,0 +1,22 @@
+<mat-card class="max-w-[400px]">
+  <mat-card-header>
+    <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});">
+    </div>
+    <mat-card-title>{{post.username}}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image src="{{post.s3bucket}}" alt="Photo of a Shiba Inu" *ngIf="post.mediaType == 'image'">
+  <video *ngIf="post.mediaType == 'video'" controls autoplay>
+    <source [src]="post.s3bucket" type="video/mp4">
+    <source [src]="post.s3bucket" type="video/ogg">
+    Your browser does not support the video tag.
+  </video>
+  <mat-card-content>
+    <p *ngIf="post.message">
+      {{post.message}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>
