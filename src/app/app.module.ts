@@ -11,9 +11,12 @@ import { MatListModule} from '@angular/material/list';
 import {MatBadgeModule} from '@angular/material/badge';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { NotfoundComponent } from './pages/notfound/notfound.component';
+
 
 @NgModule({
-  declarations: [AppComponent, ProfileComponent, NotificationComponent],
+  declarations: [AppComponent, ProfileComponent, NotificationComponent, NavbarComponent, NotfoundComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
