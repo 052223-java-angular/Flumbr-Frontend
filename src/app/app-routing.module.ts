@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [RouteguardService],
+    // canActivate: [RouteguardService],
   },
   {
     path: 'posts',
