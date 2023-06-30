@@ -1,11 +1,11 @@
 
 <div class="flex flex-col items-center mb-40 bg-gray-100">
-  <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" class="bg-white m-10 flex flex-col gap-10 p-10  shadow-2xl  rounded-md" >
+  <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" class="bg-white m-10 flex flex-col gap-7 p-10  shadow-2xl  rounded-lg" style="width: 25%" >
 
-    <h1 class="flex flex-col items-center text-emerald-600" style="font-weight: bold"> Login To Fumblr </h1>
+    <h1 class="flex flex-col items-center text-indigo-500" style="font-weight: bold; font-size: 36px; letter-spacing: 2px"> Login To Fumblr </h1>
 
     <!--Field for username-->
-      <mat-form-field class="flex flex-col items-center gap-5 ">
+      <mat-form-field class="flex flex-col items-center ">
         <mat-label>Username</mat-label>
         <input matInput placeholder="Username" formControlName="username" >
         <mat-error class="text-red-600" *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">
@@ -14,7 +14,7 @@
       </mat-form-field>
 
         <!--Field for password-->
-      <mat-form-field class="flex flex-col items-center gap-5 ">
+      <mat-form-field class="flex flex-col items-center ">
         <mat-label class="">Password</mat-label>
         <input  placeholder="Password" matInput [type]="hide ? 'password' : 'text'" formControlName="password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -27,13 +27,13 @@
 
     <!--button is only clickable when form is valid-->
     <ng-container *ngIf="loginForm.invalid">
-      <button mat-raised-button disabled>Log In</button>
+      <button class="custom-button" mat-raised-button disabled>Log In</button>
     </ng-container>
     <ng-container *ngIf="loginForm.valid">
-      <button mat-raised-button color="primary">Log In</button>
+      <button class="custom-button" mat-raised-button color="primary">Log In</button>
     </ng-container>
 
-    <div class="flex justify-center text-emerald-600">
+    <div class="flex justify-center text-indigo-500 "  style="font-weight: bold; font-size: 17px;">
       <a routerLink="/new-user">New user?</a>
       <!--link to registration-->
     </div>
