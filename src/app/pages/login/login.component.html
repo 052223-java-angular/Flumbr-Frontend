@@ -5,7 +5,7 @@
     <h1 class="flex flex-col items-center text-indigo-500" style="font-weight: bold; font-size: 36px; letter-spacing: 2px"> Login To Fumblr </h1>
 
     <!--Field for username-->
-      <mat-form-field class="flex flex-col items-center ">
+      <mat-form-field class="flex flex-col items-center px-10 " >
         <mat-label>Username</mat-label>
         <input matInput placeholder="Username" formControlName="username" >
         <mat-error class="text-red-600" *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">
@@ -14,7 +14,7 @@
       </mat-form-field>
 
         <!--Field for password-->
-      <mat-form-field class="flex flex-col items-center ">
+      <mat-form-field class="flex flex-col items-center px-10">
         <mat-label class="">Password</mat-label>
         <input  placeholder="Password" matInput [type]="hide ? 'password' : 'text'" formControlName="password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -29,12 +29,12 @@
     <ng-container *ngIf="loginForm.invalid">
       <button class="custom-button" mat-raised-button disabled>Log In</button>
     </ng-container>
-    <ng-container *ngIf="loginForm.valid">
+    <ng-container *ngIf="loginForm.valid" >
       <button class="custom-button" mat-raised-button color="primary">Log In</button>
     </ng-container>
 
     <div class="flex justify-center text-indigo-500 "  style="font-weight: bold; font-size: 17px;">
-      <a routerLink="/new-user">New user?</a>
+      <a routerLink="/registration">New user?</a>
       <!--link to registration-->
     </div>
   </form>

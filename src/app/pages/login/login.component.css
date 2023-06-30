@@ -1,7 +1,11 @@
 
 
 .custom-button {
-  height: 48px;
+  height: 50px;
   font-size: medium;
   font-weight: bolder;
+  margin-left: 40px;
+  margin-right: 40px;
 }
+
+
