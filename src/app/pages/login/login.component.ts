@@ -36,9 +36,10 @@ export class LoginComponent implements OnInit{
     if (this.loginForm.invalid) {
       this.loginForm.controls['username'].markAsTouched();
       this.loginForm.controls['password'].markAsTouched();
-      this.loginForm.reset();
       return;
     }
+
+    this.loginForm.reset();
 
     const payload:LoginPayload = {
       username: this.loginForm.controls['username'].value,
