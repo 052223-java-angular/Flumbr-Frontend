@@ -60,4 +60,22 @@ export class PostService {
   getPosts(): Observable<Array<PostRes>> {
     return of(this.posts);
   }
+
+  followUser(id: string) {
+    this.posts = this.posts.map((post) => {
+      if (post.userId == id) {
+        post.following = true;
+      }
+      return post;
+    });
+  }
+
+  unFollowUser(id: string) {
+    this.posts = this.posts.map((post) => {
+      if (post.userId == id) {
+        post.following = false;
+      }
+      return post;
+    });
+  }
 }

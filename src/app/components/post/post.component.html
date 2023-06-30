@@ -18,10 +18,10 @@
           <div mat-menu-item *ngIf="post.editTime">
             <p class="text-sm">{{post.editTime}}</p>
           </div>
-          <button mat-menu-item *ngIf="post.following"><span class="font-medium text-slate-950"
-              (click)="followUser(post.userId)">Unfollow</span></button>
-          <button mat-menu-item *ngIf="!post.following"><span class="font-medium text-slate-950"
-              (click)="unfollowUser(post.userId)">Follow</span></button>
+          <button mat-menu-item *ngIf="post.following" (click)="unfollowUser(post.userId)"><span
+              class="font-medium text-slate-950">Unfollow</span></button>
+          <button mat-menu-item *ngIf="!post.following" (click)="followUser(post.userId)"><span
+              class="font-medium text-slate-950">Follow</span></button>
           <button mat-menu-item><span class="font-medium text-red-600">Report</span></button>
         </mat-menu>
       </div>

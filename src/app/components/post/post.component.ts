@@ -1,5 +1,6 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { PostRes } from 'src/app/models/post/post';
+import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
   selector: 'app-post',
@@ -10,6 +11,8 @@ import { PostRes } from 'src/app/models/post/post';
 export class PostComponent {
   @Input() post!: PostRes;
 
+  constructor(private postService: PostService) {}
+
   navigateToTag(id: string) {
     console.log(id);
   }
@@ -19,11 +22,11 @@ export class PostComponent {
   }
 
   followUser(id: string) {
-    console.log(id);
+    this.postService.followUser(id);
   }
 
   unfollowUser(id: string) {
-    console.log(id);
+    this.postService.unFollowUser(id);
   }
 
   likePost(id: string) {
