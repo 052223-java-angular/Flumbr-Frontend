@@ -1,6 +1,15 @@
 <h1>Create Post</h1>
 <hr />
-<mat-form-field>
-    <mat-label>Autosize textarea</mat-label>
-    <textarea matInput></textarea>
-  </mat-form-field>
+<mat-form-field class="w-screen lg:w-1/2">
+  <mat-label>What's on your mind?</mat-label>
+  <textarea matInput></textarea>
+</mat-form-field>
+
+<div class="w-screen lg:w-1/2">
+  <ngx-dropzone (change)="onSelect($event)" [multiple]=false>
+    <ngx-dropzone-label>Drag and drop media or <span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
+    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+      <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+    </ngx-dropzone-preview>
+  </ngx-dropzone>
+</div>

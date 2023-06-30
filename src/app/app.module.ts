@@ -9,6 +9,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { CreatePostComponent } from './pages/create-post/create-post.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 @NgModule({
   declarations: [AppComponent, CreatePostComponent],
   imports: [
@@ -20,6 +21,7 @@ import { CreatePostComponent } from './pages/create-post/create-post.component';
     MatSlideToggleModule,
     MatInputModule,
     MatIconModule,
+    NgxDropzoneModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
