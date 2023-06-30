@@ -8,6 +8,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { RouteguardService } from './services/routeguard.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [AppComponent, ProfileComponent, NavbarComponent, NotfoundComponent],
@@ -18,7 +20,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
     BrowserAnimationsModule,
     MatSlideToggleModule,
   ],
-  providers: [],
+  providers: [RouteguardService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
