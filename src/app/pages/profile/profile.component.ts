@@ -4,6 +4,8 @@ import {TagPayload} from "../../models/tag-payload";
 import {ProfileService} from "../../services/profile-service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {BioPayload} from "../../models/bio-payload";
+import {PostService} from "../../services/post/post.service";
+import {PostRes} from "../../models/post/post";
 
 @Component({
   selector: 'app-profile',
@@ -13,6 +15,7 @@ import {BioPayload} from "../../models/bio-payload";
 export class ProfileComponent {
   profile!: ProfilePayload;
   modifyBio: boolean = false;
+  posts!: Array<PostRes>;
 
   // bio form
   changeBioForm = new FormGroup({
@@ -21,7 +24,8 @@ export class ProfileComponent {
 
   tags: TagPayload[] = [];
 
-  constructor(private profileService: ProfileService) { }
+  constructor(private profileService: ProfileService,
+              private postService: PostService) { }
 
   // Retrieve profile information
   ngOnInit () {
@@ -68,17 +72,15 @@ export class ProfileComponent {
   // run this after initial data gather: use if dependent on get profiles
 
   ngAfterInit() {
-
-    /*this.profileService.getUserTest().subscribe( {
-
-      next: (resp: any) => {
-        this.profile = resp.data;
+    this.postService.getPosts().subscribe({
+      next: (res) => {
+        this.posts = res;
+        console.log("Posts hit on profile: " + res);
       },
       error: (err) => {
-        console.error("Issue with retrieving profile details");
         console.log(err);
-      }
-    })*/
+      },
+    });
 
   }
 
