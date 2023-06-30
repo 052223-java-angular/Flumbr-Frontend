@@ -1,9 +1,14 @@
-<h1 class="text-3xl font-bold">
-  Flumbr
-</h1>
-<h1 class="text-lg">
-  A social media app
-</h1>
-<hr />
-<mat-slide-toggle>Angular Material Test</mat-slide-toggle>
-<app-create-post></app-create-post>
+<div class="flex flex-col min-h-screen">
+  <h1 class="text-3xl font-bold">
+    Flumbr
+  </h1>
+  <p class="text-lg">
+    A social media app
+  </p>
+  <div class="flex-grow relative">
+      <router-outlet></router-outlet>
+  </div> 
+  <footer class="my-20">
+      <p class="text-center">&copy; Flumbr {{ year }}</p>
+  </footer>
+</div>

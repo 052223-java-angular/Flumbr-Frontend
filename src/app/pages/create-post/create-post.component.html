@@ -1,15 +1,54 @@
-<h1>Create Post</h1>
-<hr />
-<mat-form-field class="w-screen lg:w-1/2">
-  <mat-label>What's on your mind?</mat-label>
-  <textarea matInput></textarea>
-</mat-form-field>
+<ng-container
+  *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</ng-container>
 
-<div class="w-screen lg:w-1/2">
-  <ngx-dropzone (change)="onSelect($event)" [multiple]=false>
-    <ngx-dropzone-label>Drag and drop media or <span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
-    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-      <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-    </ngx-dropzone-preview>
-  </ngx-dropzone>
-</div>
+<ng-container
+  *ngIf="!loading">
+  <h1>Create Post</h1>
+
+  <mat-form-field class="w-screen lg:w-1/2">
+    <mat-label>What's on your mind?</mat-label>
+    <textarea matInput [(ngModel)]="message"></textarea>
+  </mat-form-field>
+  
+  <div class="w-screen lg:w-1/2">
+    <ngx-dropzone (change)="onSelect($event)" [multiple]=false>
+      <ngx-dropzone-label>Drag and drop media or <span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
+      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </ngx-dropzone>
+  </div>
+
+  <div 
+    class="w-screen lg:w-1/2"
+    *ngIf="isImage || isVideo">
+    <h3 class="font-bold">Preview:</h3>
+    <ng-container *ngIf="isImage">
+      <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+        <ngx-dropzone-label></ngx-dropzone-label>
+      </ngx-dropzone-image-preview>
+    </ng-container>
+    <ng-container *ngIf="isVideo">
+      <ngx-dropzone-video-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+        <ngx-dropzone-label></ngx-dropzone-label>
+      </ngx-dropzone-video-preview>
+    </ng-container>
+  </div>
+
+  <div class="w-screen lg:w-1/2">
+    <div class="text-center"
+      *ngIf="shortLink">
+      <h2> Visit Here</h2>
+      <a href="{{shortLink}}" target="_blank">{{shortLink}}</a>
+    </div>
+  </div>
+  
+  <div class="flex mt-8 w-screen lg:w-1/2">
+    <button
+      class="ml-auto mr-auto"
+      mat-flat-button color="primary"
+      (click)="onUpload()">Submit</button>
+  </div>
+</ng-container>

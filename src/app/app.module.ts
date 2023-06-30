@@ -10,6 +10,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { CreatePostComponent } from './pages/create-post/create-post.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [AppComponent, CreatePostComponent],
   imports: [
@@ -22,6 +26,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     MatInputModule,
     MatIconModule,
     NgxDropzoneModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
