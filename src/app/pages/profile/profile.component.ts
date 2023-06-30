@@ -42,6 +42,7 @@ export class ProfileComponent {
         console.log(err);
       }
     })
+    this.ngAfterInit();
   }
 
   // boolean toggle for modifying bio
@@ -81,7 +82,6 @@ export class ProfileComponent {
         console.log(err);
       },
     });
-
   }
 
 }
