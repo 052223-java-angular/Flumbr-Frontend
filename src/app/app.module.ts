@@ -13,6 +13,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
+import { RouteguardService } from './services/routeguard.service';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -27,7 +29,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
     MatBadgeModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [RouteguardService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,15 +1,20 @@
-<app-navbar></app-navbar>
+<div class="flex flex-col min-h-screen">
+  <app-navbar class=""></app-navbar>
+  <div class="flex-grow">
 
-<h1 class="text-3xl font-bold">
-  Flumbr
-</h1>
-<h1 class="text-lg">
-  A social media app
-</h1>
-<hr />
+    <h1 class="text-3xl font-bold">
+      Flumbr
+    </h1>
+    <h1 class="text-lg">
+      A social media app
+    </h1>
+    <hr />
+    <mat-slide-toggle>Angular Material Test</mat-slide-toggle>
 
-<router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+  </div>
 
-<footer>
-  <p class="text-center text-white">Created By</p>
-</footer>
+  <footer>
+    <p class="text-center text-white">Created By</p>
+  </footer>
+</div>
