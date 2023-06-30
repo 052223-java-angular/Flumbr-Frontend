@@ -17,6 +17,11 @@ export class ProfileComponent {
   modifyBio: boolean = false;
   posts!: Array<PostRes>;
 
+  //utilize file upload service
+  files: File[] = [];
+  isImage: boolean = false;
+
+
   // bio form
   changeBioForm = new FormGroup({
     bio: new FormControl(null)
@@ -29,7 +34,6 @@ export class ProfileComponent {
 
   // Retrieve profile information
   ngOnInit () {
-    console.log("testing profile")
 
     this.profileService.getUserTest().subscribe( {
 
@@ -73,6 +77,7 @@ export class ProfileComponent {
   // run this after initial data gather: use if dependent on get profiles
 
   ngAfterInit() {
+
     this.postService.getPosts().subscribe({
       next: (res) => {
         this.posts = res;
