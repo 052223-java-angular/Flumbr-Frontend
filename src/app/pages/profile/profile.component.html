@@ -1,37 +1,30 @@
 <div class="flex m-20" xmlns="http://www.w3.org/1999/html">
-
   <div class="flex space-x-24 border-8 border-indigo-600">
-
     <div class="w-1/2 flex-row p-4 space-y-10">
       <h1 class="text-2xl">Profile Name: {{profile.username}}</h1>
-
       <div class="">
         <p class="text-2xl">Profile Bio: {{profile.bio}}</p>
-
         <!-- Form for submitting bio, only toggled when modify is set to true -->
         <div *ngIf="modifyBio == true" class="flex flex-col border-8 border-indigo-600">
-
           <form [formGroup]="changeBioForm" (submit)="submitForm()">
             <mat-form-field class="form-field" appearance="fill">
               <mat-label> Bio </mat-label>
-
               <input matInput formControlName="bio">
-
             </mat-form-field>
             <button type="submit"> Submit bio</button>
           </form>
-
         </div>
-
         <!-- Button for user to start/stop modifying bio -->
         <button (click)="modifyProfileBio()" class="px-4 py-4 bg-orange-500">Edit bio?</button>
       </div>
     </div>
-
     <img mat-card-image src="{{profile.profile_img}}" class="object-contain w-1/2">
   </div>
-</div>
 
-<app-notification></app-notification>
+
+  </div>
+<app-notification>
+
+</app-notification>
 <p>profile works!</p>
 

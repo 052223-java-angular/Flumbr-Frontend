@@ -62,8 +62,6 @@ export class ProfileComponent {
     this.profile.bio = payload.bio;
     console.log("New bio is: " + payload.bio);
 
-
-
   }
 
 

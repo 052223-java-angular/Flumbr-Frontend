@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { PostsComponent } from './pages/posts/posts.component';
+import { PostComponent } from './components/post/post.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { CreatePostComponent } from './pages/create-post/create-post.component';
@@ -17,8 +20,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ProfileComponent } from './pages/profile/profile.component';
-import {MatCardModule} from "@angular/material/card";
-
 
 import { NotificationComponent } from './components/notification/notification.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -35,6 +36,9 @@ import { AuthService } from './services/auth.service';
     NotificationComponent,
     NavbarComponent,
     NotfoundComponent,
+    PostsComponent,
+    PostComponent
+
   ],
   imports: [
     BrowserModule,
@@ -49,6 +53,8 @@ import { AuthService } from './services/auth.service';
     MatInputModule,
     ReactiveFormsModule,
 
+    MatCardModule,
+    MatButtonModule,
     MatExpansionModule,
     MatListModule,
     MatBadgeModule,
