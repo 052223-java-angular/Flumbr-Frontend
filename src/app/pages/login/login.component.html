@@ -2,21 +2,21 @@
 <div class="flex flex-col items-center mb-40 bg-gray-100">
   <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm()" class="bg-white m-10 flex flex-col gap-10 p-10  shadow-2xl  rounded-md" >
 
-    <h1 class="font-bold text-4xl text-emerald-600">Login To Fumblr</h1>
+    <h1 class="flex flex-col items-center text-emerald-600" style="font-weight: bold"> Login To Fumblr </h1>
 
     <!--Field for username-->
       <mat-form-field class="flex flex-col items-center gap-5 ">
         <mat-label>Username</mat-label>
-        <input class="mt-5 " matInput placeholder="Username" formControlName="username" >
+        <input matInput placeholder="Username" formControlName="username" >
         <mat-error class="text-red-600" *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">
           Username is required
         </mat-error>
       </mat-form-field>
 
         <!--Field for password-->
-      <mat-form-field class="flex flex-col items-center gap-5  -m-4">
+      <mat-form-field class="flex flex-col items-center gap-5 ">
         <mat-label class="">Password</mat-label>
-        <input class="mt-5" placeholder="Password" matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+        <input  placeholder="Password" matInput [type]="hide ? 'password' : 'text'" formControlName="password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
@@ -33,7 +33,7 @@
       <button mat-raised-button color="primary">Log In</button>
     </ng-container>
 
-    <div class="flex justify-center text-emerald-600 ">
+    <div class="flex justify-center text-emerald-600">
       <a routerLink="/new-user">New user?</a>
       <!--link to registration-->
     </div>
