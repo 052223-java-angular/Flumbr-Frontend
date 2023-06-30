@@ -59,7 +59,7 @@ export class ProfileComponent {
     const payload: BioPayload = {
       bio: this.changeBioForm.controls.bio.value!
     }
-
+    this.profile.bio = payload.bio;
     console.log("New bio is: " + payload.bio);
 
 
