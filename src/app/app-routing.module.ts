@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RouteguardService } from './services/routeguard.service';
