@@ -30,5 +30,4 @@ export class ProfileService {
     return this.http.get(this.jsonAsset);
   }
 
-
 }

@@ -1,8 +1,29 @@
-<div class="flex flex-col items-center">
-  <div>
-    <h1>Profile Name</h1>
+<div class="flex flex-col m-20" xmlns="http://www.w3.org/1999/html">
+
+  <div class="flex space-x-24 border-8 border-indigo-600 justify-between">
+    <div class="p-4">
+      <h1 class="w-1/2 text-2xl">Profile Name: {{profile.username}}</h1>
+
+      <div>
+        <p class="text-2xl">Profile Bio: {{profile.bio}}</p>
+
+        <!-- Form for submitting bio, only toggled when modify is set to true -->
+        <div *ngIf="modifyBio == true" class="flex flex-col border-8 border-indigo-600">
+          <form [formGroup]="changeBioForm" (ngSubmit)="submitForm()">
+            <div>
+              <textarea formControlName="bio" placeholder="enter your bio...">
+              </textarea>
+            </div>
+            <button class="px-4 py-4 bg-cyan-600" type="submit">Submit bio?</button>
+          </form>
+        </div>
+
+        <!-- Button for user to start/stop modifying bio -->
+        <button (click)="modifyProfileBio()" class="px-4 py-4 bg-orange-500">Edit bio?</button>
+      </div>
+    </div>
+
+    <img mat-card-image src="{{profile.profile_img}}" class="w-1/2">
   </div>
-
-
 
 </div>
