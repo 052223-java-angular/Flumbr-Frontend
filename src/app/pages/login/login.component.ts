@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth-service.service";
 import {TokenService} from "../../services/tokenservice.service";
 import {LoginPayload} from "../../models/login-payload";
+import {Router} from "@angular/router";
 
 
 
@@ -16,10 +17,11 @@ export class LoginComponent implements OnInit{
   loginForm!: FormGroup;
 
   // need get toaster
-  //need router
+
   constructor(private fb: FormBuilder,
               private authService: AuthService,
-              private tokenService: TokenService) {
+              private tokenService: TokenService,
+              router:Router) {
   }
 
   ngOnInit(): void {
@@ -39,7 +41,6 @@ export class LoginComponent implements OnInit{
       return;
     }
 
-    this.loginForm.reset();
 
     const payload:LoginPayload = {
       username: this.loginForm.controls['username'].value,
@@ -56,13 +57,16 @@ export class LoginComponent implements OnInit{
         //save refresh token?
 
         //Add toaster
-
+        this.loginForm.reset();
         //Route to page after successful login
+
       },
       error:(error)=>
       {
         console.log(error.message)
+        this.loginForm.reset();
         //toaster for incorrect login
+
 
       }
     })
