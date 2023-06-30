@@ -4,14 +4,11 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 const routes: Routes = [
-  {path: "profile", component: ProfileComponent}
-];
-
-const routes: Routes = [
   // {path: '', component: },
   // {path: 'register', component: },
   // {path: 'login', component: },
-   {path: '**', component: NotfoundComponent},
+  {path: "profile", component: ProfileComponent},
+  {path: '**', component: NotfoundComponent},
 ];
 
 @NgModule({
