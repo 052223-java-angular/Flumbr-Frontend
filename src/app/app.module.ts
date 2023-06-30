@@ -26,6 +26,9 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { RouteguardService } from './services/routeguard.service';
 import { AuthService } from './services/auth.service';
 
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,10 +36,9 @@ import { AuthService } from './services/auth.service';
     ProfileComponent,
     NotificationComponent,
     NavbarComponent,
-    NotfoundComponent, 
-    PostsComponent, 
-    PostComponent
-    
+    NotfoundComponent,
+    PostsComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,9 @@ import { AuthService } from './services/auth.service';
     MatButtonModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+
+    MatTooltipModule,
+    MatMenuModule,
   ],
   providers: [RouteguardService, AuthService],
   bootstrap: [AppComponent],

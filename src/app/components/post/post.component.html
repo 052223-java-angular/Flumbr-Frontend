@@ -1,8 +1,31 @@
 <mat-card class="max-w-[400px]">
   <mat-card-header>
-    <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});">
+    <div class="flex justify-between w-full">
+      <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.userId)">
+        <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});">
+        </div>
+        <mat-card-title>{{post.username}}</mat-card-title>
+      </div>
+
+      <!-- Menu -->
+      <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Options" matTooltipClass="tooltip"
+          matTooltipPosition="above"><mat-icon class="icon">more_horiz</mat-icon></button>
+        <mat-menu #menu="matMenu">
+          <div mat-menu-item>
+            <p class="text-sm">{{post.createTime}}</p>
+          </div>
+          <div mat-menu-item *ngIf="post.editTime">
+            <p class="text-sm">{{post.editTime}}</p>
+          </div>
+          <button mat-menu-item *ngIf="post.following"><span class="font-medium text-slate-950"
+              (click)="followUser(post.userId)">Unfollow</span></button>
+          <button mat-menu-item *ngIf="!post.following"><span class="font-medium text-slate-950"
+              (click)="unfollowUser(post.userId)">Follow</span></button>
+          <button mat-menu-item><span class="font-medium text-red-600">Report</span></button>
+        </mat-menu>
+      </div>
     </div>
-    <mat-card-title>{{post.username}}</mat-card-title>
   </mat-card-header>
   <img mat-card-image src="{{post.s3bucket}}" alt="Photo of a Shiba Inu" *ngIf="post.mediaType == 'image'">
   <video *ngIf="post.mediaType == 'video'" controls>
@@ -17,19 +40,23 @@
   </mat-card-content>
   <mat-card-footer>
     <ul class="m-4 flex gap-2 flex-wrap">
-      <li *ngFor="let tag of post.tags">
+      <li class="cursor-pointer" *ngFor="let tag of post.tags" (click)="navigateToTag(tag.id)">
         #{{tag.name}}
       </li>
     </ul>
   </mat-card-footer>
-  <mat-card-actions>
-    <div>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-      <button mat-button>C</button>
+  <mat-card-actions class="flex justify-between">
+    <div class="flex gap-4">
+      <mat-icon class="icon" matTooltip="Like" matTooltipClass="tooltip" matTooltipPosition="above"
+        (click)="likePost(post.id)">thumb_up</mat-icon>
+      <mat-icon class="icon" matTooltip="Dislike" matTooltipClass="tooltip" matTooltipPosition="above"
+        (click)="dislikePost(post.id)">thumb_down</mat-icon>
     </div>
-    <div>
-      <button mat-button>...</button>
+    <div class="flex gap-4">
+      <mat-icon class="icon" matTooltip="Share" matTooltipClass="tooltip" matTooltipPosition="above"
+        (click)="sharePost()">share</mat-icon>
+      <mat-icon class="icon" matTooltip="Comment" matTooltipClass="tooltip" matTooltipPosition="above"
+        (click)="openChat()">chat</mat-icon>
     </div>
   </mat-card-actions>
 </mat-card>

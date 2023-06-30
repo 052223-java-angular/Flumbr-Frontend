@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 
@@ -9,6 +9,7 @@ import { PostService } from 'src/app/services/post/post.service';
 })
 export class PostsComponent implements OnInit {
   posts!: Array<PostRes>;
+  @Input() type: string = 'all';
 
   constructor(private postService: PostService) {}
 
