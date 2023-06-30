@@ -1,14 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ProfileService } from './profile-service';
+import { RouteguardService } from './routeguard.service';
 
-
-describe('ProfileServiceService', () => {
-  let service: ProfileService;
+describe('RouteguardService', () => {
+  let service: RouteguardService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ProfileService);
+    service = TestBed.inject(RouteguardService);
   });
 
   it('should be created', () => {

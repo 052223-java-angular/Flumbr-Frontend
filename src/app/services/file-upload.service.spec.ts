@@ -1,14 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ProfileService } from './profile-service';
+import { FileUploadService } from './file-upload.service';
 
-
-describe('ProfileServiceService', () => {
-  let service: ProfileService;
+describe('FileUploadService', () => {
+  let service: FileUploadService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ProfileService);
+    service = TestBed.inject(FileUploadService);
   });
 
   it('should be created', () => {

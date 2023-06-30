@@ -1,4 +1,4 @@
-# Flumbr
+# Flumblr
 
 Tumblr / Twitter Hybrid
 
