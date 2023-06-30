@@ -20,6 +20,7 @@ export class ProfileComponent {
   //utilize file upload service
   files: File[] = [];
   isImage: boolean = false;
+  shortLink: string | null = null;
 
 
   // bio form
@@ -73,6 +74,30 @@ export class ProfileComponent {
 
   }
 
+  onSelect(event: any) {
+    this.files.push(...event.addedFiles);
+    if (this.files.length > 1) {
+      this.files.splice(0, 1);
+    }
+    this.setImageAndVideoFlags();
+  }
+
+  setImageAndVideoFlags() {
+    if (this.files.length == 1) {
+      const file = this.files[0];
+      const fileType = file['type'];
+      const imageRegEx = /image/;
+      this.isImage = imageRegEx.test(fileType);
+    } else {
+      this.isImage = false;
+    }
+  }
+
+  onRemove(event: any) {
+    this.files.splice(this.files.indexOf(event), 1);
+    this.setImageAndVideoFlags();
+    this.shortLink = null;
+  }
 
   // run this after initial data gather: use if dependent on get profiles
 
