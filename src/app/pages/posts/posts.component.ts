@@ -28,4 +28,18 @@ export class PostsComponent implements OnInit {
       },
     });
   }
+
+  searchByUsername(username:String)
+  {
+    let postsByUser: Array<PostRes> = []
+      for(let post of this.posts)
+      {
+         if(post.username === username)
+         {
+            postsByUser.push(post);
+         }
+      }
+
+      return postsByUser;
+  }
 }
