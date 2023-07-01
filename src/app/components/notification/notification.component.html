@@ -1,13 +1,28 @@
+<br />
+<br />
 <mat-expansion-panel 
   (opened)="panelOpenState = true"
-  (closed)="panelOpenState = false">
+  (closed)="panelOpenState = false" >
 
     <!-- Header UI is a unique component that dispays at all times -->
-    <mat-expansion-panel-header>
+    <mat-expansion-panel-header >
+      <mat-icon aria-label="home icon" class="scale-150 mx-4">home</mat-icon>
+      <div matBadge={{3}}
+        matBadgeSize="medium" 
+        matBadgeColor="primary"
+        class="mb-6 ml-1"></div>
 
-      
+      <mat-icon aria-label="envelope icon" class="scale-150">envelope</mat-icon>
+      <div matBadge={{2}}
+        matBadgeSize="medium" 
+        matBadgeColor="primary"
+        class="mb-6 ml-1"></div>
 
-
+      <mat-icon aria-label="square-arrow-up-right icon" class="scale-150">square-arrow-up-right</mat-icon>
+      <div matBadge={{1}}
+        matBadgeSize="medium" 
+        matBadgeColor="primary"
+        class="mb-6 ml-1"></div>
 
     </mat-expansion-panel-header>
 
@@ -20,11 +35,3 @@
 
 </mat-expansion-panel>
 
-<mat-panel-title> 
-  <!-- <mat-icon aria-label="home icon" class="scale-150">home</mat-icon> -->
-  <div *ngIf="notifications$ | async as notificationQty" 
-      matBadge={{notificationQty.length}}
-      matBadgeSize="medium" 
-      matBadgeColor="primary"
-      class="mb-6 ml-1"></div>
-</mat-panel-title>

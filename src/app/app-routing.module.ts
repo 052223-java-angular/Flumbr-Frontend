@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// import { PostsComponent } from './pages/posts/posts.component';
-// import { CreatePostComponent } from './pages/create-post/create-post.component';
+import { PostsComponent } from './pages/posts/posts.component';
+import { CreatePostComponent } from './pages/create-post/create-post.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { RouteguardService } from './services/routeguard.service';
 
 const routes: Routes = [
-  // { path: 'posts/create', component: CreatePostComponent },
+  { path: 'posts/create', component: CreatePostComponent },
 
   // {path: '', component: },
   // {path: 'register', component: },
@@ -19,14 +19,13 @@ const routes: Routes = [
   },
   {
     path: 'posts',
-    // component: PostsComponent,
+    component: PostsComponent,
   },
   { path: '**', component: NotfoundComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-
-export class AppRoutingModule { }
+export class AppRoutingModule {}
