@@ -1,9 +1,9 @@
 [
-  { "id": "1", "displayName": "home", "matIconName": "home" },
-  { "id": "2", "displayName": "trending", "matIconName": "show_chart" },
-  { "id": "3", "displayName": "comments", "matIconName": "comment" },
-  { "id": "4", "displayName": "reviews", "matIconName": "rate_review" },
-  { "id": "5", "displayName": "messages", "matIconName": "message" },
-  { "id": "6", "displayName": "likes", "matIconName": "thumb_up" },
-  { "id": "7", "displayName": "friends", "matIconName": "person_add" }
+  { "id": "1", "name": "home" },
+  { "id": "2", "name": "trending"},
+  { "id": "3", "name": "comments" },
+  { "id": "4", "name": "reviews" },
+  { "id": "5", "name": "messages" },
+  { "id": "6", "name": "likes"},
+  { "id": "7", "name": "friends"}
 ]

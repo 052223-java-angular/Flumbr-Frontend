@@ -1,5 +1,5 @@
 export interface NotificationType {
-  iconName: string,
+  name: string,
   matIconName: string,
   id: string
 }

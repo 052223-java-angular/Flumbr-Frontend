@@ -11,17 +11,19 @@ export class NotificationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  fetchNotifications(payload: string) : Observable<Notification[]> {
+  // fetch notifications
+  fetchNotifications() : Observable<Notification[]> {
     return this.httpClient.get<Notification[]>("/assets/notifications/notifications.json");
   }
 
+  // fetch notification types
   fetchNotificationsTypes() : Observable<NotificationType[]> {
     return this.httpClient.get<NotificationType[]>("/assets/notifications/notification-type.json");
   }
 
+  // update notifications as read
   updateNotificationAsRead(payload: Notification) : Observable<Notification[]> {
-    return this.httpClient.put<Notification[]>('/notifications', payload);
-    // return this.fetchNotifications('');
+    return this.httpClient.put<Notification[]>('/', payload);
   }
   
 }

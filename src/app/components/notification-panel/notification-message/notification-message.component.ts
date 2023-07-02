@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Notification } from 'src/app/models/notification/notification';
 import { NotificationService } from 'src/app/services/notification.service';
 

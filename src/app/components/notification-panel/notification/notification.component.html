@@ -1,8 +1,5 @@
-<br />
-<br />
-<!-- Header UI is a unique component that dispays at all times -->
-
 <div class="relative w-full">
+
   <!-- material-ui icon to load -->
   <mat-icon aria-label="icon"
     [ngClass]="badgeContent === 0 ? 'cursor-auto' : 'hover:border-b-blue-900' "
@@ -10,6 +7,7 @@
       {{ icon }}
   </mat-icon>
 
+  <!-- badge icon -->
   <div  
     [matBadge]="badgeContent"
     [matBadgeColor]="badgeColor"
