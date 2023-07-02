@@ -1,37 +1,15 @@
 <br />
 <br />
-<mat-expansion-panel 
-  (opened)="panelOpenState = true"
-  (closed)="panelOpenState = false" >
+<!-- Header UI is a unique component that dispays at all times -->
 
-    <!-- Header UI is a unique component that dispays at all times -->
-    <mat-expansion-panel-header >
-      <mat-icon aria-label="home icon" class="scale-150 mx-4">home</mat-icon>
-      <div matBadge={{3}}
-        matBadgeSize="medium" 
-        matBadgeColor="primary"
-        class="mb-6 ml-1"></div>
-
-      <mat-icon aria-label="envelope icon" class="scale-150">envelope</mat-icon>
-      <div matBadge={{2}}
-        matBadgeSize="medium" 
-        matBadgeColor="primary"
-        class="mb-6 ml-1"></div>
-
-      <mat-icon aria-label="square-arrow-up-right icon" class="scale-150">square-arrow-up-right</mat-icon>
-      <div matBadge={{1}}
-        matBadgeSize="medium" 
-        matBadgeColor="primary"
-        class="mb-6 ml-1"></div>
-
-    </mat-expansion-panel-header>
-
-    <!-- Lazy load message content -->
-    <ng-template matExpansionPanelContent>
-      <mat-list *ngFor="let notification of notifications$ | async; index as i">
-        <mat-list-item> {{i}}: {{notification.message }} </mat-list-item>
-      </mat-list>
-    </ng-template>
-
-</mat-expansion-panel>
-
+<div class="relative">
+  <mat-icon aria-label="home icon" class="scale-150 mx-4 cursor-pointer">
+    {{icon}}
+  </mat-icon>
+  <!-- <span class="relative right-3 bottom-5 bg-purple-600 ">{{badgeContent}}</span> -->
+  <div  [matBadge]="badgeContent"
+        [matBadgeColor]="badgeColor"
+        [matBadgeSize]="badgeSize"
+        class="relative bottom-8 right-2 z-10"></div>
+  <ng-content></ng-content>
+</div>

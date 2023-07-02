@@ -1,0 +1,54 @@
+<div class="relative w-1/2">
+  <div class="flex flex-1 items-start justify-between gap-4">
+
+    <ng-container *ngFor="let icon of iconList; index as idx">
+      <app-notification
+        icon={{icon}} 
+        badgeContent={{icon.length}} 
+        badgeColor="primary" 
+        badgeSize="medium"
+        (opened)="openNotification(idx)"
+        (closed)="closeNotification(idx)">
+
+        <ng-container *ngIf="panelId == idx && opened" >
+          <div class="relative left-2 justify-center font-extrabold">
+            <mat-icon >arrow_drop_down</mat-icon>
+          </div>
+        </ng-container>
+
+      </app-notification>
+    </ng-container>
+  
+  </div>
+
+  <!-- <div > -->
+
+  <mat-list *ngFor="let notification of notifications$ | async; index as i"
+    class="border"
+    [ngClass]="panelOpenState ? 'relative bottom-3 border' : 'hidden' ">
+    <mat-list-item > 
+      <mat-icon>message</mat-icon> 
+      <span class="text-xs">{{ notification.message }} </span>
+    </mat-list-item>
+  </mat-list>
+
+  <!-- </div> -->
+
+</div>
+
+<!-- <ng-container *ngIf="true">
+  <mat-list> -->
+    <!-- <mat-list-item class="flex flex-1" *ngFor="let message of messages">
+      <mat-icon >message</mat-icon>
+      <span> {{message}} </span> -->
+      <!-- <p matLine>
+        <span> {{message}} </span>
+        <span class="demo-2"> -- {{message}} </span>
+      </p> -->
+
+      <!-- Lazy load message content -->
+
+    <!-- </mat-list-item> -->
+  <!-- </mat-list>
+
+</ng-container> -->

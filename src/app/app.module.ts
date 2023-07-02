@@ -25,6 +25,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { RouteguardService } from './services/routeguard.service';
 import { AuthService } from './services/auth.service';
+import { NotificationPanelComponent } from './components/notification-panel/notification-panel.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AuthService } from './services/auth.service';
     NavbarComponent,
     NotfoundComponent, 
     PostsComponent, 
-    PostComponent
+    PostComponent, 
+    NotificationPanelComponent
     
   ],
   imports: [
