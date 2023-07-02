@@ -1,54 +1,41 @@
-<div class="relative w-1/2">
-  <div class="flex flex-1 items-start justify-between gap-4">
 
-    <ng-container *ngFor="let icon of iconList; index as idx">
-      <app-notification
-        icon={{icon}} 
-        badgeContent={{icon.length}} 
-        badgeColor="primary" 
-        badgeSize="medium"
-        (opened)="openNotification(idx)"
-        (closed)="closeNotification(idx)">
 
-        <ng-container *ngIf="panelId == idx && opened" >
-          <div class="relative left-2 justify-center font-extrabold">
-            <mat-icon >arrow_drop_down</mat-icon>
-          </div>
-        </ng-container>
+<!-- implementation notes :: wrap with a container to obtain the desired width  -->
+<!-- e.g. <div class="relative w-2/3"> -->
+
+  <ng-container *ngIf="notifications$ | async as notifications">
+
+    <div class="flex w-full items-start justify-between">
+
+      <app-notification *ngFor="let notificationType of notificationTypes$ | async; index as idx"
+          [icon]=notificationType.matIconName
+          [badgeContent]="getUnreadCount(notifications, notificationType.matIconName)"
+          [badgeColor]=badgeColor 
+          [badgeSize]=badgeSize
+          [panelOpenState]="panelOpenState"
+          (click)="getUnreadCount(notifications, notificationType.matIconName) > 0 ? toggleNotification(idx, notificationType.matIconName, notifications) : null">
+          <!-- need a better implementation method -->
+
+          <!-- option 1: display messages using ng-content projection -->
+          <!-- <div *ngIf="idx == panelId && panelOpenState" class="absolute w-[700%] z-10 border">
+            <mat-list *ngFor="let notification of notifications$ | async; index as i">
+          
+              <mat-list-item > 
+                <mat-icon>message</mat-icon> 
+                <span class="text-xs">{{ notification.message }} </span>
+              </mat-list-item>
+          
+            </mat-list>
+          </div> -->
 
       </app-notification>
-    </ng-container>
+    </div>
+
+    <app-notification-message *ngIf="panelOpenState && notifications"
+      [notifications]=notifications
+      [activeIcon]="activeIcon">
+    </app-notification-message>
+
+  </ng-container>
   
-  </div>
-
-  <!-- <div > -->
-
-  <mat-list *ngFor="let notification of notifications$ | async; index as i"
-    class="border"
-    [ngClass]="panelOpenState ? 'relative bottom-3 border' : 'hidden' ">
-    <mat-list-item > 
-      <mat-icon>message</mat-icon> 
-      <span class="text-xs">{{ notification.message }} </span>
-    </mat-list-item>
-  </mat-list>
-
-  <!-- </div> -->
-
-</div>
-
-<!-- <ng-container *ngIf="true">
-  <mat-list> -->
-    <!-- <mat-list-item class="flex flex-1" *ngFor="let message of messages">
-      <mat-icon >message</mat-icon>
-      <span> {{message}} </span> -->
-      <!-- <p matLine>
-        <span> {{message}} </span>
-        <span class="demo-2"> -- {{message}} </span>
-      </p> -->
-
-      <!-- Lazy load message content -->
-
-    <!-- </mat-list-item> -->
-  <!-- </mat-list>
-
-</ng-container> -->
+<!-- </div> -->

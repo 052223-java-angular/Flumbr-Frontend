@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NotificationService } from 'src/app/services/notification.service';
 import { ThemePalette } from '@angular/material/core';
 import { MatBadgeSize } from '@angular/material/badge';
 
@@ -12,22 +11,13 @@ import { MatBadgeSize } from '@angular/material/badge';
 export class NotificationComponent implements OnInit {
   @Input() badgeContent: string | number | undefined | null;
   @Input() icon: string | undefined | null;
-  @Input() badgeColor: ThemePalette;
+  @Input() badgeColor: ThemePalette = 'primary';
   @Input() badgeSize: MatBadgeSize = "small";
   @Input() tabIsActive: boolean = false;
+  @Input() panelOpenState: boolean = false;
 
+  constructor() {}
 
-
-  
-  // panelOpenState = false;
-  // notifications$!: Observable<INotification[]>;
-  // notificationTally: number = 0;
-
-
-  constructor(private notificationService: NotificationService) {}
-
-  ngOnInit() : void {
-    // this.notifications$ = this.notificationService.fetchNotifications();
-  }
+  ngOnInit() : void {}
 
 }

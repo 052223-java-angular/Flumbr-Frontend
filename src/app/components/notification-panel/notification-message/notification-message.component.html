@@ -1,0 +1,19 @@
+<!-- display notifications using absolute positioning with z-index-->
+<div *ngIf="notifications.length > 0" 
+    ngClass="absolute bg-blue-950 w-full px-2">
+    <mat-list 
+      *ngFor="let notification of notifications; index as idx"
+      class="z-10 p-0 my-0">
+      <!-- class="z-10 p-0 my-0 transition-opacity duration-[3000] ease-in-out"> -->
+
+      <mat-list-item *ngIf="notification.type == activeIcon"
+          (click)="updateNotificationAsRead(notification)" 
+          [ngClass]="notification.hasRead 
+            ? 'bg-white my-1' 
+            : 'bg-slate-300 my-1' "> 
+        <mat-icon>{{notification.type}}</mat-icon> 
+        <span class="text-xs pl-2">{{ notification.message }} </span>
+      </mat-list-item>
+
+    </mat-list>
+</div>

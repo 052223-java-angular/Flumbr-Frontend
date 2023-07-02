@@ -1,0 +1,9 @@
+[
+  { "id": "1", "displayName": "home", "matIconName": "home" },
+  { "id": "2", "displayName": "trending", "matIconName": "show_chart" },
+  { "id": "3", "displayName": "comments", "matIconName": "comment" },
+  { "id": "4", "displayName": "reviews", "matIconName": "rate_review" },
+  { "id": "5", "displayName": "messages", "matIconName": "message" },
+  { "id": "6", "displayName": "likes", "matIconName": "thumb_up" },
+  { "id": "7", "displayName": "friends", "matIconName": "person_add" }
+]

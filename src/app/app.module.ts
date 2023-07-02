@@ -20,12 +20,13 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { NotificationComponent } from './components/notification/notification.component';
+import { NotificationComponent } from './components/notification-panel/notification/notification.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { RouteguardService } from './services/routeguard.service';
 import { AuthService } from './services/auth.service';
 import { NotificationPanelComponent } from './components/notification-panel/notification-panel.component';
+import { NotificationMessageComponent } from './components/notification-panel/notification-message/notification-message.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { NotificationPanelComponent } from './components/notification-panel/noti
     NotfoundComponent, 
     PostsComponent, 
     PostComponent, 
-    NotificationPanelComponent
+    NotificationPanelComponent,
+    NotificationMessageComponent
     
   ],
   imports: [
