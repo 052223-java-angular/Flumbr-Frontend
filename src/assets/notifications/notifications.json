@@ -58,5 +58,29 @@
   "profileId": "1111-1111-1111-1111",
   "hasRead": false, 
   "type": "person_add"
+  },
+  { "id": "11",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "type": "comment"
+  }, 
+  { "id": "12",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "type": "comment"
+  }, 
+  { "id": "13",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "type": "comment"
+  }, 
+  { "id": "14",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "type": "comment"
   }
 ]

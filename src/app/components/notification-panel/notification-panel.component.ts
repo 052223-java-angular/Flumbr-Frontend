@@ -24,6 +24,7 @@ export class NotificationPanelComponent implements OnInit {
   badgeSize: MatBadgeSize = 'small';
   badgeContent: number = 0;
   
+  isHorizontal: boolean = false;
 
 
   constructor(private notificationService: NotificationService) {}
@@ -72,11 +73,12 @@ export class NotificationPanelComponent implements OnInit {
 
   // toggles the notification messages
   toggleNotification(iconIdx: number, iconMatName: string) : void {
+    this.panelOpenState = !this.panelOpenState;
     if (this.indexOfType != iconIdx) {
       this.activeNotificationType = iconMatName;
       this.indexOfType = iconIdx;
     }
-    this.panelOpenState = !this.panelOpenState;
+
   }
 
   getUnreadCount(notifications: Notification[], notificationType: string) : number {

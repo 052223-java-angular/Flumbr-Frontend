@@ -10,6 +10,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class NotificationMessageComponent {
   @Input() notifications: Notification[] = [];
   @Input() activeNotificationType: string = '';
+  @Input() isHorizontal!: boolean;
   @Output() messageChange = new EventEmitter<boolean>();
   
   constructor(private notificationService: NotificationService) {}
