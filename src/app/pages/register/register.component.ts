@@ -8,7 +8,7 @@ import {
 //import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterPayload } from 'src/app/models/register-payload';
-import { AuthServiceService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 //import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -21,7 +21,7 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthServiceService,
+    private authService: AuthService,
     private router: Router
   ) {}
 

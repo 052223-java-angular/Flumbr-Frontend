@@ -6,7 +6,7 @@ import { EMPTY, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthServiceService {
+export class AuthService {
   constructor() {}
 
   /**

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthServiceService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/tokenservice.service';
 import { LoginPayload } from '../../models/login-payload';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthServiceService,
+    private authService: AuthService,
     private tokenService: TokenService,
     router: Router
   ) {}
