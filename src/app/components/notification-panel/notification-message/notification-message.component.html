@@ -1,24 +1,24 @@
 <!-- display notifications using absolute positioning with z-index-->
 <div *ngIf="notifications.length > 0" 
-    ngClass="absolute bg-blue-950 w-full px-1">
-    <mat-list 
-      *ngFor="let notification of notifications; index as idx"
-      class="z-10 p-0 my-0 ">
+    class="absolute bg-blue-950 w-full px-1">
 
-      <mat-list-item *ngIf="notification.type == activeIcon"
-          (click)="updateNotificationAsRead(notification)" 
-          [ngClass]="notification.hasRead 
-            ? 'bg-white my-1' 
-            : 'bg-slate-300 my-1' "> 
+    <ng-container *ngFor="let notification of notifications; index as idx">
 
-            <div class="max-w-lg">
-              <mat-icon>{{notification.type}}
-                <ng-content select="message"></ng-content>
-              </mat-icon> 
-              <p message class="inline-block break-words text-xs pl-2">{{ notification.message }} </p>
-            </div>
+      <!-- when notification type matches the active-icon, then display the messages -->
+      <mat-list *ngIf="notification.type == activeNotificationType" class="z-10 p-0 my-0 ">
 
-      </mat-list-item>
+        <mat-list-item (click)="updateNotificationAsRead(notification)" 
+            [ngClass]="notification.hasRead  ? 'bg-white my-1' : 'bg-slate-300 my-1' "> 
 
-    </mat-list>
+          <div class="max-w-lg">
+            <mat-icon>{{notification.type}}
+              <ng-content select="message"></ng-content>
+            </mat-icon> 
+            <p message class="inline-block break-words text-xs pl-2">{{ notification.message }} </p>
+          </div>
+
+        </mat-list-item>
+
+      </mat-list>
+  </ng-container>
 </div>

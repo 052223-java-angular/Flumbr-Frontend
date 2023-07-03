@@ -20,7 +20,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { NotificationComponent } from './components/notification-panel/notification/notification.component';
+import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
 import { RouteguardService } from './services/routeguard.service';
@@ -33,7 +33,7 @@ import { NotificationMessageComponent } from './components/notification-panel/no
     AppComponent,
     CreatePostComponent,
     ProfileComponent,
-    NotificationComponent,
+    NotificationTypeComponent,
     NavbarComponent,
     NotfoundComponent, 
     PostsComponent, 

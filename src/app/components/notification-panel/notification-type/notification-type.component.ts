@@ -4,17 +4,16 @@ import { MatBadgeSize } from '@angular/material/badge';
 
 
 @Component({
-  selector: 'app-notification',
-  templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.css'],
+  selector: 'app-notification-type',
+  templateUrl: './notification-type.component.html',
+  styleUrls: ['./notification-type.component.css'],
 })
-export class NotificationComponent implements OnInit {
+export class NotificationTypeComponent implements OnInit {
   @Input() badgeContent: string | number | undefined | null;
-  @Input() icon: string | undefined | null;
+  @Input() matIcon: string | undefined | null;
   @Input() badgeColor: ThemePalette = 'primary';
   @Input() badgeSize: MatBadgeSize = "small";
   @Input() tabIsActive: boolean = false;
-  @Input() panelOpenState: boolean = false;
 
   constructor() {}
 

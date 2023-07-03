@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Notification } from 'src/app/models/notification/notification';
 import { NotificationService } from 'src/app/services/notification.service';
 
@@ -9,7 +9,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 })
 export class NotificationMessageComponent {
   @Input() notifications: Notification[] = [];
-  @Input() activeIcon: string = '';
+  @Input() activeNotificationType: string = '';
+  @Output() messageChange = new EventEmitter<boolean>();
   
   constructor(private notificationService: NotificationService) {}
 
@@ -17,12 +18,24 @@ export class NotificationMessageComponent {
   updateNotificationAsRead(notification: Notification) : void {
     this.updateReadStatus(notification, this.notifications);
     this.notificationService.updateNotificationAsRead(notification);
+    // need to @Output this event to close the panel when list is zero
+    // need to updatePanelState to closed
+    const messageCount = this.getMessageCount(notification.type, this.notifications);
+    if (messageCount <= 0) {
+      console.log(messageCount);
+      this.messageChange.emit(false);
+    }
   }
 
-  private updateReadStatus(toUpdate: Notification, notificationList: Notification[]) : void {
-    notificationList.forEach((notification,idx) => {
+  getMessageCount(notificationType: string, notifications: Notification[]) : number {
+    return notifications.filter(notification => notification.type === notificationType).length;
+  }
+
+
+  private updateReadStatus(toUpdate: Notification, notifications: Notification[]) : void {
+    notifications.forEach((notification,idx) => {
       if (notification.id == toUpdate.id) {
-        notificationList.splice(idx, 1);
+        notifications.splice(idx, 1);
       }
     })
   }

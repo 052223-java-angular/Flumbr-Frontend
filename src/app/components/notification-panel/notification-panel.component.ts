@@ -17,11 +17,13 @@ export class NotificationPanelComponent implements OnInit {
   notifications$!: Observable<Notification[]>;
   notificationTypes$!: Observable<NotificationType[]>;
 
-  panelId: number = -1;
-  activeIcon: string = '';
+  // atttribute fields for passing values down to notification-type component
+  indexOfType!: number;
+  activeNotificationType: string = '';
   badgeColor: ThemePalette = 'primary';
   badgeSize: MatBadgeSize = 'small';
   badgeContent: number = 0;
+  
 
 
   constructor(private notificationService: NotificationService) {}
@@ -31,32 +33,55 @@ export class NotificationPanelComponent implements OnInit {
     this.notificationTypes$ = this.notificationService.fetchNotificationsTypes();
   }
 
-  toMatIconFrom(notificationType: NotificationType) : string | null {
+  // since db has only 3 fields, this method is used to
+  // assign a material-ui icon names and badge count to the NotificationType instance
+  assignProps(notificationType: NotificationType, notifications: Notification[]) : string | null {
       const iconName = notificationType.name;
       switch (iconName) {
-        case "home": { notificationType.matIconName = "home"; return "home"; }
-        case "trending": { notificationType.matIconName = "show_chart"; return "show_chart"; }
-        case "comments": { notificationType.matIconName = "comment"; return "comment"; }
-        case "reviews": { notificationType.matIconName = "rate_review"; return "rate_review"; }
-        case "messages": { notificationType.matIconName = "message"; return "message"; }
-        case "likes":{ notificationType.matIconName = "thumb_up"; return "thumb_up"; }
-        case "friends": { notificationType.matIconName = "person_add"; return "person_add"; }
+        case "home": { 
+          notificationType.matIconName = "home"; 
+          notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
+          return "home"; }
+        case "trending": { 
+          notificationType.matIconName = "show_chart"; 
+          notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
+          return "show_chart"; }
+        case "comments": { 
+          notificationType.matIconName = "comment"; 
+          notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
+          return "comment"; }
+        case "reviews": { 
+          notificationType.matIconName = "rate_review"; 
+          notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
+          return "rate_review"; }
+        case "messages": { 
+          notificationType.matIconName = "message"; 
+          notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
+          return "message"; }
+        case "likes":{ 
+          notificationType.matIconName = "thumb_up"; 
+          notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
+          return "thumb_up"; }
+        case "friends": { 
+          notificationType.matIconName = "person_add"; 
+          notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
+          return "person_add"; }
         default: return null;
       }
   }
 
   // toggles the notification messages
-  toggleNotification(idx: number, iconName: string, notifications: Notification[]) : void {
-    if (this.panelId != idx) {
-      this.activeIcon = iconName;
-      this.panelId = idx;
-      this.badgeContent = this.getUnreadCount(notifications, iconName);
+  toggleNotification(iconIdx: number, iconMatName: string) : void {
+    if (this.indexOfType != iconIdx) {
+      this.activeNotificationType = iconMatName;
+      this.indexOfType = iconIdx;
     }
     this.panelOpenState = !this.panelOpenState;
   }
 
-  getUnreadCount(notifications: Notification[], type: string) : number {
-    return notifications.filter(item => item.type === type).length;
+  getUnreadCount(notifications: Notification[], notificationType: string) : number {
+    this.badgeContent = notifications.filter(notification => notification.type === notificationType).length;
+    return this.badgeContent;
   }
 
 }
