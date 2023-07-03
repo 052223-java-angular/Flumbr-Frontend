@@ -62,4 +62,15 @@ export class PostsComponent implements OnInit {
       }
      return postsByTag;
   }
+
+  deletePostById(id:string)
+  {
+      for(let post of this.posts)
+      {
+          if(post.id === id)
+          {
+              this.postService.deletePostById(id);
+          }
+      }
+  }
 }

@@ -78,4 +78,15 @@ export class PostService {
       return post;
     });
   }
+
+  deletePostById(id:string)
+  {
+     this.posts.map((post) => {
+        if(post.id === id)
+        {
+           this.posts.splice(this.posts.indexOf(post), 1);
+        }
+        return post;
+     })
+  }
 }
