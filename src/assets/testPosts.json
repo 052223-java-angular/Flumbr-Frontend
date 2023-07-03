@@ -1,0 +1,24 @@
+{
+  "post_id": "123456789",
+  "title": "Exploring Nature",
+  "content": "Spent the day hiking in the mountains and enjoying the breathtaking views. Nature never ceases to amaze me!",
+  "tags": ["nature", "hiking", "mountains"],
+  "timestamp": "2023-06-28T15:30:00Z",
+  "likes": 102,
+  "reblogs": 35,
+  "author": {
+    "name": "Jane Doe",
+    "username": "janedoe123",
+    "avatar": "https://example.com/avatar.jpg"
+  },
+  "photos": [
+    {
+      "url": "https://example.com/photo1.jpg",
+      "caption": "Stunning panoramic view from the mountaintop."
+    },
+    {
+      "url": "https://example.com/photo2.jpg",
+      "caption": "A serene lake surrounded by lush greenery."
+    }
+  ]
+}

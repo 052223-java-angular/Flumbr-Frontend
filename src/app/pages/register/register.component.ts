@@ -1,33 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 //import { ReactiveFormsModule } from '@angular/forms';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { RegisterPayload } from 'src/app/models/register-payload';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { AuthServiceService } from 'src/app/services/auth.service';
 //import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration-form',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
   registrationForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthServiceService, private router:Router ) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthServiceService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.registrationForm = this.fb.group({
-            username:['', Validators.required],
-            firstname:['', Validators.required],
-            lastname:['', Validators.required],
-            email:  ['', [Validators.required, Validators.email]],
-            password:['', Validators.required],
-            confirmPassword: ['', Validators.required]
-            }, { validator: this.passwordMatchValidator });
+    this.registrationForm = this.fb.group(
+      {
+        username: ['', Validators.required],
+        firstname: ['', Validators.required],
+        lastname: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', Validators.required],
+        confirmPassword: ['', Validators.required],
+      },
+      { validator: this.passwordMatchValidator }
+    );
   }
 
-  
   get username() {
     return this.registrationForm.get('username');
   }
@@ -48,7 +59,9 @@ export class RegisterComponent {
     return this.registrationForm.get('email');
   }
 
-  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  passwordMatchValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
 
@@ -74,11 +87,10 @@ export class RegisterComponent {
       // console.log( this.registrationForm.controls['email'].value);
       // console.log( this.registrationForm.controls['password'].value);
       // console.log( this.registrationForm.controls['confirmPassword'].value);
-     
 
-      alert("Form is valid");
+      alert('Form is valid');
 
-       // The payload to be sent to the backend API
+      // The payload to be sent to the backend API
 
       const payload: RegisterPayload = {
         username: this.registrationForm.controls['username'].value,
@@ -86,38 +98,30 @@ export class RegisterComponent {
         lastname: this.registrationForm.controls['lastname'].value,
         email: this.registrationForm.controls['email'].value,
         password: this.registrationForm.controls['password'].value,
-        confirmPassword: this.registrationForm.controls['confirmPassword'].value,
+        confirmPassword:
+          this.registrationForm.controls['confirmPassword'].value,
       };
-       
+
       // console.log("username is " + payload.username );
       // console.log("password is " + payload.password);
       // console.log("confirmPassword " + payload.confirmPassword);
 
       // Call the authentication service to register the user
       this.authService.register(payload).subscribe({
-          next: value => {
-            // Handle the success response
-            this.router.navigate(['/login']);
-          
-          },
-          error: error => {
-            // Handle the error response
-            //this.toastr.error(error.error.message);
-            console.log(error.error.message);
-          }
+        next: (value) => {
+          // Handle the success response
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          // Handle the error response
+          //this.toastr.error(error.error.message);
+          console.log(error.error.message);
+        },
       });
       return true;
-
     } else {
-      alert("Form is Invalid");
+      alert('Form is Invalid');
       return false;
     }
-     
   }
-
-    
 }
-
-  
-
-
