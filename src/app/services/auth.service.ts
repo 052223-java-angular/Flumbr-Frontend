@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { RegisterPayload } from '../models/register-payload';
 import { LoginPayload } from '../models/login-payload';
 import { EMPTY, Observable } from 'rxjs';
 
@@ -7,6 +8,14 @@ import { EMPTY, Observable } from 'rxjs';
 })
 export class AuthService {
   constructor() {}
+
+  /**
+   * TODO: Waiting for backend
+   * @param payload - register payload - username, password
+   */
+  register(payload: RegisterPayload): Observable<any> {
+    return EMPTY;
+  }
 
   /**
    * Any for now waiting till backend is completed for this feature
