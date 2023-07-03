@@ -1,0 +1,32 @@
+<!-- implementation notes :: wrap with a container to obtain the desired width  -->
+<div class="absolute right-2 w-3/6">
+  <ng-container *ngIf="notifications$ | async as notifications">
+    <div class="flex flex-1 flex-row-reverse justify-start">
+
+      <div [ngClass]="isHorizontal ? 
+        'flex w-full justify-between gap-6' : 
+        'flex flex-col h-96 py-2 my-1 bg-[#f5f6fa] justify-between gap-6 shadow-md' ">
+
+        <app-notification-type *ngFor="let notificationType of notificationTypes$ | async; index as iconIdx"
+          [matIcon]="assignProps(notificationType, notifications)"
+          [badgeContent]="notificationType.badgeContent"
+          [badgeColor]=badgeColor 
+          [badgeSize]=badgeSize
+          (click)="toggleNotification(iconIdx, notificationType.matIconName)">
+        </app-notification-type>
+
+      </div>
+
+      <app-notification-message 
+        *ngIf="panelOpenState"
+        [isHorizontal]="isHorizontal"
+        [notifications]=notifications
+        [activeNotificationType]="activeNotificationType"
+        (messageChange)="panelOpenState">
+      </app-notification-message>
+
+    </div>
+
+  </ng-container>
+  
+</div>
