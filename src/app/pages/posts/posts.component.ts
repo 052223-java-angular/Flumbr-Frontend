@@ -73,4 +73,21 @@ export class PostsComponent implements OnInit {
           }
       }
   }
+
+  editPostById(id:string, content:string)
+  {
+    
+      for(let post of this.posts)
+      {
+          if(post.id == id)
+          {
+            if(post.message !== undefined)
+            {
+                post.message = content;
+                return post;
+            }
+          }
+      }
+      return undefined;
+  }
 }
