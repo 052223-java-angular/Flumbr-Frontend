@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatBadgeSize } from '@angular/material/badge';
 import { ThemePalette } from '@angular/material/core';
-import { Observable, Subject, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Notification } from 'src/app/models/notification/notification';
 import { NotificationType } from 'src/app/models/notification/notification-type';
 import { NotificationService } from 'src/app/services/notification/notification.service';
@@ -13,7 +13,7 @@ import { NotificationService } from 'src/app/services/notification/notification.
 })
 export class NotificationPanelComponent implements OnInit {  
   // iconList: string[] = ['home', 'show_chart', 'comment', 'rate_review', 'thumb_up', 'person_add', 'message'];
-  panelOpenState: boolean = false;
+  panelIsOpen: boolean = false;
   notifications$!: Observable<Notification[]>;
   notificationTypes$!: Observable<NotificationType[]>;
 
@@ -23,17 +23,16 @@ export class NotificationPanelComponent implements OnInit {
   badgeColor: ThemePalette = 'primary';
   badgeSize: MatBadgeSize = 'small';
   badgeContent: number = 0;
-  
-  isHorizontal: boolean = false;
-
 
   constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.notifications$ = this.notificationService.fetchNotifications();
     this.notificationTypes$ = this.notificationService.fetchNotificationsTypes();
+
+    // for detecting when no messages are left, so update the panelOpenState
     this.notificationService.messagePanelIsEmpty.subscribe((panelState) => {
-      this.panelOpenState = !panelState;
+      this.panelIsOpen = !panelState;
     })
   }
 
@@ -76,12 +75,12 @@ export class NotificationPanelComponent implements OnInit {
 
   // toggles the notification messages
   toggleNotification(iconIdx: number, iconMatName: string) : void {
-    this.panelOpenState = !this.panelOpenState;
     if (this.indexOfType != iconIdx) {
+      this.panelIsOpen = false;
       this.activeNotificationType = iconMatName;
       this.indexOfType = iconIdx;
     }
-
+    this.panelIsOpen = !this.panelIsOpen;
   }
 
   getUnreadCount(notifications: Notification[], notificationType: string) : number {
