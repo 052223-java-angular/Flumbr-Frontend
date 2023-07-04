@@ -7,24 +7,11 @@
         <mat-card-title>{{post.username}}</mat-card-title>
       </div>
 
-      <!-- Menu -->
-      <div>
-        <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Options" matTooltipClass="tooltip"
-          matTooltipPosition="above"><mat-icon class="icon">more_horiz</mat-icon></button>
-        <mat-menu #menu="matMenu">
-          <div mat-menu-item>
-            <p class="text-sm">{{post.createTime}}</p>
-          </div>
-          <div mat-menu-item *ngIf="post.editTime">
-            <p class="text-sm">{{post.editTime}}</p>
-          </div>
-          <button mat-menu-item *ngIf="post.following" (click)="unfollowUser(post.userId)"><span
-              class="font-medium text-slate-950">Unfollow</span></button>
-          <button mat-menu-item *ngIf="!post.following" (click)="followUser(post.userId)"><span
-              class="font-medium text-slate-950">Follow</span></button>
-          <button mat-menu-item><span class="font-medium text-red-600">Report</span></button>
-        </mat-menu>
-      </div>
+      <!-- Follow ? unFollow Component Menu -->
+      <app-follow 
+        [post]="post" ></app-follow>
+        
+
     </div>
   </mat-card-header>
   <img mat-card-image src="{{post.s3bucket}}" alt="Photo of a Shiba Inu" *ngIf="post.mediaType == 'image'">

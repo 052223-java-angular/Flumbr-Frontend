@@ -61,24 +61,6 @@ export class PostService {
     return of(this.posts);
   }
 
-  followUser(id: string) {
-    this.posts = this.posts.map((post) => {
-      if (post.userId == id) {
-        post.following = true;
-      }
-      return post;
-    });
-  }
-
-  unFollowUser(id: string) {
-    this.posts = this.posts.map((post) => {
-      if (post.userId == id) {
-        post.following = false;
-      }
-      return post;
-    });
-  }
-
   deletePostById(id:string)
   {
      this.posts.map((post) => {

@@ -21,14 +21,6 @@ export class PostComponent {
     console.log(id);
   }
 
-  followUser(id: string) {
-    this.postService.followUser(id);
-  }
-
-  unfollowUser(id: string) {
-    this.postService.unFollowUser(id);
-  }
-
   likePost(id: string) {
     console.log(id);
   }
