@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { RegisterPayload } from '../models/register-payload';
 import { LoginPayload } from '../models/login-payload';
 import { EMPTY, Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  //TODO: READ FROM ENV
+  baseUrl = 'http://localhost:5000/flumblr/api';
+
+  constructor(private http: HttpClient) {}
 
   /**
-   * TODO: Waiting for backend
    * @param payload - register payload - username, password
    */
-  register(payload: RegisterPayload): Observable<any> {
-    return EMPTY;
+  register(payload: RegisterPayload): Observable<any> {  
+    return this.http.post<any>(`${this.baseUrl}/auth/register`, payload );
   }
 
   /**
