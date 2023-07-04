@@ -28,6 +28,9 @@ import { AuthService } from './services/auth.service';
 import { NotificationPanelComponent } from './components/notification-panel/notification-panel.component';
 import { NotificationMessageComponent } from './components/notification-panel/notification-message/notification-message.component';
 
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +43,6 @@ import { NotificationMessageComponent } from './components/notification-panel/no
     PostComponent, 
     NotificationPanelComponent,
     NotificationMessageComponent
-    
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,9 @@ import { NotificationMessageComponent } from './components/notification-panel/no
     MatButtonModule,
     MatProgressSpinnerModule,
     HttpClientModule,
+
+    MatTooltipModule,
+    MatMenuModule,
   ],
   providers: [RouteguardService, AuthService],
   bootstrap: [AppComponent],
