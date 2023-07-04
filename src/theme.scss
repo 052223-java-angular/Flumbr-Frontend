@@ -1,0 +1,40 @@
+@use '@angular/material' as mat;
+
+@import "../node_modules/@angular/material/theming";
+@include mat-core();
+
+
+$my-palette: mat.$indigo-palette;
+
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, 800);
+$my-warn: mat.define-palette(mat.$red-palette,800);
+
+$my-theme: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+@include mat.core-theme($my-theme);
+
+.alternative {
+
+  $my-primary: mat.define-palette(mat.$amber-palette, 500);
+  $my-accent: mat.define-palette(mat.$indigo-palette, 800);
+  $my-warn: mat.define-palette(mat.$red-palette,800);
+
+  $my-theme: mat.define-light-theme((
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+      warn: $my-warn,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  ));
+}
