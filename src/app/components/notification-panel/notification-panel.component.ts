@@ -4,7 +4,7 @@ import { ThemePalette } from '@angular/material/core';
 import { Observable, Subject, map } from 'rxjs';
 import { Notification } from 'src/app/models/notification/notification';
 import { NotificationType } from 'src/app/models/notification/notification-type';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-notification-panel',
@@ -32,6 +32,9 @@ export class NotificationPanelComponent implements OnInit {
   ngOnInit(): void {
     this.notifications$ = this.notificationService.fetchNotifications();
     this.notificationTypes$ = this.notificationService.fetchNotificationsTypes();
+    this.notificationService.messagePanelIsEmpty.subscribe((panelState) => {
+      this.panelOpenState = !panelState;
+    })
   }
 
   // since db has only 3 fields, this method is used to

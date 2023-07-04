@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Notification } from 'src/app/models/notification/notification';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-notification-message',
@@ -8,10 +8,9 @@ import { NotificationService } from 'src/app/services/notification.service';
   styleUrls: ['./notification-message.component.css']
 })
 export class NotificationMessageComponent {
-  @Input() notifications: Notification[] = [];
-  @Input() activeNotificationType: string = '';
+  @Input() notifications!: Notification[];
+  @Input() activeNotificationType!: string;
   @Input() isHorizontal!: boolean;
-  @Output() messageChange = new EventEmitter<boolean>();
   
   constructor(private notificationService: NotificationService) {}
 
@@ -19,13 +18,12 @@ export class NotificationMessageComponent {
   updateNotificationAsRead(notification: Notification) : void {
     this.updateReadStatus(notification, this.notifications);
     this.notificationService.updateNotificationAsRead(notification);
-    // need to @Output this event to close the panel when list is zero
-    // need to updatePanelState to closed
-    const messageCount = this.getMessageCount(notification.type, this.notifications);
-    if (messageCount <= 0) {
-      console.log(messageCount);
-      this.messageChange.emit(false);
+
+    // send an update to the service that the message panel is empty
+    if (this.getMessageCount(notification.type, this.notifications) <= 0) {
+      this.notificationService.raiseMessagePanelIsEmpty(true);
     }
+
   }
 
   getMessageCount(notificationType: string, notifications: Notification[]) : number {
