@@ -8,11 +8,14 @@ import { NotificationService } from 'src/app/services/notification/notification.
   styleUrls: ['./notification-message.component.css']
 })
 export class NotificationMessageComponent {
+
+  // incoming attributes required to display data within the view
   @Input() notifications!: Notification[];
   @Input() activeNotificationType!: string;
-  @Input() isHorizontal!: boolean;
   
+
   constructor(private notificationService: NotificationService) {}
+
 
   // updates the notification status as read
   updateNotificationAsRead(notification: Notification) : void {
@@ -26,11 +29,12 @@ export class NotificationMessageComponent {
 
   }
 
-  getMessageCount(notificationType: string, notifications: Notification[]) : number {
+  // counts tthe number of messages remaining
+  private getMessageCount(notificationType: string, notifications: Notification[]) : number {
     return notifications.filter(notification => notification.type === notificationType).length;
   }
 
-
+  // update or remove the message having been read
   private updateReadStatus(toUpdate: Notification, notifications: Notification[]) : void {
     notifications.forEach((notification,idx) => {
       if (notification.id == toUpdate.id) {

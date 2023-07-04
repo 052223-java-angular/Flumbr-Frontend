@@ -9,6 +9,8 @@ import { MatBadgeSize } from '@angular/material/badge';
   styleUrls: ['./notification-type.component.css'],
 })
 export class NotificationTypeComponent {
+
+  // attributes required for displaying icons and badges
   @Input() badgeContent: string | number | undefined | null;
   @Input() matIcon: string | undefined | null;
   @Input() badgeColor: ThemePalette = 'primary';
