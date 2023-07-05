@@ -30,6 +30,7 @@ import { NotificationMessageComponent } from './components/notification-panel/no
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import { FollowComponent } from './components/follow/follow.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MatMenuModule } from '@angular/material/menu';
     PostsComponent, 
     PostComponent, 
     NotificationPanelComponent,
-    NotificationMessageComponent
+    NotificationMessageComponent,
+    FollowComponent
   ],
   imports: [
     BrowserModule,
