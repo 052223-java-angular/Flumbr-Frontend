@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import {TokenService} from "../../services/tokenservice.service";
 
 @Component({
   selector: 'app-navbar',
@@ -7,7 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+              private tokenService:TokenService) {}
 
   login() {}
 

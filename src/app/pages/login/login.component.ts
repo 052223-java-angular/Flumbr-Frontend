@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: TokenService,
-    router: Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,14 +46,13 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(payload).subscribe({
       next: (result) => {
-        //this.tokenService.saveUser(result)
-        //this.tokenService.saveToken(result.token)// need to revise when backend is done
-
-        //save refresh token?
+        this.tokenService.saveUser(result)
+        this.tokenService.saveToken(result.token)
+        //this.tokenService.saveRefreshToken(result.token)
 
         //Add toaster
         this.loginForm.reset();
-        //Route to page after successful login
+        this.router.navigate(['']);
       },
       error: (error) => {
         console.log(error.message);
