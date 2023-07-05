@@ -4,6 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/tokenservice.service';
 import { LoginPayload } from '../../models/login-payload';
 import { Router } from '@angular/router';
+import {MessageService} from "primeng/api";
+import {AppSettings} from "../../global/app-settings";
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: TokenService,
-    router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -46,19 +49,29 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(payload).subscribe({
       next: (result) => {
-        //this.tokenService.saveUser(result)
-        //this.tokenService.saveToken(result.token)// need to revise when backend is done
-
-        //save refresh token?
-
+        this.tokenService.saveUser(result)
+        this.tokenService.saveToken(result.token)
+        //this.tokenService.saveRefreshToken(result.token)
+        console.log("success")
         //Add toaster
         this.loginForm.reset();
-        //Route to page after successful login
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Login successful',
+          life: AppSettings.DEFAULT_MESSAGE_LIFE,
+        });
+        //this.router.navigate(['']);
       },
       error: (error) => {
         console.log(error.message);
         this.loginForm.reset();
-        //toaster for incorrect login
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error.message,
+          life: AppSettings.DEFAULT_MESSAGE_LIFE,
+        });
       },
     });
   }
