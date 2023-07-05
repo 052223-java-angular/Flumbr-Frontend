@@ -1,0 +1,27 @@
+.icon-wrap {
+  @apply relative rounded-md;
+}
+
+.icon-wrap-active {
+  @apply bg-[#17175725];
+}
+
+.icon-wrap-inactive {
+  @apply hover:bg-[#17175725];
+}
+
+.icon {
+  @apply  mx-2 py-1;
+}
+
+.icon-active {
+  @apply cursor-pointer;
+}
+
+.icon-inactive {
+  @apply cursor-default;
+}
+
+.icon-badge {
+  @apply absolute right-1 -top-1 z-10 shadow-md;
+}

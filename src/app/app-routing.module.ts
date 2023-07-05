@@ -11,15 +11,23 @@ import {ProfileComponent} from "./pages/profile/profile.component";
 
 const routes: Routes = [
   { path: 'posts/create', component: CreatePostComponent },
-  { path: 'profile', component: ProfileComponent },
+  //{ path: 'profile', component: ProfileComponent },
   // {path: '', component: },
   // {path: 'register', component: },
   // {path: 'login', component: },
+
   //{
   //  path: 'profile',
   //  component: ProfileComponent,
   //  canActivate: [RouteguardService],
   //},
+
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    // canActivate: [RouteguardService],
+  },
+
   {
     path: 'posts',
     component: PostsComponent,

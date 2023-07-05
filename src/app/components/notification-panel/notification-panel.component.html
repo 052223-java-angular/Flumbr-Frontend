@@ -1,0 +1,34 @@
+<!-- implementation notes :: this is fixed position with a fixed size.
+modify or move this wrapper tag to correct position according to layout requirements  -->
+<div class="wrapper">
+
+  <!-- Do not change layout  -->
+  <ng-container *ngIf="notifications$ | async as notifications">
+    <div class="notification-container">
+
+      <div class="icon-container">
+
+        <app-notification-type *ngFor="let notificationType of notificationTypes$ | async; index as iconIdx"
+          [matIcon]="assignProps(notificationType, notifications)"
+          [badgeContent]="notificationType.badgeContent"
+          [badgeColor]=badgeColor 
+          [badgeSize]=badgeSize
+          [activeNotificationType]="activeNotificationType"
+          (click)="toggleNotification(iconIdx, notificationType.matIconName)"
+          >
+          
+        </app-notification-type>
+
+      </div>
+
+      <app-notification-message 
+        *ngIf="panelIsOpen"
+        [notifications]=notifications
+        [activeNotificationType]="activeNotificationType">
+      </app-notification-message>
+
+    </div>
+
+  </ng-container>
+  
+</div>
