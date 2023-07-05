@@ -21,14 +21,6 @@ export class PostComponent {
     console.log(id);
   }
 
-  followUser(id: string) {
-    this.postService.followUser(id);
-  }
-
-  unfollowUser(id: string) {
-    this.postService.unFollowUser(id);
-  }
-
   likePost(id: string) {
     console.log(id);
   }
@@ -43,5 +35,9 @@ export class PostComponent {
 
   openChat() {
     console.log('opening chat');
+  }
+
+  reportPost(postId: string): void {
+    // does this need to make a network request ?
   }
 }

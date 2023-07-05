@@ -1,15 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Notification } from '../models/notification/notification';
-import { NotificationType } from '../models/notification/notification-type';
+import { Observable, Subject } from 'rxjs';
+import { Notification } from '../../models/notification/notification';
+import { NotificationType } from '../../models/notification/notification-type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
+  messagePanelIsEmpty = new Subject<boolean>();
 
   constructor(private httpClient: HttpClient) { }
+
+  // notifies subscribers the message panel list is emoty
+  raiseMessagePanelIsEmpty(isEmpty: boolean) : void {
+    this.messagePanelIsEmpty.next(isEmpty);
+  }
 
   // fetch notifications
   fetchNotifications() : Observable<Notification[]> {
