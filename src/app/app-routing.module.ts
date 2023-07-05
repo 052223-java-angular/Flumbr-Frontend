@@ -10,6 +10,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { RouteguardService } from './services/routeguard.service';
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent }, // Route for the login page
+  { path: '', component: HomeComponent }, // Route for the home page
+  { path: 'posts/create', component: CreatePostComponent }, // Route for creating a post page
   { path: 'posts/create', component: CreatePostComponent },
   { path: '', component: HomeComponent }, // Route for the home page
   { path: 'register', component: RegisterComponent }, // Route for the register page
