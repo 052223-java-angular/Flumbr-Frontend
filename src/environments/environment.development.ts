@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8080/flumblr/api',
+  apiBaseUrl: 'http://localhost:5000/flumblr/api',
 };
