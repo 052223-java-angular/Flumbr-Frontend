@@ -16,6 +16,7 @@ export class ProfileComponent {
   profile!: ProfilePayload;
   modifyBio: boolean = false;
   posts!: Array<PostRes>;
+  theme: string = "default";
 
   //utilize file upload service
   files: File[] = [];
@@ -61,6 +62,7 @@ export class ProfileComponent {
     console.log("toggle modifying bio to: " + this.modifyBio)
   }
 
+  // submits form for biography
   submitForm(): void {
     if (!this.changeBioForm.valid) {
       console.log("bio form not set")
@@ -74,7 +76,16 @@ export class ProfileComponent {
 
   }
 
-  onSelect(event: any) {
+
+
+  // event when adding folder into drop down
+  onSelectImage(event: any) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      //this.uploadForm.get().setValue(file);
+    }
+
+
     this.files.push(...event.addedFiles);
     if (this.files.length > 1) {
       this.files.splice(0, 1);
@@ -82,6 +93,8 @@ export class ProfileComponent {
     this.setImageAndVideoFlags();
   }
 
+
+  //
   setImageAndVideoFlags() {
     if (this.files.length == 1) {
       const file = this.files[0];
@@ -99,8 +112,13 @@ export class ProfileComponent {
     this.shortLink = null;
   }
 
-  // run this after initial data gather: use if dependent on get profiles
+  // css theme selector
+  selectTheme(choice: string) {
+    this.theme = choice;
+  }
 
+
+  // run this after initial data gather: use if dependent on get profiles
   ngAfterInit() {
 
     this.postService.getPosts().subscribe({
