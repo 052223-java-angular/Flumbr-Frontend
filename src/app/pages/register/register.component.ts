@@ -29,8 +29,6 @@ export class RegisterComponent {
     this.registrationForm = this.fb.group(
       {
         username: ['', Validators.required],
-        firstname: [''],
-        lastname: [''],
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
         confirmPassword: ['', Validators.required],
@@ -47,13 +45,6 @@ export class RegisterComponent {
     return this.registrationForm.get('password');
   }
 
-  get firstname() {
-    return this.registrationForm.get('firstname');
-  }
-
-  get lastname() {
-    return this.registrationForm.get('lastname');
-  }
 
   get email() {
     return this.registrationForm.get('email');
@@ -81,8 +72,6 @@ export class RegisterComponent {
       // The payload to be sent to the backend API
       const payload: RegisterPayload = {
         username: this.registrationForm.controls['username'].value,
-        firstname: this.registrationForm.controls['firstname'].value,
-        lastname: this.registrationForm.controls['lastname'].value,
         email: this.registrationForm.controls['email'].value,
         password: this.registrationForm.controls['password'].value,
         confirmPassword:
