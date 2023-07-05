@@ -19,4 +19,9 @@ export class FollowService {
     return this.httpClient.get<PostRes[]>("/assets/post.json");
   }
 
+  // this method is to report a post; reporting post should be a boolean
+  reportPost(postId: string) : void {
+    this.httpClient.post<void>('/post/report', postId)
+  }
+
 }

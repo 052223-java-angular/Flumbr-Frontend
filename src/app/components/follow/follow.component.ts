@@ -9,6 +9,7 @@ import { FollowService } from 'src/app/services/follow/follow.service';
 })
 export class FollowComponent {
   @Input() post!: PostRes;
+  hasReported = false;
 
   constructor(private followService: FollowService) {}
 
@@ -22,6 +23,12 @@ export class FollowComponent {
     if (this.post.userId == id) {
       this.post.following = false;
     }
+  }
+
+  reportPost(postId: string) : void {
+    this.hasReported = !this.hasReported;
+    // does this need to make a network request ?
+    this.followService.reportPost(postId);
   }
 
 }
