@@ -23,40 +23,28 @@ $my-theme: mat.define-light-theme((
 
 @include mat.core-theme($my-theme);
 
-.alternative {
+$theme-one: mat.define-light-theme((
+  color: (
+    primary: $my-primary,
+    accent: $my-accent,
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+  )
+);
 
-  $my-primary: mat.define-palette(mat.$amber-palette, 500);
-  $my-accent: mat.define-palette(mat.$indigo-palette, 800);
-  $my-warn: mat.define-palette(mat.$red-palette,800);
-
-  $my-theme: mat.define-light-theme((
-    color: (
-      primary: $my-primary,
-      accent: $my-accent,
-      warn: $my-warn,
-    ),
-    typography: mat.define-typography-config(),
-    density: 0,
-  ));
-}
-
-.dark-theme {
-
-  $my-primary: mat.define-palette(mat.$indigo-palette, 500);
-  $my-accent: mat.define-palette(mat.$indigo-palette, 800);
-  $my-warn: mat.define-palette(mat.$red-palette,800);
-
-  $my-theme: mat.define-dark-theme((
-    color: (
-      primary: $my-primary,
-      accent: $my-accent,
-      warn: $my-warn,
-    ),
-    typography: mat.define-typography-config(),
-    density: 0,
-  ));
-}
+$theme-two: mat.define-light-theme((
+  color: (
+    primary: $my-accent,
+    accent: $my-primary,
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+)
+);
 
 // pass through
 
-@include mat.all-component-themes($my-theme);
+@include mat.all-component-themes($theme-one);

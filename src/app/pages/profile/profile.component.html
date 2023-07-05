@@ -1,7 +1,8 @@
+<app-notification-panel></app-notification-panel>
 <div class="space-y-5 flex-row m-20" xmlns="http://www.w3.org/1999/html">
 
   <div>
-    <mat-card class="flex p-5">
+    <mat-card class="flex p-5 bg-cyan-600">
 
 
         <mat-card-header class="flex-row p-4 space-y-10">
@@ -11,7 +12,7 @@
               <img mat-card-image src="{{profile.profile_img}}" class="object-contain">
 
               <div *ngIf="modifyBio && !isImage" class="w-1/2">
-                <ngx-dropzone (change)="onSelectImage($event)" [multiple]=false>
+                <ngx-dropzone (change)="onSetImage($event)" [multiple]=false>
                   <ngx-dropzone-label>Drag and drop media or <span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
                   <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                     <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
@@ -51,12 +52,18 @@
           </div>
 
           <!-- Button for user to start/stop modifying bio -->
-          <button (click)="modifyProfileBio()" class="px-4 py-4 bg-orange-500">Modify Profile?</button>
+          <button mat-raised-button color="primary"  (click)="modifyProfileBio()">Modify Profile?</button>
+
         </div>
 
 
     </mat-card>
   </div>
+
+  <ng-container>
+    <app-post></app-post>
+  </ng-container>
+
 
   <ul *ngIf="posts">
     <li *ngFor="let post of posts" class="pb-5">

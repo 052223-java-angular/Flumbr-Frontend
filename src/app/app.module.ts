@@ -36,6 +36,7 @@ import { NotificationMessageComponent } from './components/notification-panel/no
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { FollowComponent } from './components/follow/follow.component';
+import { ProfileSelectorComponent } from './components/profile-selector/profile-selector.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { FollowComponent } from './components/follow/follow.component';
     CreatePostComponent,
     RegisterComponent,
     LoginComponent,
+    ProfileSelectorComponent,
   ],
   imports: [
     BrowserModule,
