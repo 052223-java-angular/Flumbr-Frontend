@@ -1,5 +1,5 @@
 .message-wrap {
-  @apply min-w-[2/6] my-2 z-10;
+  @apply min-w-[2/6] my-2 z-50;
 }
 
 .message-content {

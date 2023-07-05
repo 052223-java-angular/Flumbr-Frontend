@@ -36,4 +36,8 @@ export class PostComponent {
   openChat() {
     console.log('opening chat');
   }
+
+  reportPost(postId: string): void {
+    // does this need to make a network request ?
+  }
 }
