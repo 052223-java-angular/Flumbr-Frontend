@@ -18,6 +18,7 @@ export class NotificationPanelComponent implements OnInit {
   // home, show_chart, comment, rate_review, thumb_up, person_add, message;
 
   // expected data types and conditonal variables for displaying data within the view
+  menuIsOpen: boolean = false;
   panelIsOpen: boolean = false;
   notifications$!: Observable<Notification[]>;
   notificationTypes$!: Observable<NotificationType[]>;
@@ -40,6 +41,10 @@ export class NotificationPanelComponent implements OnInit {
     this.notificationService.messagePanelIsEmpty.subscribe((panelState) => {
       this.panelIsOpen = !panelState;
     })
+  }
+
+  expandNotificationMenu() : void {
+    this.menuIsOpen = !this.menuIsOpen;
   }
 
   // toggles the notification messages

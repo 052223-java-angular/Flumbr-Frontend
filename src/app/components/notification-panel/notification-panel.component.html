@@ -4,30 +4,46 @@ modify or move this wrapper tag to correct position according to layout requirem
 
   <!-- Do not change layout  -->
   <ng-container *ngIf="notifications$ | async as notifications">
-    <div class="notification-container">
-
-      <div class="icon-container">
-
-        <app-notification-type *ngFor="let notificationType of notificationTypes$ | async; index as iconIdx"
-          [matIcon]="assignProps(notificationType, notifications)"
-          [badgeContent]="notificationType.badgeContent"
-          [badgeColor]=badgeColor 
-          [badgeSize]=badgeSize
-          [activeNotificationType]="activeNotificationType"
-          (click)="toggleNotification(iconIdx, notificationType.matIconName)"
-          >
-          
-        </app-notification-type>
-
-      </div>
-
-      <app-notification-message 
-        *ngIf="panelIsOpen"
-        [notifications]=notifications
-        [activeNotificationType]="activeNotificationType">
-      </app-notification-message>
-
+    <div class="fixed top-8 right-4">
+      <mat-icon (click)="expandNotificationMenu()" class="scale-[1.65]">
+        alarm
+      </mat-icon>  
+      <div  
+        [matBadge]="notifications.length"
+        [matBadgeColor]="badgeColor"
+        [matBadgeSize]="badgeSize"
+        [matBadgeHidden]="notifications.length=== 0"
+        class="absolute -right-1 -top-1 z-50 shadow-md"></div>
     </div>
+
+    <ng-container *ngIf="menuIsOpen">
+
+        <div class="notification-container">
+
+          <div class="icon-container">
+
+            <app-notification-type *ngFor="let notificationType of notificationTypes$ | async; index as iconIdx"
+              [matIcon]="assignProps(notificationType, notifications)"
+              [badgeContent]="notificationType.badgeContent"
+              [badgeColor]=badgeColor 
+              [badgeSize]=badgeSize
+              [activeNotificationType]="activeNotificationType"
+              (click)="toggleNotification(iconIdx, notificationType.matIconName)"
+              >
+              
+            </app-notification-type>
+
+          </div>
+
+          <app-notification-message 
+            *ngIf="panelIsOpen"
+            [notifications]=notifications
+            [activeNotificationType]="activeNotificationType">
+          </app-notification-message>
+
+        </div>
+
+    </ng-container>
 
   </ng-container>
   

@@ -1,5 +1,5 @@
 .wrapper {
-  @apply fixed top-40 right-2 w-3/6;
+  @apply fixed top-20 right-2 max-w-full w-[400px] z-50;
 }
 
 .notification-container {

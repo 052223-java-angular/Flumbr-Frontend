@@ -1,5 +1,4 @@
 [
-  { "id": "1", "name": "home" },
   { "id": "2", "name": "trending"},
   { "id": "3", "name": "comments" },
   { "id": "4", "name": "reviews" },
