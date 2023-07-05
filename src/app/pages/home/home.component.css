@@ -1,18 +1,4 @@
-.flex {
-  display: flex;
-}
 
-.flex-row {
-  flex-direction: row;
-}
-
-.flex-grow-row1 {
-  flex-grow: 3; /* Adjust the value as needed */
-}
-
-.flex-grow-row2 {
-  flex-grow: 1; /* Adjust the value as needed */
-}
 .custom-button {
   height: 50px;
   width: 150px;
@@ -26,8 +12,5 @@
     flex-direction: column;
   }
 
-  .flex-grow-row1,
-  .flex-grow-row2 {
-    flex-grow: 1; /* Equal size for both rows */
-  }
+
 }
