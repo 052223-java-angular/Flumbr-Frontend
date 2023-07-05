@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { RegisterPayload } from '../models/register-payload';
 import { LoginPayload } from '../models/login-payload';
 import { EMPTY, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { AppSettings } from '../global/app-settings';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  baseUrl = environment.apiBaseUrl;
+  baseUrl = AppSettings.API_URL;
 
   constructor(private http: HttpClient) {}
 
