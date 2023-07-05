@@ -38,3 +38,22 @@ $my-theme: mat.define-light-theme((
     density: 0,
   ));
 }
+
+.darktheme {
+
+  $my-primary: mat.define-palette(mat.$indigo-palette, 500);
+  $my-accent: mat.define-palette(mat.$indigo-palette, 800);
+  $my-warn: mat.define-palette(mat.$red-palette,800);
+
+  $my-theme: mat.define-dark-theme((
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+      warn: $my-warn,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  ));
+}
+
+
