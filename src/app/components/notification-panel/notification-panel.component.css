@@ -1,0 +1,17 @@
+.wrapper {
+  @apply fixed top-40 right-2 w-full max-w-[400px] z-50;
+}
+
+.notification-container {
+  @apply flex flex-row-reverse;
+}
+
+.icon-container {
+  @apply flex flex-col h-96 px-1 py-4 justify-between  bg-[#f5f6fa] shadow-md;
+}
+
+@media (min-width: 1200px) {
+  .wrapper {
+    /* @apply max-w-full; */
+  }
+}

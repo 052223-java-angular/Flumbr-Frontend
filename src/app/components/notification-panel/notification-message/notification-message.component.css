@@ -1,0 +1,15 @@
+.message-wrap {
+  @apply min-w-[2/6] my-2 z-50;
+}
+
+.message-content {
+  @apply flex items-center h-full pr-2 py-2 bg-[#f5f6fa] shadow-md rounded-sm hover:bg-[#17175725];
+}
+
+.message-icon {
+  @apply mx-2 flex-1;
+}
+
+.message-text {
+  @apply flex-[8] text-left;
+}

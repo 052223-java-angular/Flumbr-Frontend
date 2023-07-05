@@ -1,0 +1,4 @@
+<button mat-menu-item *ngIf="post.following" (click)="unFollowUser(post.userId)"><span
+    class="font-medium text-slate-950">Unfollow</span></button>
+<button mat-menu-item *ngIf="!post.following" (click)="followUser(post.userId)"><span
+    class="font-medium text-slate-950">Follow</span></button>
