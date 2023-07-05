@@ -1,0 +1,69 @@
+<div class="flex flex-col items-center mb-40 bg-gradient-to-r from-purple-500 to-blue-500 min-h-screen">
+    <form (ngSubmit)="handleSubmit()" [formGroup]="registrationForm" class="bg-white flex flex-col gap-7 p-10 shadow-2xl rounded-lg w-1/2 mb-10 mt-20">
+  
+      <h2 class="flex flex-col items-center text-indigo-500" style="font-weight: bold; font-size: 30px; letter-spacing: 2px;">Register</h2>
+      <div class="flex flex-col items-center px-10">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" required>
+          <mat-error  class="text-red-600" *ngIf="registrationForm.get('username')?.hasError('required')">
+            Username is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div class="flex flex-col items-center px-10">
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="text" matInput formControlName="email" />
+          <mat-error class="text-red-600" *ngIf="registrationForm.get('email')?.hasError('required')">
+              Email is required
+          </mat-error>
+        </mat-form-field>
+
+        <div *ngIf="registrationForm.get('email')?.touched && registrationForm.get('email')?.hasError('email')">
+          <mat-error class="text-red-600"><sup>*</sup> Please enter a valid email address.</mat-error>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center px-10">
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" required>
+          <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="flex flex-col items-center px-10">
+        <mat-form-field>
+          <mat-label>Confirm Password</mat-label>
+          <input matInput formControlName="confirmPassword" type="password" >
+
+          <mat-error class="text-red-600" *ngIf="registrationForm.get('confirmPassword')?.hasError('required')">
+            Confirm Password is required
+          </mat-error>
+
+          <div *ngIf="registrationForm.get('confirmPassword')?.touched && registrationForm.hasError('passwordMismatch')">
+            <mat-error class="text-red-600"> <sup>*</sup>Passwords Mismatch.</mat-error>
+          </div>
+
+        </mat-form-field>
+      </div>
+
+      <div class="flex justify-center mt-6">
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </div>
+
+      <div class="flex justify-center text-indigo-500 mt-6"  style="font-weight: bold; font-size: 17px;">
+        <a class="text-indigo-500 font-bold text-base relative overflow-hidden rounded-full hover:bg-indigo-200 hover:underline px-4 py-2" routerLink="/login">Log In</a>
+        <!--link to registration-->
+      </div>
+    </form>
+  </div>
+  
+  
+
+
