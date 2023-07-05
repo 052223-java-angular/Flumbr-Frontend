@@ -12,7 +12,7 @@
         class="font-medium text-slate-950">Unfollow</span></button>
     <button mat-menu-item *ngIf="!post.following" (click)="followUser(post.userId)"><span
         class="font-medium text-slate-950">Follow</span></button>
-    <button mat-menu-item>
+    <!-- <button mat-menu-item>
 
       <span *ngIf="!hasReported; else unreport"
          (click)="reportPost(post.id)" class="font-medium text-red-600">Report</span>
@@ -21,7 +21,7 @@
         <span (click)="reportPost(post.id)" class="font-medium text-red-600">Undo Report</span>
       </ng-template>
 
-    </button>
+    </button> -->
 
   </mat-menu>
 </div>

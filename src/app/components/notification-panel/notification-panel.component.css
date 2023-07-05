@@ -1,5 +1,5 @@
 .wrapper {
-  @apply fixed top-40 right-2 w-3/6;
+  @apply fixed top-40 right-2 max-w-full w-[400px];
 }
 
 .notification-container {
@@ -7,5 +7,18 @@
 }
 
 .icon-container {
-  @apply flex flex-col h-96 px-1 py-4 justify-between  bg-[#f5f6fa] shadow-md;
+  @apply flex flex-col h-96 px-1 py-4 justify-between ;
+}
+
+/*  bg-[#f5f6fa] shadow-md */
+
+.icon-container  {
+  /* background: rgba(5, 5, 5, 0.5); */
+  /* background: rgba(142, 154, 255, 0.1); */
+  background: rgba(219, 219, 219, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20.5px);
+  -webkit-backdrop-filter: blur(20.5px);
+  border: 1px solid rgba(38, 37, 37, 0.17);
 }
