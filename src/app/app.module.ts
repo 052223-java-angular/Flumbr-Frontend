@@ -23,6 +23,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ProfileComponent } from './pages/profile/profile.component';
+
+//import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
@@ -34,6 +36,7 @@ import { NotificationMessageComponent } from './components/notification-panel/no
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { FollowComponent } from './components/follow/follow.component';
+
 
 @NgModule({
   declarations: [
@@ -60,6 +63,12 @@ import { FollowComponent } from './components/follow/follow.component';
     FormsModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+
+    HttpClientModule,
+    MatCardModule,
+    MatInputModule,
+    ReactiveFormsModule,
+
     MatCardModule,
     MatButtonModule,
     MatExpansionModule,
