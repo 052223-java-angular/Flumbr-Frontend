@@ -1,0 +1,34 @@
+<<<<<<< HEAD
+<button mat-menu-item *ngIf="post.following" (click)="unFollowUser(post.userId)"><span
+    class="font-medium text-slate-950">Unfollow</span></button>
+<button mat-menu-item *ngIf="!post.following" (click)="followUser(post.userId)"><span
+    class="font-medium text-slate-950">Follow</span></button>
+=======
+<div>
+  <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Options" matTooltipClass="tooltip"
+    matTooltipPosition="above"><mat-icon class="icon">more_horiz</mat-icon></button>
+  <mat-menu #menu="matMenu">
+    <div mat-menu-item>
+      <p class="text-sm">{{post.createTime}}</p>
+    </div>
+    <div mat-menu-item *ngIf="post.editTime">
+      <p class="text-sm">{{post.editTime}}</p>
+    </div>
+    <button mat-menu-item *ngIf="post.following" (click)="unFollowUser(post.userId)"><span
+        class="font-medium text-slate-950">Unfollow</span></button>
+    <button mat-menu-item *ngIf="!post.following" (click)="followUser(post.userId)"><span
+        class="font-medium text-slate-950">Follow</span></button>
+    <!-- <button mat-menu-item>
+
+      <span *ngIf="!hasReported; else unreport"
+         (click)="reportPost(post.id)" class="font-medium text-red-600">Report</span>
+
+      <ng-template #unreport>
+        <span (click)="reportPost(post.id)" class="font-medium text-red-600">Undo Report</span>
+      </ng-template>
+
+    </button> -->
+
+  </mat-menu>
+</div>
+>>>>>>> follow-unfollow

@@ -40,7 +40,7 @@ export class NotificationPanelComponent implements OnInit {
     // for detecting when no messages are left, so update the panelOpenState
     this.notificationService.messagePanelIsEmpty.subscribe((panelState) => {
       this.panelIsOpen = !panelState;
-    })
+    }).unsubscribe();
   }
 
   expandNotificationMenu() : void {
