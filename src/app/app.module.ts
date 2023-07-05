@@ -17,6 +17,7 @@ import { CreatePostComponent } from './pages/create-post/create-post.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClientModule } from '@angular/common/http';
+import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     CreatePostComponent,
     RegisterComponent,
     LoginComponent,
+    ThemeSwitcherComponent,
   ],
   imports: [
     BrowserModule,
