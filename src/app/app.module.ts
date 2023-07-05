@@ -32,7 +32,6 @@ import { RouteguardService } from './services/routeguard.service';
 import { AuthService } from './services/auth.service';
 import { NotificationPanelComponent } from './components/notification-panel/notification-panel.component';
 import { NotificationMessageComponent } from './components/notification-panel/notification-message/notification-message.component';
-
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { FollowComponent } from './components/follow/follow.component';
