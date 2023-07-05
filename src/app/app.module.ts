@@ -30,10 +30,11 @@ import { RouteguardService } from './services/routeguard.service';
 import { AuthService } from './services/auth.service';
 import { NotificationPanelComponent } from './components/notification-panel/notification-panel.component';
 import { NotificationMessageComponent } from './components/notification-panel/notification-message/notification-message.component';
-
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { FollowComponent } from './components/follow/follow.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -78,8 +79,9 @@ import { FollowComponent } from './components/follow/follow.component';
     HttpClientModule,
     MatTooltipModule,
     MatMenuModule,
+    ToastModule,
   ],
-  providers: [RouteguardService, AuthService],
+  providers: [RouteguardService, AuthService, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
