@@ -145,6 +145,7 @@ export class CreatePostComponent implements OnInit {
           this.postForm.reset();
           this.files = [];
           this.setImageAndVideoFlags();
+          this.tags = [];
           // navigate to post detail screen
         },
         error: (error) => {
