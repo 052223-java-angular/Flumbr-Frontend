@@ -1,10 +1,31 @@
 <app-notification-panel></app-notification-panel>
 <div class="space-y-5 flex-row m-20" xmlns="http://www.w3.org/1999/html">
 
+  <!-- Button for user to start/stop modifying bio -->
+  <button mat-raised-button color="primary"  (click)="modifyProfileBio()">Modify Profile?</button>
+
+  <mat-form-field *ngIf="modifyBio">
+    <mat-label>Select a theme</mat-label>
+    <mat-select>
+      <mat-option value="option1">Theme One</mat-option>
+      <mat-option value="option2">Theme Two</mat-option>
+      <mat-option value="option3">Theme Three</mat-option>
+      <mat-option value="option2">Theme Four</mat-option>
+      <mat-option value="option3">Theme Five</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button (click)="followToggle()" *ngIf="follow == false" mat-fab color="none" aria-label="follow">
+    <mat-icon>perm_identity</mat-icon>
+  </button>
+
+  <button (click)="followToggle()" *ngIf="follow" mat-fab color="primary" aria-label="Already follow">
+    <mat-icon>how_to_reg</mat-icon>
+  </button>
+
+
   <div>
-    <mat-card class="flex p-5 bg-cyan-600">
-
-
+    <mat-card  class="flex p-5 bg-cyan-600">
         <mat-card-header class="flex-row p-4 space-y-10">
           <mat-card-title-group>
             <mat-card-title class="text-9xl">{{profile.username}}</mat-card-title>
@@ -47,23 +68,17 @@
                 <mat-label> {{profile.bio}} </mat-label>
                 <input matInput formControlName="bio">
               </mat-form-field>
-              <button type="submit"> Submit bio</button>
+              <button mat-raised-button color="accent" type="submit"> Submit bio</button>
             </form>
           </div>
 
-          <!-- Button for user to start/stop modifying bio -->
-          <button mat-raised-button color="primary"  (click)="modifyProfileBio()">Modify Profile?</button>
+
 
         </div>
 
 
     </mat-card>
   </div>
-
-  <ng-container>
-    <app-post></app-post>
-  </ng-container>
-
 
   <ul *ngIf="posts">
     <li *ngFor="let post of posts" class="pb-5">
@@ -72,4 +87,3 @@
   </ul>
 
   </div>
-

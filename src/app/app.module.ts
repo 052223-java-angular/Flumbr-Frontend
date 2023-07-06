@@ -37,6 +37,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { FollowComponent } from './components/follow/follow.component';
 import { ProfileSelectorComponent } from './components/profile-selector/profile-selector.component';
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { ProfileSelectorComponent } from './components/profile-selector/profile-
     HttpClientModule,
     MatTooltipModule,
     MatMenuModule,
+    MatSelectModule,
   ],
   providers: [RouteguardService, AuthService],
   bootstrap: [AppComponent],

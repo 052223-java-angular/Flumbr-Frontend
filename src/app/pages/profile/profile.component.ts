@@ -15,6 +15,7 @@ import {PostRes} from "../../models/post/post";
 export class ProfileComponent {
   profile!: ProfilePayload;
   modifyBio: boolean = false;
+  follow: boolean = false;
   posts!: Array<PostRes>;
   theme: string = "default";
 
@@ -115,6 +116,10 @@ export class ProfileComponent {
   // css theme selector
   selectTheme(choice: string) {
     this.theme = choice;
+  }
+
+  followToggle() {
+    this.follow = !this.follow;
   }
 
 
