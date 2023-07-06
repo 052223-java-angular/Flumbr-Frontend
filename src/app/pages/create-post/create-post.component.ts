@@ -23,7 +23,6 @@ export class CreatePostComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private fileUploadService: FileUploadService,
     private messageService: MessageService,
     private postService: PostService
   ) {}

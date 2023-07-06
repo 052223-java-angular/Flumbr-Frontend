@@ -10,8 +10,6 @@ mat-spinner {
   transform: translate(-50%, -50%);
 }
 
-mat-chip {
-  .mdc-evolution-chip__text-label {
-    color: white !important;
-  }
+.mat-mdc-standard-chip {
+  --mdc-chip-label-text-color: #fff;
 }
