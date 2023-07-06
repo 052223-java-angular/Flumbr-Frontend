@@ -1,9 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { PostRes } from 'src/app/models/post/post';
-import { PostService } from 'src/app/services/post/post.service';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-posts',
+  selector: 'app-posts-container',
   templateUrl: './posts-container.component.html',
   styleUrls: ['./posts-container.component.css'],
 })

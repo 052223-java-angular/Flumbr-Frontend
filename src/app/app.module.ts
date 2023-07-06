@@ -42,6 +42,7 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
 import { MatTabsModule } from '@angular/material/tabs';
 import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
 import { PostListComponent } from './components/posts/post-list/post-list.component';
+import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { PostListComponent } from './components/posts/post-list/post-list.compon
     RegisterComponent,
     LoginComponent,
     ViewPostsComponent,
+    TrendingPostsComponent,
   ],
   imports: [
     BrowserModule,
