@@ -1,1 +1,68 @@
-<p>profile works!</p>
+<div class="space-y-5 flex-row m-20" xmlns="http://www.w3.org/1999/html">
+
+  <div>
+    <mat-card class="flex p-5">
+
+
+        <mat-card-header class="flex-row p-4 space-y-10">
+          <mat-card-title-group>
+            <mat-card-title class="text-9xl">{{profile.username}}</mat-card-title>
+            <mat-card>
+              <img mat-card-image src="{{profile.profile_img}}" class="object-contain">
+
+              <div *ngIf="modifyBio && !isImage" class="w-1/2">
+                <ngx-dropzone (change)="onSelectImage($event)" [multiple]=false>
+                  <ngx-dropzone-label>Drag and drop media or <span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
+                  <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                  </ngx-dropzone-preview>
+                </ngx-dropzone>
+              </div>
+              <div
+                class="w-screen lg:w-1/2"
+                *ngIf="isImage && modifyBio">
+                <h3 class="font-bold">Preview:</h3>
+                <ng-container *ngIf="isImage">
+                  <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+                    <ngx-dropzone-label></ngx-dropzone-label>
+                  </ngx-dropzone-image-preview>
+                </ng-container>
+              </div>
+
+            </mat-card>
+
+
+
+          </mat-card-title-group>
+        </mat-card-header>
+
+        <div class="">
+          <p *ngIf="modifyBio==false" class="text-2xl">Profile Bio: {{profile.bio}}</p>
+          <!-- Form for submitting bio, only toggled when modify is set to true -->
+
+          <div *ngIf="modifyBio == true" class="flex flex-col border-8 border-indigo-600">
+            <form [formGroup]="changeBioForm" (submit)="submitForm()">
+              <mat-form-field class="form-field" class="w-full">
+                <mat-label> {{profile.bio}} </mat-label>
+                <input matInput formControlName="bio">
+              </mat-form-field>
+              <button type="submit"> Submit bio</button>
+            </form>
+          </div>
+
+          <!-- Button for user to start/stop modifying bio -->
+          <button (click)="modifyProfileBio()" class="px-4 py-4 bg-orange-500">Modify Profile?</button>
+        </div>
+
+
+    </mat-card>
+  </div>
+
+  <ul *ngIf="posts">
+    <li *ngFor="let post of posts" class="pb-5">
+      <app-post [post]="post"></app-post>
+    </li>
+  </ul>
+
+  </div>
+

@@ -65,6 +65,10 @@ export class PostService {
     return of(this.posts);
   }
 
+  getTrendingPosts(): Observable<Array<PostRes>> {
+    return of(this.posts);
+  }
+
   deletePostById(id: string) {
     this.posts.map((post) => {
       if (post.id === id) {
