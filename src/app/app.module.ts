@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
-import { PostsComponent } from './pages/posts/posts.component';
-import { PostComponent } from './components/post/post.component';
+import { PostsContainerComponent } from './components/posts/posts-container/posts-container.component';
+import { PostComponent } from './components/posts/post/post.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,6 +23,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ProfileComponent } from './pages/profile/profile.component';
+
+//import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
@@ -39,6 +41,11 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
 import { MatChipsModule } from '@angular/material/chips';
 import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
 
+import { MatTabsModule } from '@angular/material/tabs';
+import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
+import { PostListComponent } from './components/posts/post-list/post-list.component';
+import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,8 +54,9 @@ import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switch
     NotificationTypeComponent,
     NavbarComponent,
     NotfoundComponent,
-    PostsComponent,
+    PostsContainerComponent,
     PostComponent,
+    PostListComponent,
     NotificationPanelComponent,
     NotificationMessageComponent,
     FollowComponent,
@@ -57,6 +65,8 @@ import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switch
     RegisterComponent,
     LoginComponent,
     ThemeSwitcherComponent,
+    ViewPostsComponent,
+    TrendingPostsComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +75,12 @@ import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switch
     FormsModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
+
+    HttpClientModule,
+    MatCardModule,
+    MatInputModule,
+    ReactiveFormsModule,
+
     MatCardModule,
     MatButtonModule,
     MatExpansionModule,
@@ -85,6 +101,7 @@ import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switch
     MatMenuModule,
     ToastModule,
     MatChipsModule,
+    MatTabsModule,
   ],
   providers: [
     RouteguardService,
