@@ -1,12 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { AppSettings } from 'src/app/global/app-settings';
 import { PostRes } from 'src/app/models/post/post';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
+  baseUrl = AppSettings.API_URL;
+
   posts: Array<PostRes> = [
     {
       id: '1',

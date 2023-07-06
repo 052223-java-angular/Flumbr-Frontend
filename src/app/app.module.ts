@@ -38,6 +38,8 @@ import { FollowComponent } from './components/follow/follow.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
+import { MatChipsModule } from '@angular/material/chips';
+import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
@@ -62,6 +64,7 @@ import { TrendingPostsComponent } from './components/posts/trending-posts/trendi
     CreatePostComponent,
     RegisterComponent,
     LoginComponent,
+    ThemeSwitcherComponent,
     ViewPostsComponent,
     TrendingPostsComponent,
   ],
@@ -97,7 +100,7 @@ import { TrendingPostsComponent } from './components/posts/trending-posts/trendi
     MatTooltipModule,
     MatMenuModule,
     ToastModule,
-
+    MatChipsModule,
     MatTabsModule,
   ],
   providers: [
