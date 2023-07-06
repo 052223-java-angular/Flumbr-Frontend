@@ -35,7 +35,7 @@
         <ngx-dropzone
           (change)="onSelectFile($event)"
           [multiple]=false
-          [maxFileSize]=134217728>
+          [maxFileSize]=fileSizeLimit>
           <ngx-dropzone-label>Drag and drop media or <span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
           <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
             <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>

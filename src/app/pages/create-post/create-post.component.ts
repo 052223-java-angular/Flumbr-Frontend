@@ -5,6 +5,7 @@ import { AppSettings } from 'src/app/global/app-settings';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PostService } from 'src/app/services/post/post.service';
 
+const BYTES_PER_MEGABYTE = 1048576;
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -12,6 +13,7 @@ import { PostService } from 'src/app/services/post/post.service';
 })
 export class CreatePostComponent implements OnInit {
   loading: boolean = false;
+  fileSizeLimit: number = 128 * BYTES_PER_MEGABYTE;
   postForm!: FormGroup;
   shortLink: string | null = null;
   message: string = '';
