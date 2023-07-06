@@ -135,6 +135,8 @@ export class CreatePostComponent implements OnInit {
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
         this.postForm.reset();
+        this.files = [];
+        this.setImageAndVideoFlags();
         // navigate to post detail screen
       },
       error: (error) => {
