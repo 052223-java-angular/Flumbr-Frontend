@@ -1,5 +1,5 @@
-import {Component, Inject} from '@angular/core';
-import {DOCUMENT} from "@angular/common";
+import { Component} from '@angular/core';
+import { DarkModeService } from "../../services/dark-mode.service";
 
 @Component({
   selector: 'app-theme-switcher',
@@ -7,18 +7,17 @@ import {DOCUMENT} from "@angular/common";
   styleUrls: ['./theme-switcher.component.scss']
 })
 export class ThemeSwitcherComponent {
+  isDarkThemeActive: boolean = false;
 
-  isDarkThemeActive = false;
+  constructor(private darkModeService: DarkModeService) {
+    console.log(this.isDarkThemeActive);
+    console.log(this.darkModeService.getDarkMode());
+    this.isDarkThemeActive = this.darkModeService.getDarkMode() === 'true';
 
-  constructor(@Inject(DOCUMENT) private document:Document) {
   }
-  onChange(newValue:boolean):void{
-    console.log(newValue)
-    if (newValue){
-    this.document.body.classList.add('dark-mode');
-    }
-    else{
-      this.document.body.classList.remove('dark-mode');
-    }
+
+  onChange(result: boolean) {
+    this.isDarkThemeActive = result;
+    this.darkModeService.toggleDarkMode();
   }
 }
