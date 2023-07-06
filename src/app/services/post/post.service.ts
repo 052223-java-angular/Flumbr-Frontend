@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { PostRes } from 'src/app/models/post/post';
@@ -55,20 +56,22 @@ export class PostService {
     },
   ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getPosts(): Observable<Array<PostRes>> {
     return of(this.posts);
   }
 
-  deletePostById(id:string)
-  {
-     this.posts.map((post) => {
-        if(post.id === id)
-        {
-           this.posts.splice(this.posts.indexOf(post), 1);
-        }
-        return post;
-     })
+  getTrendingPosts(): Observable<Array<PostRes>> {
+    return of(this.posts);
+  }
+
+  deletePostById(id: string) {
+    this.posts.map((post) => {
+      if (post.id === id) {
+        this.posts.splice(this.posts.indexOf(post), 1);
+      }
+      return post;
+    });
   }
 }
