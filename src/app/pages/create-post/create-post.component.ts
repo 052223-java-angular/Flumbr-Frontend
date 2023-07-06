@@ -80,6 +80,20 @@ export class CreatePostComponent implements OnInit {
       });
     }
     this.setImageAndVideoFlags();
+    if (!this.isImage && !this.isVideo) {
+      if (this.files.length > 0) {
+        this.files = [];
+        this.postForm.patchValue({
+          file: null,
+        });
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Warning',
+          detail: 'Only images and videos currently supported',
+          life: AppSettings.DEFAULT_MESSAGE_LIFE,
+        });
+      }
+    }
   }
 
   onRemove(event: any) {
