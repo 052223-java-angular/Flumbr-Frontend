@@ -10,7 +10,7 @@ import {PostRes} from "../../models/post/post";
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
   profile!: ProfilePayload;
