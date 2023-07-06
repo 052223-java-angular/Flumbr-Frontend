@@ -39,6 +39,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,8 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
     MatTooltipModule,
     MatMenuModule,
     ToastModule,
+
+    MatTabsModule,
   ],
   providers: [
     RouteguardService,

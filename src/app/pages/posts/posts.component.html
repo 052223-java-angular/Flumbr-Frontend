@@ -1,5 +1,34 @@
-<ul>
-  <li *ngFor="let post of posts">
-    <app-post [post]="post"></app-post>
-  </li>
-</ul>
+<div class="flex flex-grow justify-center w-full bg-indigo-700">
+  <div class="w-full max-w-[500px]">
+    <mat-tab-group animationDuration="0ms">
+      <!-- Main feed -->
+      <mat-tab label="Feed">
+        <mat-divider class="mb-5"></mat-divider>
+
+        <ul>
+          <li *ngFor="let post of posts">
+            <app-post [post]="post"></app-post>
+          </li>
+        </ul>
+      </mat-tab>
+
+      <!-- Following -->
+      <mat-tab label="Following">
+        <mat-divider class="mb-5"></mat-divider>
+
+        <div>
+          Following
+        </div>
+      </mat-tab>
+
+      <!-- Trending -->
+      <mat-tab label="Trending">
+        <mat-divider class="mb-5"></mat-divider>
+
+        <div>
+          Trending
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
