@@ -40,6 +40,7 @@ import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 
 import { MatTabsModule } from '@angular/material/tabs';
+import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     CreatePostComponent,
     RegisterComponent,
     LoginComponent,
+    ViewPostsComponent,
   ],
   imports: [
     BrowserModule,
