@@ -1,12 +1,19 @@
 @use '@angular/material' as mat;
 
 @include mat.core();
-
+/**
+ * colors in hex
+ * deep purple 500- #673AB7
+ * pink 300- #F06292
+ * source for picking colors https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
+ */
 $light-theme: mat.define-light-theme(
       (
+        //defining colors for components with primary, accent and warn colors
         color: (
-          primary: mat.define-palette(mat.$cyan-palette,400),
-          accent: mat.define-palette(mat.$light-green-palette,A400)
+          primary: mat.define-palette(mat.$deep-purple-palette,500),
+          accent: mat.define-palette(mat.$pink-palette,300),
+          warn: mat.define-palette(mat.$deep-purple-palette,500)
         ),
         typography: mat.define-typography-config(),
         density: 0,
@@ -15,9 +22,11 @@ $light-theme: mat.define-light-theme(
 
 $dark-theme: mat.define-dark-theme(
       (
+        //defining colors for components with primary, accent and warn colors
         color: (
-          primary: mat.define-palette(mat.$deep-purple-palette,400),
-          accent: mat.define-palette(mat.$pink-palette,300)
+          primary: mat.define-palette(mat.$pink-palette,300),
+          accent: mat.define-palette(mat.$deep-purple-palette,500),
+          warn: mat.define-palette(mat.$pink-palette,300)
         ),
         typography: mat.define-typography-config(),
         density: 0,
@@ -26,6 +35,27 @@ $dark-theme: mat.define-dark-theme(
 
 @include mat.all-component-themes($light-theme);
 
-.dark-mode{
-  @include mat.all-component-colors($dark-theme)
+.dark-mode {
+  @include mat.all-component-colors($dark-theme);
+  background-color: #3c4043;//background color is set
+  color: whitesmoke;//text-color is set
+
+  //targets all form element, !important is necessary for changes to persist
+  form {
+    background-color: #3c4043 !important;
+    color: whitesmoke !important;
+  }
+
+    //targets button with custom-button class in login and register
+    .custom-button {
+
+      color: whitesmoke!important;
+    }
+  // Option 3: Maybe necessary when user switches to dark mode
+  // show ruben when settings change to dark mode it will need to be back here
+  //.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  //  background-color: red;
+  //}
 }
+
+
