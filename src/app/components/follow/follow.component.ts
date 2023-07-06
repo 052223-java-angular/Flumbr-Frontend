@@ -41,8 +41,8 @@ export class FollowComponent {
     // if not following, handle follow request
     if (!this.isFollowing) {
 
-      // this.followService.httpFollow("phouFollower001").subscribe({      
-      this.followService.httpFollow(followSubject.followedUsername).subscribe({
+      this.followService.httpFollow("phouFollower001").subscribe({      
+      // this.followService.httpFollow(followSubject.followedUsername).subscribe({
         next: (res: HttpResponse<any>) => {
           this.isFollowing = !this.isFollowing;
         },
@@ -53,8 +53,8 @@ export class FollowComponent {
     // if following, handle unfollow request
     if (this.isFollowing) {
       
-      // this.followService.httpUnfollow("phouFollower001").subscribe({
-      this.followService.httpUnfollow(followSubject.followedUsername).subscribe({
+      this.followService.httpUnfollow("phouFollower001").subscribe({
+      // this.followService.httpUnfollow(followSubject.followedUsername).subscribe({
         next: (res: HttpResponse<any>) => {
           this.isFollowing = !this.isFollowing;
         },
