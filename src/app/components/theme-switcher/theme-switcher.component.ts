@@ -10,14 +10,21 @@ export class ThemeSwitcherComponent {
   isDarkThemeActive: boolean = false;
 
   constructor(private darkModeService: DarkModeService) {
-    console.log(this.isDarkThemeActive);
-    console.log(this.darkModeService.getDarkMode());
-    this.isDarkThemeActive = this.darkModeService.getDarkMode() === 'true';
+    console.log("current: "+this.isDarkThemeActive);
+    console.log("local storage: "+ this.darkModeService.getDarkMode());
+
+    this.isDarkThemeActive = this.darkModeService.getDarkMode() === 'true';//change the value based on the local storage value
 
   }
 
+  /**
+   * Change the status of  isDarkThemeActive based on event handler
+   * Toggle the change of dark-mode
+   * @param result - event change
+   */
   onChange(result: boolean) {
     this.isDarkThemeActive = result;
+    console.log("current: "+this.isDarkThemeActive);
     this.darkModeService.toggleDarkMode();
   }
 }
