@@ -13,6 +13,7 @@ export class CreatePostComponent {
   files: File[] = [];
   isImage: boolean = false;
   isVideo: boolean = false;
+  tags: string[] = [];
 
   constructor(private fileUploadService: FileUploadService) {}
 
@@ -53,6 +54,17 @@ export class CreatePostComponent {
           this.loading = false;
         }
       });
+    }
+  }
+
+  onMessageChange(message: string) {
+    // get all strings that begin with #
+    let tags: string[] | null = message.match(/#[A-Za-z0-9]+/gi);
+
+    if (tags) {
+      this.tags = tags;
+    } else {
+      this.tags = [];
     }
   }
 }
