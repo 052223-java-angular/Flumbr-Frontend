@@ -65,6 +65,10 @@ export class PostService {
     return of(this.posts);
   }
 
+  getTrendingPosts(): Observable<Array<PostRes>> {
+    return of(this.posts);
+  }
+
   deletePostById(id: string) {
     this.posts.map((post) => {
       if (post.id === id) {
@@ -72,9 +76,5 @@ export class PostService {
       }
       return post;
     });
-  }
-
-  createPost(formData: FormData): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/posts/create`, formData);
   }
 }
