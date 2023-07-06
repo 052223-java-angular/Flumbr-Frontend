@@ -4,11 +4,7 @@
     <mat-tab label="Feed">
       <mat-divider class="mb-5"></mat-divider>
 
-      <ul>
-        <li *ngFor="let post of posts">
-          <app-post [post]="post"></app-post>
-        </li>
-      </ul>
+      <!-- Feed posts component -->
     </mat-tab>
 
     <!-- Following -->
@@ -24,9 +20,7 @@
     <mat-tab label="Trending">
       <mat-divider class="mb-5"></mat-divider>
 
-      <div>
-        Trending
-      </div>
+      <!-- Trending posts component -->
     </mat-tab>
   </mat-tab-group>
 </div>
