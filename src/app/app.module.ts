@@ -36,6 +36,8 @@ import { FollowComponent } from './components/follow/follow.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
+import { MatChipsModule } from '@angular/material/chips';
+import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
     CreatePostComponent,
     RegisterComponent,
     LoginComponent,
+    ThemeSwitcherComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,7 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
     MatTooltipModule,
     MatMenuModule,
     ToastModule,
+    MatChipsModule,
   ],
   providers: [
     RouteguardService,
