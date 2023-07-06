@@ -9,7 +9,8 @@ import {
 import { Router } from '@angular/router';
 import { RegisterPayload } from 'src/app/models/register-payload';
 import { AuthService } from 'src/app/services/auth.service';
-//import {ToastrService} from 'ngx-toastr';
+import { MessageService } from 'primeng/api';
+import { AppSettings } from 'src/app/global/app-settings';
 
 @Component({
   selector: 'app-registration-form',
@@ -22,7 +23,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +46,6 @@ export class RegisterComponent {
   get password() {
     return this.registrationForm.get('password');
   }
-
 
   get email() {
     return this.registrationForm.get('email');
@@ -78,24 +79,34 @@ export class RegisterComponent {
           this.registrationForm.controls['confirmPassword'].value,
       };
 
-
       // Call the authentication service to register the user
       this.authService.register(payload).subscribe({
-        next: (value) => {
-          // Handle the success response
+        next: (/* value */) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Registration successful',
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
           this.router.navigate(['/login']);
         },
         error: (error) => {
-          // Handle the error response
-          //this.toastr.error(error.error.message);
-          console.log(error.error.message);
-          alert(error.error.message);
-          
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.message,
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
         },
       });
       return true;
     } else {
-      alert('Form is Invalid');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Registration form is invalid!',
+        life: AppSettings.DEFAULT_MESSAGE_LIFE,
+      });
       return false;
     }
   }

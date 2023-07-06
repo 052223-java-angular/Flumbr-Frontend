@@ -4,6 +4,19 @@ Tumblr / Twitter Hybrid
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.5.
 
+## Setup
+
+Create a file called `environment.development.ts` under `src/environments` with the following content:
+
+```typescript
+export const environment = {
+  production: false,
+  apiBaseUrl: "http://localhost:5000/flumblr/api",
+};
+```
+
+> Ensure the port is the same as the port you have configured in your [Flumblr Backend's](https://github.com/052223-java-angular/Flumblr-Backend) application.properties
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
