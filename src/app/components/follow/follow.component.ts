@@ -10,6 +10,8 @@ import { FollowService } from 'src/app/services/follow/follow.service';
 export class FollowComponent {
   @Input() post!: PostRes;
 
+  isFollowing: boolean = false;
+
   constructor(private followService: FollowService) {}
 
   followUser(id: string): void {
@@ -18,9 +20,4 @@ export class FollowComponent {
     }
   }
 
-  unFollowUser(id: string): void {
-    if (this.post.userId == id) {
-      this.post.following = false;
-    }
-  }
 }

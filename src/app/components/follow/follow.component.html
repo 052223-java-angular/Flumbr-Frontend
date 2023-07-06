@@ -1,4 +1,19 @@
-<button mat-menu-item *ngIf="post.following" (click)="unFollowUser(post.userId)"><span
-    class="font-medium text-slate-950">Unfollow</span></button>
+
+
+
+<!-- <button mat-menu-item 
+        *ngIf="post.following" 
+        (click)="followUser(post.userId)">
+    <span class="font-medium text-slate-950">Unfollow</span></button>
+
 <button mat-menu-item *ngIf="!post.following" (click)="followUser(post.userId)"><span
-    class="font-medium text-slate-950">Follow</span></button>
+    class="font-medium text-slate-950">Follow</span></button> -->
+
+
+<button (click)="followUser(post.userId)" *ngIf="isFollowing == false" mat-fab color="none" aria-label="follow">
+    <mat-icon>perm_identity</mat-icon>
+</button>
+
+<button (click)="followUser(post.userId)" *ngIf="!isFollowing" mat-fab color="primary" aria-label="Already follow">
+    <mat-icon>how_to_reg</mat-icon>
+</button>
