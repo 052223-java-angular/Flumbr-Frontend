@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { finalize } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PostService } from 'src/app/services/post/post.service';
 
-const BYTES_PER_MEGABYTE = 1048576;
 @Component({
   selector: 'app-create-post',
   templateUrl: './create-post.component.html',
@@ -13,10 +13,9 @@ const BYTES_PER_MEGABYTE = 1048576;
 })
 export class CreatePostComponent implements OnInit {
   loading: boolean = false;
-  fileSizeLimit: number = 128 * BYTES_PER_MEGABYTE;
+  fileSizeLimit: number = AppSettings.CREATE_POST_SIZE_LIMIT;
   postForm!: FormGroup;
   shortLink: string | null = null;
-  message: string = '';
   files: File[] = [];
   isImage: boolean = false;
   isVideo: boolean = false;
@@ -105,18 +104,6 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
-  onUpload() {
-    if (this.files.length > 0) {
-      this.loading = !this.loading;
-      this.fileUploadService.upload(this.files[0]).subscribe((event: any) => {
-        if (typeof event === 'object') {
-          this.shortLink = event.link;
-          this.loading = false;
-        }
-      });
-    }
-  }
-
   onMessageChange(message: string) {
     // get all strings that begin with #
     let tags: string[] | null = message.match(/#[A-Za-z0-9]+/gi);
@@ -129,6 +116,8 @@ export class CreatePostComponent implements OnInit {
   }
 
   submitPostForm() {
+    this.loading = true;
+
     let formData = new FormData();
 
     const message = this.postForm.controls['message'].value;
@@ -142,27 +131,30 @@ export class CreatePostComponent implements OnInit {
       formData.append('mediaType', file['type']);
     }
 
-    this.postService.createPost(formData).subscribe({
-      next: (/* value */) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Post created',
-          life: AppSettings.DEFAULT_MESSAGE_LIFE,
-        });
-        this.postForm.reset();
-        this.files = [];
-        this.setImageAndVideoFlags();
-        // navigate to post detail screen
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: error.error.message || 'Error',
-          life: AppSettings.DEFAULT_MESSAGE_LIFE,
-        });
-      },
-    });
+    this.postService
+      .createPost(formData)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (/* value */) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Post created',
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
+          this.postForm.reset();
+          this.files = [];
+          this.setImageAndVideoFlags();
+          // navigate to post detail screen
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.message || 'Error',
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
+        },
+      });
   }
 }
