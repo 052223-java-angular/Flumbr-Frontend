@@ -5,50 +5,82 @@
 
 <ng-container
   *ngIf="!loading">
-  <h1>Create Post</h1>
 
-  <mat-form-field class="w-screen lg:w-1/2">
-    <mat-label>What's on your mind?</mat-label>
-    <textarea matInput [(ngModel)]="message"></textarea>
-  </mat-form-field>
-  
-  <div class="w-screen lg:w-1/2">
-    <ngx-dropzone (change)="onSelect($event)" [multiple]=false>
-      <ngx-dropzone-label>Drag and drop media or <span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
-      <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-      </ngx-dropzone-preview>
-    </ngx-dropzone>
-  </div>
+  <div class="flex flex-col items-center mb-40 min-h-screen">
+    <form
+      class="bg-white flex flex-col gap-7 p-10 w-1/2 mb-10 mt-20"
+      (ngSubmit)="submitPostForm()"
+      [formGroup]="postForm">
+      <h1 class="text-center text-indigo-500 font-bold text-3xl tracking-wide">Create Post</h1>
 
-  <div 
-    class="w-screen lg:w-1/2"
-    *ngIf="isImage || isVideo">
-    <h3 class="font-bold">Preview:</h3>
-    <ng-container *ngIf="isImage">
-      <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
-        <ngx-dropzone-label></ngx-dropzone-label>
-      </ngx-dropzone-image-preview>
-    </ng-container>
-    <ng-container *ngIf="isVideo">
-      <ngx-dropzone-video-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
-        <ngx-dropzone-label></ngx-dropzone-label>
-      </ngx-dropzone-video-preview>
-    </ng-container>
-  </div>
+      <mat-form-field class="">
+        <mat-label>What's on your mind?</mat-label>
+        <textarea
+          matInput
+          formControlName="message"
+          ></textarea>
+        <mat-chip-set
+          *ngIf="tags.length > 0"
+          aria-label="tags">
+          <div class="flex items-baseline flex-wrap">
+            <small>Tags:</small>
+            <mat-chip
+              *ngFor="let tag of tags"
+              [style.background-color]="'#ff3f80'">
+              {{ tag.slice(1) }}
+            </mat-chip>
+          </div>
+        </mat-chip-set>
+      </mat-form-field>
 
-  <div class="w-screen lg:w-1/2">
-    <div class="text-center"
-      *ngIf="shortLink">
-      <h2> Visit Here</h2>
-      <a href="{{shortLink}}" target="_blank">{{shortLink}}</a>
-    </div>
-  </div>
-  
-  <div class="flex mt-8 w-screen lg:w-1/2">
-    <button
-      class="ml-auto mr-auto w-screen lg:w-1/2"
-      mat-flat-button color="primary"
-      (click)="onUpload()">Post</button>
+      <div class="media-drop">
+        <ngx-dropzone
+          (change)="onSelectFile($event)"
+          [multiple]=false
+          [maxFileSize]=fileSizeLimit>
+          <ngx-dropzone-label>Drag and drop media or <span class="border-2 rounded-full p-2">Upload</span><br /><br />Only images and videos currently supported</ngx-dropzone-label>
+          <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+        </ngx-dropzone>
+      </div>
+
+      <input
+        hidden="true"
+        formControlName="file">
+
+
+      <div
+        class="mt-4"
+        *ngIf="isImage || isVideo">
+        <h3 class="font-bold">Preview:</h3>
+        <ng-container *ngIf="isImage">
+          <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+            <ngx-dropzone-label></ngx-dropzone-label>
+          </ngx-dropzone-image-preview>
+        </ng-container>
+        <ng-container *ngIf="isVideo">
+          <ngx-dropzone-video-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+            <ngx-dropzone-label></ngx-dropzone-label>
+          </ngx-dropzone-video-preview>
+        </ng-container>
+      </div>
+
+      <div class="">
+        <div class="text-center"
+          *ngIf="shortLink">
+          <h2> Visit Here</h2>
+          <a href="{{shortLink}}" target="_blank">{{shortLink}}</a>
+        </div>
+      </div>
+
+      <div class="flex mt-8">
+        <button
+          class="ml-auto mr-auto w-screen lg:w-1/2"
+          mat-flat-button color="primary"
+          (submit)="submitPostForm()"
+          [disabled]="!postForm.valid">Post</button>
+      </div>
+    </form>
   </div>
 </ng-container>

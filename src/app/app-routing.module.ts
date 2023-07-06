@@ -9,21 +9,14 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 import { RouteguardService } from './services/routeguard.service';
 
-import {ProfileComponent} from "./pages/profile/profile.component";
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
-  { path: 'posts/create', component: CreatePostComponent },
-  //{ path: 'profile', component: ProfileComponent },
-  // {path: '', component: },
-  // {path: 'register', component: },
-  // {path: 'login', component: },
-
-  //{
-  //  path: 'profile',
-  //  component: ProfileComponent,
-  //  canActivate: [RouteguardService],
-  //},
-
+  {
+    path: 'posts/create',
+    component: CreatePostComponent,
+    canActivate: [RouteguardService],
+  },
   { path: '', component: HomeComponent }, // Route for the home page
   { path: 'register', component: RegisterComponent }, // Route for the register page
   { path: 'login', component: LoginComponent }, // Route for the login page
@@ -38,7 +31,6 @@ const routes: Routes = [
     component: PostsComponent,
   },
   { path: '**', component: NotfoundComponent },
-
 ];
 
 @NgModule({
