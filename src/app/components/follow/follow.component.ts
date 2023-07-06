@@ -1,7 +1,5 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
-import { PostRes } from 'src/app/models/post/post';
-import { ProfilePayload } from 'src/app/models/profile-payload';
 import { FollowService } from 'src/app/services/follow/follow.service';
 
 
@@ -23,6 +21,8 @@ type FollowSubject = {
   styleUrls: ['./follow.component.css'],
 })
 export class FollowComponent {
+  constructor(private followService: FollowService) {}
+
   // assign the view type to display
   @Input() viewTemplate!: View;
 
@@ -33,34 +33,40 @@ export class FollowComponent {
   // boolean variable used for toggling follow and unfollow actions
   isFollowing: boolean = false;
 
-  constructor(private followService: FollowService) {}
-
   // follow handler for follow and unfollow actions
   followHandler(followSubject: FollowSubject): void {
 
     // if not following, handle follow request
     if (!this.isFollowing) {
 
-      this.followService.httpFollow("phouFollower001").subscribe({      
-      // this.followService.httpFollow(followSubject.followedUsername).subscribe({
+      // this.followService.httpFollow("phouFollower001").subscribe({      
+      this.followService.httpFollow(followSubject.followedUsername).subscribe({
         next: (res: HttpResponse<any>) => {
-          this.isFollowing = !this.isFollowing;
+          console.log("following ...")
         },
-        error: (err) => console.log(err.message)
+        error: (err) => {
+          // todo add failure message notification when placement is more clear
+          console.log(err.error.message)
+        },
+        complete: () => null
       });
     } 
-
     // if following, handle unfollow request
     if (this.isFollowing) {
       
-      this.followService.httpUnfollow("phouFollower001").subscribe({
-      // this.followService.httpUnfollow(followSubject.followedUsername).subscribe({
+      // this.followService.httpUnfollow("phouFollower001").subscribe({
+      this.followService.httpUnfollow(followSubject.followedUsername).subscribe({
         next: (res: HttpResponse<any>) => {
-          this.isFollowing = !this.isFollowing;
+          console.log("unfollowing ...")
         },
-        error: (err) => console.log(err.message)
+        error: (err) => {
+          // todo add failure message notification when placement is more clear
+          console.log(err.error.message)
+        },
+        complete: () => null
       });
     }
+    this.isFollowing = !this.isFollowing;
   }
 
 }

@@ -9,10 +9,10 @@ import { TokenService } from '../tokenservice.service';
   providedIn: 'root'
 })
 export class FollowService {
+  constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
+
   baseUrl = AppSettings.API_URL;
   authHeader!: HttpHeaders;
-
-  constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
 
   // should have a method like this implmented in authService
   getHttpAuthHeader() : HttpHeaders {
