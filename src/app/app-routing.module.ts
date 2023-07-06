@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PostsComponent } from './pages/posts/posts.component';
+import { PostsComponent } from './components/posts/posts.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -9,7 +9,7 @@ import { NotfoundComponent } from './pages/notfound/notfound.component';
 
 import { RouteguardService } from './services/routeguard.service';
 
-import {ProfileComponent} from "./pages/profile/profile.component";
+import { ProfileComponent } from './pages/profile/profile.component';
 
 const routes: Routes = [
   { path: 'posts/create', component: CreatePostComponent },
@@ -38,7 +38,6 @@ const routes: Routes = [
     component: PostsComponent,
   },
   { path: '**', component: NotfoundComponent },
-
 ];
 
 @NgModule({
