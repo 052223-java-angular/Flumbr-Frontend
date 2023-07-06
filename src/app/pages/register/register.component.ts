@@ -101,7 +101,12 @@ export class RegisterComponent {
       });
       return true;
     } else {
-      alert('Form is Invalid');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Registration form is invalid!',
+        life: AppSettings.DEFAULT_MESSAGE_LIFE,
+      });
       return false;
     }
   }

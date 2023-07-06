@@ -54,7 +54,10 @@
       </div>
 
       <div class="flex justify-center mt-6">
-        <button mat-raised-button color="primary" type="submit">Submit</button>
+        <button mat-raised-button 
+          color="primary"
+          type="submit" 
+          [disabled]="!registrationForm.valid">Submit</button>
       </div>
 
       <div class="flex justify-center text-indigo-500 mt-6"  style="font-weight: bold; font-size: 17px;">

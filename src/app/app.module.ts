@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
-import { PostsComponent } from './pages/posts/posts.component';
-import { PostComponent } from './components/post/post.component';
+import { PostsContainerComponent } from './components/posts/posts-container/posts-container.component';
+import { PostComponent } from './components/posts/post/post.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -38,7 +38,13 @@ import { FollowComponent } from './components/follow/follow.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
+import { MatChipsModule } from '@angular/material/chips';
+import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
 
+import { MatTabsModule } from '@angular/material/tabs';
+import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
+import { PostListComponent } from './components/posts/post-list/post-list.component';
+import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +54,9 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
     NotificationTypeComponent,
     NavbarComponent,
     NotfoundComponent,
-    PostsComponent,
+    PostsContainerComponent,
     PostComponent,
+    PostListComponent,
     NotificationPanelComponent,
     NotificationMessageComponent,
     FollowComponent,
@@ -57,6 +64,9 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
     CreatePostComponent,
     RegisterComponent,
     LoginComponent,
+    ThemeSwitcherComponent,
+    ViewPostsComponent,
+    TrendingPostsComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,6 +100,8 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
     MatTooltipModule,
     MatMenuModule,
     ToastModule,
+    MatChipsModule,
+    MatTabsModule,
   ],
   providers: [
     RouteguardService,
