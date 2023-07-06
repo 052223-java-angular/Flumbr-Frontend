@@ -48,7 +48,7 @@ $theme-two: mat.define-light-theme((
     accent: $my-primary,
     warn: $my-warn,
   ),
-  typography: mat.define-typography-config(),
+  typography: mat.define-typography-config($font-family: 'Comic Sans',),
   density: 0,
 )
 );
