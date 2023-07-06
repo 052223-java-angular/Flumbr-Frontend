@@ -10,10 +10,10 @@ import { AppSettings } from '../../global/app-settings';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  hide: boolean = true; // controls if the user wants to see what they typed
+  protected hide: boolean = true; // controls if the user wants to see what they typed
   loginForm!: FormGroup;
 
   // need get toaster

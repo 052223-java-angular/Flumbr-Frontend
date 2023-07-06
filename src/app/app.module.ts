@@ -37,6 +37,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 import { MatChipsModule } from '@angular/material/chips';
+import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MatChipsModule } from '@angular/material/chips';
     CreatePostComponent,
     RegisterComponent,
     LoginComponent,
+    ThemeSwitcherComponent,
   ],
   imports: [
     BrowserModule,

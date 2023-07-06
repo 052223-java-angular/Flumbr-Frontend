@@ -1,0 +1,27 @@
+@import './assets/scss/themes.scss';
+//importing it not sure if it will be good in the long run or best practice
+//@import "src/app/pages/login/login.component";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* You can add global styles to this file,
+and also import other style files */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+//Option #2: show ruben for a reason the styling has only been working back here
+//with an id im able to target specific elements
+//this method only works when importing from the login component because it is targeting a login element id
+//#test {
+//  .mdc-text-field--filled:not(.mdc-text-field--disabled)
+//  {
+//  background-color: red;
+//  }
+//}
+//
