@@ -73,7 +73,7 @@
         <button
           class="ml-auto mr-auto w-screen lg:w-1/2"
           mat-flat-button color="primary"
-          (click)="onUpload()"
+          (submit)="submitPostForm()"
           [disabled]="!postForm.valid">Post</button>
       </div>
     </form>

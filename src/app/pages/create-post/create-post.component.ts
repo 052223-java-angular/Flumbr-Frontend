@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { AppSettings } from 'src/app/global/app-settings';
 import { FileUploadService } from 'src/app/services/file-upload.service';
+import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
   selector: 'app-create-post',
@@ -19,7 +22,9 @@ export class CreatePostComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    private messageService: MessageService,
+    private postService: PostService
   ) {}
 
   atLeastOneValidator = (keys: string[]) => {
@@ -68,7 +73,6 @@ export class CreatePostComponent implements OnInit {
     }
     if (this.files.length > 0) {
       const file = this.files[0];
-      console.log(file);
       this.postForm.patchValue({
         file: file,
       });
@@ -108,5 +112,39 @@ export class CreatePostComponent implements OnInit {
     }
   }
 
-  submitPostForm() {}
+  submitPostForm() {
+    let formData = new FormData();
+
+    const message = this.postForm.controls['message'].value;
+    if (message) {
+      formData.append('message', message);
+    }
+
+    const file = this.postForm.controls['file'].value;
+    if (file) {
+      formData.append('file', file, file.name);
+      formData.append('mediaType', file['type']);
+    }
+
+    this.postService.createPost(formData).subscribe({
+      next: (/* value */) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Post created',
+          life: AppSettings.DEFAULT_MESSAGE_LIFE,
+        });
+        this.postForm.reset();
+        // navigate to post detail screen
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error.message || 'Error',
+          life: AppSettings.DEFAULT_MESSAGE_LIFE,
+        });
+      },
+    });
+  }
 }
