@@ -129,6 +129,10 @@ export class CreatePostComponent implements OnInit {
     if (file) {
       formData.append('file', file, file.name);
       formData.append('mediaType', file['type']);
+    } else {
+      if (message) {
+        formData.append('mediaType', 'text');
+      }
     }
 
     this.postService
