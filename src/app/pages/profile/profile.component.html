@@ -1,8 +1,8 @@
 <div class="space-y-5 flex-row m-20" xmlns="http://www.w3.org/1999/html">
 
-  <div>
-    <mat-card class="flex p-5">
+  <div *ngIf="profile">
 
+    <mat-card class="flex p-5">
 
         <mat-card-header class="flex-row p-4 space-y-10">
           <mat-card-title-group>
@@ -52,6 +52,16 @@
 
           <!-- Button for user to start/stop modifying bio -->
           <button (click)="modifyProfileBio()" class="px-4 py-4 bg-orange-500">Modify Profile?</button>
+        
+          <!-- follow / unfollow  -->
+          <!-- {{profile | json}} -->
+          <app-follow 
+            viewTemplate="iconView" 
+            [followIdentity]="{
+              loggedInUserId: 'this should be the logged in user id', 
+              followedUserId: profile.id, 
+              followedUsername: profile.username}"></app-follow>
+
         </div>
 
 
