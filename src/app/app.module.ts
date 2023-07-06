@@ -36,6 +36,7 @@ import { FollowComponent } from './components/follow/follow.component';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { AuthInterceptorService } from './services/auth/auth-interceptor.service
     MatTooltipModule,
     MatMenuModule,
     ToastModule,
+    MatChipsModule,
   ],
   providers: [
     RouteguardService,
