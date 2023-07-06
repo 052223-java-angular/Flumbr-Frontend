@@ -1,38 +1,40 @@
 <app-notification-panel></app-notification-panel>
-<div class="space-y-5 flex-row m-20" xmlns="http://www.w3.org/1999/html">
 
-  <!-- Button for user to start/stop modifying bio -->
-  <button mat-raised-button color="primary"  (click)="modifyProfileBio()">Modify Profile?</button>
+<div id="{{theme}}" class="{{theme}} space-y-5 flex-row" xmlns="http://www.w3.org/1999/html">
 
-  <mat-form-field *ngIf="modifyBio">
-    <mat-label>Select a theme</mat-label>
-    <mat-select>
-      <mat-option value="option1">Theme One</mat-option>
-      <mat-option value="option2">Theme Two</mat-option>
-      <mat-option value="option3">Theme Three</mat-option>
-      <mat-option value="option2">Theme Four</mat-option>
-      <mat-option value="option3">Theme Five</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="m-32 mt-0 space-y-5">
+    <!-- Button for user to start/stop modifying bio -->
+    <button mat-raised-button color="primary"  (click)="modifyProfileBio()">Modify Profile?</button>
 
-  <button (click)="followToggle()" *ngIf="follow == false" mat-fab color="none" aria-label="follow">
-    <mat-icon>perm_identity</mat-icon>
-  </button>
+    <mat-form-field *ngIf="modifyBio">
+      <mat-label>Select a theme</mat-label>
+      <mat-select>
+        <mat-option (click)="selectTheme('theme-one')" value="theme-one">Theme One</mat-option>
+        <mat-option (click)="selectTheme('theme-two')" value="theme-two">Theme Two</mat-option>
+        <mat-option (click)="selectTheme('theme-three')" value="theme-three">Theme Three</mat-option>
+        <mat-option (click)="selectTheme('theme-four')" value="theme-four">Theme Four</mat-option>
+        <mat-option (click)="selectTheme('theme-five') "value="theme-five">Theme Five</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <button (click)="followToggle()" *ngIf="follow" mat-fab color="primary" aria-label="Already follow">
-    <mat-icon>how_to_reg</mat-icon>
-  </button>
+    <button (click)="followToggle()" *ngIf="follow == false" mat-fab color="none" aria-label="follow">
+      <mat-icon>perm_identity</mat-icon>
+    </button>
 
+    <button (click)="followToggle()" *ngIf="follow" mat-fab color="primary" aria-label="Already follow">
+      <mat-icon>how_to_reg</mat-icon>
+    </button>
 
-  <div>
-    <mat-card  class="flex p-5 bg-cyan-600">
+    <div class="space-y-5">
+      <mat-card  class="flex items-center justify-center  rounded-b-md">
         <mat-card-header class="flex-row p-4 space-y-10">
           <mat-card-title-group>
-            <mat-card-title class="text-9xl">{{profile.username}}</mat-card-title>
-            <mat-card>
-              <img mat-card-image src="{{profile.profile_img}}" class="object-contain">
+            <mat-card-title class="w-1/3 text-9xl">{{profile.username}}</mat-card-title>
 
-              <div *ngIf="modifyBio && !isImage" class="w-1/2">
+            <mat-card>
+              <img mat-card-image src="{{profile.profile_img}}" class="object-contain w-1/3">
+
+              <div *ngIf="modifyBio && !isImage" class="">
                 <ngx-dropzone (change)="onSetImage($event)" [multiple]=false>
                   <ngx-dropzone-label>Drag and drop media or <span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
                   <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
@@ -71,19 +73,12 @@
               <button mat-raised-button color="accent" type="submit"> Submit bio</button>
             </form>
           </div>
-
-
-
         </div>
-
-
-    </mat-card>
-  </div>
-
-  <ul *ngIf="posts">
-    <li *ngFor="let post of posts" class="pb-5">
-      <app-post [post]="post"></app-post>
-    </li>
-  </ul>
+      </mat-card>
+    </div>
+    <app-posts></app-posts>
 
   </div>
+
+
+</div>

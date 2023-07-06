@@ -1,4 +1,6 @@
 @import "src/assets/scss/profile-theme.scss";
+@import "src/assets/scss/palette-switcher.scss";
+
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -13,6 +15,7 @@ and also import other style files * html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;

@@ -1,0 +1,22 @@
+@function modify-theme($theme, $outerProperty, $innerProperty, $property, $value) {
+
+  // $theme[$outerProperty[$innerProperty[$property]]] = $value
+  // example: theme -> color -> background -> dialog: $value
+
+  $theme-color: map-get($theme, $outerProperty);
+  $color-background-palette: map-get($theme-color, $innerProperty);
+  $color-background-palette: map-merge($color-background-palette, ($property: $value));
+
+  // Material themes have the same info duplicated for compatibility. Here we duplicate the theme change
+  // $theme -> $innerProperty -> { $property: $value }
+  // theme -> background -> dialog: $value
+  $background-palette: map-get($theme, $innerProperty);
+  $background-palette: map-merge($background-palette, ($property: $value));
+
+  // Merge the changes into a new theme.
+  $modified-theme-color: map-merge($theme-color, ($innerProperty: $color-background-palette));
+  $modified-theme: map-merge($theme, ($outerProperty: $modified-theme-color));
+  $modified-theme: map-merge($modified-theme, ($innerProperty: $background-palette));
+
+  @return $modified-theme;
+}

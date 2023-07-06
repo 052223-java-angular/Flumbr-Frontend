@@ -1,0 +1,9 @@
+::ng-deep #theme-one{
+  background-color: darkslategray;
+}
+
+::ng-deep #theme-two{
+  background-color: crimson;
+}
+
+

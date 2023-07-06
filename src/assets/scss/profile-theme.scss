@@ -1,4 +1,7 @@
 @use '@angular/material' as mat;
+@use 'src/assets/scss/palette-switcher';
+
+
 
 //@import "theming";
 
@@ -10,6 +13,8 @@ $my-palette: mat.$indigo-palette;
 $my-primary: mat.define-palette(mat.$indigo-palette, 500);
 $my-accent: mat.define-palette(mat.$pink-palette, 800);
 $my-warn: mat.define-palette(mat.$red-palette,800);
+
+$background-color: map_get(mat.$blue-grey-palette, 50);
 
 $my-theme: mat.define-light-theme((
   color: (
@@ -24,6 +29,7 @@ $my-theme: mat.define-light-theme((
 @include mat.core-theme($my-theme);
 
 $theme-one: mat.define-light-theme((
+
   color: (
     primary: $my-primary,
     accent: $my-accent,
@@ -34,7 +40,9 @@ $theme-one: mat.define-light-theme((
   )
 );
 
+
 $theme-two: mat.define-light-theme((
+
   color: (
     primary: $my-accent,
     accent: $my-primary,
@@ -45,6 +53,63 @@ $theme-two: mat.define-light-theme((
 )
 );
 
-// pass through
+
+$theme-three: mat.define-light-theme((
+
+  color: (
+    primary: $my-accent,
+    accent: $my-primary,
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+)
+);
+
+
 
 @include mat.all-component-themes($theme-one);
+
+.theme-two {
+  @include mat.all-component-colors($theme-two);
+
+  #test {
+    background-color: crimson !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: darkred !important;
+  }
+
+  mat-card-title-group.mat-mdc-card-title-group {
+    background-color: blue !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: purple !important
+  }
+
+
+}
+
+.theme-one {
+  @include mat.all-component-colors($theme-one);
+
+  ::ng-deep #test {
+    background-color: indigo !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: #435B66 !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #2D4356 !important
+  }
+
+
+}
+
+
+
+
