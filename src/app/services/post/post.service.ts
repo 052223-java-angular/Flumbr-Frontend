@@ -1,11 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { AppSettings } from 'src/app/global/app-settings';
 import { PostRes } from 'src/app/models/post/post';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
+  baseUrl = AppSettings.API_URL;
+
   posts: Array<PostRes> = [
     {
       id: '1',
@@ -55,20 +59,22 @@ export class PostService {
     },
   ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getPosts(): Observable<Array<PostRes>> {
     return of(this.posts);
   }
 
-  deletePostById(id:string)
-  {
-     this.posts.map((post) => {
-        if(post.id === id)
-        {
-           this.posts.splice(this.posts.indexOf(post), 1);
-        }
-        return post;
-     })
+  deletePostById(id: string) {
+    this.posts.map((post) => {
+      if (post.id === id) {
+        this.posts.splice(this.posts.indexOf(post), 1);
+      }
+      return post;
+    });
+  }
+
+  createPost(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/posts/create`, formData);
   }
 }

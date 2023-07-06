@@ -4,8 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { TokenService } from '../../services/tokenservice.service';
 import { LoginPayload } from '../../models/login-payload';
 import { Router } from '@angular/router';
-import {MessageService} from "primeng/api";
-import {AppSettings} from "../../global/app-settings";
+import { MessageService } from 'primeng/api';
+import { AppSettings } from '../../global/app-settings';
 
 @Component({
   selector: 'app-login',
@@ -49,10 +49,9 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(payload).subscribe({
       next: (result) => {
-        this.tokenService.saveUser(result)
-        this.tokenService.saveToken(result.token)
+        this.tokenService.saveUser(result);
+        this.tokenService.saveToken(result.token);
         //this.tokenService.saveRefreshToken(result.token)
-        console.log("success")
         //Add toaster
         this.loginForm.reset();
         this.messageService.add({
@@ -61,7 +60,7 @@ export class LoginComponent implements OnInit {
           detail: 'Login successful',
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
-        //this.router.navigate(['']);
+        this.router.navigate(['/posts/create']);
       },
       error: (error) => {
         console.log(error.message);

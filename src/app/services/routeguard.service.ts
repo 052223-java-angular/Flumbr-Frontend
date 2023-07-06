@@ -21,6 +21,7 @@ export class RouteguardService {
     if (!user.id) {
       this.tokenService.signOut();
       this.router.navigate(['/login']);
+      return false;
     }
 
     return true;
