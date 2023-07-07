@@ -1,5 +1,5 @@
 ::ng-deep mat-tab-header.mat-mdc-tab-header {
-  @apply sticky top-0 z-50 bg-purple-600;
+  @apply sticky top-0 z-50 bg-purple-600 rounded-sm;
 }
 ::ng-deep mat-tab-group.mat-mdc-tab-group {
   --mat-tab-header-active-label-text-color: #fff;

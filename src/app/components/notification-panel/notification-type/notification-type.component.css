@@ -23,5 +23,5 @@
 }
 
 .icon-badge {
-  @apply absolute right-1 -top-1 z-10 shadow-md;
+  @apply absolute right-1 -top-1 z-50 shadow-md;
 }

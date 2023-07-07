@@ -1,4 +1,32 @@
-<button mat-menu-item *ngIf="post.following" (click)="unFollowUser(post.userId)"><span
-    class="font-medium text-slate-950">Unfollow</span></button>
-<button mat-menu-item *ngIf="!post.following" (click)="followUser(post.userId)"><span
-    class="font-medium text-slate-950">Follow</span></button>
+<!-- this is for displaying the follow action buttons in text view -->
+<ng-container *ngIf="viewTemplate == 'textView' ">
+
+    <button mat-menu-item *ngIf="!isFollowing; else unfollow" (click)="followHandler(followIdentity)">
+        <span class="font-medium text-slate-950">Follow</span>
+    </button>
+
+    <ng-template #unfollow>
+        <button mat-menu-item (click)="followHandler(followIdentity)">
+            <span class="font-medium text-slate-950">Unfollow</span>
+        </button>
+    </ng-template>
+
+</ng-container>
+
+<!-- this is for displaying the follow action buttons in icon view -->
+<ng-container *ngIf="viewTemplate == 'iconView' ">
+
+    <button *ngIf="!isFollowing; else unfollow" (click)="followHandler(followIdentity)" mat-fab color="none" aria-label="follow">
+        <mat-icon  >perm_identity</mat-icon>
+    </button>
+
+    <ng-template #unfollow>
+        <button (click)="followHandler(followIdentity)" mat-fab color="primary" aria-label="Already follow">
+            <mat-icon #follow >how_to_reg</mat-icon>
+        </button>
+    </ng-template>
+
+</ng-container>
+
+<!-- for debugging -->
+<!-- {{followIdentity | json}} -->
