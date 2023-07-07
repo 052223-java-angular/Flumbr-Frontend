@@ -3,7 +3,7 @@
 }
 
 .icon-menu {
-  @apply fixed top-[2rem] right-5;
+  @apply fixed top-[1.9rem] right-6;
 }
 
 .notification-container {
