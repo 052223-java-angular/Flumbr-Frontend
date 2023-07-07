@@ -3,14 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { Notification } from '../../models/notification/notification';
 import { NotificationType } from '../../models/notification/notification-type';
+import { AppSettings } from 'src/app/global/app-settings';
+import { TokenService } from '../tokenservice.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  messagePanelIsEmpty = new Subject<boolean>();
+  constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
 
-  constructor(private httpClient: HttpClient) { }
+  private baseUrl = AppSettings.API_URL;
+  messagePanelIsEmpty = new Subject<boolean>();
 
   // notifies subscribers the message panel list is emoty
   raiseMessagePanelIsEmpty(isEmpty: boolean) : void {
@@ -19,6 +22,9 @@ export class NotificationService {
 
   // fetch notifications
   fetchNotifications() : Observable<Notification[]> {
+    // return this.httpClient
+    //   .get<Notification[]>(`${this.baseUrl}/notifications/all/${(this.tokenService.getUser()).id}`);
+    
     return this.httpClient.get<Notification[]>("/assets/notifications/notifications.json");
   }
 
