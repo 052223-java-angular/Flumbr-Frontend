@@ -1,14 +1,19 @@
-<div class="flex justify-center w-full bg-indigo-700">
-  <div class="w-full max-w-[500px]">
+<div class="flex justify-center gap-5 py-10 px-5 w-full bg-indigo-700">
+  <div class="flex flex-col gap-5 w-full max-w-[500px]">
     <div
-      class="flex justify-center items-center gap-3 mt-10 mb-5 p-5 border-4 border-dashed border-emerald-300 text-white ease-in-out duration-200 cursor-pointer hover:bg-indigo-800"
+      class="flex justify-center items-center gap-3 p-5 border-4 border-dashed border-emerald-300 text-white ease-in-out duration-200 cursor-pointer hover:bg-indigo-800"
       routerLink="/posts/create">
       <h1 class="m-0 font-medium">Create New Post</h1>
       <mat-icon class="text-white scale-125">add_circle_outline</mat-icon>
     </div>
     <app-posts-container></app-posts-container>
   </div>
-  <div>
+  <div class="hidden flex-col gap-5 w-full max-w-[300px] lg:flex">
+    <div class="bg-black w-full h-[400px] ">
 
+    </div>
+    <div class="bg-orange-500 w-full h-[200px]">
+
+    </div>
   </div>
 </div>
