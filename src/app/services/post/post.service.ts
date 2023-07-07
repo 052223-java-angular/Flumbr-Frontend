@@ -111,7 +111,7 @@ export class PostService {
 
      return this.http.get<PostRes>(url);
   }
-
+ 
   getTrendingByDate(fromDate:Date, userId:string): Observable<Array<PostRes>>
   {
       
@@ -120,8 +120,26 @@ export class PostService {
       return this.http.get<Array<PostRes>>(url);
   }
   
+  deletePost(postId:string):Observable<string>
+  {
+      let url:string = environment.apiBaseUrl + "/id/{{postId}}"
+
+      return this.http.delete<string>(url);
+  }
+
+
+  updatePost(postId:string):Observable<any>
+  {
+     let url:string = environment.apiBaseUrl += "/id/{{postId}}";
+      return this.http.put<any>(url, null);
+
+  }
+
+
 
   createPost(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/posts/create`, formData);
   }
+
+
 }
