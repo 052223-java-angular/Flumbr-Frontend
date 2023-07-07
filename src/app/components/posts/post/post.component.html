@@ -59,7 +59,21 @@
       <mat-icon class="icon" matTooltip="Share" matTooltipClass="tooltip" matTooltipPosition="above"
         (click)="sharePost()">share</mat-icon>
       <mat-icon class="icon" matTooltip="Comment" matTooltipClass="tooltip" matTooltipPosition="above"
-        (click)="openChat()">chat</mat-icon>
+        (click)="toggleChat()">chat</mat-icon>
     </div>
   </mat-card-actions>
+  <div *ngIf="isChatOpen">
+    <mat-divider></mat-divider>
+    <ul class="flex flex-col p-4 gap-3">
+      <li class="flex gap-3" *ngFor="let comment of post.comments">
+        <div mat-card-avatar class="m-0 bg-cover"
+          style="background-image: url('https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80');">
+        </div>
+        <div class="flex flex-col gap-2 p-2 border-[1px] border-solid border-slate-700 rounded-lg">
+          <p class="m-0 font-semibold">{{comment.username}}</p>
+          <p class="m-0">{{comment.comment}}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
 </mat-card>
