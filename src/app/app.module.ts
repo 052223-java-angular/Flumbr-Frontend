@@ -35,6 +35,8 @@ import { NotificationMessageComponent } from './components/notification-panel/no
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { FollowComponent } from './components/follow/follow.component';
+import { ProfileSelectorComponent } from './components/profile-selector/profile-selector.component';
+import { MatSelectModule } from '@angular/material/select';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
@@ -45,7 +47,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
 import { PostListComponent } from './components/posts/post-list/post-list.component';
 import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
-import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-user.component';
 
 @NgModule({
   declarations: [
@@ -65,10 +66,10 @@ import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-
     CreatePostComponent,
     RegisterComponent,
     LoginComponent,
+    ProfileSelectorComponent,
     ThemeSwitcherComponent,
     ViewPostsComponent,
     TrendingPostsComponent,
-    PostsByUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +102,7 @@ import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-
     HttpClientModule,
     MatTooltipModule,
     MatMenuModule,
+    MatSelectModule,
     ToastModule,
     MatChipsModule,
     MatTabsModule,
