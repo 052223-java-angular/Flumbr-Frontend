@@ -6,6 +6,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {BioPayload} from "../../models/bio-payload";
 import {PostService} from "../../services/post/post.service";
 import {PostRes} from "../../models/post/post";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,7 @@ import {PostRes} from "../../models/post/post";
 })
 export class ProfileComponent {
   profile!: ProfilePayload;
+  user_id!: any;
   modifyBio: boolean = false;
   follow: boolean = false;
   posts!: Array<PostRes>;
@@ -33,12 +35,16 @@ export class ProfileComponent {
   tags: TagPayload[] = [];
 
   constructor(private profileService: ProfileService,
-              private postService: PostService) { }
+              private postService: PostService,
+              private route: ActivatedRoute) {
 
-  // Retrieve profile information
+    this.user_id = this.route.snapshot.params['userId']
+  }
+
+  // Retrieve profile information of user
   ngOnInit () {
 
-    this.profileService.getUserTest().subscribe( {
+    this.profileService.getUserTest(this.user_id).subscribe( {
 
       next: (resp: any) => {
         this.profile = resp;
@@ -54,12 +60,7 @@ export class ProfileComponent {
 
   // boolean toggle for modifying bio
   modifyProfileBio() {
-
-    if (this.modifyBio == false) {
-      this.modifyBio = true;
-    } else {
-      this.modifyBio = false;
-    }
+    this.modifyBio = !this.modifyBio;
     console.log("toggle modifying bio to: " + this.modifyBio)
   }
 
@@ -69,6 +70,7 @@ export class ProfileComponent {
       console.log("bio form not set")
     }
 
+    //
     const payload: BioPayload = {
       bio: this.changeBioForm.controls.bio.value!
     }
@@ -126,15 +128,6 @@ export class ProfileComponent {
   // run this after initial data gather: use if dependent on get profiles
   ngAfterInit() {
 
-    this.postService.getPosts().subscribe({
-      next: (res) => {
-        this.posts = res;
-        console.log("Posts hit on profile: " + res);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
   }
 
 }

@@ -6,3 +6,4 @@ export class AppSettings {
   public static BYTES_PER_MEGABYTE = 1048576;
   public static CREATE_POST_SIZE_LIMIT = 128 * this.BYTES_PER_MEGABYTE;
 }
+

@@ -10,10 +10,7 @@ import { TagPayload} from "../models/tag-payload";
 export class ProfileService {
 
   jsonAsset: string = "assets/profile.json"
-
   profile!: ProfilePayload;
-
-
   baseUrl = "Testing URL";
 
   // Constructor for profile service

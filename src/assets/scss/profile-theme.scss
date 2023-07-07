@@ -18,7 +18,7 @@ $my-theme: mat.define-light-theme((
     accent: $my-accent,
     warn: $my-warn,
   ),
-  typography: mat.define-typography-config(),
+  typography: $typography-val,
   density: 0,
 ));
 
@@ -57,7 +57,7 @@ $theme-three: mat.define-light-theme((
     accent: mat.define-palette(mat.$amber-palette, 400),
     warn: $my-warn,
   ),
-  typography: mat.define-typography-config(),
+  typography: $typography-val,
   density: 0,
 )
 );
@@ -69,7 +69,7 @@ $theme-four: mat.define-light-theme((
     accent: mat.define-palette(mat.$cyan-palette, 400),
     warn: $my-warn,
   ),
-
+  typography: $typography-val,
   density: 0,
 )
 );
@@ -81,7 +81,7 @@ $theme-five: mat.define-light-theme((
     accent: mat.define-palette(mat.$pink-palette, 400),
     warn: $my-warn,
   ),
-  typography: mat.define-typography-config(),
+  typography: $typography-val,
   density: 0,
 )
 );
@@ -93,10 +93,6 @@ $theme-five: mat.define-light-theme((
 // indigo
 .theme-one {
   @include mat.all-component-colors($theme-two);
-
-  ::ng-deep #theme-one {
-    background-color: indigo !important;
-  }
 
   mat-card.mat-mdc-card {
     background-color: #4FC0D0 !important;
@@ -137,7 +133,7 @@ $theme-five: mat.define-light-theme((
   }
 
   mat-card-header.mat-mdc-card-header {
-    background-color: #F24C3D !important
+    background-color: #E57C23 !important
   }
 }
 

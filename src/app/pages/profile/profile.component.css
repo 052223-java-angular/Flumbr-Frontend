@@ -1,5 +1,11 @@
 ::ng-deep #theme-one{
-  background-color: #116A7B ;
+  background-color: #116A7B !important;
+
+}
+
+
+::ng-deep mat-tab-header.mat-mdc-tab-header {
+  @apply sticky top-0 z-50 bg-purple-600;
 }
 
 ::ng-deep #theme-two{
@@ -7,7 +13,7 @@
 }
 
 ::ng-deep #theme-three{
-  background-color: #E55807;
+  background-color: #F24C3D;
 }
 
 

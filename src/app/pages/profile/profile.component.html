@@ -1,6 +1,6 @@
 <app-notification-panel></app-notification-panel>
 
-<div id="{{theme}}" class="{{theme}} space-y-5 flex-row" xmlns="http://www.w3.org/1999/html">
+<div id="{{theme}}" class="{{theme}} space-y-5 flex-row">
 
   <div class="m-32 mt-0 space-y-5">
     <!-- Button for user to start/stop modifying bio -->
@@ -79,7 +79,10 @@
         </div>
       </mat-card>
     </div>
-    <app-trending-posts></app-trending-posts>
+    <div class="w-full items-center justify-center">
+      <app-posts-container></app-posts-container>
+    </div>
+
 
   </div>
 
