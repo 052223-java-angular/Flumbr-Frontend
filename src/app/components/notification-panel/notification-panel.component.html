@@ -4,9 +4,13 @@ modify or move this wrapper tag to correct position according to layout requirem
 
   <!-- Do not change layout  -->
   <ng-container *ngIf="notifications$ | async as notifications">
-    <div class="fixed top-8 right-4">
+    <div class="fixed top-[3.25rem] right-4 icon-animate">
       <mat-icon (click)="expandNotificationMenu()" class="scale-[1.65]">
-        alarm
+        <!-- add_alert -->
+        <!-- notification_important -->
+        <!-- notifications_none -->
+        notifications_active
+        <!-- notifications -->
       </mat-icon>  
       <div  
         [matBadge]="notifications.length"

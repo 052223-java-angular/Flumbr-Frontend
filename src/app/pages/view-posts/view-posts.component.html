@@ -1,3 +1,55 @@
-<div class="flex flex-grow justify-center w-full bg-indigo-700">
-  <app-posts-container></app-posts-container>
+<div class="flex justify-center gap-5 py-10 px-5 w-full bg-indigo-700">
+  <!-- Main -->
+  <div class="flex flex-col gap-5 w-full max-w-[540px]">
+    <!-- Create post button -->
+    <div
+      class="flex justify-center items-center gap-3 p-5 border-4 border-dashed border-emerald-300 text-white ease-in-out duration-200 cursor-pointer hover:bg-indigo-800"
+      routerLink="/posts/create">
+      <h1 class="m-0 font-medium">Create New Post</h1>
+      <mat-icon class="text-white scale-125">add_circle_outline</mat-icon>
+    </div>
+
+    <!-- Search bar visible on smaller screens -->
+    <form class="searchbar lg:hidden">
+      <div
+        class="searchbar-container transition-all ease-in-out duration-200 flex gap-2 pl-3 py-2 pr-1 bg-purple-600 rounded-sm">
+        <mat-icon class="searchbar-icon text-white/80">search</mat-icon>
+        <input class="searchbar-input flex-grow text-white/80 bg-transparent outline-none placeholder:text-white/80"
+          type="text" placeholder="Search Flumblr">
+      </div>
+    </form>
+
+    <!-- Post tabs w/ post lists -->
+    <app-posts-container></app-posts-container>
+  </div>
+
+  <!-- Sidebar visible on larger screens -->
+  <div class="hidden flex-col gap-5 w-full max-w-[300px] lg:flex">
+    <!-- Search bar -->
+    <form class="searchbar">
+      <div
+        class="searchbar-container transition-all ease-in-out duration-200 flex gap-2 pl-3 py-2 pr-1 bg-purple-600 rounded-sm">
+        <mat-icon class="searchbar-icon text-white/80">search</mat-icon>
+        <input class="searchbar-input flex-grow text-white/80 bg-transparent outline-none placeholder:text-white/80"
+          type="text" placeholder="Search Flumblr">
+      </div>
+    </form>
+
+    <!-- Following users-->
+    <div class="h-[400px]">
+      <h1 class="m-0 ml-4 text-white">100 Following</h1>
+      <mat-divider class="mt-2 mb-5 border-t-2 border-emerald-300"></mat-divider>
+      <ul class="flex flex-col gap-3">
+        <li class="flex justify-between items-center" *ngFor="let index of [0,1,3,4,5]">
+          <div class="flex items-center gap-3">
+            <div mat-card-avatar class="m-0 bg-cover"
+              style="background-image: url('https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80');">
+            </div>
+            <p class="m-0 text-white">FakeUser</p>
+          </div>
+          <p class="m-0 text-white">Follow</p>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

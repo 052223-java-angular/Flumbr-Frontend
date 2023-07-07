@@ -15,6 +15,7 @@ import {PostRes} from "../../models/post/post";
 export class ProfileComponent {
   profile!: ProfilePayload;
   modifyBio: boolean = false;
+  follow: boolean = false;
   posts!: Array<PostRes>;
   theme: string = "default";
 
@@ -48,7 +49,7 @@ export class ProfileComponent {
         console.log(err);
       }
     })
-    this.ngAfterInit();
+    //this.ngAfterInit();
   }
 
   // boolean toggle for modifying bio
@@ -79,7 +80,7 @@ export class ProfileComponent {
 
 
   // event when adding folder into drop down
-  onSelectImage(event: any) {
+  onSetImage(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       //this.uploadForm.get().setValue(file);
@@ -115,6 +116,10 @@ export class ProfileComponent {
   // css theme selector
   selectTheme(choice: string) {
     this.theme = choice;
+  }
+
+  followToggle() {
+    this.follow = !this.follow;
   }
 
 

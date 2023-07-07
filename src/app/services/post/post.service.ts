@@ -65,8 +65,10 @@ export class PostService {
     return of(this.posts);
   }
 
-  getTrendingPosts(): Observable<Array<PostRes>> {
-    return of(this.posts);
+  getTrendingPosts(date: string): Observable<Array<PostRes>> {
+    return this.http.get<any>(
+      `${this.baseUrl}/posts/trending/${date}/101f090d-f6c9-4c6d-8ce3-469f9bbf6e34`
+    );
   }
 
   deletePostById(id: string) {
