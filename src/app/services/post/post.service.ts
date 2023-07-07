@@ -63,10 +63,22 @@ export class PostService {
 
   constructor(private http: HttpClient) {}
 
+  // for dummy data
   getPosts(): Observable<Array<PostRes>> {
     return of(this.posts);
   }
 
+  // feed posts from db
+  getFeedPosts(page: number): Observable<Array<PostRes>> {
+    return this.http.get<any>(`${this.baseUrl}/posts/feed/${page}`);
+  }
+
+  // following posts from db
+  getFollowingPosts(page: number): Observable<Array<PostRes>> {
+    return this.http.get<any>(`${this.baseUrl}/posts/following/${page}`);
+  }
+
+  // trending posts from db
   getTrendingPosts(date: string): Observable<Array<PostRes>> {
     return this.http.get<any>(`${this.baseUrl}/posts/trending/${date}`);
   }
