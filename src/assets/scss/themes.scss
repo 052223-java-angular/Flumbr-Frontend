@@ -37,8 +37,8 @@ $dark-theme: mat.define-dark-theme(
 
 .dark-mode {
   @include mat.all-component-colors($dark-theme);
-  background-color: #3c4043; //background color is set
-  color: whitesmoke; //text-color is set
+  background-color: #3c4043!important; //background color is set
+  color: whitesmoke!important; //text-color is set
 
   //targets all form element, !important is necessary for changes to persist
   form {
@@ -46,12 +46,15 @@ $dark-theme: mat.define-dark-theme(
     color: whitesmoke !important;
   }
 
+  mat-card{
+    background-color: #3c4043 !important;
+    color: whitesmoke !important;
+  }
   //targets button with custom-button class in login and register
   .custom-button {
 
     color: whitesmoke !important;
   }
-
 
   [_nghost-ng-c2040221903] {
     background-color: #3c4043;
@@ -59,6 +62,7 @@ $dark-theme: mat.define-dark-theme(
     border: 2px dashed whitesmoke;
     border-radius: 5px;
   }
+
 }
   // Option 3: Maybe necessary when user switches to dark mode
   // show ruben when settings change to dark mode it will need to be back here

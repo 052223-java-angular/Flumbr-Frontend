@@ -47,10 +47,13 @@ export class DarkModeService {
     if (this.isDarkModeActive) {
 
       document.body.classList.add('dark-mode');
+      document.documentElement.classList.add('dark')
     }
     else {
 
       document.body.classList.remove('dark-mode');
+      document.documentElement.classList.remove('dark')
+
     }
   }
 }
