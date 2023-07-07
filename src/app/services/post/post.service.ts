@@ -71,6 +71,11 @@ export class PostService {
     return this.http.get<any>(`${this.baseUrl}/posts/feed/${page}`);
   }
 
+  // following posts from db
+  getFollowingPosts(page: number): Observable<Array<PostRes>> {
+    return this.http.get<any>(`${this.baseUrl}/posts/following/${page}`);
+  }
+
   // trending posts from db
   getTrendingPosts(date: string): Observable<Array<PostRes>> {
     return this.http.get<any>(`${this.baseUrl}/posts/trending/${date}`);

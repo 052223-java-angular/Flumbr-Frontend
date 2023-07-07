@@ -49,6 +49,7 @@ import { PostListComponent } from './components/posts/post-list/post-list.compon
 import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
 import {Environment} from "@angular/cli/lib/config/workspace-schema";
 import { FeedPostsComponent } from './components/posts/feed-posts/feed-posts.component';
+import { FollowingPostsComponent } from './components/posts/following-posts/following-posts.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { FeedPostsComponent } from './components/posts/feed-posts/feed-posts.com
     ViewPostsComponent,
     TrendingPostsComponent,
     FeedPostsComponent,
+    FollowingPostsComponent,
   ],
   imports: [
     BrowserModule,
