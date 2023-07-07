@@ -3,6 +3,7 @@
         <h1 class="font-bold text-4xl items-center"><a routerLink="/">Flumblr</a></h1>
     </ul>
     <ul class="flex gap-5 items-center">
+        <app-theme-switcher></app-theme-switcher>
         <button (click)="login()" *ngIf="!isAuthenticated()" class="bg-blue-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink="/login">Login</a></button>
         <button *ngIf="!isAuthenticated()" class="bg-green-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink="/register">Register</a></button>
         <button *ngIf="isAuthenticated()" class="bg-purple-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink="/posts/create">Post</a></button>
