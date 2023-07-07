@@ -17,6 +17,7 @@ export class ProfileComponent {
   modifyBio: boolean = false;
   posts!: Array<PostRes>;
   theme: string = "default";
+  selectedTemplate:string="templateOne"
 
   //utilize file upload service
   files: File[] = [];
@@ -36,6 +37,12 @@ export class ProfileComponent {
 
   // Retrieve profile information
   ngOnInit () {
+
+    const storedTemplate = localStorage.getItem('template');//gets the stored theme from local storage
+    if(storedTemplate)
+    {
+      this.selectedTemplate = storedTemplate;//sets the variable that manipulates the DOM
+    }
 
     this.profileService.getUserTest().subscribe( {
 
@@ -132,4 +139,15 @@ export class ProfileComponent {
     });
   }
 
+  /**
+   *  Passes the selected template and instantiates the variable that manipulates the DOM
+   *  Saves to local storage in order to persist
+   * @param template -the user selected template
+   */
+  saveTemplate(template: string) {
+
+    this.selectedTemplate = template;
+    localStorage.setItem('template', template);
+
+  }
 }

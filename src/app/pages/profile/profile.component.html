@@ -1,6 +1,12 @@
 <div class="space-y-5 flex-row m-20" xmlns="http://www.w3.org/1999/html">
 
-  <div>
+  <div [class]="selectedTemplate">
+    <button mat-button [matMenuTriggerFor]="menu">Templates</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="saveTemplate('templateOne')">Template One</button>
+      <button mat-menu-item (click)="saveTemplate('templateTwo')">Template Two</button>
+      <button mat-menu-item (click)="saveTemplate('templateThree')">Template Three</button>
+    </mat-menu>
     <mat-card class="flex p-5">
 
 
@@ -51,7 +57,9 @@
           </div>
 
           <!-- Button for user to start/stop modifying bio -->
-          <button (click)="modifyProfileBio()" class="px-4 py-4 bg-orange-500">Modify Profile?</button>
+          <button class="custom-button" mat-raised-button color="primary" (click)="modifyProfileBio()">Modify Profile?</button>
+
+<!--          <button (click)="modifyProfileBio()" class="px-4 py-4 bg-orange-500">Modify Profile?</button>-->
         </div>
 
 

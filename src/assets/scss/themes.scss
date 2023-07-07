@@ -1,3 +1,4 @@
+
 @use '@angular/material' as mat;
 
 @include mat.core();
@@ -34,11 +35,41 @@ $dark-theme: mat.define-dark-theme(
 );
 
 @include mat.all-component-themes($light-theme);
+.templateOne{
+
+
+}
+.templateTwo{
+  background-color: pink!important;
+  color: white!important;
+  mat-card{
+    background-color: pink!important;
+    color: white!important;
+  }
+}
+.templateThree{
+  background-color: red !important;
+  color: black !important;
+
+  mat-card {
+    background-color: red !important;
+    color: black !important;
+  }
+  .mat-mdc-raised-button.mat-primary {
+    --mdc-protected-button-container-color: black;
+    --mdc-protected-button-label-text-color: #fff;
+  }
+}
+
+
+
+
+
 
 .dark-mode {
   @include mat.all-component-colors($dark-theme);
-  background-color: #3c4043!important; //background color is set
-  color: whitesmoke!important; //text-color is set
+  background-color: #3c4043 !important; //background color is set
+  color: whitesmoke !important; //text-color is set
 
   //targets all form element, !important is necessary for changes to persist
   form {
@@ -46,10 +77,11 @@ $dark-theme: mat.define-dark-theme(
     color: whitesmoke !important;
   }
 
-  mat-card{
+  mat-card {
     background-color: #3c4043 !important;
     color: whitesmoke !important;
   }
+
   //targets button with custom-button class in login and register
   .custom-button {
 
@@ -63,11 +95,36 @@ $dark-theme: mat.define-dark-theme(
     border-radius: 5px;
   }
 
-}
-  // Option 3: Maybe necessary when user switches to dark mode
-  // show ruben when settings change to dark mode it will need to be back here
-  //.mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  //  background-color: red;
-  //}
 
+  .templateOne {
+
+
+  }
+
+  .templateTwo {
+    background-color: pink !important;
+    color: white !important;
+
+    mat-card {
+      background-color: pink !important;
+      color: white !important;
+    }
+  }
+
+  .templateThree {
+    background-color: red !important;
+    color: black !important;
+
+    mat-card {
+      background-color: red !important;
+      color: black !important;
+    }
+
+    .mat-mdc-raised-button.mat-primary {
+      --mdc-protected-button-container-color: black;
+      --mdc-protected-button-label-text-color: #fff;
+    }
+
+  }
+}
 
