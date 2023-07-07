@@ -10,6 +10,8 @@ $my-warn: mat.define-palette(mat.$red-palette,800);
 
 $background-color: map_get(mat.$blue-grey-palette, 50);
 
+$typography-val: mat.define-typography-config();
+
 $my-theme: mat.define-light-theme((
   color: (
     primary: $my-primary,
@@ -29,7 +31,7 @@ $theme-one: mat.define-light-theme((
     accent: mat.define-palette(mat.$indigo-palette, 800),
     warn: $my-warn,
   ),
-  typography: mat.define-typography-config(),
+  typography: $typography-val,
   density: 0,
   )
 );
@@ -42,7 +44,7 @@ $theme-two: mat.define-light-theme((
     accent: mat.define-palette(mat.$blue-grey-palette, 400),
     warn: $my-warn,
   ),
-  typography: mat.define-typography-config($font-family: 'Comic Sans',),
+  typography: $typography-val,
   density: 0,
 )
 );
