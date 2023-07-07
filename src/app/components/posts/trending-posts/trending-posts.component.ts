@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 
@@ -7,7 +7,7 @@ import { PostService } from 'src/app/services/post/post.service';
   templateUrl: './trending-posts.component.html',
   styleUrls: ['./trending-posts.component.css'],
 })
-export class TrendingPostsComponent {
+export class TrendingPostsComponent implements OnInit {
   posts!: Array<PostRes>;
   isLoading = false;
 
