@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 
@@ -7,8 +7,9 @@ import { PostService } from 'src/app/services/post/post.service';
   templateUrl: './trending-posts.component.html',
   styleUrls: ['./trending-posts.component.css'],
 })
-export class TrendingPostsComponent {
+export class TrendingPostsComponent implements OnInit {
   posts!: Array<PostRes>;
+  isLoading = false;
 
   constructor(private postService: PostService) {}
 
@@ -17,12 +18,15 @@ export class TrendingPostsComponent {
   }
 
   getPosts() {
-    this.postService.getTrendingPosts().subscribe({
+    this.isLoading = true;
+    this.postService.getTrendingPosts('2022-03-01').subscribe({
       next: (res) => {
+        this.isLoading = false;
         this.posts = res;
         console.log(res);
       },
       error: (err) => {
+        this.isLoading = false;
         console.log(err);
       },
     });

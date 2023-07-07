@@ -48,6 +48,8 @@ import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
 import { PostListComponent } from './components/posts/post-list/post-list.component';
 import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
 import {Environment} from "@angular/cli/lib/config/workspace-schema";
+import { FeedPostsComponent } from './components/posts/feed-posts/feed-posts.component';
+import { FollowingPostsComponent } from './components/posts/following-posts/following-posts.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import {Environment} from "@angular/cli/lib/config/workspace-schema";
     ThemeSwitcherComponent,
     ViewPostsComponent,
     TrendingPostsComponent,
+    FeedPostsComponent,
+    FollowingPostsComponent,
   ],
   imports: [
     BrowserModule,

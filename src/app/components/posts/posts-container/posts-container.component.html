@@ -1,27 +1,25 @@
-<div class="w-full max-w-[500px]">
-  <mat-tab-group animationDuration="0ms">
-    <!-- Main feed -->
-    <mat-tab label="Feed">
-      <mat-divider class="mb-5"></mat-divider>
+<mat-tab-group animationDuration="0ms">
+  <!-- Main feed -->
+  <mat-tab label="Feed">
+    <mat-divider class="mb-5"></mat-divider>
 
-      <!-- Feed posts component -->
-    </mat-tab>
+    <!-- Feed posts component -->
+    <app-feed-posts></app-feed-posts>
+  </mat-tab>
 
-    <!-- Following -->
-    <mat-tab label="Following">
-      <mat-divider class="mb-5"></mat-divider>
+  <!-- Following -->
+  <mat-tab label="Following">
+    <mat-divider class="mb-5"></mat-divider>
 
-      <div>
-        Following
-      </div>
-    </mat-tab>
+    <!-- Following posts component-->
+    <app-following-posts></app-following-posts>
+  </mat-tab>
 
-    <!-- Trending -->
-    <mat-tab label="Trending">
-      <mat-divider class="mb-5"></mat-divider>
+  <!-- Trending -->
+  <mat-tab label="Trending">
+    <mat-divider class="mb-5"></mat-divider>
 
-      <!-- Trending posts component -->
-      <app-trending-posts></app-trending-posts>
-    </mat-tab>
-  </mat-tab-group>
-</div>
+    <!-- Trending posts component -->
+    <app-trending-posts></app-trending-posts>
+  </mat-tab>
+</mat-tab-group>
