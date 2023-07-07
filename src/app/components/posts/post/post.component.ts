@@ -10,6 +10,7 @@ import { PostService } from 'src/app/services/post/post.service';
 })
 export class PostComponent {
   @Input() post!: PostRes;
+  isChatOpen = false;
 
   constructor(private postService: PostService) {}
 
@@ -33,8 +34,8 @@ export class PostComponent {
     console.log('sharing');
   }
 
-  openChat() {
-    console.log('opening chat');
+  toggleChat() {
+    this.isChatOpen = !this.isChatOpen;
   }
 
   reportPost(postId: string): void {

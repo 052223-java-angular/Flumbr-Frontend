@@ -2,8 +2,10 @@
   <mat-card-header>
     <div class="flex justify-between w-full">
       <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.userId)">
-        <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});">
-        </div>
+        <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});"
+          *ngIf="post.profileImg"></div>
+        <div mat-card-avatar class="flex justify-center items-center bg-indigo-950"><mat-icon
+            class="text-green-50">person</mat-icon></div>
         <mat-card-title>{{post.username}}</mat-card-title>
       </div>
 
@@ -38,8 +40,8 @@
 
     </div>
   </mat-card-header>
-  <img mat-card-image src="{{post.s3bucket}}" alt="Photo of a Shiba Inu" *ngIf="post.mediaType == 'image'">
-  <video *ngIf="post.mediaType == 'video'" controls>
+  <img mat-card-image src="{{post.s3bucket}}" alt="Photo of a Shiba Inu" *ngIf="post.mediaType == 'image/jpeg'">
+  <video *ngIf="post.mediaType == 'video/mp4'" controls>
     <source [src]="post.s3bucket" type="video/mp4">
     <source [src]="post.s3bucket" type="video/ogg">
     Your browser does not support the video tag.
@@ -67,7 +69,21 @@
       <mat-icon class="icon" matTooltip="Share" matTooltipClass="tooltip" matTooltipPosition="above"
         (click)="sharePost()">share</mat-icon>
       <mat-icon class="icon" matTooltip="Comment" matTooltipClass="tooltip" matTooltipPosition="above"
-        (click)="openChat()">chat</mat-icon>
+        (click)="toggleChat()">chat</mat-icon>
     </div>
   </mat-card-actions>
+  <div *ngIf="isChatOpen">
+    <mat-divider></mat-divider>
+    <ul class="flex flex-col p-4 gap-3">
+      <li class="flex gap-3" *ngFor="let comment of post.comments">
+        <div mat-card-avatar class="m-0 bg-cover"
+          style="background-image: url('https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80');">
+        </div>
+        <div class="flex flex-col gap-2 p-2 border-[1px] border-solid border-slate-700 rounded-lg">
+          <p class="m-0 font-semibold">{{comment.username}}</p>
+          <p class="m-0">{{comment.comment}}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
 </mat-card>
