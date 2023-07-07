@@ -1,0 +1,3 @@
+::ng-deep mat-spinner.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: rgb(169, 255, 241);
+}
