@@ -29,9 +29,9 @@ export class NotificationService {
 
   // fetch notifications
   fetchNotifications() : Observable<Notification[]> {
-    // return this.httpClient
-    //   .get<Notification[]>(`${this.baseUrl}/notifications/all/${(this.tokenService.getUser()).id}`);
-    return this.httpClient.get<Notification[]>("/assets/notifications/notifications.json");
+    return this.httpClient
+      .get<Notification[]>(`${this.baseUrl}/notifications/all/${(this.tokenService.getUser()).id}`);
+    // return this.httpClient.get<Notification[]>("/assets/notifications/notifications.json");
   }
 
   // fetch notification types

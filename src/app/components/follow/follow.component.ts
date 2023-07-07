@@ -33,8 +33,13 @@ export class FollowComponent {
   // boolean variable used for toggling follow and unfollow actions
   isFollowing: boolean = false;
 
+  hasFollowError: boolean = false;
+  errorMessage: string = '';
+
   // follow handler for follow and unfollow actions
   followHandler(followSubject: FollowSubject): void {
+    this.hasFollowError = false;
+    this.errorMessage = '';
 
     // if not following, handle follow request
     if (!this.isFollowing) {
@@ -43,30 +48,35 @@ export class FollowComponent {
       this.followService.httpFollow(followSubject.followedUsername).subscribe({
         next: (res: HttpResponse<any>) => {
           console.log("following ...")
+          this.isFollowing = true;
         },
         error: (err) => {
           // todo add failure message notification when placement is more clear
-          console.log(err.error.message)
+          this.errorMessage = err.error.message;
+          this.hasFollowError = !this.hasFollowError;
         },
         complete: () => null
       });
     } 
     // if following, handle unfollow request
-    if (this.isFollowing) {
+    else if (this.isFollowing && !this.hasFollowError) {
       
       // this.followService.httpUnfollow("phouFollower001").subscribe({
       this.followService.httpUnfollow(followSubject.followedUsername).subscribe({
         next: (res: HttpResponse<any>) => {
           console.log("unfollowing ...")
+          this.isFollowing = false;
         },
         error: (err) => {
           // todo add failure message notification when placement is more clear
+          this.errorMessage = err.error.message;
+          this.hasFollowError = !this.hasFollowError;
           console.log(err.error.message)
         },
         complete: () => null
       });
     }
-    this.isFollowing = !this.isFollowing;
+    // this.isFollowing = !this.isFollowing;
   }
 
 }

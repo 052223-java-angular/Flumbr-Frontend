@@ -28,5 +28,9 @@
 
 </ng-container>
 
+<div *ngIf="hasFollowError"  class="flex px-6 text-red-500 text-xs">
+    <p>{{errorMessage | titlecase }}</p>
+</div>
+
 <!-- for debugging -->
 <!-- {{followIdentity | json}} -->
