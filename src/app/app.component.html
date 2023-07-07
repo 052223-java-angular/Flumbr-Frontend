@@ -1,7 +1,9 @@
 <main class="mat-app-background"></main>
-<app-theme-switcher></app-theme-switcher>
+<!-- <app-theme-switcher></app-theme-switcher> -->
 <div class="flex flex-col min-h-screen">
   <app-navbar class=""></app-navbar>
+  <div class="w-full h-20"></div>
+  <app-theme-switcher class="fixed top-24 right-5"></app-theme-switcher>
   <p-toast position="top-center"></p-toast>
   <div class="flex-grow">
     <router-outlet></router-outlet>

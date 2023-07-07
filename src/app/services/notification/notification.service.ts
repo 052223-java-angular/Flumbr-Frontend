@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { Notification } from '../../models/notification/notification';
 import { NotificationType } from '../../models/notification/notification-type';
 import { AppSettings } from 'src/app/global/app-settings';
@@ -14,6 +14,13 @@ export class NotificationService {
 
   private baseUrl = AppSettings.API_URL;
   messagePanelIsEmpty = new Subject<boolean>();
+    
+  // backend notification names
+  // comment :: postComment
+  // comment vote :: commentLike
+  // follow :: follow
+  // post vote :: postLike
+  // profile vote :: profileLike
 
   // notifies subscribers the message panel list is emoty
   raiseMessagePanelIsEmpty(isEmpty: boolean) : void {
@@ -24,7 +31,6 @@ export class NotificationService {
   fetchNotifications() : Observable<Notification[]> {
     // return this.httpClient
     //   .get<Notification[]>(`${this.baseUrl}/notifications/all/${(this.tokenService.getUser()).id}`);
-    
     return this.httpClient.get<Notification[]>("/assets/notifications/notifications.json");
   }
 
@@ -34,8 +40,9 @@ export class NotificationService {
   }
 
   // update notifications as read
-  updateNotificationAsRead(payload: Notification) : Observable<Notification[]> {
-    return this.httpClient.put<Notification[]>('/', payload);
+  updateNotificationAsRead(id: string) : Observable<HttpResponse<any>> {
+    return this.httpClient.put<HttpResponse<any>>(`${this.baseUrl}/notifications/${id}`, {});
+    // return this.httpClient.put<Notification[]>('/', payload);
   }
   
 }
