@@ -7,7 +7,7 @@ export interface PostRes {
   username: string;
   profileImg?: string;
   message?: string;
-  s3bucket?: string;
+  s3Url?: string;
   mediaType?: string;
   tags?: Array<Tag>;
   following: boolean;

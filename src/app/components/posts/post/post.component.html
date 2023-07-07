@@ -40,10 +40,10 @@
 
     </div>
   </mat-card-header>
-  <img mat-card-image src="{{post.s3bucket}}" alt="Photo of a Shiba Inu" *ngIf="post.mediaType == 'image/jpeg'">
+  <img mat-card-image src="{{post.s3Url}}" alt="Photo of a Shiba Inu" *ngIf="post.mediaType == 'image/jpeg'">
   <video *ngIf="post.mediaType == 'video/mp4'" controls>
-    <source [src]="post.s3bucket" type="video/mp4">
-    <source [src]="post.s3bucket" type="video/ogg">
+    <source [src]="post.s3Url" type="video/mp4">
+    <source [src]="post.s3Url" type="video/ogg">
     Your browser does not support the video tag.
   </video>
   <mat-card-content>
