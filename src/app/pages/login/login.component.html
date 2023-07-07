@@ -5,9 +5,9 @@
 
       <h2 class="flex flex-col items-center text-indigo-500" style="font-weight: bold; font-size: 30px; letter-spacing: 2px;">Login</h2>
     <!--Field for username-->
-      <mat-form-field class="flex flex-col items-center px-10 " >
+      <mat-form-field id="test" class="flex flex-col items-center px-10 " >
         <mat-label>Username</mat-label>
-        <input matInput placeholder="Username" formControlName="username" >
+        <input matInput color="primary" placeholder="Username" formControlName="username" >
         <mat-error class="text-red-600" *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">
           Username is required
         </mat-error>
@@ -15,9 +15,9 @@
 
         <!--Field for password-->
       <mat-form-field class="flex flex-col items-center px-10">
-        <mat-label class="">Password</mat-label>
+        <mat-label class="test">Password</mat-label>
         <input  placeholder="Password" matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error class="text-red-600" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
@@ -27,10 +27,10 @@
 
     <!--button is only clickable when form is valid-->
     <ng-container *ngIf="loginForm.invalid">
-      <button class="custom-button" mat-raised-button disabled>Login</button>
+      <button class="disabled-custom-button" mat-raised-button disabled>Login</button>
     </ng-container>
     <ng-container *ngIf="loginForm.valid" >
-      <button class="custom-button" mat-raised-button color="primary">Login</button>
+      <button class="custom-button" mat-raised-button color="warn">Login</button>
     </ng-container>
 
     <div class="flex justify-center">

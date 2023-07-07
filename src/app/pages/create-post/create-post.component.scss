@@ -1,0 +1,15 @@
+ngx-dropzone-image-preview,
+ngx-dropzone-video-preview {
+  height: 270px !important;
+}
+
+mat-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mat-mdc-standard-chip {
+  --mdc-chip-label-text-color: #fff;
+}

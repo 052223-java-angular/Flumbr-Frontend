@@ -1,9 +1,24 @@
 ::ng-deep #theme-one{
-  background-color: darkslategray;
+  background-color: #116A7B ;
 }
 
 ::ng-deep #theme-two{
-  background-color: crimson;
+  background-color: #213555;
 }
+
+::ng-deep #theme-three{
+  background-color: #E55807;
+}
+
+
+::ng-deep #theme-four{
+  background-color: #ECF8F9;
+}
+
+::ng-deep #theme-five{
+  background-color: #FF0060;
+}
+
+
 
 

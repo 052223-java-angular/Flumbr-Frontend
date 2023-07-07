@@ -17,13 +17,16 @@
       </mat-select>
     </mat-form-field>
 
-    <button (click)="followToggle()" *ngIf="follow == false" mat-fab color="none" aria-label="follow">
-      <mat-icon>perm_identity</mat-icon>
-    </button>
+    <!-- follow / unfollow  -->
+    <!-- {{profile | json}} -->
+    <app-follow
+      viewTemplate="iconView"
+      [followIdentity]="{
+              loggedInUserId: 'this should be the logged in user id',
+              followedUserId: profile.id,
+              followedUsername: profile.username}">
 
-    <button (click)="followToggle()" *ngIf="follow" mat-fab color="primary" aria-label="Already follow">
-      <mat-icon>how_to_reg</mat-icon>
-    </button>
+    </app-follow>
 
     <div class="space-y-5">
       <mat-card  class="flex items-center justify-center  rounded-b-md">
@@ -76,9 +79,10 @@
         </div>
       </mat-card>
     </div>
-    <app-posts></app-posts>
+    <app-trending-posts></app-trending-posts>
 
   </div>
 
 
 </div>
+

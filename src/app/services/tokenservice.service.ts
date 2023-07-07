@@ -81,6 +81,13 @@ export class TokenService {
   }
 
   /**
+   * Checks if user is logged in (i.e. is token expired?)
+   */
+  public isLoggedIn(): boolean {
+    return !this.isTokenExpired();
+  }
+
+  /**
    * checks if the current saved token is expired
    * @private
    */

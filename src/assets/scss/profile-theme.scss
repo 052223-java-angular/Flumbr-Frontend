@@ -1,10 +1,4 @@
 @use '@angular/material' as mat;
-@use 'src/assets/scss/palette-switcher';
-
-
-
-//@import "theming";
-
 @include mat.core();
 
 
@@ -31,8 +25,8 @@ $my-theme: mat.define-light-theme((
 $theme-one: mat.define-light-theme((
 
   color: (
-    primary: $my-primary,
-    accent: $my-accent,
+    primary: mat.define-palette(mat.$indigo-palette, 200),
+    accent: mat.define-palette(mat.$indigo-palette, 800),
     warn: $my-warn,
   ),
   typography: mat.define-typography-config(),
@@ -44,8 +38,8 @@ $theme-one: mat.define-light-theme((
 $theme-two: mat.define-light-theme((
 
   color: (
-    primary: $my-accent,
-    accent: $my-primary,
+    primary:  mat.define-palette(mat.$blue-grey-palette, 800),
+    accent: mat.define-palette(mat.$blue-grey-palette, 400),
     warn: $my-warn,
   ),
   typography: mat.define-typography-config($font-family: 'Comic Sans',),
@@ -57,8 +51,32 @@ $theme-two: mat.define-light-theme((
 $theme-three: mat.define-light-theme((
 
   color: (
-    primary: $my-accent,
-    accent: $my-primary,
+    primary: mat.define-palette(mat.$amber-palette, 800),
+    accent: mat.define-palette(mat.$amber-palette, 400),
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+)
+);
+
+$theme-four: mat.define-light-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$cyan-palette, 800),
+    accent: mat.define-palette(mat.$cyan-palette, 400),
+    warn: $my-warn,
+  ),
+
+  density: 0,
+)
+);
+
+$theme-five: mat.define-light-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$pink-palette, 800),
+    accent: mat.define-palette(mat.$pink-palette, 400),
     warn: $my-warn,
   ),
   typography: mat.define-typography-config(),
@@ -70,30 +88,26 @@ $theme-three: mat.define-light-theme((
 
 @include mat.all-component-themes($theme-one);
 
-.theme-two {
+// indigo
+.theme-one {
   @include mat.all-component-colors($theme-two);
 
-  #test {
-    background-color: crimson !important;
+  ::ng-deep #theme-one {
+    background-color: indigo !important;
   }
 
   mat-card.mat-mdc-card {
-    background-color: darkred !important;
-  }
-
-  mat-card-title-group.mat-mdc-card-title-group {
-    background-color: blue !important;
+    background-color: #4FC0D0 !important;
   }
 
   mat-card-header.mat-mdc-card-header {
-    background-color: purple !important
+    background-color: #1B6B93 !important
   }
-
-
 }
 
-.theme-one {
-  @include mat.all-component-colors($theme-one);
+// blue grey
+.theme-two {
+  @include mat.all-component-colors($theme-two);
 
   ::ng-deep #test {
     background-color: indigo !important;
@@ -106,9 +120,59 @@ $theme-three: mat.define-light-theme((
   mat-card-header.mat-mdc-card-header {
     background-color: #2D4356 !important
   }
-
-
 }
+
+// amber scheme
+.theme-three {
+  @include mat.all-component-colors($theme-three);
+
+  #test {
+    background-color: crimson !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: #F29727 !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #F24C3D !important
+  }
+}
+
+// cyan scheme
+.theme-four {
+  @include mat.all-component-colors($theme-four);
+
+  #test {
+    background-color: crimson !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: #79E0EE !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #00C4FF !important
+  }
+}
+
+.theme-five {
+  @include mat.all-component-colors($theme-five);
+
+  #test {
+    background-color: crimson !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: darkred !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: purple !important
+  }
+}
+
+
 
 
 

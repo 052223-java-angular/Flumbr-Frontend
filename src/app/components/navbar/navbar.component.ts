@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import {TokenService} from "../../services/tokenservice.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-navbar',
@@ -7,13 +9,17 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private router: Router,
+              private tokenService:TokenService) {}
 
   login() {}
 
-  logout() {}
+  logout() {
+    this.tokenService.signOut();
+    this.router.navigate(['/login']);
+  }
 
   isAuthenticated() {
-    return false;
+    return this.tokenService.isLoggedIn();
   }
 }
