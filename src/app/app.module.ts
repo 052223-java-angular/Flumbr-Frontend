@@ -45,6 +45,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
 import { PostListComponent } from './components/posts/post-list/post-list.component';
 import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
+import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-user.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { TrendingPostsComponent } from './components/posts/trending-posts/trendi
     ThemeSwitcherComponent,
     ViewPostsComponent,
     TrendingPostsComponent,
+    PostsByUserComponent,
   ],
   imports: [
     BrowserModule,
