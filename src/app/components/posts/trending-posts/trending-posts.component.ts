@@ -9,6 +9,7 @@ import { PostService } from 'src/app/services/post/post.service';
 })
 export class TrendingPostsComponent {
   posts!: Array<PostRes>;
+  isLoading = false;
 
   constructor(private postService: PostService) {}
 
@@ -17,12 +18,15 @@ export class TrendingPostsComponent {
   }
 
   getPosts() {
-    this.postService.getTrendingPosts().subscribe({
+    this.isLoading = true;
+    this.postService.getTrendingPosts('2022-03-01').subscribe({
       next: (res) => {
+        this.isLoading = false;
         this.posts = res;
         console.log(res);
       },
       error: (err) => {
+        this.isLoading = false;
         console.log(err);
       },
     });

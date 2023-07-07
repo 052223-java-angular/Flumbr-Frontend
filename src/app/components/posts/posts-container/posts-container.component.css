@@ -1,3 +1,7 @@
+:host {
+  @apply w-full max-w-[500px];
+}
+
 ::ng-deep mat-tab-header.mat-mdc-tab-header {
   @apply sticky top-0 z-50 bg-purple-600;
 }

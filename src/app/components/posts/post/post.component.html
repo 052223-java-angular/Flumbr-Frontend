@@ -2,8 +2,10 @@
   <mat-card-header>
     <div class="flex justify-between w-full">
       <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.userId)">
-        <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});">
-        </div>
+        <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});"
+          *ngIf="post.profileImg"></div>
+        <div mat-card-avatar class="flex justify-center items-center bg-indigo-950"><mat-icon
+            class="text-green-50">person</mat-icon></div>
         <mat-card-title>{{post.username}}</mat-card-title>
       </div>
 
@@ -28,8 +30,8 @@
 
     </div>
   </mat-card-header>
-  <img mat-card-image src="{{post.s3bucket}}" alt="Photo of a Shiba Inu" *ngIf="post.mediaType == 'image'">
-  <video *ngIf="post.mediaType == 'video'" controls>
+  <img mat-card-image src="{{post.s3bucket}}" alt="Photo of a Shiba Inu" *ngIf="post.mediaType == 'image/jpeg'">
+  <video *ngIf="post.mediaType == 'video/mp4'" controls>
     <source [src]="post.s3bucket" type="video/mp4">
     <source [src]="post.s3bucket" type="video/ogg">
     Your browser does not support the video tag.
