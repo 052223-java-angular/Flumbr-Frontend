@@ -1,10 +1,12 @@
 <!-- implementation notes :: this is fixed position with a fixed size.
 modify or move this wrapper tag to correct position according to layout requirements  -->
-<div class="wrapper z-50">
+<div class="wrapper">
 
   <!-- Do not change layout  -->
   <ng-container *ngIf="notifications$ | async as notifications">
-    <div class="fixed top-[3.25rem] right-4 icon-animate">
+
+    <!-- for header icon notification menu  -->
+    <div [ngClass]="notifications.length != 0 ? 'icon-menu icon-animate' : 'icon-menu'">
       <mat-icon (click)="expandNotificationMenu()" class="scale-[1.65]">
         <!-- add_alert -->
         <!-- notification_important -->
@@ -20,11 +22,10 @@ modify or move this wrapper tag to correct position according to layout requirem
         class="absolute -right-1 -top-1 z-50 shadow-md"></div>
     </div>
 
-    <ng-container *ngIf="menuIsOpen">
+    <ng-container *ngIf="menuIsOpen && notifications.length > 0">
 
         <div class="notification-container">
-
-          <div class="icon-container">
+          <div class="icon-container icon-container-bg">
 
             <app-notification-type *ngFor="let notificationType of notificationTypes$ | async; index as iconIdx"
               [matIcon]="assignProps(notificationType, notifications)"
@@ -39,8 +40,9 @@ modify or move this wrapper tag to correct position according to layout requirem
 
           </div>
 
+          <!-- notification should be greater then zero -->
           <app-notification-message 
-            *ngIf="panelIsOpen"
+            *ngIf="panelIsOpen && notifications.length > 0"
             [notifications]=notifications
             [activeNotificationType]="activeNotificationType">
           </app-notification-message>

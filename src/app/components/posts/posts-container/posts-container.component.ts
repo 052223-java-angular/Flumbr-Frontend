@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-posts-container',
@@ -6,6 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./posts-container.component.css'],
 })
 export class PostsContainerComponent {
+  activeTab: string = 'default';
+
+  activateTab(changeEvent: MatTabChangeEvent) {
+    if (changeEvent.tab.textLabel == 'Feed') {
+      this.activeTab = 'default';
+    } else {
+      this.activeTab = changeEvent.tab.textLabel;
+    }
+  }
+
   /*----------------------------------------------------------------------->
   /**
    * This class is now a container just to display different types of posts components using tab navigation. So logic below should be placed in seperate posts components (e.g. trending posts component). The component selectors for different types of post components will be inserted in the html of this component though.
