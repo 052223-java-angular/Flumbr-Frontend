@@ -25,12 +25,10 @@
 
           <!-- follow / unfollow  -->
           <!-- {{post | json}} -->
-          <ng-container *ngIf="isFollowingUsernames">
-            <app-follow viewTemplate="textView" [isFollowingUsernames]="isFollowingUsernames" [followIdentity]="{
+          <app-follow viewTemplate="textView" [followIdentity]="{
                 loggedInUserId: 'this should be the logged in user id',
                 ownerUserId: post.id,
                 ownerUsername: post.username}"></app-follow>
-          </ng-container>
 
 
           <button mat-menu-item>

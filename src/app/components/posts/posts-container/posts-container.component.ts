@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-posts-container',
@@ -6,6 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./posts-container.component.css'],
 })
 export class PostsContainerComponent {
+  activeTab: string = 'default';
+
+  activateTab(changeEvent: MatTabChangeEvent) {
+    if (changeEvent.tab.textLabel == 'Feed') {
+      this.activeTab = 'default';
+    } else {
+      this.activeTab = changeEvent.tab.textLabel;
+    }
+  }
 
   /*----------------------------------------------------------------------->
   /**

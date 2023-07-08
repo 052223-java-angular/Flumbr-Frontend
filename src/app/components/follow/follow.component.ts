@@ -1,28 +1,30 @@
 import { HttpResponse } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FollowService } from 'src/app/services/follow/follow.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 
-
 // declaring a view type for icon or text
-type View = 'iconView' | 'textView'
+type View = 'iconView' | 'textView';
 
 // userId: the logged in user id
 // followedUserId: the id of user the logged in user is going to follow
 // followedUsername: the username of user the logged in user is going to follow
-type FollowSubject = { 
-  loggedInUserId: string, 
-  ownerUserId: string, 
-  ownerUsername: string
-}
+type FollowSubject = {
+  loggedInUserId: string;
+  ownerUserId: string;
+  ownerUsername: string;
+};
 
 @Component({
   selector: 'app-follow',
   templateUrl: './follow.component.html',
   styleUrls: ['./follow.component.css'],
 })
-export class FollowComponent {
-  constructor(private followService: FollowService, private tokenService: TokenService) {}
+export class FollowComponent implements OnInit {
+  constructor(
+    private followService: FollowService,
+    private tokenService: TokenService
+  ) {}
 
   // assign the view type to display
   @Input() viewTemplate!: View;
@@ -31,8 +33,8 @@ export class FollowComponent {
   // implementor will need to create an object with fields matching the FollowSubject type
   @Input() followIdentity!: FollowSubject;
 
-  // the usernames the user is 
-  @Input() isFollowingUsernames!: string[];
+  // the usernames the user is
+  isFollowingUsernames!: string[];
 
   // boolean variable used for toggling follow and unfollow actions
   // isFollowing: boolean = false;
@@ -41,13 +43,27 @@ export class FollowComponent {
   hasFollowError: boolean = false;
   errorMessage: string = '';
 
+  ngOnInit(): void {
+    this.followService.httpGetIsFollowing().subscribe({
+      next: (res) => {
+        this.isFollowingUsernames = res;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   // do not show follow or unfollow if owner of post is the logged in user
-  isLoggedInOwner(followIdentity: FollowSubject) : boolean {
-    return (this.tokenService.getUser()).username.toLowerCase() == followIdentity.ownerUsername.toLowerCase();
+  isLoggedInOwner(followIdentity: FollowSubject): boolean {
+    return (
+      this.tokenService.getUser().username.toLowerCase() ==
+      followIdentity.ownerUsername.toLowerCase()
+    );
   }
 
   // determine whether the post is already followed by logged in user
-  isFollowing(followIdentity: FollowSubject) : boolean {
+  isFollowing(followIdentity: FollowSubject): boolean {
     return this.isFollowingUsernames.includes(followIdentity.ownerUsername);
   }
 
@@ -61,8 +77,7 @@ export class FollowComponent {
 
     // if not following, handle follow request
     if (!isFollowing) {
-
-      // this.followService.httpFollow("phouFollower001").subscribe({      
+      // this.followService.httpFollow("phouFollower001").subscribe({
       this.followService.httpFollow(followSubject.ownerUsername).subscribe({
         next: (res: HttpResponse<any>) => {
           // console.log("following ...")
@@ -73,27 +88,26 @@ export class FollowComponent {
           this.errorMessage = err.error.message;
           this.hasFollowError = !this.hasFollowError;
         },
-        complete: () => null
+        complete: () => null,
       });
-    } 
+    }
     // if following, handle unfollow request
     else if (isFollowing && !this.hasFollowError) {
-      
       // this.followService.httpUnfollow("phouFollower001").subscribe({
       this.followService.httpUnfollow(followSubject.ownerUsername).subscribe({
         next: (res: HttpResponse<any>) => {
           // console.log("unfollowing ...")
-          this.isFollowingUsernames
-            .splice(this.isFollowingUsernames.indexOf(followSubject.ownerUsername), 1);
+          this.isFollowingUsernames.splice(
+            this.isFollowingUsernames.indexOf(followSubject.ownerUsername),
+            1
+          );
         },
         error: (err) => {
           this.errorMessage = err.error.message;
           this.hasFollowError = !this.hasFollowError;
         },
-        complete: () => null
+        complete: () => null,
       });
     }
-
   }
-
 }
