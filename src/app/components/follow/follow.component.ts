@@ -1,6 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { FollowService } from 'src/app/services/follow/follow.service';
+import { TokenService } from 'src/app/services/tokenservice.service';
 
 
 // declaring a view type for icon or text
@@ -11,8 +12,8 @@ type View = 'iconView' | 'textView'
 // followedUsername: the username of user the logged in user is going to follow
 type FollowSubject = { 
   loggedInUserId: string, 
-  followedUserId: string, 
-  followedUsername: string
+  ownerUserId: string, 
+  ownerUsername: string
 }
 
 @Component({
@@ -21,7 +22,7 @@ type FollowSubject = {
   styleUrls: ['./follow.component.css'],
 })
 export class FollowComponent {
-  constructor(private followService: FollowService) {}
+  constructor(private followService: FollowService, private tokenService: TokenService) {}
 
   // assign the view type to display
   @Input() viewTemplate!: View;
@@ -30,28 +31,45 @@ export class FollowComponent {
   // implementor will need to create an object with fields matching the FollowSubject type
   @Input() followIdentity!: FollowSubject;
 
-  // boolean variable used for toggling follow and unfollow actions
-  isFollowing: boolean = false;
+  // the usernames the user is 
+  @Input() isFollowingUsernames!: string[];
 
+  // boolean variable used for toggling follow and unfollow actions
+  // isFollowing: boolean = false;
+
+  // for error
   hasFollowError: boolean = false;
   errorMessage: string = '';
+
+  // do not show follow or unfollow if owner of post is the logged in user
+  isLoggedInOwner(followIdentity: FollowSubject) : boolean {
+    return (this.tokenService.getUser()).username.toLowerCase() == followIdentity.ownerUsername.toLowerCase();
+  }
+
+  // determine whether the post is already followed by logged in user
+  isFollowing(followIdentity: FollowSubject) : boolean {
+    return this.isFollowingUsernames.includes(followIdentity.ownerUsername);
+  }
 
   // follow handler for follow and unfollow actions
   followHandler(followSubject: FollowSubject): void {
     this.hasFollowError = false;
     this.errorMessage = '';
 
+    // make a one-time method call for the isFollowing boolean value
+    const isFollowing = this.isFollowing(followSubject);
+
     // if not following, handle follow request
-    if (!this.isFollowing) {
+    if (!isFollowing) {
 
       // this.followService.httpFollow("phouFollower001").subscribe({      
-      this.followService.httpFollow(followSubject.followedUsername).subscribe({
+      this.followService.httpFollow(followSubject.ownerUsername).subscribe({
         next: (res: HttpResponse<any>) => {
-          console.log("following ...")
-          this.isFollowing = true;
+          // console.log("following ...")
+          // add the username to the list of followers
+          this.isFollowingUsernames.push(followSubject.ownerUsername);
         },
         error: (err) => {
-          // todo add failure message notification when placement is more clear
           this.errorMessage = err.error.message;
           this.hasFollowError = !this.hasFollowError;
         },
@@ -59,24 +77,23 @@ export class FollowComponent {
       });
     } 
     // if following, handle unfollow request
-    else if (this.isFollowing && !this.hasFollowError) {
+    else if (isFollowing && !this.hasFollowError) {
       
       // this.followService.httpUnfollow("phouFollower001").subscribe({
-      this.followService.httpUnfollow(followSubject.followedUsername).subscribe({
+      this.followService.httpUnfollow(followSubject.ownerUsername).subscribe({
         next: (res: HttpResponse<any>) => {
-          console.log("unfollowing ...")
-          this.isFollowing = false;
+          // console.log("unfollowing ...")
+          this.isFollowingUsernames
+            .splice(this.isFollowingUsernames.indexOf(followSubject.ownerUsername), 1);
         },
         error: (err) => {
-          // todo add failure message notification when placement is more clear
           this.errorMessage = err.error.message;
           this.hasFollowError = !this.hasFollowError;
-          console.log(err.error.message)
         },
         complete: () => null
       });
     }
-    // this.isFollowing = !this.isFollowing;
+
   }
 
 }
