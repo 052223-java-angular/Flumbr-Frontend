@@ -1,7 +1,0 @@
-.searchbar:focus-within .searchbar-icon,
-.searchbar:focus-within .searchbar-input {
-  @apply !text-slate-950;
-}
-.searchbar:focus-within .searchbar-container {
-  @apply !bg-white;
-}
