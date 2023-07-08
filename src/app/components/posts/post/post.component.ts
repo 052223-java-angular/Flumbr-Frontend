@@ -10,6 +10,7 @@ import { PostService } from 'src/app/services/post/post.service';
 })
 export class PostComponent {
   @Input() post!: PostRes;
+  @Input() isFollowingUsernames!: string[];
   isChatOpen = false;
 
   constructor(private postService: PostService) {}
