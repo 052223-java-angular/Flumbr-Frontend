@@ -68,6 +68,7 @@ export class PostService {
 
   // feed posts from db
   getFeedPosts(page: number): Observable<Array<PostRes>> {
+    // return this.http.get<PostRes[]>("/assets/posts/posts.json");
     return this.http.get<any>(`${this.baseUrl}/posts/feed/${page}`);
   }
 
