@@ -1,5 +1,9 @@
 .wrapper {
-  @apply fixed top-[6.5rem] right-2 max-w-full w-[400px] z-50;
+  @apply fixed top-[5.25rem] right-2 max-w-full w-[400px] z-50;
+}
+
+.icon-menu {
+  @apply fixed top-[1.9rem] right-6;
 }
 
 .notification-container {
@@ -10,10 +14,9 @@
   @apply flex flex-col h-96 px-1 py-4 justify-between ;
 }
 
-
 /*  bg-[#f5f6fa] shadow-md */
 
-.icon-container  {
+.icon-container-bg  {
   /* background: rgba(5, 5, 5, 0.5); */
   /* background: rgba(142, 154, 255, 0.1); */
   background: rgba(219, 219, 219, 0.1);

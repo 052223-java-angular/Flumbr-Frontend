@@ -8,22 +8,20 @@ import { NotificationService } from 'src/app/services/notification/notification.
   styleUrls: ['./notification-message.component.css']
 })
 export class NotificationMessageComponent {
+  constructor(private notificationService: NotificationService) {}
 
   // incoming attributes required to display data within the view
   @Input() notifications!: Notification[];
   @Input() activeNotificationType!: string;
-  
-
-  constructor(private notificationService: NotificationService) {}
 
 
   // updates the notification status as read
   updateNotificationAsRead(notification: Notification) : void {
     this.updateReadStatus(notification, this.notifications);
-    this.notificationService.updateNotificationAsRead(notification);
+    this.notificationService.updateNotificationAsRead(notification.id);
 
     // send an update to the service that the message panel is empty
-    if (this.getMessageCount(notification.type, this.notifications) <= 0) {
+    if (this.getMessageCount(notification.name, this.notifications) <= 0) {
       this.notificationService.raiseMessagePanelIsEmpty(true);
     }
 
@@ -31,14 +29,14 @@ export class NotificationMessageComponent {
 
   // counts tthe number of messages remaining
   private getMessageCount(notificationType: string, notifications: Notification[]) : number {
-    return notifications.filter(notification => notification.type === notificationType).length;
+    return notifications.filter(notification => notification.name === notificationType).length;
   }
 
   // update or remove the message having been read
-  private updateReadStatus(toUpdate: Notification, notifications: Notification[]) : void {
-    notifications.forEach((notification,idx) => {
-      if (notification.id == toUpdate.id) {
-        notifications.splice(idx, 1);
+  private updateReadStatus(notification: Notification, notifications: Notification[]) : void {
+    notifications.forEach((currNotification,idx) => {
+      if (currNotification.id == notification.id) {
+        this.notifications.splice(idx, 1);
       }
     })
   }
