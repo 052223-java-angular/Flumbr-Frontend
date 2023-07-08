@@ -1,7 +1,7 @@
 [
-  { "name": "postComment"},
-  { "name": "commentLike" },
-  { "name": "follow" },
-  { "name": "postLike" },
-  { "name": "profileLike"}
+  { "originName": "postComment"},
+  { "originName": "commentLike" },
+  { "originName": "follow" },
+  { "originName": "postLike" },
+  { "originName": "profileLike"}
 ]
