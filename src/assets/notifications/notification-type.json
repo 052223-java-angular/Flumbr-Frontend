@@ -1,8 +1,7 @@
 [
-  { "id": "2", "name": "trending"},
-  { "id": "3", "name": "comments" },
-  { "id": "4", "name": "reviews" },
-  { "id": "5", "name": "messages" },
-  { "id": "6", "name": "likes"},
-  { "id": "7", "name": "friends"}
+  { "name": "postComment"},
+  { "name": "commentLike" },
+  { "name": "follow" },
+  { "name": "postLike" },
+  { "name": "profileLike"}
 ]

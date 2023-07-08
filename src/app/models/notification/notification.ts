@@ -3,5 +3,5 @@ export interface Notification {
   message: string,
   profileId: string,
   hasRead: boolean,
-  type: string
+  name: string
 }

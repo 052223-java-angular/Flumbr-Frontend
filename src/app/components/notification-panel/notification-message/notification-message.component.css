@@ -3,7 +3,7 @@
 }
 
 .message-content {
-  @apply flex items-center h-full pr-2 py-2 shadow-md rounded-sm ;
+  @apply flex items-center h-full pr-2 py-2 shadow-md rounded-sm cursor-pointer;
 }
 
 /* bg-[#f5f6fa] */
