@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./posts-container.component.css'],
 })
 export class PostsContainerComponent {
+
   /*----------------------------------------------------------------------->
   /**
    * This class is now a container just to display different types of posts components using tab navigation. So logic below should be placed in seperate posts components (e.g. trending posts component). The component selectors for different types of post components will be inserted in the html of this component though.

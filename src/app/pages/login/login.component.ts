@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
           detail: 'Login successful',
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
-        this.router.navigate(['/posts/create']);
+        this.router.navigate(['/posts']);
       },
       error: (error) => {
         console.log(error.message);

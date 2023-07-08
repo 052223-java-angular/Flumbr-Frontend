@@ -9,9 +9,9 @@
         <button *ngIf="isAuthenticated()" class="bg-purple-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink="/posts/create">Post</a></button>
         <button (click)="logout()" *ngIf="isAuthenticated()" class="bg-red-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink=" ">Logout</a></button>
     </ul>
-
+    <ng-template #notificationPanel></ng-template>
 </nav>
 
 <ng-container *ngIf="isAuthenticated()">
-    <app-notification-panel></app-notification-panel>
+    <app-notification-panel #notificationPanel></app-notification-panel>
 </ng-container>
