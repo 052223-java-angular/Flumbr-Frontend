@@ -3,16 +3,19 @@ modify or move this wrapper tag to correct position according to layout requirem
 
 <!-- for header icon notification menu  -->
 <div *ngIf="notifications" [ngClass]="notifications ? 'icon-menu icon-animate' : 'icon-menu'">
-  <mat-icon (click)="toggleNotificationMenu()" class="scale-[1.65]">
-    notifications_active
-  </mat-icon>  
-  <div  
-    [matBadge]="totalUnread"
-    [matBadgeColor]="badgeColor"
-    [matBadgeSize]="badgeSize"
-    [matBadgeHidden]="totalUnread == 0"
-    [matBadgePosition]="'above after'"
-    class=" z-50 shadow-md"></div>
+  <div class="flex items-baseline">
+    <mat-icon (click)="toggleNotificationMenu()" class="scale-[1.65]">
+      notifications_active
+    </mat-icon>  
+    <div  
+      [matBadge]="totalUnread"
+      [matBadgeColor]="badgeColor"
+      [matBadgeSize]="badgeSize"
+      [matBadgeHidden]="totalUnread == 0"
+      [matBadgePosition]="'below after'"
+      class=" z-50 shadow-md">
+    </div>
+  </div>
 </div>
 
 
