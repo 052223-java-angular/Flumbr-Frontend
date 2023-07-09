@@ -11,6 +11,10 @@ import { RouteguardService } from './services/routeguard.service';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
 
+import {ResetPasswordComponent} from './pages/verify-account/reset-password/reset-password.component';
+import {NewPasswordComponent} from './pages/verify-account/new-password/new-password.component';
+
+
 const routes: Routes = [
   {
     path: 'posts/create',
@@ -20,6 +24,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent }, // Route for the home page
   { path: 'register', component: RegisterComponent }, // Route for the register page
   { path: 'login', component: LoginComponent }, // Route for the login page
+  { path: 'resetpassword', component: ResetPasswordComponent }, // Route for the reset password page
+  { path: 'newpassword', component: NewPasswordComponent }, // Route for the setting new password password page
   {
     path: 'profile',
     component: ProfileComponent,

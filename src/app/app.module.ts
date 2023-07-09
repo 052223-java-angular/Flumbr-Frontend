@@ -50,6 +50,9 @@ import { TrendingPostsComponent } from './components/posts/trending-posts/trendi
 import { FeedPostsComponent } from './components/posts/feed-posts/feed-posts.component';
 import { FollowingPostsComponent } from './components/posts/following-posts/following-posts.component';
 
+import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
+import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,6 +76,8 @@ import { FollowingPostsComponent } from './components/posts/following-posts/foll
     TrendingPostsComponent,
     FeedPostsComponent,
     FollowingPostsComponent,
+    ResetPasswordComponent,
+    NewPasswordComponent,
   ],
   imports: [
     BrowserModule,
