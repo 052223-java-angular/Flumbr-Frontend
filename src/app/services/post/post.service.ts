@@ -13,7 +13,8 @@ export class PostService {
   posts: Array<PostRes> = [
     {
       id: '1',
-      userId: '1',
+      upVotes: 2,
+      downVotes: 10,
       username: 'John Doe',
       profileImg:
         'https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80',
@@ -22,12 +23,12 @@ export class PostService {
         { id: '1', name: 'cute' },
         { id: '2', name: 'fluffy' },
       ],
-      following: false,
       createTime: '2003-04-13',
     },
     {
       id: '2',
-      userId: '2',
+      upVotes: 100,
+      downVotes: 1,
       username: 'Rachel453',
       profileImg:
         'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80',
@@ -42,19 +43,18 @@ export class PostService {
         { id: '6', name: 'sunset' },
         { id: '7', name: 'beautiful' },
       ],
-      following: true,
       createTime: '2003-05-28',
     },
     {
       id: '3',
-      userId: '3',
+      upVotes: 5,
+      downVotes: 0,
       username: 'oliengreen89',
       profileImg:
         'https://images.unsplash.com/photo-1608346128025-1896b97a6fa7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
       s3Url: '../../../assets/videos/toilet-funny.mp4',
       mediaType: 'video',
       tags: [{ id: '8', name: 'funny' }],
-      following: false,
       createTime: '2020-12-23',
     },
   ];
