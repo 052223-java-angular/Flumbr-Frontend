@@ -19,7 +19,7 @@ export class CreatePostComponent implements OnInit {
   files: File[] = [];
   isImage: boolean = false;
   isVideo: boolean = false;
-  tags: string[] = [];
+  tags: string[] | null = [];
 
   constructor(
     private fb: FormBuilder,
@@ -105,13 +105,9 @@ export class CreatePostComponent implements OnInit {
 
   onMessageChange(message: string) {
     // get all strings that begin with #
-    let tags: string[] | null = message.match(/#[A-Za-z0-9]+/gi);
-
-    if (tags) {
-      this.tags = tags;
-    } else {
-      this.tags = [];
-    }
+    this.tags = message
+      ? message.match(/#[A-Za-z0-9]+/gi)!.map((x) => x.slice(1))
+      : [];
   }
 
   submitPostForm() {
@@ -122,6 +118,8 @@ export class CreatePostComponent implements OnInit {
     const message = this.postForm.controls['message'].value;
     if (message) {
       formData.append('message', message);
+      const uniqueTags = [...new Set(this.tags)];
+      formData.append('tags', JSON.stringify(uniqueTags));
     }
 
     const file = this.postForm.controls['file'].value;
