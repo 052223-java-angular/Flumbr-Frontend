@@ -1,24 +1,19 @@
-<!-- display notifications using absolute positioning with z-index-->
+<ul>
+  <ng-container *ngFor="let notification of notifications; index as idx">
 
-<ng-container *ngFor="let notification of notifications; index as idx">
-
-  <!-- when notification type matches the active-icon, then display the messages -->
-  <!-- {{idx}} : {{notification.notificationType === activeNotificationType}} <br /> -->
-  <!-- {{idx}} : {{notification.matIconName}} :: {{activeNotificationType}} <br />
-  {{notification.matIconName}} -->
-
-  <ul *ngIf="notification.notificationType === activeNotificationType && !notification.viewed" class="message-wrap">
-
-    <li (click)="updateNotificationAsRead(notification)" 
-      class="message-content">
+    <!-- when notification type matches the active-icon, then display the messages -->
+    <li  *ngIf="notification.notificationType === activeNotificationType && !notification.viewed" 
+      (click)="updateNotificationAsRead(notification)" 
+      class="message-wrap message-content message-content-bg">
 
       <mat-icon class="message-icon">{{notification.matIconName}}</mat-icon> 
-      <span class="message-text" >{{ notification.message }} </span>
+      <span class="message-text text-xs" > 
+        <span class="text-[0.6rem]">
+        <span class="font-normal">Note:</span> {{ notification.message }} <br />
+        <span class="font-normal">Date:</span> {{notification.createTime | date : 'medium'}}</span> 
+      </span>
 
     </li>
-    <!-- {{notification.id | json }}  -->
-    <br />
 
-  </ul>
-
-</ng-container>
+  </ng-container>
+</ul>

@@ -11,9 +11,10 @@ modify or move this wrapper tag to correct position according to layout requirem
     [matBadgeColor]="badgeColor"
     [matBadgeSize]="badgeSize"
     [matBadgeHidden]="totalUnread == 0"
-    class="absolute -right-1 -top-1 z-50 shadow-md"></div>
+    [matBadgePosition]="'above after'"
+    class=" z-50 shadow-md"></div>
 </div>
-
+<!-- class="absolute -right-1 -top-1 z-50 shadow-md"></div> -->
 
 <!-- menu can open only when there are notifications -->
 <div *ngIf="menuIsOpen && totalUnread > 0" class="wrapper">
