@@ -100,4 +100,21 @@ export class TokenService {
     const expirationDate = new Date(jwtPayload.exp * 1000);
     return new Date().getTime() > expirationDate.getTime();
   }
+
+  /**
+   * Gets saved user information to be called throughout the application
+   */
+  // public getUserId(): any {
+  //   if (this.isTokenExpired()) {
+  //     this.signOut();
+  //   }
+  //   const user = window.sessionStorage.getItem(USER_KEY);
+  //   if (user) {
+  //     return JSON.parse(user);
+  //   } else {
+  //     this.signOut();
+  //   }
+
+  //   return {};
+  // }
 }
