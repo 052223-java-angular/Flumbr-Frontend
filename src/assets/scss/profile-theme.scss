@@ -2,6 +2,9 @@
 @include mat.core();
 
 
+
+
+
 $my-palette: mat.$indigo-palette;
 
 $my-primary: mat.define-palette(mat.$indigo-palette, 500);
@@ -10,16 +13,13 @@ $my-warn: mat.define-palette(mat.$red-palette,800);
 
 $background-color: map_get(mat.$blue-grey-palette, 50);
 
-$typography-val: mat.define-typography-config();
-
 $my-theme: mat.define-light-theme((
   color: (
     primary: $my-primary,
     accent: $my-accent,
     warn: $my-warn,
   ),
-  typography: $typography-val,
-  density: 0,
+
 ));
 
 @include mat.core-theme($my-theme);
@@ -31,8 +31,7 @@ $theme-one: mat.define-light-theme((
     accent: mat.define-palette(mat.$indigo-palette, 800),
     warn: $my-warn,
   ),
-  typography: $typography-val,
-  density: 0,
+
   )
 );
 
@@ -44,8 +43,7 @@ $theme-two: mat.define-light-theme((
     accent: mat.define-palette(mat.$blue-grey-palette, 400),
     warn: $my-warn,
   ),
-  typography: $typography-val,
-  density: 0,
+
 )
 );
 
@@ -57,8 +55,7 @@ $theme-three: mat.define-light-theme((
     accent: mat.define-palette(mat.$amber-palette, 400),
     warn: $my-warn,
   ),
-  typography: $typography-val,
-  density: 0,
+
 )
 );
 
@@ -69,8 +66,7 @@ $theme-four: mat.define-light-theme((
     accent: mat.define-palette(mat.$cyan-palette, 400),
     warn: $my-warn,
   ),
-  typography: $typography-val,
-  density: 0,
+
 )
 );
 
@@ -81,8 +77,7 @@ $theme-five: mat.define-light-theme((
     accent: mat.define-palette(mat.$pink-palette, 400),
     warn: $my-warn,
   ),
-  typography: $typography-val,
-  density: 0,
+
 )
 );
 

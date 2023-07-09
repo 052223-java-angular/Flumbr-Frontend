@@ -1,4 +1,4 @@
-import {TagPayload} from "./tag-payload";
+import {TagPayload} from "../tag-payload";
 
 export interface ProfilePayload {
   id: string;

@@ -21,6 +21,11 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent }, // Route for the register page
   { path: 'login', component: LoginComponent }, // Route for the login page
   {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [RouteguardService],
+  },
+  {
     path: 'profile/:userId',
     component: ProfileComponent,
     canActivate: [RouteguardService],

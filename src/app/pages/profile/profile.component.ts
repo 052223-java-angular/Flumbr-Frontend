@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {ProfilePayload} from "../../models/profile-payload";
+import {ProfilePayload} from "../../models/profile/profile-payload";
 import {TagPayload} from "../../models/tag-payload";
 import {ProfileService} from "../../services/profile-service";
 import {FormControl, FormGroup} from "@angular/forms";
-import {BioPayload} from "../../models/bio-payload";
+import {BioPayload} from "../../models/profile/bio-payload";
 import {PostService} from "../../services/post/post.service";
 import {PostRes} from "../../models/post/post";
 import {ActivatedRoute} from "@angular/router";
@@ -11,7 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
   profile!: ProfilePayload;
@@ -43,7 +43,6 @@ export class ProfileComponent {
 
   // Retrieve profile information of user
   ngOnInit () {
-
     this.profileService.getUserTest(this.user_id).subscribe( {
 
       next: (resp: any) => {
@@ -51,14 +50,13 @@ export class ProfileComponent {
         console.log(this.profile);
       },
       error: (err) => {
-        console.error("Issue with retrieving profile details");
-        console.log(err);
+        console.error("Issue with retrieving profile details.");
+        console.log("Error retrieving user with id: "  + this.user_id + " : " + err);
       }
     })
-    //this.ngAfterInit();
   }
 
-  // boolean toggle for modifying bio
+  // boolean toggle for modifying biography
   modifyProfileBio() {
     this.modifyBio = !this.modifyBio;
     console.log("toggle modifying bio to: " + this.modifyBio)
@@ -69,14 +67,17 @@ export class ProfileComponent {
     if (!this.changeBioForm.valid) {
       console.log("bio form not set")
     }
-
-    //
+    // creatse a biography payload to send to the back end
     const payload: BioPayload = {
       bio: this.changeBioForm.controls.bio.value!
     }
+    // setting bio for local test
     this.profile.bio = payload.bio;
-    console.log("New bio is: " + payload.bio);
 
+    // send new bio to backend
+    this.profileService.updateUserBio(payload);
+
+    console.log("New bio is: " + payload.bio);
   }
 
 
@@ -87,8 +88,6 @@ export class ProfileComponent {
       const file = event.target.files[0];
       //this.uploadForm.get().setValue(file);
     }
-
-
     this.files.push(...event.addedFiles);
     if (this.files.length > 1) {
       this.files.splice(0, 1);

@@ -1,0 +1,30 @@
+::ng-deep #theme-one{
+  @apply bg-gradient-to-r from-indigo-500 to-blue-500;
+}
+
+
+::ng-deep mat-tab-header.mat-mdc-tab-header {
+  @apply sticky top-0 z-50 bg-purple-600;
+}
+
+::ng-deep #theme-two{
+  @apply bg-gradient-to-r from-slate-900 to-gray-800;
+}
+
+
+::ng-deep #theme-three{
+  @apply bg-gradient-to-t from-yellow-600 to-amber-800;
+}
+
+
+::ng-deep #theme-four{
+  @apply bg-gradient-to-r from-indigo-500 to-blue-500;
+}
+
+::ng-deep #theme-five{
+  @apply bg-gradient-to-r from-purple-500 to-blue-500;
+}
+
+
+
+
