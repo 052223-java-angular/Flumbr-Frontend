@@ -14,6 +14,7 @@ export class NotificationService {
 
   private baseUrl = AppSettings.API_URL;
   messagePanelIsEmpty = new Subject<boolean>();
+  totalUnread = new Subject<number>();
     
   // backend notification names
   // comment :: postComment
@@ -21,6 +22,10 @@ export class NotificationService {
   // follow :: follow
   // post vote :: postLike
   // profile vote :: profileLike
+
+  decrementTotalUnread(currentTotal: number) : void {
+    return this.totalUnread.next(currentTotal);
+  }
 
   // notifies subscribers the message panel list is emoty
   raiseMessagePanelIsEmpty(isEmpty: boolean) : void {
@@ -40,9 +45,15 @@ export class NotificationService {
   }
 
   // update notifications as read
-  updateNotificationAsRead(id: string) : Observable<HttpResponse<any>> {
-    return this.httpClient.put<HttpResponse<any>>(`${this.baseUrl}/notifications/${id}`, {});
-    // return this.httpClient.put<Notification[]>('/', payload);
+  updateNotificationAsRead(notification: Notification) : Observable<any> {
+    // backend requires a userIrd and notificationId payload
+    const payload = {"userId": (this.tokenService.getUser()).id, "notificationId": notification.id}
+    return this.httpClient.put<any>(`${this.baseUrl}/notifications/${notification.id}`, payload);
   }
   
+  // delete notification
+  deleteNotification(notification: Notification) : Observable<HttpResponse<any>> {
+    return this.httpClient.delete<HttpResponse<any>>(`${this.baseUrl}/notifications/${notification.id}`);
+  }
+
 }

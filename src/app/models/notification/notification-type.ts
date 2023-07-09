@@ -1,6 +1,7 @@
 export interface NotificationType {
-  name: string,
+  originName: string,
   matIconName: string,
   badgeContent: number,
-  id: string
+  id: string,
+  notificationType: string
 }
