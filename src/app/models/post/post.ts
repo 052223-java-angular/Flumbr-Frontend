@@ -3,15 +3,18 @@ import { Comment } from './comment';
 
 export interface PostRes {
   id: string;
-  userId: string;
+  upVotes: number;
+  downVotes: number;
   username: string;
   profileImg?: string;
   message?: string;
   s3Url?: string;
   mediaType?: string;
   tags?: Array<Tag>;
-  following: boolean;
   createTime: string;
   editTime?: string;
   comments?: Array<Comment>;
+
+  // additional options
+  animateDelete?: boolean;
 }
