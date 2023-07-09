@@ -3,7 +3,7 @@ modify or move this wrapper tag to correct position according to layout requirem
 
 <!-- for header icon notification menu  -->
 <div *ngIf="notifications" [ngClass]="notifications ? 'icon-menu icon-animate' : 'icon-menu'">
-  <mat-icon (click)="expandNotificationMenu()" class="scale-[1.65]">
+  <mat-icon (click)="toggleNotificationMenu()" class="scale-[1.65]">
     notifications_active
   </mat-icon>  
   <div  
@@ -14,29 +14,37 @@ modify or move this wrapper tag to correct position according to layout requirem
     [matBadgePosition]="'above after'"
     class=" z-50 shadow-md"></div>
 </div>
-<!-- class="absolute -right-1 -top-1 z-50 shadow-md"></div> -->
+
 
 <!-- menu can open only when there are notifications -->
 <div *ngIf="menuIsOpen && totalUnread > 0" class="wrapper">
 
-  <div class="notification-container">
+  <div class="notification-container icon-container-animate">
     <!-- vertical mat icon container -->
-    <div class="icon-container icon-container-bg">
+    <div class="icon-container">
 
       <app-notification-type *ngFor="let notificationType of notificationTypes; index as iconIdx"
         [matIcon]="notificationType.matIconName"
         [badgeContent]="getUnreadCount(notificationType.originName, notifications)"
-        [badgeColor]=badgeColor 
-        [badgeSize]=badgeSize
-        [activeNotificationType]="activeNotificationType"
-        (click)="toggleNotification(iconIdx, notificationType.originName)" >
+        [badgeColor]="badgeColor" 
+        [badgeSize]="badgeSize"
+        [activeMatIcon]="activeMatIcon"
+        (click)="toggleNotification(iconIdx, notificationType)" >
       </app-notification-type>
+      <!-- add a close option -->
+      <app-notification-type
+        [matIcon]="'cancel_presentation'"
+        [badgeColor]="badgeColor" 
+        [badgeSize]="badgeSize"
+        (click)="toggleNotificationMenu()"
+      ></app-notification-type>
 
     </div>
 
     <!-- notification should be greater then zero -->
     <app-notification-message 
       *ngIf="panelIsOpen && totalUnread > 0"
+      (click)="closeMessageContainer()" 
       (totalUnreadChange)="decrementTotalUnread()"
       [notifications]="notifications"
       [activeNotificationType]="activeNotificationType">
@@ -45,3 +53,5 @@ modify or move this wrapper tag to correct position according to layout requirem
   </div>
 
 </div>
+
+<ng-container  ></ng-container>

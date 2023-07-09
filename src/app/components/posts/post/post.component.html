@@ -26,7 +26,7 @@
           <!-- follow / unfollow  -->
           <!-- {{post | json}} -->
           <app-follow viewTemplate="textView" [followIdentity]="{
-                loggedInUserId: 'this should be the logged in user id',
+                loggedInUserId: 'this should be the logged in user id - may not be required',
                 ownerUserId: post.id,
                 ownerUsername: post.username}"></app-follow>
 

@@ -1,13 +1,10 @@
 .message-wrap {
-  @apply z-50;
+  @apply w-[18rem] z-50;
 }
 
 .message-content {
-  @apply flex items-center h-[3rem] max-h-16 pr-2 py-2 shadow-md rounded-sm cursor-pointer;
+  @apply flex items-center h-[3rem] max-h-16 pr-2 py-2 shadow-md rounded-sm cursor-pointer bg-white border-gray-300 border;
 }
-
-/* bg-[#f5f6fa] */
-/* hover:bg-[#17175725] */
 
 .message-icon {
   @apply mx-4 flex-1;
@@ -15,18 +12,4 @@
 
 .message-text {
   @apply flex-[8] text-left font-normal tracking-wider;
-}
-
-.message-content-bg  {
-  /* From https://css.glass */
-  /* background: rgba(5, 5, 5, 0.5); */
-  /* background: rgba(219, 219, 219, 0.1); */
-
-  /* background: rgba(5, 5, 5, 0.1); */
-  background: whitesmoke;
-  border-radius: 6px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(20.5px);
-  -webkit-backdrop-filter: blur(20.5px);
-  border: 1px solid rgba(38, 37, 37, 0.17);
 }

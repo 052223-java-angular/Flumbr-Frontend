@@ -11,21 +11,11 @@
 }
 
 .icon-container {
-  @apply flex flex-col h-96 px-1 py-4 justify-between ;
+  @apply flex flex-col min-h-[364px] px-1 py-4 justify-between shadow-md rounded-sm cursor-pointer bg-white border-gray-300 border;
 }
 
-/*  bg-[#f5f6fa] shadow-md */
-
-.icon-container-bg  {
-  /* background: rgba(5, 5, 5, 0.5); */
-  /* background: rgba(142, 154, 255, 0.1); */
-  /* background: rgb(219, 219, 219); */
-  background: whitesmoke;
-  border-radius: 6px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(20.5px);
-  -webkit-backdrop-filter: blur(20.5px);
-  border: 1px solid rgba(38, 37, 37, 0.17);
+.icon-container-animate {
+  transition: all 500ms;
 }
 
 .icon-animate:hover {
