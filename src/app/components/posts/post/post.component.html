@@ -24,13 +24,12 @@
               <p class="text-sm">{{post.editTime}}</p>
             </div>
 
-            <!-- follow / unfollow  -->
-            <!-- {{post | json}} -->
-            <app-follow viewTemplate="textView" [followIdentity]="{
-                  loggedInUserId: 'this should be the logged in user id',
-                  ownerUserId: post.id,
-                  ownerUsername: post.username}"></app-follow>
-
+          <!-- follow / unfollow  -->
+          <!-- {{post | json}} -->
+          <app-follow viewTemplate="textView" [followIdentity]="{
+                loggedInUserId: 'this should be the logged in user id - may not be required',
+                ownerUserId: post.id,
+                ownerUsername: post.username}"></app-follow>
 
             <button mat-menu-item>
               <span (click)="reportPost(post.id)" class="font-medium text-red-600">Report</span>
