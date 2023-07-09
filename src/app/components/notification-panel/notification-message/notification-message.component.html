@@ -1,4 +1,4 @@
-<ul>
+<ul class="overflow-y-auto max-h-[32rem] overflow-x-hidden">
   <ng-container *ngFor="let notification of notifications; index as idx">
 
     <!-- when notification type matches the active-icon, then display the messages -->
@@ -9,7 +9,7 @@
       <mat-icon class="message-icon">{{notification.matIconName}}</mat-icon> 
       <span class="message-text text-xs" > 
         <span class="text-[0.6rem]">
-        <span class="font-normal">Note:</span> {{ notification.message }} <br />
+        <span class="font-normal">Note:</span> {{ formatMessage(notification.message) }} <br />
         <span class="font-normal">Date:</span> {{notification.createTime | date : 'medium'}}</span> 
       </span>
 

@@ -33,6 +33,7 @@ export class NotificationPanelComponent implements OnInit {
   // atttribute fields for passing values down to notification-type component
   indexOfType!: number;
   activeNotificationType: string = '';
+  activeMatIcon: string = '';
   badgeColor: ThemePalette = 'primary';
   badgeSize: MatBadgeSize = 'small';
   badgeContent: number = 0;
@@ -71,22 +72,24 @@ export class NotificationPanelComponent implements OnInit {
 
   }
 
-
-  decrementTotalUnread() : void {
-    this.totalUnread = this.getTotalUnreadCount(this.notifications);
+  decrementTotalUnread(totalUnread: number) : void {
+    this.totalUnread = totalUnread - 1;
+    // this.totalUnread = this.getTotalUnreadCount(this.notifications);
   }
 
 
-  expandNotificationMenu() : void {
+  toggleNotificationMenu() : void {
     this.menuIsOpen = !this.menuIsOpen;
     this.panelIsOpen = false;
+    this.activeMatIcon = '';
   }
 
   // toggles the notification messages
-  toggleNotification(iconIdx: number, iconMatName: string) : void {
+  toggleNotification(iconIdx: number, notificationType: NotificationType) : void {
     if (this.indexOfType != iconIdx) {
       this.panelIsOpen = false;
-      this.activeNotificationType = iconMatName;
+      this.activeNotificationType = notificationType.originName;
+      this.activeMatIcon = notificationType.matIconName;
       this.indexOfType = iconIdx;
     }
     this.panelIsOpen = !this.panelIsOpen;
@@ -102,7 +105,6 @@ export class NotificationPanelComponent implements OnInit {
     }
     if (notificationType.hasOwnProperty("notificationType")) {
       originName =  notificationType.notificationType; // this is coming from http notification object
-      console.log(originName);
     }
 
     switch (originName) {

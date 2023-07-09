@@ -26,7 +26,11 @@ export class NotificationMessageComponent {
   @Input() notifications!: Notification[];
   @Input() activeNotificationType!: string;
   @Output() totalUnreadChange = new EventEmitter<void>();
-  
+
+  formatMessage(message: string) : string {
+    let clippedMessage = message.substring(message.indexOf("User ")+5);
+    return clippedMessage.charAt(0).toUpperCase() + clippedMessage.substring(1) + ".";
+  }
 
   // updates the notification status as read
   updateNotificationAsRead(notification: Notification) : void {

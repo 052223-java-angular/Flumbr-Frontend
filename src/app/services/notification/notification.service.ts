@@ -23,7 +23,7 @@ export class NotificationService {
   // post vote :: postLike
   // profile vote :: profileLike
 
-  decrementTotalUnread(currentTotal: number) : void {
+  raiseTotalUnread(currentTotal: number) : void {
     return this.totalUnread.next(currentTotal);
   }
 
