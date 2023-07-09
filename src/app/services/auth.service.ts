@@ -33,12 +33,12 @@ export class AuthService {
 
   resetPassword(payload: ResetPasswordPayload): Observable<any> {
     //TODO: replace with api end point after backend implementation
-    return this.http.post<any>(`${this.baseUrl}/auth/`, payload);
+    return this.http.post<any>(`${this.baseUrl}/auth/reset`, payload);
   }
 
 
   newPassword(formData: FormData): Observable<any> {
     //TODO: replace with api end point after backend implementation
-    return this.http.post<any>(`${this.baseUrl}/auth/`, formData);
+    return this.http.post<any>(`${this.baseUrl}/auth/newpassword`, formData);
   }
 }
