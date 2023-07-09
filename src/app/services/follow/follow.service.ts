@@ -8,49 +8,41 @@ import { AppSettings } from 'src/app/global/app-settings';
 })
 export class FollowService implements OnDestroy {
   private baseUrl = AppSettings.API_URL;
-  followingUsernames!: string[];
-  firstCall: BehaviorSubject<string[]> = new BehaviorSubject([] as string[]);
+  $followingUsernames: BehaviorSubject<string[]> = new BehaviorSubject(
+    [] as string[]
+  );
+  $deletedFollow: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(private httpClient: HttpClient) {
     this.httpClient.get<string[]>(`${this.baseUrl}/follows`).subscribe({
       next: (res) => {
-        this.firstCall.next(res);
-        this.followingUsernames = res;
+        this.$followingUsernames.next(res);
       },
       error: (err) => {
-        this.firstCall.next([]);
-        this.followingUsernames = [];
+        this.$followingUsernames.next([]);
       },
     });
   }
 
   ngOnDestroy() {
-    this.firstCall.unsubscribe();
+    this.$followingUsernames.unsubscribe();
+  }
+
+  getDeletedFollowBehaviorSubject(): BehaviorSubject<string> {
+    return this.$deletedFollow;
   }
 
   // returns the list of usernames the logged-in user is following
   httpGetIsFollowing(): Observable<string[]> {
-    if (this.followingUsernames) {
-      return of(this.followingUsernames);
-    }
-
-    return this.firstCall.asObservable();
+    return this.$followingUsernames.asObservable();
   }
 
   // the request does not return anything, so return an HttpResponse to extract header contents if it is required in future impl
   httpFollow(followedUsername: string): Observable<HttpResponse<any>> {
-    return this.httpClient
-      .post<HttpResponse<any>>(
-        `${this.baseUrl}/follows/${followedUsername}`,
-        {}
-      )
-      .pipe(
-        tap({
-          next: () => {
-            this.followingUsernames.push(followedUsername);
-          },
-        })
-      );
+    return this.httpClient.post<HttpResponse<any>>(
+      `${this.baseUrl}/follows/${followedUsername}`,
+      {}
+    );
   }
 
   // the request does not return anything, so return an HttpResponse to extract header contents if it is required in future impl
@@ -60,9 +52,8 @@ export class FollowService implements OnDestroy {
       .pipe(
         tap({
           next: () => {
-            this.followingUsernames = this.followingUsernames.filter(
-              (currUsername) => currUsername != followedUsername
-            );
+            // update delete following behavior subject
+            this.$deletedFollow.next(followedUsername);
           },
         })
       );

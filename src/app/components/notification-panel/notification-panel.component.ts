@@ -71,12 +71,9 @@ export class NotificationPanelComponent implements OnInit {
 
   }
 
-  closeMessageContainer() : void {
-    this.panelIsOpen = false;
-  }
-
-  decrementTotalUnread() : void {
-    this.totalUnread = this.getTotalUnreadCount(this.notifications);
+  decrementTotalUnread(totalUnread: number) : void {
+    this.totalUnread = totalUnread - 1;
+    // this.totalUnread = this.getTotalUnreadCount(this.notifications);
   }
 
 
