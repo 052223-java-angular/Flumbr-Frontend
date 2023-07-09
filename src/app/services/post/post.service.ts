@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
 import { PostRes } from 'src/app/models/post/post';
+import { Tag } from 'src/app/models/tag/tag';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -82,14 +84,55 @@ export class PostService {
     return this.http.get<any>(`${this.baseUrl}/posts/trending/${date}`);
   }
 
-  deletePostById(id: string) {
-    this.posts.map((post) => {
-      if (post.id === id) {
-        this.posts.splice(this.posts.indexOf(post), 1);
-      }
-      return post;
-    });
+  getFeed(page:number) : Observable<Array<PostRes>>
+  {
+    
+      let url:string = environment.apiBaseUrl + "/feed/{{page}}"
+
+      return this.http.get<Array<PostRes>>(url)
+  
   }
+  getPostsByUserId(user_id:string): Observable<Array<PostRes>>
+  {
+      let url:string = environment.apiBaseUrl + "/posts/user/{{user_id}}"
+
+
+      return this.http.get<Array<PostRes>>(url);
+  }
+
+  getPostsByTagname(tags:Tag[], pageNum: number): Observable<Array<PostRes>>
+  {
+      let url:string = environment.apiBaseUrl + "/posts/tag/{{pagenum}}";
+      let tagString:string = "";
+
+      for(let tag of tags)
+      {
+          tagString += tag.name;
+          tagString += ", ";
+      }
+
+     let params = new HttpParams();
+
+     params = params.append('tags', tagString);
+
+     return this.http.get<Array<PostRes>>(url, {params: params});
+  }
+
+  getPostById(postId:string):Observable<PostRes>
+  {
+     let url:string = environment.apiBaseUrl + "/id/{{postId}}";
+
+     return this.http.get<PostRes>(url);
+  }
+
+  getTrendingByDate(fromDate:Date, userId:string): Observable<Array<PostRes>>
+  {
+      
+      let url:string = environment.apiBaseUrl + "/{{fromDate.toISOString().split('T')[0]}}/{{userId}}";
+
+      return this.http.get<Array<PostRes>>(url);
+  }
+  
 
   createPost(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/posts/create`, formData);
