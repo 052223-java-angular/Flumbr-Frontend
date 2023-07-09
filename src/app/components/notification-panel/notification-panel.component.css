@@ -11,7 +11,7 @@
 }
 
 .icon-container {
-  @apply flex flex-col min-h-[364px] px-1 py-4 justify-between shadow-md rounded-sm cursor-pointer bg-white border-gray-300 border;
+  @apply flex flex-col h-[364px] px-1 py-4 justify-between shadow-md rounded-sm cursor-pointer bg-white border-gray-300 border;
 }
 
 .icon-container-animate {
