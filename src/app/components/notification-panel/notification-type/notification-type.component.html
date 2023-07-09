@@ -7,6 +7,7 @@
       {{ matIcon }}
   </mat-icon>
 
+  <!-- {{badgeContent}} : {{matIcon}} : {{activeNotificationType}} -->
   <!-- badge icon -->
   <div  
     [matBadge]="badgeContent"
@@ -16,3 +17,5 @@
     class="icon-badge"></div>
 
 </div>
+
+<ng-content></ng-content>
