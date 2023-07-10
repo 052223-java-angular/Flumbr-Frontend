@@ -51,7 +51,7 @@ import { PostListComponent } from './components/posts/post-list/post-list.compon
 import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
 import { FeedPostsComponent } from './components/posts/feed-posts/feed-posts.component';
 import { FollowingPostsComponent } from './components/posts/following-posts/following-posts.component';
-
+import { DeletePostComponent } from './components/posts/delete-post/delete-post.component';
 import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
 
@@ -80,8 +80,10 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
     FollowingPostsComponent,
     ResetPasswordComponent,
     NewPasswordComponent,
+    DeletePostComponent
   ],
-  imports: [
+  imports: 
+  [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -105,7 +107,7 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
     ToastModule,
     MatChipsModule,
     MatTabsModule,
-    MatDialogModule,
+    MatDialogModule
   ],
   providers: [
     RouteguardService,

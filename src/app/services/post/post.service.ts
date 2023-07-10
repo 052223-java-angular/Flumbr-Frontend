@@ -117,15 +117,35 @@ export class PostService {
     return this.http.get<PostRes>(url);
   }
 
-  getTrendingByDate(
-    fromDate: Date,
-    userId: string
-  ): Observable<Array<PostRes>> {
-    let url: string =
-      environment.apiBaseUrl +
-      "/{{fromDate.toISOString().split('T')[0]}}/{{userId}}";
+  getTrendingByDate(fromDate:Date, userId:string): Observable<Array<PostRes>>
+  {
+      let date = fromDate.toISOString().slice(0,10);
+      let url:string = environment.apiBaseUrl + "/{{date}}/{{userId}}";
 
     return this.http.get<Array<PostRes>>(url);
+  }
+  
+  deletePost(postId:string):Observable<string>
+  {
+      console.log("in postservice delete method")
+      let url:string =  environment.apiBaseUrl + `/posts/id/${postId}`;
+
+      return this.http.delete<string>(url);
+  }
+
+
+ updatePost(post_id:string, message:string, mediaType:string):Observable<any>
+  {
+     let url = "";
+
+      let formData:FormData = new FormData();
+
+      formData.append("message", message);
+
+      formData.append("mediaType", mediaType);
+      
+      return this.http.put(url, formData);
+      
   }
 
   createPost(formData: FormData): Observable<any> {

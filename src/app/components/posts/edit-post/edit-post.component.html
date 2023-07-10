@@ -1,0 +1,12 @@
+<div>
+    <h1 mat-dialog-title>Edit post</h1>
+    <div mat-dialog-content>
+     <mat-form-field>
+        <mat-label>Updated Message</mat-label>
+        <input matInput [(ngModel)] = "updatedMessage">
+    </mat-form-field>
+    </div>
+    <div mat-dialog-actions align='end'>
+            <button mat-button (click)="updatePost(updatedMessage, mediaType)"></button>
+    </div>
+</div>

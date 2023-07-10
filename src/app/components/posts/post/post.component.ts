@@ -3,6 +3,11 @@ import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Auth } from 'src/app/models/auth/auth';
+import { DeletePostComponent } from '../delete-post/delete-post.component';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -38,7 +43,8 @@ export class PostComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private http: HttpClient
   ) {
     // Initialize the thumbsUpEnabled and thumbsDownEnabled properties
     //this.updateIconState();
@@ -97,7 +103,8 @@ export class PostComponent implements OnInit {
 
     // Call the post service to like the post.
     this.postService.votePost(payload).subscribe({
-      next: (/* value */) => {
+      //Remember to comment out the value when
+      next: ( value ) => {
         //TODO: Call toaster service to msg?
         console.log('voted dislike for postId ' + id);
         this.thumbsUpEnabled = true; // Disable thumbs-up icon
@@ -118,6 +125,13 @@ export class PostComponent implements OnInit {
     });
   }
 
+    /**
+   * @param payload -
+   */
+    votePost(payload: Vote): Observable<any> {
+      return this.http.post<any>(`${environment.apiBaseUrl}/vote/post`, payload);
+    }
+
   sharePost() {
     console.log('sharing');
   }
@@ -128,5 +142,11 @@ export class PostComponent implements OnInit {
 
   reportPost(postId: string): void {
     // does this need to make a network request ?
+  }
+
+  //I need this for my delete button that Im putting in the menu
+  getUsername() : string
+  {
+    return this.tokenService.getUser().username;
   }
 }
