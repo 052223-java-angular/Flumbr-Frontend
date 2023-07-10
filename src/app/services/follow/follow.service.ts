@@ -1,27 +1,61 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { PostRes } from 'src/app/models/post/post';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { AppSettings } from 'src/app/global/app-settings';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class FollowService {
+export class FollowService implements OnDestroy {
+  private baseUrl = AppSettings.API_URL;
+  $followingUsernames: BehaviorSubject<string[]> = new BehaviorSubject(
+    [] as string[]
+  );
+  $deletedFollow: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(private httpClient: HttpClient) { }
-
-  
-  followUser(id: string) : Observable<PostRes[]> {
-    return this.httpClient.get<PostRes[]>("/assets/post.json");
+  constructor(private httpClient: HttpClient) {
+    this.httpClient.get<string[]>(`${this.baseUrl}/follows`).subscribe({
+      next: (res) => {
+        this.$followingUsernames.next(res);
+      },
+      error: (err) => {
+        this.$followingUsernames.next([]);
+      },
+    });
   }
 
-  unFollowUser(id: string) : Observable<PostRes[]> {
-    return this.httpClient.get<PostRes[]>("/assets/post.json");
+  ngOnDestroy() {
+    this.$followingUsernames.unsubscribe();
   }
 
-  // this method is to report a post; reporting post should be a boolean
-  reportPost(postId: string) : void {
-    this.httpClient.post<void>('/post/report', postId)
+  getDeletedFollowBehaviorSubject(): BehaviorSubject<string> {
+    return this.$deletedFollow;
   }
 
+  // returns the list of usernames the logged-in user is following
+  httpGetIsFollowing(): Observable<string[]> {
+    return this.$followingUsernames.asObservable();
+  }
+
+  // the request does not return anything, so return an HttpResponse to extract header contents if it is required in future impl
+  httpFollow(followedUsername: string): Observable<HttpResponse<any>> {
+    return this.httpClient.post<HttpResponse<any>>(
+      `${this.baseUrl}/follows/${followedUsername}`,
+      {}
+    );
+  }
+
+  // the request does not return anything, so return an HttpResponse to extract header contents if it is required in future impl
+  httpUnfollow(followedUsername: string): Observable<HttpResponse<any>> {
+    return this.httpClient
+      .delete<HttpResponse<any>>(`${this.baseUrl}/follows/${followedUsername}`)
+      .pipe(
+        tap({
+          next: () => {
+            // update delete following behavior subject
+            this.$deletedFollow.next(followedUsername);
+          },
+        })
+      );
+  }
 }

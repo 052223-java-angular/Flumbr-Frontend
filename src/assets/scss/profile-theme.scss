@@ -1,7 +1,4 @@
 @use '@angular/material' as mat;
-
-//@import "theming";
-
 @include mat.core();
 
 
@@ -10,6 +7,10 @@ $my-palette: mat.$indigo-palette;
 $my-primary: mat.define-palette(mat.$indigo-palette, 500);
 $my-accent: mat.define-palette(mat.$pink-palette, 800);
 $my-warn: mat.define-palette(mat.$red-palette,800);
+
+$background-color: map_get(mat.$blue-grey-palette, 50);
+
+$typography-val: mat.define-typography-config();
 
 $my-theme: mat.define-light-theme((
   color: (
@@ -23,40 +24,158 @@ $my-theme: mat.define-light-theme((
 
 @include mat.core-theme($my-theme);
 
-.alternative {
+$theme-one: mat.define-light-theme((
 
-  $my-primary: mat.define-palette(mat.$amber-palette, 500);
-  $my-accent: mat.define-palette(mat.$indigo-palette, 800);
-  $my-warn: mat.define-palette(mat.$red-palette,800);
+  color: (
+    primary: mat.define-palette(mat.$indigo-palette, 200),
+    accent: mat.define-palette(mat.$indigo-palette, 800),
+    warn: $my-warn,
+  ),
+  typography: $typography-val,
+  density: 0,
+  )
+);
 
-  $my-theme: mat.define-light-theme((
-    color: (
-      primary: $my-primary,
-      accent: $my-accent,
-      warn: $my-warn,
-    ),
-    typography: mat.define-typography-config(),
-    density: 0,
-  ));
+
+$theme-two: mat.define-light-theme((
+
+  color: (
+    primary:  mat.define-palette(mat.$blue-grey-palette, 800),
+    accent: mat.define-palette(mat.$blue-grey-palette, 400),
+    warn: $my-warn,
+  ),
+  typography: $typography-val,
+  density: 0,
+)
+);
+
+
+$theme-three: mat.define-light-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$amber-palette, 800),
+    accent: mat.define-palette(mat.$amber-palette, 400),
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+)
+);
+
+$theme-four: mat.define-light-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$cyan-palette, 800),
+    accent: mat.define-palette(mat.$cyan-palette, 400),
+    warn: $my-warn,
+  ),
+
+  density: 0,
+)
+);
+
+$theme-five: mat.define-light-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$pink-palette, 800),
+    accent: mat.define-palette(mat.$pink-palette, 400),
+    warn: $my-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+)
+);
+
+
+
+@include mat.all-component-themes($theme-one);
+
+// indigo
+.theme-one {
+  @include mat.all-component-colors($theme-two);
+
+  ::ng-deep #theme-one {
+    background-color: indigo !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: #4FC0D0 !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #1B6B93 !important
+  }
 }
 
-.dark-theme {
+// blue grey
+.theme-two {
+  @include mat.all-component-colors($theme-two);
 
-  $my-primary: mat.define-palette(mat.$indigo-palette, 500);
-  $my-accent: mat.define-palette(mat.$indigo-palette, 800);
-  $my-warn: mat.define-palette(mat.$red-palette,800);
+  ::ng-deep #test {
+    background-color: indigo !important;
+  }
 
-  $my-theme: mat.define-dark-theme((
-    color: (
-      primary: $my-primary,
-      accent: $my-accent,
-      warn: $my-warn,
-    ),
-    typography: mat.define-typography-config(),
-    density: 0,
-  ));
+  mat-card.mat-mdc-card {
+    background-color: #435B66 !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #2D4356 !important
+  }
 }
 
-// pass through
+// amber scheme
+.theme-three {
+  @include mat.all-component-colors($theme-three);
 
-@include mat.all-component-themes($my-theme);
+  #test {
+    background-color: crimson !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: #F29727 !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #F24C3D !important
+  }
+}
+
+// cyan scheme
+.theme-four {
+  @include mat.all-component-colors($theme-four);
+
+  #test {
+    background-color: crimson !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: #79E0EE !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #00C4FF !important
+  }
+}
+
+.theme-five {
+  @include mat.all-component-colors($theme-five);
+
+  #test {
+    background-color: crimson !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: darkred !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: purple !important
+  }
+}
+
+
+
+
+
+

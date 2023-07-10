@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatBadgeSize } from '@angular/material/badge';
 import { ThemePalette } from '@angular/material/core';
 import { Observable } from 'rxjs';
 import { Notification } from 'src/app/models/notification/notification';
 import { NotificationType } from 'src/app/models/notification/notification-type';
 import { NotificationService } from 'src/app/services/notification/notification.service';
-
 
 // Component for handing message notifications
 @Component({
@@ -16,12 +15,20 @@ import { NotificationService } from 'src/app/services/notification/notification.
 export class NotificationPanelComponent implements OnInit {  
   // list of material-ui icons used; 
   // home, show_chart, comment, rate_review, thumb_up, person_add, message;
+  
+  // comment :: postComment
+  // comment vote :: commentLike
+  // follow :: follow
+  // post vote :: postLike
+  // profile vote :: profileLike
 
   // expected data types and conditonal variables for displaying data within the view
   menuIsOpen: boolean = false;
   panelIsOpen: boolean = false;
   notifications$!: Observable<Notification[]>;
   notificationTypes$!: Observable<NotificationType[]>;
+  notificationTypes!: NotificationType[];
+  notifications!: Notification[];
 
   // atttribute fields for passing values down to notification-type component
   indexOfType!: number;
@@ -30,21 +37,49 @@ export class NotificationPanelComponent implements OnInit {
   badgeSize: MatBadgeSize = 'small';
   badgeContent: number = 0;
 
+  totalUnread = 0;
+  renderCount: number = 0;
+
   constructor(private notificationService: NotificationService) {}
 
   // initialization 
   ngOnInit(): void {
-    this.notifications$ = this.notificationService.fetchNotifications();
-    this.notificationTypes$ = this.notificationService.fetchNotificationsTypes();
+
+    this.notificationService.fetchNotifications().subscribe({
+      next: (notifications: Notification[]) => {
+        // assign object and matIconName to object to display mat icon within messages
+        this.notifications = notifications;
+        this.notifications.forEach(noti => this.assignProps(noti));
+        this.totalUnread = this.getTotalUnreadCount(this.notifications);
+
+        this.notificationService.fetchNotificationsTypes().subscribe((resData) => {
+          this.notificationTypes = resData;
+          this.notificationTypes.forEach(type => {
+            // assign matIconName to type and get the count of unread messages
+            this.assignProps(type); 
+            this.getUnreadCount(type.originName, this.notifications);
+          })
+        })
+      },
+    });
 
     // for detecting when no messages are left, so update the panelOpenState
     this.notificationService.messagePanelIsEmpty.subscribe((panelState) => {
+      // this.toggleNotification(-1, '');
       this.panelIsOpen = !panelState;
     }).unsubscribe();
+
   }
+
+
+  decrementTotalUnread() : void {
+    this.totalUnread = this.getTotalUnreadCount(this.notifications);
+  }
+
 
   expandNotificationMenu() : void {
     this.menuIsOpen = !this.menuIsOpen;
+    this.panelIsOpen = false;
   }
 
   // toggles the notification messages
@@ -59,45 +94,51 @@ export class NotificationPanelComponent implements OnInit {
 
   // since db has only 3 fields, this method is used to
   // assign a material-ui icon names and badge count to the NotificationType instance
-  assignProps(notificationType: NotificationType, notifications: Notification[]) : string | null {
-    const iconName = notificationType.name;
-    switch (iconName) {
-      case "home": { 
-        notificationType.matIconName = "home"; 
-        notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
-        return "home"; }
-      case "trending": { 
-        notificationType.matIconName = "show_chart"; 
-        notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
-        return "show_chart"; }
-      case "comments": { 
-        notificationType.matIconName = "comment"; 
-        notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
-        return "comment"; }
-      case "reviews": { 
-        notificationType.matIconName = "rate_review"; 
-        notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
-        return "rate_review"; }
-      case "messages": { 
-        notificationType.matIconName = "message"; 
-        notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
-        return "message"; }
-      case "likes":{ 
-        notificationType.matIconName = "thumb_up"; 
-        notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
-        return "thumb_up"; }
-      case "friends": { 
-        notificationType.matIconName = "person_add"; 
-        notificationType.badgeContent = this.getUnreadCount(notifications, notificationType.matIconName);
-        return "person_add"; }
-      default: return null;
+  assignProps(notificationType: NotificationType | Notification) : string | null {
+
+    let originName;
+    if (notificationType.hasOwnProperty("originName")) {
+      originName =  notificationType.originName; // this is coming from json file
     }
+    if (notificationType.hasOwnProperty("notificationType")) {
+      originName =  notificationType.notificationType; // this is coming from http notification object
+      console.log(originName);
+    }
+
+    switch (originName) {
+      case "postComment": { 
+        notificationType.matIconName = "comment"; 
+        break;
+      }
+      case "commentLike": { 
+        notificationType.matIconName = "favorite_border";  
+        break;
+       }
+      case "follow": { 
+        notificationType.matIconName = "repeat_icon";  
+        break;
+      }
+      case "postLike":{ 
+        notificationType.matIconName = "thumb_up";  
+        break;
+      }
+      case "profileLike": { 
+        notificationType.matIconName = "face";  
+        break;
+      }
+    }
+    return notificationType.matIconName;
+  }
+
+  getTotalUnreadCount(notifications: Notification[]) : number {
+    return notifications.filter(noti => !noti.viewed).length;
   }
 
 
   // counts the number of messages for the matching icon / notification type
-  private getUnreadCount(notifications: Notification[], notificationType: string) : number {
-    this.badgeContent = notifications.filter(notification => notification.type === notificationType).length;
+  getUnreadCount(originName: string, notifications: Notification[]) : number {
+    this.badgeContent = notifications.
+      filter(notification => notification.notificationType === originName && !notification.viewed).length;
     return this.badgeContent;
   }
 

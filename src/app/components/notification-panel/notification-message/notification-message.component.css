@@ -3,7 +3,7 @@
 }
 
 .message-content {
-  @apply flex items-center h-full pr-2 py-2 shadow-md rounded-sm ;
+  @apply flex items-center h-[3rem] max-h-16 pr-2 py-2 shadow-md rounded-sm cursor-pointer;
 }
 
 /* bg-[#f5f6fa] */
@@ -17,12 +17,13 @@
   @apply flex-[8] text-left font-normal tracking-wider;
 }
 
-.message-content  {
+.message-content-bg  {
   /* From https://css.glass */
   /* background: rgba(5, 5, 5, 0.5); */
-  background: rgba(219, 219, 219, 0.1);
+  /* background: rgba(219, 219, 219, 0.1); */
 
   /* background: rgba(5, 5, 5, 0.1); */
+  background: whitesmoke;
   border-radius: 6px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(20.5px);

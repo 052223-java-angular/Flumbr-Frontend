@@ -1,16 +1,31 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { Notification } from '../../models/notification/notification';
 import { NotificationType } from '../../models/notification/notification-type';
+import { AppSettings } from 'src/app/global/app-settings';
+import { TokenService } from '../tokenservice.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  messagePanelIsEmpty = new Subject<boolean>();
+  constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
 
-  constructor(private httpClient: HttpClient) { }
+  private baseUrl = AppSettings.API_URL;
+  messagePanelIsEmpty = new Subject<boolean>();
+  totalUnread = new Subject<number>();
+    
+  // backend notification names
+  // comment :: postComment
+  // comment vote :: commentLike
+  // follow :: follow
+  // post vote :: postLike
+  // profile vote :: profileLike
+
+  decrementTotalUnread(currentTotal: number) : void {
+    return this.totalUnread.next(currentTotal);
+  }
 
   // notifies subscribers the message panel list is emoty
   raiseMessagePanelIsEmpty(isEmpty: boolean) : void {
@@ -19,7 +34,9 @@ export class NotificationService {
 
   // fetch notifications
   fetchNotifications() : Observable<Notification[]> {
-    return this.httpClient.get<Notification[]>("/assets/notifications/notifications.json");
+    return this.httpClient
+      .get<Notification[]>(`${this.baseUrl}/notifications/all/${(this.tokenService.getUser()).id}`);
+    // return this.httpClient.get<Notification[]>("/assets/notifications/notifications.json");
   }
 
   // fetch notification types
@@ -28,8 +45,15 @@ export class NotificationService {
   }
 
   // update notifications as read
-  updateNotificationAsRead(payload: Notification) : Observable<Notification[]> {
-    return this.httpClient.put<Notification[]>('/', payload);
+  updateNotificationAsRead(notification: Notification) : Observable<any> {
+    // backend requires a userIrd and notificationId payload
+    const payload = {"userId": (this.tokenService.getUser()).id, "notificationId": notification.id}
+    return this.httpClient.put<any>(`${this.baseUrl}/notifications/${notification.id}`, payload);
   }
   
+  // delete notification
+  deleteNotification(notification: Notification) : Observable<HttpResponse<any>> {
+    return this.httpClient.delete<HttpResponse<any>>(`${this.baseUrl}/notifications/${notification.id}`);
+  }
+
 }

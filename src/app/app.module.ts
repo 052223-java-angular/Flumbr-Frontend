@@ -35,6 +35,8 @@ import { NotificationMessageComponent } from './components/notification-panel/no
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { FollowComponent } from './components/follow/follow.component';
+import { ProfileSelectorComponent } from './components/profile-selector/profile-selector.component';
+import { MatSelectModule } from '@angular/material/select';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
@@ -45,7 +47,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
 import { PostListComponent } from './components/posts/post-list/post-list.component';
 import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
-import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-user.component';
+import { FeedPostsComponent } from './components/posts/feed-posts/feed-posts.component';
+import { FollowingPostsComponent } from './components/posts/following-posts/following-posts.component';
+
+import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
+import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
 
 @NgModule({
   declarations: [
@@ -62,13 +68,16 @@ import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-
     NotificationMessageComponent,
     FollowComponent,
     HomeComponent,
-    CreatePostComponent,
     RegisterComponent,
     LoginComponent,
+    ProfileSelectorComponent,
     ThemeSwitcherComponent,
     ViewPostsComponent,
     TrendingPostsComponent,
-    PostsByUserComponent,
+    FeedPostsComponent,
+    FollowingPostsComponent,
+    ResetPasswordComponent,
+    NewPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,30 +86,20 @@ import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-
     FormsModule,
     ReactiveFormsModule,
     MatSlideToggleModule,
-
     HttpClientModule,
     MatCardModule,
     MatInputModule,
-    ReactiveFormsModule,
-
-    MatCardModule,
     MatButtonModule,
     MatExpansionModule,
     MatListModule,
     MatBadgeModule,
-    HttpClientModule,
-    MatInputModule,
     MatIconModule,
-    MatButtonModule,
     MatFormFieldModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatCardModule,
     NgxDropzoneModule,
     MatProgressSpinnerModule,
-    HttpClientModule,
     MatTooltipModule,
     MatMenuModule,
+    MatSelectModule,
     ToastModule,
     MatChipsModule,
     MatTabsModule,

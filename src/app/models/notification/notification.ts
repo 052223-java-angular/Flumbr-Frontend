@@ -3,5 +3,10 @@ export interface Notification {
   message: string,
   profileId: string,
   hasRead: boolean,
-  type: string
+  originName: string,
+  matIconName: string,
+  notificationType: string,
+  viewed: boolean,
+  username: string,
+  createTime: string
 }
