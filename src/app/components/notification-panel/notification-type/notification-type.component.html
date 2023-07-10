@@ -1,13 +1,14 @@
 <div [ngClass]="activeMatIcon === matIcon ? 
       'icon-wrap icon-wrap-active' : 'icon-wrap icon-wrap-inactive'">
 
+      <!-- {{badgeContent}} -->
+
   <!-- material-ui icon to load -->
   <mat-icon aria-label="icon"
     [ngClass]="badgeContent != 0 ? 'icon icon-active' : 'icon icon-inactive' ">
       {{ matIcon }}
   </mat-icon>
 
-  <!-- {{badgeContent}} : {{matIcon}} : {{activeNotificationType}} -->
   <!-- badge icon -->
   <div  
     [matBadge]="badgeContent"
@@ -17,5 +18,3 @@
     class="icon-badge"></div>
 
 </div>
-
-<ng-content></ng-content>

@@ -20,14 +20,14 @@
           formControlName="message"
           ></textarea>
         <mat-chip-set
-          *ngIf="tags.length > 0"
+          *ngIf="tags && tags.length > 0"
           aria-label="tags">
           <div class="flex items-baseline flex-wrap">
             <small>Tags:</small>
             <mat-chip
               *ngFor="let tag of tags"
               [style.background-color]="'#ff3f80'">
-              {{ tag.slice(1) }}
+              {{ tag }}
             </mat-chip>
           </div>
         </mat-chip-set>

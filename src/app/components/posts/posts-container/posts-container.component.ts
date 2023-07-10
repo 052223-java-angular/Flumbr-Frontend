@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-posts-container',
@@ -7,6 +8,8 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
   styleUrls: ['./posts-container.component.css'],
 })
 export class PostsContainerComponent {
+  constructor(private notificationService: NotificationService) {}
+
   activeTab: string = 'default';
 
   activateTab(changeEvent: MatTabChangeEvent) {
@@ -15,6 +18,7 @@ export class PostsContainerComponent {
     } else {
       this.activeTab = changeEvent.tab.textLabel;
     }
+    this.notificationService.raiseStateIsReloading(true);
   }
 
   /*----------------------------------------------------------------------->
