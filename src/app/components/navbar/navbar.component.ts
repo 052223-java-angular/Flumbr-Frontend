@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import {TokenService} from "../../services/tokenservice.service";
-import {Router} from "@angular/router";
+import { TokenService } from '../../services/tokenservice.service';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
 
 @Component({
   selector: 'app-navbar',
@@ -9,8 +11,11 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent {
-  constructor(private router: Router,
-              private tokenService:TokenService) {}
+  constructor(
+    private dialog: MatDialog,
+    private router: Router,
+    private tokenService: TokenService
+  ) {}
 
   login() {}
 
@@ -21,5 +26,14 @@ export class NavbarComponent {
 
   isAuthenticated() {
     return this.tokenService.isLoggedIn();
+  }
+
+  openPostDialog(): void {
+    const dialogRef = this.dialog.open(CreatePostComponent, {
+      width: '600px',
+      maxHeight: '800px',
+    });
+
+    dialogRef.afterClosed().subscribe(() => {});
   }
 }

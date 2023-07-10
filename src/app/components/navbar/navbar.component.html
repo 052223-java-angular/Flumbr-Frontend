@@ -9,7 +9,10 @@
         <button (click)="login()" *ngIf="!isAuthenticated()" class="bg-blue-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink="/login">Login</a></button>
         <button *ngIf="!isAuthenticated()" class="bg-green-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink="/register">Register</a></button>
         <a *ngIf="isAuthenticated()" class="text-blue-500" routerLink="/posts">Posts</a>
-        <button *ngIf="isAuthenticated()" class="bg-purple-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink="/posts/create">Post</a></button>
+        <button 
+            *ngIf="isAuthenticated()"
+            class="bg-purple-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"
+            (click)="openPostDialog()">Post</button>
         <button (click)="logout()" *ngIf="isAuthenticated()" class="bg-red-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink=" ">Logout</a></button>
     </ul>
     <app-notification-panel *ngIf="isAuthenticated()"></app-notification-panel>
