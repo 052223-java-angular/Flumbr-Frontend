@@ -1,9 +1,9 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post',
@@ -11,13 +11,28 @@ import { Vote } from 'src/app/models/post/vote';
   styleUrls: ['./post.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PostComponent {
+export class PostComponent implements OnInit {
   @Input() post!: PostRes;
   isChatOpen = false;
+  commentForm!: FormGroup;
 
   constructor(
-    private postService: PostService,   
-    private tokenService: TokenService,) {}
+    private postService: PostService,
+    private tokenService: TokenService
+  ) {}
+
+  ngOnInit(): void {
+    this.commentForm = new FormGroup({
+      comment: new FormControl(
+        null,
+        Validators.compose([Validators.required, Validators.maxLength(500)])
+      ),
+    });
+  }
+
+  onCommentSubmit() {
+    console.log(this.commentForm);
+  }
 
   navigateToTag(id: string) {
     console.log(id);
@@ -28,8 +43,8 @@ export class PostComponent {
   }
 
   likePost(id: string) {
-    console.log("id is " + id);
-    console.log("userId is " + this.tokenService.getUser().id);
+    console.log('id is ' + id);
+    console.log('userId is ' + this.tokenService.getUser().id);
 
     // The payload to be sent to the backend API
     const payload: Vote = {
@@ -42,17 +57,16 @@ export class PostComponent {
     this.postService.likePost(payload).subscribe({
       next: (/* value */) => {
         //TODO: Call toaster service to msg?
-        console.log("voted like for postId " + id );
+        console.log('voted like for postId ' + id);
       },
       error: (error) => {
-        console.log("error in setting vote " + error);
+        console.log('error in setting vote ' + error);
       },
     });
-    
   }
 
   dislikePost(id: string) {
-    console.log("id  is " + id);
+    console.log('id  is ' + id);
 
     // The payload to be sent to the backend API
     const payload: Vote = {
@@ -62,16 +76,15 @@ export class PostComponent {
     };
 
     // Call the post service to like the post.
-     this.postService.likePost(payload).subscribe({
+    this.postService.likePost(payload).subscribe({
       next: (/* value */) => {
         //TODO: Call toaster service to msg?
-        console.log("voted dislike for postId " + id );
+        console.log('voted dislike for postId ' + id);
       },
       error: (error) => {
-        console.log("error in setting vote " + error);
+        console.log('error in setting vote ' + error);
       },
     });
-
   }
 
   sharePost() {
