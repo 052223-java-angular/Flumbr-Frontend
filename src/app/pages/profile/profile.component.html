@@ -26,25 +26,6 @@
                   <img mat-card-image src="{{profile.profile_img}}" class="p-11 w-full h-full object-cover">
                 </div>
 
-                <div *ngIf="modifyBio && !isImage" >
-                  <ngx-dropzone (change)="onSetImage($event)" [multiple]=false>
-                    <ngx-dropzone-label>Drag and drop image or<span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
-                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                      <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                    </ngx-dropzone-preview>
-                  </ngx-dropzone>
-                </div>
-
-                <div
-                  class="w-screen lg:w-1/2"
-                  *ngIf="isImage && modifyBio">
-                  <h3 class="font-bold">Preview:</h3>
-                  <ng-container *ngIf="isImage">
-                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
-                      <ngx-dropzone-label></ngx-dropzone-label>
-                    </ngx-dropzone-image-preview>
-                  </ng-container>
-                </div>
               </mat-card>
             </mat-card-title-group>
           </mat-card-header>

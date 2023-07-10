@@ -73,36 +73,7 @@ export class ProfileComponent {
   }
 
 
-  // event when adding folder into drop down
-  onSetImage(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      //this.uploadForm.get().setValue(file);
-    }
-    this.files.push(...event.addedFiles);
-    if (this.files.length > 1) {
-      this.files.splice(0, 1);
-    }
-    this.setImageAndVideoFlags();
-  }
 
-  //
-  setImageAndVideoFlags() {
-    if (this.files.length == 1) {
-      const file = this.files[0];
-      const fileType = file['type'];
-      const imageRegEx = /image/;
-      this.isImage = imageRegEx.test(fileType);
-    } else {
-      this.isImage = false;
-    }
-  }
-
-  onRemove(event: any) {
-    this.files.splice(this.files.indexOf(event), 1);
-    this.setImageAndVideoFlags();
-    this.shortLink = null;
-  }
 
 
 
