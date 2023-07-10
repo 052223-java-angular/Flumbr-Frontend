@@ -8,6 +8,7 @@ import {PostService} from "../../services/post/post.service";
 import {PostRes} from "../../models/post/post";
 import {ActivatedRoute} from "@angular/router";
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -36,7 +37,8 @@ export class ProfileComponent {
 
   constructor(private profileService: ProfileService,
               private postService: PostService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              ) {
 
     this.user_id = this.route.snapshot.params['userId']
   }
@@ -56,6 +58,10 @@ export class ProfileComponent {
     })
   }
 
+  scrollTop() {
+    //this.document.documentElement.scrollTop = 0;
+  }
+
   // boolean toggle for modifying biography
   modifyProfileBio() {
     this.modifyBio = !this.modifyBio;
@@ -67,7 +73,7 @@ export class ProfileComponent {
     if (!this.changeBioForm.valid) {
       console.log("bio form not set")
     }
-    // creatse a biography payload to send to the back end
+    // create a biography payload to send to the back end
     const payload: BioPayload = {
       bio: this.changeBioForm.controls.bio.value!
     }
