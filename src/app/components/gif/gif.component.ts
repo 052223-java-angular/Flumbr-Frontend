@@ -26,14 +26,25 @@ export class GifComponent implements OnInit {
   }
 
   search(searchTerm: string) {
-    this.gifService.getSearchGifs(searchTerm).subscribe({
-      next: (res) => {
-        this.gifs = res.data;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    if (searchTerm.length == 0) {
+      this.gifService.getTrendingGifs().subscribe({
+        next: (res) => {
+          this.gifs = res.data;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else {
+      this.gifService.getSearchGifs(searchTerm).subscribe({
+        next: (res) => {
+          this.gifs = res.data;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
   }
 
   debounceSearch = this.debouncer(

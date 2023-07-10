@@ -15,6 +15,8 @@ export class PostComponent implements OnInit {
   @Input() post!: PostRes;
   isChatOpen = false;
   isGifComponentOpen = false;
+  isEmojiMartOpen = false;
+  chosenGif: string | null = null;
   commentForm!: FormGroup;
 
   constructor(
@@ -35,12 +37,30 @@ export class PostComponent implements OnInit {
     console.log(this.commentForm);
   }
 
-  onGifChosen(gifChosen: string) {
-    console.log(gifChosen);
+  addGif(gifChosen: string) {
+    this.chosenGif = gifChosen;
+    this.toggleGifComponent();
+  }
+
+  removeGif() {
+    this.chosenGif = null;
   }
 
   toggleGifComponent() {
+    if (this.isEmojiMartOpen) {
+      this.isEmojiMartOpen = false;
+    }
     this.isGifComponentOpen = !this.isGifComponentOpen;
+  }
+
+  addEmoji(emoji: string) {
+    console.log(emoji);
+    const control = this.commentForm.controls['comment'];
+    control.setValue((control.value ? control.value : '') + emoji);
+  }
+
+  toggleEmojiMart() {
+    this.isEmojiMartOpen = !this.isEmojiMartOpen;
   }
 
   navigateToTag(id: string) {

@@ -53,6 +53,7 @@ import { FollowingPostsComponent } from './components/posts/following-posts/foll
 import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
 import { GifComponent } from './components/gif/gif.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -105,6 +106,7 @@ import { GifComponent } from './components/gif/gif.component';
     ToastModule,
     MatChipsModule,
     MatTabsModule,
+    PickerModule,
   ],
   providers: [
     RouteguardService,
