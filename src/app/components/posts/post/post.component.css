@@ -6,3 +6,9 @@
 .icon {
   @apply text-slate-700 cursor-pointer transition-all ease-in-out duration-200 hover:text-slate-950;
 }
+
+.disabled {
+  opacity: 0.5; /* Example: reduce opacity for disabled icons */
+  pointer-events: none; /* Example: disable pointer events for disabled icons */
+  cursor: not-allowed; /* Example: change cursor to not-allowed for disabled icons */
+}
