@@ -95,7 +95,16 @@
             </mat-form-field>
           </div>
 
+          <!-- follow / unfollow  -->
+          <!-- {{profile | json}} -->
+          <app-follow
+            viewTemplate="iconView"
+            [followIdentity]="{
+                    loggedInUserId: 'this should be the logged in user id',
+                    ownerUserId: user_id,
+                    ownerUsername: profile.username}">
 
+          </app-follow>
         </div>
 
       </div>

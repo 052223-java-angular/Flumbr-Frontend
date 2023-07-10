@@ -1,0 +1,23 @@
+::ng-deep #theme-one {
+  background-color: #116a7b;
+}
+
+::ng-deep #theme-two {
+  background-color: #213555;
+}
+
+::ng-deep #theme-three {
+  background-color: #e55807;
+}
+
+::ng-deep #theme-four {
+  background-color: #ecf8f9;
+}
+
+::ng-deep #theme-five {
+  background-color: #ff0060;
+}
+
+.mat-mdc-standard-chip {
+  --mdc-chip-label-text-color: #fff;
+}

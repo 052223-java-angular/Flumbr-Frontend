@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
 import { PostRes } from 'src/app/models/post/post';
-import {Vote} from 'src/app/models/post/vote';
+import { Vote } from 'src/app/models/post/vote';
 import { Tag } from 'src/app/models/tag/tag';
 import { environment } from 'src/environments/environment';
 
@@ -27,7 +27,13 @@ export class PostService {
         { id: '2', name: 'fluffy' },
       ],
       createTime: '2003-04-13',
+      userVote: {
+        id: '3b92acce-d527-413d-af5d-f7ea8ea1ef58',
+        vote: true,
+        username: null,
+      },
     },
+
     {
       id: '2',
       upVotes: 100,
@@ -47,18 +53,11 @@ export class PostService {
         { id: '7', name: 'beautiful' },
       ],
       createTime: '2003-05-28',
-    },
-    {
-      id: '3',
-      upVotes: 5,
-      downVotes: 0,
-      username: 'oliengreen89',
-      profileImg:
-        'https://images.unsplash.com/photo-1608346128025-1896b97a6fa7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-      s3Url: '../../../assets/videos/toilet-funny.mp4',
-      mediaType: 'video',
-      tags: [{ id: '8', name: 'funny' }],
-      createTime: '2020-12-23',
+      userVote: {
+        id: '3b92acce-d527-413d-af5d-f7ea8ea1ef58',
+        vote: true,
+        username: null,
+      },
     },
   ];
 
@@ -85,65 +84,65 @@ export class PostService {
     return this.http.get<any>(`${this.baseUrl}/posts/trending/${date}`);
   }
 
-  getFeed(page:number) : Observable<Array<PostRes>>
-  {
-    
-      let url:string = environment.apiBaseUrl + "/feed/{{page}}"
+  getFeed(page: number): Observable<Array<PostRes>> {
+    let url: string = environment.apiBaseUrl + '/feed/{{page}}';
 
-      return this.http.get<Array<PostRes>>(url)
-  
+    return this.http.get<Array<PostRes>>(url);
   }
-  getPostsByUserId(user_id:string): Observable<Array<PostRes>>
-  {
-      let url:string = environment.apiBaseUrl + "/posts/user/{{user_id}}"
+  getPostsByUserId(user_id: string): Observable<Array<PostRes>> {
+    let url: string = environment.apiBaseUrl + '/posts/user/{{user_id}}';
 
-
-      return this.http.get<Array<PostRes>>(url);
+    return this.http.get<Array<PostRes>>(url);
   }
 
-  getPostsByTagname(tags:Tag[], pageNum: number): Observable<Array<PostRes>>
-  {
-      let url:string = environment.apiBaseUrl + "/posts/tag/{{pagenum}}";
-      let tagString:string = "";
+  getPostsByTagname(tags: Tag[], pageNum: number): Observable<Array<PostRes>> {
+    let url: string = environment.apiBaseUrl + '/posts/tag/{{pagenum}}';
+    let tagString: string = '';
 
-      for(let tag of tags)
-      {
-          tagString += tag.name;
-          tagString += ", ";
-      }
+    for (let tag of tags) {
+      tagString += tag.name;
+      tagString += ', ';
+    }
 
-     let params = new HttpParams();
+    let params = new HttpParams();
 
-     params = params.append('tags', tagString);
+    params = params.append('tags', tagString);
 
-     return this.http.get<Array<PostRes>>(url, {params: params});
+    return this.http.get<Array<PostRes>>(url, { params: params });
   }
 
-  getPostById(postId:string):Observable<PostRes>
-  {
-     let url:string = environment.apiBaseUrl + "/id/{{postId}}";
+  getPostById(postId: string): Observable<PostRes> {
+    let url: string = environment.apiBaseUrl + '/id/{{postId}}';
 
-     return this.http.get<PostRes>(url);
+    return this.http.get<PostRes>(url);
   }
 
-  getTrendingByDate(fromDate:Date, userId:string): Observable<Array<PostRes>>
-  {
-      
-      let url:string = environment.apiBaseUrl + "/{{fromDate.toISOString().split('T')[0]}}/{{userId}}";
+  getTrendingByDate(
+    fromDate: Date,
+    userId: string
+  ): Observable<Array<PostRes>> {
+    let url: string =
+      environment.apiBaseUrl +
+      "/{{fromDate.toISOString().split('T')[0]}}/{{userId}}";
 
-      return this.http.get<Array<PostRes>>(url);
+    return this.http.get<Array<PostRes>>(url);
   }
-  
 
   createPost(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/posts/create`, formData);
   }
 
-
-   /**
-   * @param payload - 
+  /**
+   * @param payload -
    */
-   likePost(payload: Vote): Observable<any> {
+  votePost(payload: Vote): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
+  }
+
+  /**
+   * @param payload -
+   */
+  likePost(payload: Vote): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
   }
 }

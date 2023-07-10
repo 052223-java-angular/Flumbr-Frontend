@@ -1,55 +1,58 @@
 <!-- hydrate components with notifications -->
-<ng-container *ngIf="notifications$ | async as notifications" >
 
-  <!-- for header icon notification menu  -->
-  <div [ngClass]="notifications ? 'icon-menu icon-animate' : 'icon-menu'">
-    <div class="flex items-baseline">
-      <mat-icon (click)="toggleTypeMenu()" class="scale-[1.65]">
-        notifications_active
-      </mat-icon>  
-      <div  
-        [matBadge]="getTotalUnreadCount(notifications)"
-        [matBadgeColor]="badgeColor"
-        [matBadgeSize]="badgeSize"
-        [matBadgeHidden]="totalUnread == 0"
-        [matBadgePosition]="'below after'"
-        class=" z-50 shadow-md">
+<!-- <ng-container *ngIf="stateIsReload"> -->
+  <ng-container *ngIf="notifications$ | async as notifications" >
+
+    <!-- for header icon notification menu  -->
+    <div [ngClass]="notifications ? 'icon-menu icon-animate' : 'icon-menu'">
+      <div class="flex items-baseline">
+        <mat-icon (click)="toggleTypeMenu()" class="scale-[1.65]">
+          notifications_active
+        </mat-icon>  
+        <div  
+          [matBadge]="getTotalUnreadCount(notifications)"
+          [matBadgeColor]="badgeColor"
+          [matBadgeSize]="badgeSize"
+          [matBadgeHidden]="totalUnread == 0"
+          [matBadgePosition]="'below after'"
+          class=" z-50 shadow-md">
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- menu can open only when there are notifications -->
-  <div *ngIf="menuIsOpen && totalUnread > 0" class="wrapper">
+    <!-- menu can open only when there are notifications -->
+    <div *ngIf="menuIsOpen && totalUnread > 0" class="wrapper">
 
-    <!-- container for icon and notification messages -->
-    <div class="notification-container icon-container-animate">
+      <!-- container for icon and notification messages -->
+      <div class="notification-container icon-container-animate">
 
-      <!-- vertical material-ui icon container -->
-      <div class="icon-container">
-        <app-notification-type *ngFor="let notificationType of notificationTypes$ | async ; index as iconIdx"
-          [matIcon]="notificationType.matIconName"
-          [badgeContent]="getBadgeUnreadCount(notificationType.originName, notifications)"
-          [badgeColor]="badgeColor" 
-          [badgeSize]="badgeSize"
-          [activeMatIcon]="activeMatIcon"
-          (click)="toggleMessagePanel(iconIdx, notificationType)" ></app-notification-type>
+        <!-- vertical material-ui icon container -->
+        <div class="icon-container">
+          <app-notification-type *ngFor="let notificationType of notificationTypes$ | async ; index as iconIdx"
+            [matIcon]="notificationType.matIconName"
+            [badgeContent]="getBadgeUnreadCount(notificationType.originName, notifications)"
+            [badgeColor]="badgeColor" 
+            [badgeSize]="badgeSize"
+            [activeMatIcon]="activeMatIcon"
+            (click)="toggleMessagePanel(iconIdx, notificationType)" ></app-notification-type>
 
-        <!-- add a close option -->
-        <app-notification-type
-          [matIcon]="'cancel_presentation'"
-          [badgeColor]="badgeColor" 
-          [badgeSize]="badgeSize"
-          (click)="toggleTypeMenu()" ></app-notification-type>
+          <!-- add a close option -->
+          <app-notification-type
+            [matIcon]="'cancel_presentation'"
+            [badgeColor]="badgeColor" 
+            [badgeSize]="badgeSize"
+            (click)="toggleTypeMenu()" ></app-notification-type>
+
+        </div>
+
+        <!-- notification should be greater then zero -->
+        <app-notification-message 
+          *ngIf="panelIsOpen && totalUnread > 0"
+          [notifications]="notifications"
+          [activeNotificationType]="activeNotificationType"></app-notification-message>
 
       </div>
-
-      <!-- notification should be greater then zero -->
-      <app-notification-message 
-        *ngIf="panelIsOpen && totalUnread > 0"
-        [notifications]="notifications"
-        [activeNotificationType]="activeNotificationType"></app-notification-message>
-
     </div>
-  </div>
 
-</ng-container>
+  </ng-container>
+<!-- </ng-container> -->

@@ -1,6 +1,8 @@
 <div [ngClass]="activeMatIcon === matIcon ? 
       'icon-wrap icon-wrap-active' : 'icon-wrap icon-wrap-inactive'">
 
+      <!-- {{badgeContent}} -->
+
   <!-- material-ui icon to load -->
   <mat-icon aria-label="icon"
     [ngClass]="badgeContent != 0 ? 'icon icon-active' : 'icon icon-inactive' ">
