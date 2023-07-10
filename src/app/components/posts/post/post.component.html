@@ -5,7 +5,7 @@
 
         <!-- Avatar and username -->
         <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.username)">
-          
+
           <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});"
             *ngIf="post.profileImg"></div>
           <div mat-card-avatar class="flex justify-center items-center bg-indigo-950"><mat-icon
@@ -25,9 +25,9 @@
               <p class="text-sm">{{post.editTime}}</p>
             </div>
 
-          <!-- follow / unfollow  -->
-          <!-- {{post | json}} -->
-          <app-follow viewTemplate="textView" [followIdentity]="{
+            <!-- follow / unfollow  -->
+            <!-- {{post | json}} -->
+            <app-follow viewTemplate="textView" [followIdentity]="{
                 loggedInUserId: 'this should be the logged in user id - may not be required',
                 ownerUserId: post.id,
                 ownerUsername: post.username}"></app-follow>
@@ -66,16 +66,18 @@
 
     <!-- Actions (like, dislike, share post, and open chat) -->
     <mat-card-actions class="flex justify-between">
+
       <div class="flex gap-4">
-       
         Likes: {{post.upVotes}}
         <mat-icon class="icon" matTooltip="Like" matTooltipClass="tooltip" matTooltipPosition="above"
-        [ngClass]="{ 'disabled': !thumbsUpEnabled }"(click)="likePost(post.id)">thumb_up</mat-icon>
+          [ngClass]="{ 'disabled': !thumbsUpEnabled }" (click)="likePost(post.id)">thumb_up</mat-icon>
         Dislikes: {{post.downVotes}}
         <mat-icon class="icon" matTooltip="Dislike" matTooltipClass="tooltip" matTooltipPosition="above"
-        [ngClass]="{ 'disabled': !thumbsDownEnabled }" (click)="dislikePost(post.id)">thumb_down</mat-icon>
+          [ngClass]="{ 'disabled': !thumbsDownEnabled }" (click)="dislikePost(post.id)">thumb_down</mat-icon>
       </div>
       <div class="flex gap-4">
+        <mat-icon class="icon" matTooltip="Like" matTooltipClass="tooltip" matTooltipPosition="above"
+          (click)="likePost(post.id)">bookmark_border</mat-icon>
         <mat-icon class="icon" matTooltip="Share" matTooltipClass="tooltip" matTooltipPosition="above"
           (click)="sharePost()">share</mat-icon>
         <mat-icon class="icon" matTooltip="Comment" matTooltipClass="tooltip" matTooltipPosition="above"
