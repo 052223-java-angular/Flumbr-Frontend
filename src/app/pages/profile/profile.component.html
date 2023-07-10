@@ -22,12 +22,13 @@
 
           <mat-card-header>
             <mat-card-title-group class="flex-row">
-              <mat-card class="flex items-center">
-                <div>
-                  <img mat-card-image src="{{profile.profile_img}}" class="p-5 h-max object-cover">
+              <mat-card class="flex items-center w-full">
+
+                <div class="w-full h-96">
+                  <img mat-card-image src="{{profile.profile_img}}" class="p-11 w-full h-full object-cover">
                 </div>
 
-                <div *ngIf="modifyBio && !isImage" class="">
+                <div *ngIf="modifyBio && !isImage" >
                   <ngx-dropzone (change)="onSetImage($event)" [multiple]=false>
                     <ngx-dropzone-label>Drag and drop image or<span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
                     <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
@@ -71,7 +72,7 @@
                   <mat-label> {{profile.bio}} </mat-label>
                   <input matInput formControlName="bio">
                 </mat-form-field>
-                <button mat-raised-button color="accent" type="submit" class="items-center">Submit bio</button>
+                <button mat-raised-button color="accent" type="submit" class="w-full">Submit bio</button>
               </form>
             </mat-card>
           </mat-card-header>
@@ -80,20 +81,22 @@
 
         <!--- Interaction options: Follow, modify if user --->
 
-        <div class="fixed bottom-4">
+        <div class="fixed bottom-4 ">
           <!-- Button for user to start/stop modifying bio -->
-          <button mat-raised-button color="primary"  (click)="modifyProfileBio()">Modify Profile?</button>
+          <div *ngIf="sessionId == user_id">
+            <button mat-raised-button color="primary"  (click)="modifyProfileBio()">Modify Profile?</button>
 
-          <mat-form-field *ngIf="modifyBio">
-            <mat-label>Select a theme</mat-label>
-            <mat-select>
-              <mat-option (click)="selectTheme('theme-one')" value="theme-one">Theme One</mat-option>
-              <mat-option (click)="selectTheme('theme-two')" value="theme-two">Theme Two</mat-option>
-              <mat-option (click)="selectTheme('theme-three')" value="theme-three">Theme Three</mat-option>
-              <mat-option (click)="selectTheme('theme-four')" value="theme-four">Theme Four</mat-option>
-              <mat-option (click)="selectTheme('theme-five') "value="theme-five">Theme Five</mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field *ngIf="modifyBio">
+              <mat-label>Select a theme</mat-label>
+              <mat-select>
+                <mat-option (click)="selectTheme('theme-one')" value="theme-one">Theme One</mat-option>
+                <mat-option (click)="selectTheme('theme-two')" value="theme-two">Theme Two</mat-option>
+                <mat-option (click)="selectTheme('theme-three')" value="theme-three">Theme Three</mat-option>
+                <mat-option (click)="selectTheme('theme-four')" value="theme-four">Theme Four</mat-option>
+                <mat-option (click)="selectTheme('theme-five') "value="theme-five">Theme Five</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
           <!-- follow / unfollow  -->
           <!-- {{profile | json}} -->

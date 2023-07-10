@@ -26,13 +26,13 @@ export class ProfileService {
   }
 
   // update theme for user
-  updateTheme(payload: ThemePayload): Observable<void> {
-    return this.http.patch<void>(`${this.baseUrl}/profile/bio`, payload)
+  updateTheme(user_id: string, payload: ThemePayload): Observable<void> {
+    return this.http.patch<void>(`${this.baseUrl}/profile/theme/${user_id}`, payload)
   }
 
   // send updated bio to backend to update users bio field
-  updateUserBio( payload: BioPayload ): Observable<void> {
-    return this.http.patch<void>(`${this.baseUrl}/profile/bio`, payload);
+  updateUserBio(user_id: string, payload: BioPayload ): Observable<void> {
+    return this.http.patch<void>(`${this.baseUrl}/profile/bio/${user_id}`, payload);
   }
 
   // upload an image file to send to back end, MUST be multiMedia but only an image

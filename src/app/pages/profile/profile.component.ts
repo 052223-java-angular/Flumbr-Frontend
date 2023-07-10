@@ -7,6 +7,7 @@ import {BioPayload} from "../../models/profile/bio-payload";
 import {PostService} from "../../services/post/post.service";
 import {PostRes} from "../../models/post/post";
 import {ActivatedRoute} from "@angular/router";
+import {TokenService} from "../../services/tokenservice.service";
 
 
 @Component({
@@ -27,6 +28,9 @@ export class ProfileComponent {
   isImage: boolean = false;
   shortLink: string | null = null;
 
+  // get session id
+  sessionId: any;
+
 
   // bio form
   changeBioForm = new FormGroup({
@@ -38,14 +42,17 @@ export class ProfileComponent {
   constructor(private profileService: ProfileService,
               private postService: PostService,
               private route: ActivatedRoute,
+              private tokenService: TokenService
               ) {
 
     this.user_id = this.route.snapshot.params['userId']
+    this.sessionId = this.tokenService.getUser().id
+    console.log(this.sessionId)
   }
 
   // Retrieve profile information of user
   ngOnInit () {
-    this.profileService.getUserTest(this.user_id).subscribe( {
+    this.profileService.getUser(this.user_id).subscribe( {
 
       next: (resp: any) => {
         this.profile = resp;
@@ -77,7 +84,6 @@ export class ProfileComponent {
     // create a biography payload to send to the back end
     const payload: BioPayload = {
       profileId: this.profile.profileId,
-      profile_img: "",
       bio: this.changeBioForm.controls.bio.value!,
       themeName: ""
     }
@@ -85,13 +91,15 @@ export class ProfileComponent {
     this.profile.bio = payload.bio;
 
     // send new bio to backend
-    this.profileService.updateUserBio(payload);
+    this.profileService.updateUserBio(this.tokenService.getUser(),payload);
 
     // leave modify after accepting
     this.modifyProfileBio();
 
     console.log("New bio is: " + payload.bio);
   }
+
+
 
   // event when adding folder into drop down
   onSetImage(event: any) {
@@ -127,6 +135,7 @@ export class ProfileComponent {
 
   // css theme selector
   selectTheme(choice: string) {
+
     this.theme = choice;
   }
 
