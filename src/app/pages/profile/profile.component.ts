@@ -49,6 +49,7 @@ export class ProfileComponent {
 
       next: (resp: any) => {
         this.profile = resp;
+        this.theme = this.profile.themeName;
         console.log(this.profile);
       },
       error: (err) => {
@@ -75,7 +76,10 @@ export class ProfileComponent {
     }
     // create a biography payload to send to the back end
     const payload: BioPayload = {
-      bio: this.changeBioForm.controls.bio.value!
+      profileId: this.profile.profileId,
+      profile_img: "",
+      bio: this.changeBioForm.controls.bio.value!,
+      themeName: ""
     }
     // setting bio for local test
     this.profile.bio = payload.bio;
@@ -83,10 +87,11 @@ export class ProfileComponent {
     // send new bio to backend
     this.profileService.updateUserBio(payload);
 
+    // leave modify after accepting
+    this.modifyProfileBio();
+
     console.log("New bio is: " + payload.bio);
   }
-
-
 
   // event when adding folder into drop down
   onSetImage(event: any) {

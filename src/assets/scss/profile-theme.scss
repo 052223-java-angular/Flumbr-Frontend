@@ -13,7 +13,7 @@ $my-warn: mat.define-palette(mat.$red-palette,800);
 
 $background-color: map_get(mat.$blue-grey-palette, 50);
 
-$my-theme: mat.define-light-theme((
+$default: mat.define-light-theme((
   color: (
     primary: $my-primary,
     accent: $my-accent,
@@ -22,7 +22,8 @@ $my-theme: mat.define-light-theme((
 
 ));
 
-@include mat.core-theme($my-theme);
+@include mat.core-theme($default);
+
 
 $theme-one: mat.define-light-theme((
 
@@ -83,18 +84,31 @@ $theme-five: mat.define-light-theme((
 
 
 
-@include mat.all-component-themes($theme-one);
+@include mat.all-component-themes($default);
 
-// indigo
-.theme-one {
-  @include mat.all-component-colors($theme-two);
+//default Flumblr theme: new users get this
+.default {
 
   mat-card.mat-mdc-card {
-    background-color: #4FC0D0 !important;
+    background-color: #F7FBFC !important;
   }
 
   mat-card-header.mat-mdc-card-header {
-    background-color: #1B6B93 !important
+    background-color: #769FCD !important
+  }
+
+}
+
+// indigo
+.theme-one {
+  @include mat.all-component-colors($theme-one);
+
+  mat-card.mat-mdc-card {
+    background-color: #DBE2EF !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #3F72AF !important
   }
 }
 
@@ -107,11 +121,11 @@ $theme-five: mat.define-light-theme((
   }
 
   mat-card.mat-mdc-card {
-    background-color: #435B66 !important;
+    background-color: #9BA4B5 !important;
   }
 
   mat-card-header.mat-mdc-card-header {
-    background-color: #2D4356 !important
+    background-color: #212A3E !important
   }
 }
 
@@ -157,11 +171,11 @@ $theme-five: mat.define-light-theme((
   }
 
   mat-card.mat-mdc-card {
-    background-color: darkred !important;
+    background-color: #F99B7D !important;
   }
 
   mat-card-header.mat-mdc-card-header {
-    background-color: purple !important
+    background-color: #E76161 !important
   }
 }
 

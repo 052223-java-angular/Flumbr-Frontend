@@ -15,12 +15,12 @@
         <mat-card class="flex">
 
           <mat-card-header>
-            <mat-card>
-              <mat-card-title class="text-9xl">{{profile.username}}</mat-card-title>
+            <mat-card class="w-full items-center">
+              <mat-card-title class="text-5xl">{{profile.username}}</mat-card-title>
             </mat-card>
           </mat-card-header>
 
-          <mat-card-header class="">
+          <mat-card-header>
             <mat-card-title-group class="flex-row">
               <mat-card class="flex items-center">
                 <div>
@@ -50,12 +50,11 @@
               </mat-card>
             </mat-card-title-group>
 
-
           </mat-card-header>
 
           <!--- Biography/About me section --->
 
-          <mat-card-header>
+          <mat-card-header *ngIf="modifyBio == false">
             <mat-card class="w-full">
               <mat-card-content class="">
                 <p *ngIf="modifyBio==false" class="text-2xl">{{profile.bio}}</p>
@@ -64,20 +63,19 @@
           </mat-card-header>
 
 
-
           <!-- Form for submitting bio, only toggled when modify is set to true -->
-          <div class="">
-
-            <div *ngIf="modifyBio == true" class="flex flex-col border-8 border-indigo-600">
-              <form [formGroup]="changeBioForm" (submit)="submitForm()">
-                <mat-form-field class="form-field" class="w-full">
+          <mat-card-header class="pb-5">
+            <mat-card *ngIf="modifyBio == true" class="w-full">
+              <form [formGroup]="changeBioForm" (submit)="submitForm( )">
+                <mat-form-field class="form-field flex">
                   <mat-label> {{profile.bio}} </mat-label>
                   <input matInput formControlName="bio">
                 </mat-form-field>
-                <button mat-raised-button color="accent" type="submit"> Submit bio</button>
+                <button mat-raised-button color="accent" type="submit" class="items-center">Submit bio</button>
               </form>
-            </div>
-          </div>
+            </mat-card>
+          </mat-card-header>
+
         </mat-card>
 
         <!--- Interaction options: Follow, modify if user --->
@@ -103,7 +101,7 @@
             viewTemplate="iconView"
             [followIdentity]="{
                 loggedInUserId: 'this should be the logged in user id',
-                followedUserId: profile.id,
+                followedUserId: user_id,
                 followedUsername: profile.username}">
           </app-follow>
         </div>
