@@ -16,7 +16,7 @@ export class PostComponent {
   isChatOpen = false;
 
   constructor(
-    private postService: PostService,   
+    private postService: PostService,
     private tokenService: TokenService,) {}
 
   navigateToTag(id: string) {
@@ -48,7 +48,6 @@ export class PostComponent {
         console.log("error in setting vote " + error);
       },
     });
-    
   }
 
   dislikePost(id: string) {
@@ -71,7 +70,6 @@ export class PostComponent {
         console.log("error in setting vote " + error);
       },
     });
-
   }
 
   sharePost() {

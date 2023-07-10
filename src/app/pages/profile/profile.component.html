@@ -1,14 +1,15 @@
 <div id="{{theme}}" class="{{theme}} flex flex-col">
 
-  <div class="flex m-20 space-x-10 space-y-5">g
+  <div class="flex m-20 space-x-10 space-y-5">
     <div class="w-3/4 items-center justify-center">
       <app-posts-container></app-posts-container>
     </div>
 
     <div class="w-1/3 max-w-full">
 
-      <div [ngClass]="modifyBio? '': 'sticky top-0 z-49' ">
+      <button *ngIf="sessionId == user_id" routerLink="/profile/settings" mat-raised-button color="accent" >Settings</button>
 
+      <div >
         <mat-card class="flex">
 
           <mat-card-header>
@@ -44,33 +45,13 @@
                     </ngx-dropzone-image-preview>
                   </ng-container>
                 </div>
-
               </mat-card>
             </mat-card-title-group>
-
           </mat-card-header>
 
-          <!--- Biography/About me section --->
-
-          <mat-card-header *ngIf="modifyBio == false">
+          <mat-card-header>
             <mat-card class="w-full">
-              <mat-card-content class="">
-                <p *ngIf="modifyBio==false" class="text-2xl">{{profile.bio}}</p>
-              </mat-card-content>
-            </mat-card>
-          </mat-card-header>
-
-
-          <!-- Form for submitting bio, only toggled when modify is set to true -->
-          <mat-card-header class="pb-5">
-            <mat-card *ngIf="modifyBio == true" class="w-full">
-              <form [formGroup]="changeBioForm" (submit)="submitForm( )">
-                <mat-form-field class="form-field flex">
-                  <mat-label> {{profile.bio}} </mat-label>
-                  <input matInput formControlName="bio">
-                </mat-form-field>
-                <button mat-raised-button color="accent" type="submit" class="w-full">Submit bio</button>
-              </form>
+              <mat-card-title>{{profile.bio}}</mat-card-title>
             </mat-card>
           </mat-card-header>
 
@@ -78,31 +59,11 @@
 
         <!--- Interaction options: Follow, modify if user --->
 
-        <div class="fixed bottom-4 ">
-          <!-- Button for user to start/stop modifying bio -->
-          <div *ngIf="sessionId == user_id">
-            <button mat-raised-button color="primary"  (click)="modifyProfileBio()">Modify Profile?</button>
-
-            <mat-form-field *ngIf="modifyBio">
-              <mat-label>Select a theme</mat-label>
-              <mat-select>
-                <mat-option (click)="selectTheme('theme-one')" value="theme-one">Theme One</mat-option>
-                <mat-option (click)="selectTheme('theme-two')" value="theme-two">Theme Two</mat-option>
-                <mat-option (click)="selectTheme('theme-three')" value="theme-three">Theme Three</mat-option>
-                <mat-option (click)="selectTheme('theme-four')" value="theme-four">Theme Four</mat-option>
-                <mat-option (click)="selectTheme('theme-five') "value="theme-five">Theme Five</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-
-        </div>
-
       </div>
 
     </div>
   </div>
 
-  <button mat-raised-button color="accent" class="fixed bottom-4 right-4 z-50">Go To Top</button>
+  <button mat-raised-button color="accent" class="fixed bottom-4 right-6 z-50">Go To Top</button>
 
 </div>
