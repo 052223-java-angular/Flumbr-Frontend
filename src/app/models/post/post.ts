@@ -17,4 +17,10 @@ export interface PostRes {
 
   // additional options
   animateDelete?: boolean;
+
+  userVote?: {
+    id: string;
+    vote: boolean;
+    username: string | null;
+  } | null;
 }
