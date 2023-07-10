@@ -12,8 +12,17 @@ export class GifService {
   constructor(private http: HttpClient) {}
 
   getTrendingGifs() {
-    return this.http.get(
+    return this.http.get<{ data: any[] }>(
       `${this.giphyApiUrl}/trending?api_key=${this.giphyApiKey}`,
+      {
+        headers: { skip: '' },
+      }
+    );
+  }
+
+  getSearchGifs(search: string) {
+    return this.http.get<{ data: any[] }>(
+      `${this.giphyApiUrl}/search?api_key=${this.giphyApiKey}&q=${search}`,
       {
         headers: { skip: '' },
       }

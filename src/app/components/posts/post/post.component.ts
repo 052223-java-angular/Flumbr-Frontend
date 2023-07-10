@@ -14,6 +14,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class PostComponent implements OnInit {
   @Input() post!: PostRes;
   isChatOpen = false;
+  isGifComponentOpen = false;
   commentForm!: FormGroup;
 
   constructor(
@@ -32,6 +33,14 @@ export class PostComponent implements OnInit {
 
   onCommentSubmit() {
     console.log(this.commentForm);
+  }
+
+  onGifChosen(gifChosen: string) {
+    console.log(gifChosen);
+  }
+
+  toggleGifComponent() {
+    this.isGifComponentOpen = !this.isGifComponentOpen;
   }
 
   navigateToTag(id: string) {
