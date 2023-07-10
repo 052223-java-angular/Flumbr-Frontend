@@ -2,27 +2,28 @@
 @include mat.core();
 
 
+
+
+
 $my-palette: mat.$indigo-palette;
 
 $my-primary: mat.define-palette(mat.$indigo-palette, 500);
-$my-accent: mat.define-palette(mat.$pink-palette, 800);
+$my-accent: mat.define-palette(mat.$indigo-palette, 300);
 $my-warn: mat.define-palette(mat.$red-palette,800);
 
 $background-color: map_get(mat.$blue-grey-palette, 50);
 
-$typography-val: mat.define-typography-config();
-
-$my-theme: mat.define-light-theme((
+$default: mat.define-light-theme((
   color: (
     primary: $my-primary,
     accent: $my-accent,
     warn: $my-warn,
   ),
-  typography: mat.define-typography-config(),
-  density: 0,
+
 ));
 
-@include mat.core-theme($my-theme);
+@include mat.core-theme($default);
+
 
 $theme-one: mat.define-light-theme((
 
@@ -31,8 +32,7 @@ $theme-one: mat.define-light-theme((
     accent: mat.define-palette(mat.$indigo-palette, 800),
     warn: $my-warn,
   ),
-  typography: $typography-val,
-  density: 0,
+
   )
 );
 
@@ -44,8 +44,7 @@ $theme-two: mat.define-light-theme((
     accent: mat.define-palette(mat.$blue-grey-palette, 400),
     warn: $my-warn,
   ),
-  typography: $typography-val,
-  density: 0,
+
 )
 );
 
@@ -57,8 +56,7 @@ $theme-three: mat.define-light-theme((
     accent: mat.define-palette(mat.$amber-palette, 400),
     warn: $my-warn,
   ),
-  typography: mat.define-typography-config(),
-  density: 0,
+
 )
 );
 
@@ -70,7 +68,6 @@ $theme-four: mat.define-light-theme((
     warn: $my-warn,
   ),
 
-  density: 0,
 )
 );
 
@@ -81,29 +78,37 @@ $theme-five: mat.define-light-theme((
     accent: mat.define-palette(mat.$pink-palette, 400),
     warn: $my-warn,
   ),
-  typography: mat.define-typography-config(),
-  density: 0,
+
 )
 );
 
 
 
-@include mat.all-component-themes($theme-one);
+@include mat.all-component-themes($default);
 
-// indigo
-.theme-one {
-  @include mat.all-component-colors($theme-two);
-
-  ::ng-deep #theme-one {
-    background-color: indigo !important;
-  }
+//default Flumblr theme: new users get this
+.default {
 
   mat-card.mat-mdc-card {
-    background-color: #4FC0D0 !important;
+    background-color: #F7FBFC !important;
   }
 
   mat-card-header.mat-mdc-card-header {
-    background-color: #1B6B93 !important
+    background-color: #769FCD !important
+  }
+
+}
+
+// indigo
+.theme-one {
+  @include mat.all-component-colors($theme-one);
+
+  mat-card.mat-mdc-card {
+    background-color: #DBE2EF !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #3F72AF !important
   }
 }
 
@@ -116,11 +121,11 @@ $theme-five: mat.define-light-theme((
   }
 
   mat-card.mat-mdc-card {
-    background-color: #435B66 !important;
+    background-color: #9BA4B5 !important;
   }
 
   mat-card-header.mat-mdc-card-header {
-    background-color: #2D4356 !important
+    background-color: #212A3E !important
   }
 }
 
@@ -132,12 +137,12 @@ $theme-five: mat.define-light-theme((
     background-color: crimson !important;
   }
 
-  mat-card.mat-mdc-card {
+  mat-card {
     background-color: #F29727 !important;
   }
 
-  mat-card-header.mat-mdc-card-header {
-    background-color: #F24C3D !important
+  .mat-mdc-card-header {
+    background-color: #E57C23 !important
   }
 }
 
@@ -166,11 +171,11 @@ $theme-five: mat.define-light-theme((
   }
 
   mat-card.mat-mdc-card {
-    background-color: darkred !important;
+    background-color: #F99B7D !important;
   }
 
   mat-card-header.mat-mdc-card-header {
-    background-color: purple !important
+    background-color: #E76161 !important
   }
 }
 
