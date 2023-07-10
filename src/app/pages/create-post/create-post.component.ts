@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { finalize } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
-import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
@@ -23,6 +23,7 @@ export class CreatePostComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private messageService: MessageService,
     private postService: PostService
   ) {}
@@ -119,7 +120,9 @@ export class CreatePostComponent implements OnInit {
     if (message) {
       formData.append('message', message);
       const uniqueTags = [...new Set(this.tags)];
-      formData.append('tags', JSON.stringify(uniqueTags));
+      for (let i = 0; i < uniqueTags.length; i++) {
+        formData.append('tags', uniqueTags[i]);
+      }
     }
 
     const file = this.postForm.controls['file'].value;
@@ -147,7 +150,7 @@ export class CreatePostComponent implements OnInit {
           this.files = [];
           this.setImageAndVideoFlags();
           this.tags = [];
-          // navigate to post detail screen
+          this.router.navigate(['/posts']);
         },
         error: (error) => {
           this.messageService.add({
