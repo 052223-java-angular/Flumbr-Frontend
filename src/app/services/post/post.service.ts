@@ -131,7 +131,8 @@ export class PostService {
   updatePost(postId:string):Observable<any>
   {
      let url:string = environment.apiBaseUrl += "/id/{{postId}}";
-      return this.http.put<any>(url, null);
+      let formData:FormData = new FormData();
+      
 
   }
 
