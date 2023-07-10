@@ -22,8 +22,8 @@ export class AuthInterceptorService {
     }
 
     // allows http requests to skip the token attachment
-    if (req.headers.get('skip')) {
-      const modifiedReq = req.clone({ headers: req.headers.delete('skip') });
+    if (typeof req.headers.get('Skip') == 'string') {
+      const modifiedReq = req.clone({ headers: req.headers.delete('Skip') });
       return next.handle(modifiedReq);
     }
 

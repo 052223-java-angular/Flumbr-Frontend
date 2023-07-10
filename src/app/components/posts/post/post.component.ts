@@ -4,6 +4,7 @@ import { PostService } from 'src/app/services/post/post.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -13,6 +14,10 @@ import { NotificationService } from 'src/app/services/notification/notification.
 export class PostComponent implements OnInit {
   @Input() post!: PostRes;
   isChatOpen = false;
+  isGifComponentOpen = false;
+  isEmojiMartOpen = false;
+  chosenGif: string | null = null;
+  commentForm!: FormGroup;
 
   thumbsUpEnabled: boolean = true;
   thumbsDownEnabled: boolean = true;
@@ -43,6 +48,45 @@ export class PostComponent implements OnInit {
   ) {
     // Initialize the thumbsUpEnabled and thumbsDownEnabled properties
     //this.updateIconState();
+  }
+
+  ngOnInit(): void {
+    this.commentForm = new FormGroup({
+      comment: new FormControl(
+        null,
+        Validators.compose([Validators.required, Validators.maxLength(500)])
+      ),
+    });
+  }
+
+  onCommentSubmit() {
+    console.log(this.commentForm);
+  }
+
+  addGif(gifChosen: string) {
+    this.chosenGif = gifChosen;
+    this.toggleGifComponent();
+  }
+
+  removeGif() {
+    this.chosenGif = null;
+  }
+
+  toggleGifComponent() {
+    if (this.isEmojiMartOpen) {
+      this.isEmojiMartOpen = false;
+    }
+    this.isGifComponentOpen = !this.isGifComponentOpen;
+  }
+
+  addEmoji(emoji: string) {
+    console.log(emoji);
+    const control = this.commentForm.controls['comment'];
+    control.setValue((control.value ? control.value : '') + emoji);
+  }
+
+  toggleEmojiMart() {
+    this.isEmojiMartOpen = !this.isEmojiMartOpen;
   }
 
   navigateToTag(id: string) {
@@ -112,6 +156,11 @@ export class PostComponent implements OnInit {
         if (this.post.upVotes > 0) {
           this.post.upVotes = this.post.upVotes - 1;
         }
+        
+    this.postService.likePost(payload).subscribe({
+      next: (/* value */) => {
+        //TODO: Call toaster service to msg?
+        console.log('voted dislike for postId ' + id);
       },
       error: (error) => {
         console.log('error in setting vote ' + error);
