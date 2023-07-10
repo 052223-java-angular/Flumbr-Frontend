@@ -14,9 +14,14 @@ export class NotificationService {
 
   private baseUrl = AppSettings.API_URL;
   messagePanelIsEmpty = new Subject<boolean>();
+  stateIsReload = new Subject<boolean>();
     
   // backend notification names
   // comment :: postComment, comment vote :: commentLike, follow :: follow, post vote :: postLike, profile vote :: profileLike
+
+  raiseStateIsReloading(isReloading: boolean) : void {
+    this.stateIsReload.next(isReloading)
+  }
 
   // notifies subscribers the message panel list is emoty
   raiseMessagePanelIsEmpty(isEmpty: boolean) : void {
