@@ -2,35 +2,21 @@
 @include mat.core();
 
 
-
-
-
-$my-palette: mat.$indigo-palette;
-
-$my-primary: mat.define-palette(mat.$indigo-palette, 500);
-$my-accent: mat.define-palette(mat.$indigo-palette, 300);
-$my-warn: mat.define-palette(mat.$red-palette,800);
-
-$background-color: map_get(mat.$blue-grey-palette, 50);
-
 $default: mat.define-light-theme((
   color: (
-    primary: $my-primary,
-    accent: $my-accent,
-    warn: $my-warn,
+    primary: mat.define-palette(mat.$indigo-palette, 500),
+    accent: mat.define-palette(mat.$indigo-palette, 300),
+    warn: mat.define-palette(mat.$red-palette,800),
   ),
 
 ));
-
-@include mat.core-theme($default);
-
 
 $theme-one: mat.define-light-theme((
 
   color: (
     primary: mat.define-palette(mat.$indigo-palette, 200),
     accent: mat.define-palette(mat.$indigo-palette, 800),
-    warn: $my-warn,
+    warn: mat.define-palette(mat.$red-palette,800),
   ),
 
   )
@@ -42,7 +28,7 @@ $theme-two: mat.define-light-theme((
   color: (
     primary:  mat.define-palette(mat.$blue-grey-palette, 800),
     accent: mat.define-palette(mat.$blue-grey-palette, 400),
-    warn: $my-warn,
+    warn: mat.define-palette(mat.$red-palette,800),
   ),
 
 )
@@ -54,7 +40,7 @@ $theme-three: mat.define-light-theme((
   color: (
     primary: mat.define-palette(mat.$amber-palette, 800),
     accent: mat.define-palette(mat.$amber-palette, 400),
-    warn: $my-warn,
+    warn: mat.define-palette(mat.$red-palette,800),
   ),
 
 )
@@ -65,7 +51,7 @@ $theme-four: mat.define-light-theme((
   color: (
     primary: mat.define-palette(mat.$cyan-palette, 800),
     accent: mat.define-palette(mat.$cyan-palette, 400),
-    warn: $my-warn,
+    warn: mat.define-palette(mat.$red-palette,800),
   ),
 
 )
@@ -76,19 +62,19 @@ $theme-five: mat.define-light-theme((
   color: (
     primary: mat.define-palette(mat.$pink-palette, 800),
     accent: mat.define-palette(mat.$pink-palette, 400),
-    warn: $my-warn,
+    warn: mat.define-palette(mat.$red-palette,800),
   ),
 
 )
 );
 
 
+//@include mat.all-component-themes($default);
 
-@include mat.all-component-themes($default);
 
 //default Flumblr theme: new users get this
 .default {
-
+  @include mat.all-component-colors($default);
   mat-card.mat-mdc-card {
     background-color: #F7FBFC !important;
   }
