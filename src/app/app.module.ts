@@ -52,6 +52,7 @@ import { FollowingPostsComponent } from './components/posts/following-posts/foll
 
 import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
+import { SettingsComponent } from './pages/profile/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
     FollowingPostsComponent,
     ResetPasswordComponent,
     NewPasswordComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

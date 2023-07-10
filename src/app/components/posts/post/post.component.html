@@ -65,7 +65,10 @@
 
     <!-- Actions (like, dislike, share post, and open chat) -->
     <mat-card-actions class="flex justify-between">
+
       <div class="flex gap-4">
+        <mat-icon class="icon" matTooltip="Like" matTooltipClass="tooltip" matTooltipPosition="above"
+                  (click)="likePost(post.id)">bookmark_border</mat-icon>
         <mat-icon class="icon" matTooltip="Like" matTooltipClass="tooltip" matTooltipPosition="above"
           (click)="likePost(post.id)">thumb_up</mat-icon>
         <mat-icon class="icon" matTooltip="Dislike" matTooltipClass="tooltip" matTooltipPosition="above"

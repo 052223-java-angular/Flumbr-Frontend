@@ -90,8 +90,21 @@ export class ProfileComponent {
     // setting bio for local test
     this.profile.bio = payload.bio;
 
+    console.log("Session id: " + this.tokenService.getUser().id )
+
     // send new bio to backend
-    this.profileService.updateUserBio(this.tokenService.getUser(),payload);
+    this.profileService.updateUserBio(this.tokenService.getUser().id, payload).subscribe( {
+
+      next: (resp: any) => {
+        this.profile = resp;
+        this.theme = this.profile.themeName;
+        console.log(this.profile);
+      },
+      error: (err) => {
+        console.error("Issue with retrieving profile details.");
+        console.log("Error retrieving user with id: "  + this.user_id + " : " + err);
+      }
+    })
 
     // leave modify after accepting
     this.modifyProfileBio();
@@ -99,6 +112,32 @@ export class ProfileComponent {
     console.log("New bio is: " + payload.bio);
   }
 
+  // css theme selector
+  selectTheme(choice: string) {
+    this.theme = choice;
+
+    // create a theme payload to send to the back end
+    const payload: BioPayload = {
+      profileId: this.profile.profileId,
+      bio: this.changeBioForm.controls.bio.value!,
+      themeName: choice
+    }
+
+    // send new bio to backend
+    this.profileService.updateTheme(this.tokenService.getUser().id, payload).subscribe( {
+
+      next: (resp: any) => {
+
+        console.log("Theme has successfully been set");
+        this.theme = payload.themeName;
+      },
+      error: (err) => {
+        console.error("Issue with retrieving profile details.");
+        console.log("Error retrieving user with id: "  + this.user_id + " : " + err);
+      }
+    })
+
+  }
 
 
   // event when adding folder into drop down
@@ -133,11 +172,7 @@ export class ProfileComponent {
     this.shortLink = null;
   }
 
-  // css theme selector
-  selectTheme(choice: string) {
 
-    this.theme = choice;
-  }
 
   followToggle() {
     this.follow = !this.follow;

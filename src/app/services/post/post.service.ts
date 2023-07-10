@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
 import { PostRes } from 'src/app/models/post/post';
 import {Vote} from 'src/app/models/post/vote';
+import {Bookmark} from "../../models/post/bookmark";
+
 import { Tag } from 'src/app/models/tag/tag';
 import { environment } from 'src/environments/environment';
 
@@ -87,11 +89,11 @@ export class PostService {
 
   getFeed(page:number) : Observable<Array<PostRes>>
   {
-    
+
       let url:string = environment.apiBaseUrl + "/feed/{{page}}"
 
       return this.http.get<Array<PostRes>>(url)
-  
+
   }
   getPostsByUserId(user_id:string): Observable<Array<PostRes>>
   {
@@ -128,12 +130,12 @@ export class PostService {
 
   getTrendingByDate(fromDate:Date, userId:string): Observable<Array<PostRes>>
   {
-      
+
       let url:string = environment.apiBaseUrl + "/{{fromDate.toISOString().split('T')[0]}}/{{userId}}";
 
       return this.http.get<Array<PostRes>>(url);
   }
-  
+
 
   createPost(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/posts/create`, formData);
@@ -141,9 +143,13 @@ export class PostService {
 
 
    /**
-   * @param payload - 
+   * @param payload -
    */
    likePost(payload: Vote): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
+  }
+
+  bookmarkPost(payload: Bookmark): Observable<any> {
+     return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
   }
 }
