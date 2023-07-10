@@ -1,9 +1,11 @@
 <ul class="overflow-y-auto max-h-[32rem] overflow-x-hidden">
+
+  <!-- nested within <ul> so angular will not create a new ul for every item -->
   <ng-container *ngFor="let notification of notifications; index as idx">
 
     <!-- when notification type matches the active-icon, then display the messages -->
     <li  *ngIf="notification.notificationType === activeNotificationType && !notification.viewed" 
-      (click)="updateNotificationAsRead(notification)" 
+      (click)="updateAsViewed(notification)" 
       class="message-wrap message-content message-content-bg">
 
       <mat-icon class="message-icon">{{notification.matIconName}}</mat-icon> 
@@ -16,4 +18,5 @@
     </li>
 
   </ng-container>
+  
 </ul>
