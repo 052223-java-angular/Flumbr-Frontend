@@ -3,17 +3,15 @@ import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
-
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class PostComponent implements OnInit{
+export class PostComponent implements OnInit {
   @Input() post!: PostRes;
   isChatOpen = false;
-
 
   thumbsUpEnabled: boolean = true;
   thumbsDownEnabled: boolean = true;
@@ -23,7 +21,7 @@ export class PostComponent implements OnInit{
   }
 
   updateIconState() {
-    console.log("update icon state ");
+    console.log('update icon state ');
     if (this.post && this.post.userVote) {
       if (this.post.userVote.vote === true) {
         this.thumbsUpEnabled = false;
@@ -38,8 +36,10 @@ export class PostComponent implements OnInit{
     }
   }
 
-
-  constructor(private postService: PostService,  private tokenService: TokenService) {
+  constructor(
+    private postService: PostService,
+    private tokenService: TokenService
+  ) {
     // Initialize the thumbsUpEnabled and thumbsDownEnabled properties
     //this.updateIconState();
   }
@@ -53,9 +53,8 @@ export class PostComponent implements OnInit{
   }
 
   likePost(id: string) {
-    
-    console.log("id is " + id);
-    console.log("userId is " + this.tokenService.getUser().id);
+    console.log('id is ' + id);
+    console.log('userId is ' + this.tokenService.getUser().id);
 
     // The payload to be sent to the backend API
     const payload: Vote = {
@@ -68,7 +67,7 @@ export class PostComponent implements OnInit{
     this.postService.votePost(payload).subscribe({
       next: (/* value */) => {
         //TODO: Call toaster service to msg?
-        console.log("voted like for postId " + id );
+        console.log('voted like for postId ' + id);
         this.thumbsUpEnabled = false; // Disable thumbs-up icon
         this.thumbsDownEnabled = true; // Enable thumbs-down icon
 
@@ -76,20 +75,19 @@ export class PostComponent implements OnInit{
         // Update the likes count in the post object
         this.post.upVotes = updatedLikesCount;
 
-        if ( this.post.downVotes > 0 ){
+        if (this.post.downVotes > 0) {
           this.post.downVotes = this.post.downVotes - 1;
         }
-
       },
       error: (error) => {
-        console.log("error in setting vote " + error);
+        console.log('error in setting vote ' + error);
       },
     });
   }
 
   dislikePost(id: string) {
-    console.log("id  is " + id);
-   
+    console.log('id  is ' + id);
+
     // The payload to be sent to the backend API
     const payload: Vote = {
       vote: false,
@@ -98,10 +96,10 @@ export class PostComponent implements OnInit{
     };
 
     // Call the post service to like the post.
-     this.postService.votePost(payload).subscribe({
+    this.postService.votePost(payload).subscribe({
       next: (/* value */) => {
         //TODO: Call toaster service to msg?
-        console.log("voted dislike for postId " + id );
+        console.log('voted dislike for postId ' + id);
         this.thumbsUpEnabled = true; // Disable thumbs-up icon
         this.thumbsDownEnabled = false; // Enable thumbs-down icon
 
@@ -110,15 +108,14 @@ export class PostComponent implements OnInit{
         // Update the dislikes count in the post object
         this.post.downVotes = updatedDislikedCount;
 
-        if ( this.post.upVotes > 0 ){
-            this.post.upVotes = this.post.upVotes - 1;
+        if (this.post.upVotes > 0) {
+          this.post.upVotes = this.post.upVotes - 1;
         }
       },
       error: (error) => {
-        console.log("error in setting vote " + error);
+        console.log('error in setting vote ' + error);
       },
     });
-
   }
 
   sharePost() {

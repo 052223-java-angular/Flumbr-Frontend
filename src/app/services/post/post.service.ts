@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
 import { PostRes } from 'src/app/models/post/post';
-import {Vote} from 'src/app/models/post/vote';
+import { Vote } from 'src/app/models/post/vote';
+import { Tag } from 'src/app/models/tag/tag';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -25,13 +27,13 @@ export class PostService {
         { id: '2', name: 'fluffy' },
       ],
       createTime: '2003-04-13',
-      "userVote": {
-        "id": "3b92acce-d527-413d-af5d-f7ea8ea1ef58",
-        "vote": true,
-        "username": null
+      userVote: {
+        id: '3b92acce-d527-413d-af5d-f7ea8ea1ef58',
+        vote: true,
+        username: null,
       },
     },
-    
+
     {
       id: '2',
       upVotes: 100,
@@ -51,14 +53,12 @@ export class PostService {
         { id: '7', name: 'beautiful' },
       ],
       createTime: '2003-05-28',
-      "userVote": {
-        "id": "3b92acce-d527-413d-af5d-f7ea8ea1ef58",
-        "vote": true,
-        "username": null
+      userVote: {
+        id: '3b92acce-d527-413d-af5d-f7ea8ea1ef58',
+        vote: true,
+        username: null,
       },
     },
-    
-    
   ];
 
   constructor(private http: HttpClient) {}
@@ -84,13 +84,48 @@ export class PostService {
     return this.http.get<any>(`${this.baseUrl}/posts/trending/${date}`);
   }
 
-  deletePostById(id: string) {
-    this.posts.map((post) => {
-      if (post.id === id) {
-        this.posts.splice(this.posts.indexOf(post), 1);
-      }
-      return post;
-    });
+  getFeed(page: number): Observable<Array<PostRes>> {
+    let url: string = environment.apiBaseUrl + '/feed/{{page}}';
+
+    return this.http.get<Array<PostRes>>(url);
+  }
+  getPostsByUserId(user_id: string): Observable<Array<PostRes>> {
+    let url: string = environment.apiBaseUrl + '/posts/user/{{user_id}}';
+
+    return this.http.get<Array<PostRes>>(url);
+  }
+
+  getPostsByTagname(tags: Tag[], pageNum: number): Observable<Array<PostRes>> {
+    let url: string = environment.apiBaseUrl + '/posts/tag/{{pagenum}}';
+    let tagString: string = '';
+
+    for (let tag of tags) {
+      tagString += tag.name;
+      tagString += ', ';
+    }
+
+    let params = new HttpParams();
+
+    params = params.append('tags', tagString);
+
+    return this.http.get<Array<PostRes>>(url, { params: params });
+  }
+
+  getPostById(postId: string): Observable<PostRes> {
+    let url: string = environment.apiBaseUrl + '/id/{{postId}}';
+
+    return this.http.get<PostRes>(url);
+  }
+
+  getTrendingByDate(
+    fromDate: Date,
+    userId: string
+  ): Observable<Array<PostRes>> {
+    let url: string =
+      environment.apiBaseUrl +
+      "/{{fromDate.toISOString().split('T')[0]}}/{{userId}}";
+
+    return this.http.get<Array<PostRes>>(url);
   }
 
   createPost(formData: FormData): Observable<any> {
@@ -98,9 +133,16 @@ export class PostService {
   }
 
   /**
-   * @param payload - 
+   * @param payload -
    */
   votePost(payload: Vote): Observable<any> {
-      return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
+    return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
+  }
+
+  /**
+   * @param payload -
+   */
+  likePost(payload: Vote): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
   }
 }
