@@ -1,5 +1,5 @@
-import {Component, Inject} from '@angular/core';
-import {DOCUMENT} from "@angular/common";
+import { Component} from '@angular/core';
+import { DarkModeService } from "../../services/dark-mode.service";
 
 @Component({
   selector: 'app-theme-switcher',
@@ -7,18 +7,24 @@ import {DOCUMENT} from "@angular/common";
   styleUrls: ['./theme-switcher.component.scss']
 })
 export class ThemeSwitcherComponent {
+  isDarkThemeActive: boolean = false;
 
-  isDarkThemeActive = false;
+  constructor(private darkModeService: DarkModeService) {
+    console.log("current: "+this.isDarkThemeActive);
+    console.log("local storage: "+ this.darkModeService.getDarkMode());
 
-  constructor(@Inject(DOCUMENT) private document:Document) {
+    this.isDarkThemeActive = this.darkModeService.getDarkMode() === 'true';//change the value based on the local storage value
+
   }
-  onChange(newValue:boolean):void{
-    console.log(newValue)
-    if (newValue){
-    this.document.body.classList.add('dark-mode');
-    }
-    else{
-      this.document.body.classList.remove('dark-mode');
-    }
+
+  /**
+   * Change the status of  isDarkThemeActive based on event handler
+   * Toggle the change of dark-mode
+   * @param result - event change
+   */
+  onChange(result: boolean) {
+    this.isDarkThemeActive = result;
+    console.log("current: "+this.isDarkThemeActive);
+    this.darkModeService.toggleDarkMode();
   }
 }

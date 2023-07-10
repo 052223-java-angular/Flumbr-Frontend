@@ -8,7 +8,7 @@
 $my-palette: mat.$indigo-palette;
 
 $my-primary: mat.define-palette(mat.$indigo-palette, 500);
-$my-accent: mat.define-palette(mat.$pink-palette, 800);
+$my-accent: mat.define-palette(mat.$indigo-palette, 300);
 $my-warn: mat.define-palette(mat.$red-palette,800);
 
 $background-color: map_get(mat.$blue-grey-palette, 50);
@@ -137,11 +137,11 @@ $theme-five: mat.define-light-theme((
     background-color: crimson !important;
   }
 
-  mat-card.mat-mdc-card {
+  mat-card {
     background-color: #F29727 !important;
   }
 
-  mat-card-header.mat-mdc-card-header {
+  .mat-mdc-card-header {
     background-color: #E57C23 !important
   }
 }

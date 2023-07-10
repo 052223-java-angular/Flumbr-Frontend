@@ -15,6 +15,6 @@ export class NotificationTypeComponent {
   @Input() matIcon: string | undefined | null;
   @Input() badgeColor: ThemePalette = 'primary';
   @Input() badgeSize: MatBadgeSize = "small";
-  @Input() activeNotificationType!: string;
+  @Input() activeMatIcon!: string;
 
 }

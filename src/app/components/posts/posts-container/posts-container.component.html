@@ -1,10 +1,10 @@
-<mat-tab-group animationDuration="0ms">
+<mat-tab-group animationDuration="0ms" (selectedTabChange)="activateTab($event)">
   <!-- Main feed -->
   <mat-tab label="Feed">
     <mat-divider class="mb-5"></mat-divider>
 
     <!-- Feed posts component -->
-    <app-feed-posts></app-feed-posts>
+    <app-feed-posts *ngIf="activeTab == 'default'"></app-feed-posts>
   </mat-tab>
 
   <!-- Following -->
@@ -12,7 +12,7 @@
     <mat-divider class="mb-5"></mat-divider>
 
     <!-- Following posts component-->
-    <app-following-posts></app-following-posts>
+    <app-following-posts *ngIf="activeTab == 'Following'"></app-following-posts>
   </mat-tab>
 
   <!-- Trending -->
@@ -20,6 +20,6 @@
     <mat-divider class="mb-5"></mat-divider>
 
     <!-- Trending posts component -->
-    <app-trending-posts></app-trending-posts>
+    <app-trending-posts *ngIf="activeTab == 'Trending'"></app-trending-posts>
   </mat-tab>
 </mat-tab-group>

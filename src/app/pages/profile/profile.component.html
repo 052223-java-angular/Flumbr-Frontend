@@ -98,15 +98,7 @@
             </mat-form-field>
           </div>
 
-          <!-- follow / unfollow  -->
-          <!-- {{profile | json}} -->
-          <app-follow
-            viewTemplate="iconView"
-            [followIdentity]="{
-                loggedInUserId: 'this should be the logged in user id',
-                followedUserId: user_id,
-                followedUsername: profile.username}">
-          </app-follow>
+
         </div>
 
       </div>
@@ -117,4 +109,3 @@
   <button mat-raised-button color="accent" class="fixed bottom-4 right-4 z-50">Go To Top</button>
 
 </div>
-

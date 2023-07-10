@@ -1,36 +1,61 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
-import { TokenService } from '../tokenservice.service';
-
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class FollowService {
-  constructor(private httpClient: HttpClient, private tokenService: TokenService) { }
+export class FollowService implements OnDestroy {
+  private baseUrl = AppSettings.API_URL;
+  $followingUsernames: BehaviorSubject<string[]> = new BehaviorSubject(
+    [] as string[]
+  );
+  $deletedFollow: BehaviorSubject<string> = new BehaviorSubject('');
 
-  baseUrl = AppSettings.API_URL;
-  authHeader!: HttpHeaders;
-
-  // should have a method like this implmented in authService
-  getHttpAuthHeader() : HttpHeaders {
-    return new HttpHeaders({
-      'Authorization': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwaG91dGVzdGVyMDAxIiwicm9sZSI6bnVsbCwiaWQiOiI4YjQ3Y2NmMi1hZjg4LTQ0NDEtYmYwZi0xY2ViMzJmYjk3NDIiLCJleHAiOjE2ODg3MTMwMzUsImlhdCI6MTY4ODY3NzAzNSwiZW1haWwiOm51bGx9.IlmKh1e9XvPUKuyIrYgvGretg8_XMYrtiQzY3tJuR6c'
-    })
+  constructor(private httpClient: HttpClient) {
+    this.httpClient.get<string[]>(`${this.baseUrl}/follows`).subscribe({
+      next: (res) => {
+        this.$followingUsernames.next(res);
+      },
+      error: (err) => {
+        this.$followingUsernames.next([]);
+      },
+    });
   }
-  
-  httpFollow(followedUsername: string) : Observable<HttpResponse<any>> {
+
+  ngOnDestroy() {
+    this.$followingUsernames.unsubscribe();
+  }
+
+  getDeletedFollowBehaviorSubject(): BehaviorSubject<string> {
+    return this.$deletedFollow;
+  }
+
+  // returns the list of usernames the logged-in user is following
+  httpGetIsFollowing(): Observable<string[]> {
+    return this.$followingUsernames.asObservable();
+  }
+
+  // the request does not return anything, so return an HttpResponse to extract header contents if it is required in future impl
+  httpFollow(followedUsername: string): Observable<HttpResponse<any>> {
+    return this.httpClient.post<HttpResponse<any>>(
+      `${this.baseUrl}/follows/${followedUsername}`,
+      {}
+    );
+  }
+
+  // the request does not return anything, so return an HttpResponse to extract header contents if it is required in future impl
+  httpUnfollow(followedUsername: string): Observable<HttpResponse<any>> {
     return this.httpClient
-      .post<HttpResponse<any>>(`${this.baseUrl}/follows/${followedUsername}`, {}, 
-        {headers: this.getHttpAuthHeader()});
+      .delete<HttpResponse<any>>(`${this.baseUrl}/follows/${followedUsername}`)
+      .pipe(
+        tap({
+          next: () => {
+            // update delete following behavior subject
+            this.$deletedFollow.next(followedUsername);
+          },
+        })
+      );
   }
-
-  httpUnfollow(followedUsername: string) : Observable<HttpResponse<any>> {
-    return this.httpClient
-      .delete<HttpResponse<any>>(`${this.baseUrl}/follows/${followedUsername}`,
-        {headers: this.getHttpAuthHeader()});
-  }
-
 }
