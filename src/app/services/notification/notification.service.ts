@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { Notification } from '../../models/notification/notification';
 import { NotificationType } from '../../models/notification/notification-type';
 import { AppSettings } from 'src/app/global/app-settings';
@@ -14,9 +14,14 @@ export class NotificationService {
 
   private baseUrl = AppSettings.API_URL;
   messagePanelIsEmpty = new Subject<boolean>();
+  stateIsReload = new Subject<boolean>();
     
   // backend notification names
   // comment :: postComment, comment vote :: commentLike, follow :: follow, post vote :: postLike, profile vote :: profileLike
+
+  raiseStateIsReloading(isReloading: boolean) : void {
+    this.stateIsReload.next(isReloading)
+  }
 
   // notifies subscribers the message panel list is emoty
   raiseMessagePanelIsEmpty(isEmpty: boolean) : void {

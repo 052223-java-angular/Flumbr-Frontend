@@ -3,6 +3,7 @@ import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
