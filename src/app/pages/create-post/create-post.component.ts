@@ -176,34 +176,34 @@ export class CreatePostComponent implements OnInit {
     }
 
     if (!this.data) {
-      // this.postService
-      //   .createPost(formData)
-      //   .pipe(finalize(() => (this.loading = false)))
-      //   .subscribe({
-      //     next: (/* value */) => {
-      //       this.messageService.add({
-      //         severity: 'success',
-      //         summary: 'Success',
-      //         detail: 'Post created',
-      //         life: AppSettings.DEFAULT_MESSAGE_LIFE,
-      //       });
-      //       this.postForm.reset();
-      //       this.files = [];
-      //       this.setImageAndVideoFlags();
-      //       this.tags = [];
-      //       this.eventBus.cast(EventBusEvents.POST_CREATE, '');
-      //       this.router.navigate(['/posts']);
-      //       this.dialogRef.close([]);
-      //     },
-      //     error: (error) => {
-      //       this.messageService.add({
-      //         severity: 'error',
-      //         summary: 'Error',
-      //         detail: error.error.message || 'Error',
-      //         life: AppSettings.DEFAULT_MESSAGE_LIFE,
-      //       });
-      //     },
-      //   });
+      this.postService
+        .createPost(formData)
+        .pipe(finalize(() => (this.loading = false)))
+        .subscribe({
+          next: (/* value */) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Post created',
+              life: AppSettings.DEFAULT_MESSAGE_LIFE,
+            });
+            this.postForm.reset();
+            this.files = [];
+            this.setImageAndVideoFlags();
+            this.tags = [];
+            this.eventBus.cast(EventBusEvents.POST_CREATE, '');
+            this.router.navigate(['/posts']);
+            this.dialogRef.close([]);
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.error.message || 'Error',
+              life: AppSettings.DEFAULT_MESSAGE_LIFE,
+            });
+          },
+        });
     } else {
       this.postService
         .updatePost(this.data.post.id, formData)

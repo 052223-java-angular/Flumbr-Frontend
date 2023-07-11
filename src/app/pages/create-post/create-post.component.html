@@ -3,11 +3,10 @@
   <mat-spinner></mat-spinner>
 </ng-container>
 
-<ng-container
-  *ngIf="!loading">
-
+<ng-container>
   <div class="flex flex-col items-center">
     <form
+      [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}"
       class="bg-white flex flex-col p-10 w-full"
       (ngSubmit)="submitPostForm()"
       [formGroup]="postForm">
