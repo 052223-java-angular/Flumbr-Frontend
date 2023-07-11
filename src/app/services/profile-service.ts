@@ -46,7 +46,7 @@ export class ProfileService {
   }
 
   // upload an image file to send to back end, MUST be multiMedia but only an image
-  uploadImage(userId: string, formData: formData, payload: BioPayload): Observable<any> {
+  uploadImage(userId: string, formData: FormData, payload: BioPayload): Observable<any> {
     console.log('hitting upload image service');
     console.log(formData.get('profileId'));
     console.log(formData.get('file'));
