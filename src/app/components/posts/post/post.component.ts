@@ -7,6 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -178,6 +179,7 @@ export class PostComponent implements OnInit {
       data: {
         post: post,
       },
+      scrollStrategy: new NoopScrollStrategy(),
     });
 
     dialogRef.afterClosed().subscribe(() => {
