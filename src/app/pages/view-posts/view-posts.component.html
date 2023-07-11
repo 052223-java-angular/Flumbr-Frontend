@@ -3,7 +3,8 @@
   <div class="flex flex-col gap-5 w-full max-w-[540px]">
     <!-- Create post button -->
     <div
-      class="flex justify-center items-center gap-3 p-5 border-4 border-dashed border-emerald-300 text-white ease-in-out duration-200 cursor-pointer hover:bg-indigo-800"
+      class="flex justify-center items-center gap-3 p-5 border-4 border-dashed border-emerald-300 text-white ease-in-out duration-200 cursor-pointer hover:bg-indigo-800
+        dark:border-gray-500 dark:hover:bg-gray-700"
       (click)="openPostDialog()">
       <h1 class="m-0 font-medium">Create New Post</h1>
       <mat-icon class="text-white scale-125">add_circle_outline</mat-icon>
@@ -15,7 +16,8 @@
         class="group transition-all ease-in-out duration-200 flex gap-2 pl-3 py-2 pr-1 bg-purple-600 rounded-sm focus-within:bg-white">
         <mat-icon class=" text-white/80 group-focus-within:text-slate-950">search</mat-icon>
         <input
-          class="searchbar-input flex-grow text-white/80 bg-transparent outline-none placeholder:text-white/80 group-focus-within:text-slate-950 group-focus-within:placeholder:text-slate-950/60"
+          class="searchbar-input flex-grow text-white/80 bg-transparent outline-none placeholder:text-white/80 group-focus-within:text-slate-950 group-focus-within:placeholder:text-slate-950/60
+          "
           type="text" placeholder="Search Flumblr">
       </div>
     </form>
@@ -29,10 +31,12 @@
     <!-- Search bar -->
     <form>
       <div
-        class="group transition-all ease-in-out duration-200 flex gap-2 pl-3 py-2 pr-1 bg-purple-600 rounded-sm focus-within:bg-white">
-        <mat-icon class=" text-white/80 group-focus-within:text-slate-950">search</mat-icon>
+        class="group transition-all ease-in-out duration-200 flex gap-2 pl-3 py-2 pr-1 bg-purple-600 rounded-sm focus-within:bg-white
+        dark:focus-within:bg-neutral-700">
+        <mat-icon class=" text-white/80 group-focus-within:text-slate-950 dark:text-whitesmoke dark:group-focus-within:text-whitesmoke">search</mat-icon>
         <input
-          class="searchbar-input flex-grow text-white/80 bg-transparent outline-none placeholder:text-white/80 group-focus-within:text-slate-950 group-focus-within:placeholder:text-slate-950/60"
+          class="searchbar-input flex-grow text-white/80 bg-transparent outline-none placeholder:text-white/80 group-focus-within:text-slate-950 group-focus-within:placeholder:text-slate-950/60
+            dark:text-whitesmoke dark:placeholder:text-whitesmoke dark:group-focus-within:text-whitesmoke dark:group-focus-within:placeholder:text-whitesmoke"
           type="text" placeholder="Search Flumblr">
       </div>
     </form>
@@ -40,7 +44,8 @@
     <!-- Following users-->
     <div class="h-[400px]">
       <h1 class="m-0 ml-4 text-white">100 Following</h1>
-      <mat-divider class="mt-2 mb-5 border-t-2 border-emerald-300"></mat-divider>
+      <mat-divider class="mt-2 mb-5 border-t-2 border-emerald-300
+      dark:border-gray-500"></mat-divider>
       <ul class="flex flex-col gap-3">
         <li class="flex justify-between items-center" *ngFor="let index of [0,1,3,4,5]">
           <div class="flex items-center gap-3">
