@@ -58,6 +58,7 @@ import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { GifComponent } from './components/gif/gif.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -114,6 +115,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     PickerModule,
     MatDialogModule,
     OverlayPanelModule,
+    InputTextareaModule,
   ],
   providers: [
     RouteguardService,
