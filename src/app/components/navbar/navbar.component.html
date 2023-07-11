@@ -11,7 +11,9 @@
 
   <ul class="flex items-center gap-2">
     <app-theme-switcher></app-theme-switcher>
-    <app-notification-panel *ngIf="isAuthenticated()"></app-notification-panel>
+    <app-notification-panel 
+        class="pr-2"
+        *ngIf="!notificationHasChanged && isAuthenticated()"></app-notification-panel>
     <a (click)="logout()" *ngIf="isAuthenticated()" mat-raised-button color="warn" routerLink=" ">Logout</a>
     <a *ngIf="!isAuthenticated()" mat-raised-button color="warn" routerLink="/login">Login</a>
     <a *ngIf="!isAuthenticated()" mat-raised-button color="warn" routerLink="/register">Register</a>

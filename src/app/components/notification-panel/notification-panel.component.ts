@@ -44,16 +44,6 @@ export class NotificationPanelComponent implements OnInit {
     this.notificationTypes$ = this.notificationService.httpFetchTypesFromFile().pipe(
       map((el) => el.map(type => this.assignProps(type) )))
 
-    // this.notificationService.stateIsReload.subscribe((isReloading) => {
-
-    //   this.notifications$ = this.notificationService.httpFetch().pipe(
-    //     map((el) => { 
-    //       this.totalUnread = this.getTotalUnreadCount(el);
-    //       return el.map(notification => this.assignProps(notification));
-    //     }));
-    // })
-
-
     // for detecting when no messages are left, so update the panelOpenState
     this.notificationService.messagePanelIsEmpty.subscribe((panelState) => {
       this.panelIsOpen = !panelState;

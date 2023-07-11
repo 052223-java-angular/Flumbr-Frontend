@@ -59,6 +59,7 @@ import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { GifComponent } from './components/gif/gif.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     SettingsComponent,
     GifComponent,
     ReportComponent,
+    PostDetailComponent
   ],
   imports: [
     BrowserModule,
