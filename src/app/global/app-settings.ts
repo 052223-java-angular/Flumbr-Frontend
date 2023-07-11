@@ -9,4 +9,3 @@ export class AppSettings {
   public static GIPHY_API_URL = envDev.giphyApiBaseUrl;
   public static GIPHY_API_KEY = envDev.giphyApiKey;
 }
-
