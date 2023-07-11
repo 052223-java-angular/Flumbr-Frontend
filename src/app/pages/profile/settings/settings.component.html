@@ -12,25 +12,47 @@
           <img mat-card-image src="{{profile.profile_img}}" class="p-11 w-full h-full object-cover">
         </div>
 
-        <div *ngIf="!isImage" >
-          <ngx-dropzone (change)="onSetImage($event)" [multiple]=false>
-            <ngx-dropzone-label>Drag and drop image or<span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
-            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-            </ngx-dropzone-preview>
-          </ngx-dropzone>
-        </div>
+        <form
+          class=" w-full"
+          (ngSubmit)="uploadImage()"
+          [formGroup]="imageForm">
 
-        <div
-          class="w-screen lg:w-1/2"
-          *ngIf="isImage && modifyBio">
-          <h3 class="font-bold">Preview:</h3>
-          <ng-container *ngIf="isImage">
-            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
-              <ngx-dropzone-label></ngx-dropzone-label>
-            </ngx-dropzone-image-preview>
-          </ng-container>
-        </div>
+          <div class="media-drop w-full">
+            <ngx-dropzone
+              (change)="onSelectFile($event)"
+              [multiple]=false
+              [maxFileSize]=fileSizeLimit>
+              <ngx-dropzone-label>Drag and drop image or <span class="border-2 rounded-full p-2">Upload</span><br /><br />Only images supported</ngx-dropzone-label>
+              <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+              </ngx-dropzone-preview>
+            </ngx-dropzone>
+          </div>
+
+          <input
+            hidden="true"
+            formControlName="file">
+
+
+          <div
+            class="w-full"
+            *ngIf="isImage && modifyBio">
+            <h3 class="font-bold">Preview:</h3>
+            <ng-container *ngIf="isImage">
+              <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+                <ngx-dropzone-label></ngx-dropzone-label>
+              </ngx-dropzone-image-preview>
+            </ng-container>
+          </div>
+
+          <div class="flex mt-8">
+            <button
+              class="ml-auto mr-auto w-screen lg:w-1/2"
+              mat-flat-button color="primary"
+              (submit)="uploadImage()"
+              [disabled]="!imageForm.valid">Post</button>
+          </div>
+        </form>
 
       </div>
 

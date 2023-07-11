@@ -37,8 +37,8 @@ export class ProfileService {
   }
 
   // upload an image file to send to back end, MUST be multiMedia but only an image
-  uploadImage( file: File): Observable<any> {
-    return this.http.patch<void>(`this.baseUrl}/profile/bio`, file);
+  uploadImage(formData: FormData): Observable<any> {
+    return this.http.patch<void>(`this.baseUrl}/profile/bio`, formData);
   }
 
   // retrieve this user

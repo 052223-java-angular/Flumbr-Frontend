@@ -5,9 +5,12 @@ import {ActivatedRoute} from "@angular/router";
 import {TokenService} from "../../../services/tokenservice.service";
 import {ProfilePayload} from "../../../models/profile/profile-payload";
 import {PostRes} from "../../../models/post/post";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {BioPayload} from "../../../models/profile/bio-payload";
 import { Location} from "@angular/common";
+import {AppSettings} from "../../../global/app-settings";
+import {finalize} from "rxjs";
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-settings',
@@ -23,9 +26,12 @@ export class SettingsComponent {
   theme: string = "default";
 
   //utilize file upload service
+  imageForm!: FormGroup;
   files: File[] = [];
   isImage: boolean = false;
   shortLink: string | null = null;
+  loading: boolean = false;
+  fileSizeLimit: number = AppSettings.CREATE_POST_SIZE_LIMIT;
 
   // get session id
   sessionId: any;
@@ -40,6 +46,8 @@ export class SettingsComponent {
               private postService: PostService,
               private tokenService: TokenService,
               private _location: Location,
+              private messageService: MessageService,
+              private fb: FormBuilder
   ) {
     this.sessionId = this.tokenService.getUser().id
     console.log(this.sessionId)
@@ -62,7 +70,14 @@ export class SettingsComponent {
         console.error("Issue with retrieving profile details.");
         console.log("Error retrieving user with id: "  + this.user_id + " : " + err);
       }
-    })
+    });
+
+    this.imageForm = this.fb.group(
+      {
+        file: [''],
+      }
+    );
+
   }
 
   submitForm(): void {
@@ -133,11 +148,11 @@ export class SettingsComponent {
     if (this.files.length > 1) {
       this.files.splice(0, 1);
     }
-    this.setImageAndVideoFlags();
+    this.setImageFlags();
   }
 
-  //
-  setImageAndVideoFlags() {
+  // flag for image type
+  setImageFlags() {
     if (this.files.length == 1) {
       const file = this.files[0];
       const fileType = file['type'];
@@ -148,10 +163,93 @@ export class SettingsComponent {
     }
   }
 
+  // selecting file
+  onSelectFile(event: any) {
+    this.files.push(...event.addedFiles);
+    if (this.files.length > 1) {
+      this.files.splice(0, 1);
+    }
+    if (this.files.length > 0) {
+      const file = this.files[0];
+      this.imageForm.patchValue({
+        file: file,
+      });
+    }
+    this.setImageFlags();
+    if (!this.isImage) {
+      if (this.files.length > 0) {
+        this.files = [];
+        this.imageForm.patchValue({
+          file: null,
+        });
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Warning',
+          detail: 'Only images and videos currently supported',
+          life: AppSettings.DEFAULT_MESSAGE_LIFE,
+        });
+      }
+    }
+  }
+
   onRemove(event: any) {
     this.files.splice(this.files.indexOf(event), 1);
-    this.setImageAndVideoFlags();
+    this.setImageFlags();
     this.shortLink = null;
+    this.imageForm.patchValue({
+      file: null,
+    });
+  }
+
+  uploadImage() {
+    this.loading = true;
+
+    let formData = new FormData();
+
+    /*const message = this.imageForm.controls['message'].value;
+
+    if (message) {
+      formData.append('message', message);
+      const uniqueTags = [...new Set(this.tags)];
+      for (let i = 0; i < uniqueTags.length; i++) {
+        formData.append('tags', uniqueTags[i]);
+      }
+    }*/
+
+    const file = this.imageForm.controls['file'].value;
+    if (file) {
+      formData.append('file', file, file.name);
+      formData.append('mediaType', file['type']);
+    }/* else {
+      if (message) {
+        formData.append('mediaType', 'text');
+      }
+    }*/
+
+    this.profileService
+      .uploadImage(formData)
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe({
+        next: (/* value */) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Post created',
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
+          this.imageForm.reset();
+          this.files = [];
+          this.setImageFlags();
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.message || 'Error',
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
+        },
+      });
   }
 
 }
