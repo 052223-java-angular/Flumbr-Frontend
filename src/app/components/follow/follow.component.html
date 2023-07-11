@@ -3,12 +3,12 @@
   <ng-container *ngIf="viewTemplate == 'textView' && !isLoggedInOwner(followIdentity)">
     <!-- {{isFollowingUsernames | json}} -->
     <button mat-menu-item *ngIf="!isFollowing(followIdentity); else unfollow" (click)="followHandler(followIdentity)">
-      <span class="font-medium text-slate-950">Follow</span>
+      <span class="font-medium text-slate-950 dark:text-whitesmoke">Follow</span>
     </button>
 
     <ng-template #unfollow>
       <button mat-menu-item (click)="followHandler(followIdentity)">
-        <span class="font-medium text-slate-950">Unfollow</span>
+        <span class="font-medium text-slate-950 dark:text-whitesmoke">Unfollow</span>
       </button>
     </ng-template>
 
