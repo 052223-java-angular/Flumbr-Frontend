@@ -22,9 +22,10 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
 
-//import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
@@ -52,6 +53,9 @@ import { FollowingPostsComponent } from './components/posts/following-posts/foll
 
 import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
+import { SettingsComponent } from './pages/profile/settings/settings.component';
+import { GifComponent } from './components/gif/gif.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -78,6 +82,8 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
     FollowingPostsComponent,
     ResetPasswordComponent,
     NewPasswordComponent,
+    SettingsComponent,
+    GifComponent,
   ],
   imports: [
     BrowserModule,
@@ -103,6 +109,8 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
     ToastModule,
     MatChipsModule,
     MatTabsModule,
+    PickerModule,
+    MatDialogModule,
   ],
   providers: [
     RouteguardService,
@@ -113,6 +121,7 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
       multi: true,
     },
     MessageService,
+    NgEventBus,
   ],
   bootstrap: [AppComponent],
 })

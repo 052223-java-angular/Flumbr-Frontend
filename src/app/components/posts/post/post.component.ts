@@ -3,7 +3,11 @@ import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -13,12 +17,27 @@ import { NotificationService } from 'src/app/services/notification/notification.
 export class PostComponent implements OnInit {
   @Input() post!: PostRes;
   isChatOpen = false;
-
+  isGifComponentOpen = false;
+  isEmojiMartOpen = false;
+  chosenGif: string | null = null;
+  commentForm!: FormGroup;
   thumbsUpEnabled: boolean = true;
   thumbsDownEnabled: boolean = true;
 
-  ngOnInit() {
+  constructor(
+    private postService: PostService,
+    private tokenService: TokenService,
+    private dialog: MatDialog
+  ) {}
+
+  ngOnInit(): void {
     this.updateIconState();
+    this.commentForm = new FormGroup({
+      comment: new FormControl(
+        null,
+        Validators.compose([Validators.required, Validators.maxLength(500)])
+      ),
+    });
   }
 
   updateIconState() {
@@ -37,12 +56,34 @@ export class PostComponent implements OnInit {
     }
   }
 
-  constructor(
-    private postService: PostService,
-    private tokenService: TokenService
-  ) {
-    // Initialize the thumbsUpEnabled and thumbsDownEnabled properties
-    //this.updateIconState();
+  onCommentSubmit() {
+    console.log(this.commentForm);
+  }
+
+  addGif(gifChosen: string) {
+    this.chosenGif = gifChosen;
+    this.toggleGifComponent();
+  }
+
+  removeGif() {
+    this.chosenGif = null;
+  }
+
+  toggleGifComponent() {
+    if (this.isEmojiMartOpen) {
+      this.isEmojiMartOpen = false;
+    }
+    this.isGifComponentOpen = !this.isGifComponentOpen;
+  }
+
+  addEmoji(emoji: string) {
+    console.log(emoji);
+    const control = this.commentForm.controls['comment'];
+    control.setValue((control.value ? control.value : '') + emoji);
+  }
+
+  toggleEmojiMart() {
+    this.isEmojiMartOpen = !this.isEmojiMartOpen;
   }
 
   navigateToTag(id: string) {
@@ -129,5 +170,24 @@ export class PostComponent implements OnInit {
 
   reportPost(postId: string): void {
     // does this need to make a network request ?
+  }
+
+  openEditPostModal(post: PostRes): void {
+    const dialogRef = this.dialog.open(CreatePostComponent, {
+      width: '600px',
+      maxHeight: '800px',
+      data: {
+        post: post,
+      },
+      scrollStrategy: new NoopScrollStrategy(),
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('dialog closed');
+    });
+  }
+
+  canEditPost(post: PostRes): boolean {
+    return this.tokenService.getUser().id === post.userId;
   }
 }

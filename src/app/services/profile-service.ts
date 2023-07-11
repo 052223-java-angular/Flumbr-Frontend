@@ -32,6 +32,7 @@ export class ProfileService {
 
   // send updated bio to backend to update users bio field
   updateUserBio(user_id: string, payload: BioPayload ): Observable<void> {
+    console.log("user id: " + user_id);
     return this.http.patch<void>(`${this.baseUrl}/profile/bio/${user_id}`, payload);
   }
 

@@ -18,6 +18,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+// emoji mart
+@import "@ctrl/ngx-emoji-mart/picker";
+
 @import "@angular/material/prebuilt-themes/pink-bluegrey.css";
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
@@ -34,4 +37,10 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-dialog-container {
+  .mat-mdc-dialog-surface {
+    border-radius: 20px !important;
+  }
 }

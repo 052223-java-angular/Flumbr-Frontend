@@ -13,3 +13,7 @@ mat-spinner {
 .mat-mdc-standard-chip {
   --mdc-chip-label-text-color: #fff;
 }
+
+.disable-resize {
+  resize: none;
+}
