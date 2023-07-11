@@ -1,21 +1,23 @@
 import { Component } from '@angular/core';
-import {ProfileService} from "../../../services/profile-service";
-import {PostService} from "../../../services/post/post.service";
-import {ActivatedRoute} from "@angular/router";
-import {TokenService} from "../../../services/tokenservice.service";
-import {ProfilePayload} from "../../../models/profile/profile-payload";
-import {PostRes} from "../../../models/post/post";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {BioPayload} from "../../../models/profile/bio-payload";
-import { Location} from "@angular/common";
-import {AppSettings} from "../../../global/app-settings";
-import {finalize} from "rxjs";
+import { ProfileService } from '../../../services/profile-service';
+import { PostService } from '../../../services/post/post.service';
+import { ActivatedRoute } from '@angular/router';
+import { TokenService } from '../../../services/tokenservice.service';
+import { ProfilePayload } from '../../../models/profile/profile-payload';
+import { PostRes } from '../../../models/post/post';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { BioPayload } from '../../../models/profile/bio-payload';
+import { Location } from '@angular/common';
+import { AppSettings } from '../../../global/app-settings';
+import { finalize } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { TagPayload } from 'src/app/models/tag-payload';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent {
   profile!: ProfilePayload;
@@ -23,7 +25,7 @@ export class SettingsComponent {
   modifyBio: boolean = false;
   follow: boolean = false;
   posts!: Array<PostRes>;
-  theme: string = "default";
+  theme: string = 'default';
 
   //utilize file upload service
   imageForm!: FormGroup;
@@ -38,78 +40,88 @@ export class SettingsComponent {
 
   // bio form
   changeBioForm = new FormGroup({
-    bio: new FormControl(null)
-  })
+    bio: new FormControl(null),
+  });
 
+  tags: TagPayload[] = [];
+  tagsForm!: FormGroup;
 
-  constructor(private profileService: ProfileService,
-              private postService: PostService,
-              private tokenService: TokenService,
-              private _location: Location,
-              private messageService: MessageService,
-              private fb: FormBuilder
+  constructor(
+    private profileService: ProfileService,
+    private postService: PostService,
+    private tokenService: TokenService,
+    private _location: Location,
+    private messageService: MessageService,
+    private fb: FormBuilder
   ) {
-    this.sessionId = this.tokenService.getUser().id
-    console.log(this.sessionId)
+    this.sessionId = this.tokenService.getUser().id;
+    console.log(this.sessionId);
   }
 
   backClicked() {
     this._location.back();
   }
 
-
-  ngOnInit () {
-    this.profileService.getUser(this.sessionId).subscribe( {
-
+  ngOnInit() {
+    this.profileService.getUser(this.sessionId).subscribe({
       next: (resp: any) => {
         this.profile = resp;
         this.theme = this.profile.themeName;
         console.log(this.profile);
+        this.loadProfileInterests();
       },
       error: (err) => {
-        console.error("Issue with retrieving profile details.");
-        console.log("Error retrieving user with id: "  + this.user_id + " : " + err);
-      }
+        console.error('Issue with retrieving profile details.');
+        console.log(
+          'Error retrieving user with id: ' + this.user_id + ' : ' + err
+        );
+      },
     });
 
-    this.imageForm = this.fb.group(
-      {
-        file: [''],
-      }
-    );
+    this.imageForm = this.fb.group({
+      file: [''],
+    });
 
+    this.tagsForm = this.fb.group({
+      tags: [[]],
+    });
+
+    console.log('before getTags');
   }
 
   submitForm(): void {
     if (!this.changeBioForm.valid) {
-      console.log("bio form not set")
+      console.log('bio form not set');
     }
     // create a biography payload to send to the back end
     const payload: BioPayload = {
       profileId: this.profile.profileId,
       bio: this.changeBioForm.controls.bio.value!,
-      themeName: ""
-    }
+      themeName: '',
+    };
     // setting bio for local test
     this.profile.bio = payload.bio;
 
-    console.log("Session id: " + this.tokenService.getUser().id )
+    console.log('Session id: ' + this.tokenService.getUser().id);
 
     // send new bio to backend
-    this.profileService.updateUserBio(this.tokenService.getUser().id, payload).subscribe( {
+    this.profileService
+      .updateUserBio(this.tokenService.getUser().id, payload)
+      .subscribe({
+        next: (resp: any) => {
+          this.profile = resp;
+          this.theme = this.profile.themeName;
+          console.log(this.profile);
+        },
+        error: (err) => {
+          console.error('Issue with retrieving profile details.');
+          console.log(
+            'Error retrieving user with id: ' + this.user_id + ' : ' + err
+          );
+        },
+      });
 
-      next: (resp: any) => {
-        this.profile = resp;
-        this.theme = this.profile.themeName;
-        console.log(this.profile);
-      },
-      error: (err) => {
-        console.error("Issue with retrieving profile details.");
-        console.log("Error retrieving user with id: "  + this.user_id + " : " + err);
-      }
-    })
-
-    console.log("New bio is: " + payload.bio);
+    console.log('New bio is: ' + payload.bio);
   }
 
   selectTheme(choice: string) {
@@ -119,23 +131,24 @@ export class SettingsComponent {
     const payload: BioPayload = {
       profileId: this.profile.profileId,
       bio: this.changeBioForm.controls.bio.value!,
-      themeName: choice
-    }
+      themeName: choice,
+    };
 
     // send new bio to backend
-    this.profileService.updateTheme(this.tokenService.getUser().id, payload).subscribe( {
-
-      next: (resp: any) => {
-
-        console.log("Theme has successfully been set");
-        this.theme = payload.themeName;
-      },
-      error: (err) => {
-        console.error("Issue with retrieving profile details.");
-        console.log("Error retrieving user with id: "  + this.user_id + " : " + err);
-      }
-    })
-
+    this.profileService
+      .updateTheme(this.tokenService.getUser().id, payload)
+      .subscribe({
+        next: (resp: any) => {
+          console.log('Theme has successfully been set');
+          this.theme = payload.themeName;
+        },
+        error: (err) => {
+          console.error('Issue with retrieving profile details.');
+          console.log(
+            'Error retrieving user with id: ' + this.user_id + ' : ' + err
+          );
+        },
+      });
   }
 
   // event when adding folder into drop down
@@ -220,7 +233,7 @@ export class SettingsComponent {
     if (file) {
       formData.append('file', file, file.name);
       //formData.append('mediaType', file['type']);
-    }/* else {
+    } /* else {
       if (message) {
         formData.append('mediaType', 'text');
       }
@@ -230,18 +243,21 @@ export class SettingsComponent {
     // create a biography payload to send to the back end
     const payload: BioPayload = {
       profileId: this.profile.profileId,
-      bio: "",
-      themeName: ""
-    }
+      bio: '',
+      themeName: '',
+    };
 
-    formData.append('profileId', new Blob([JSON.stringify(payload)], {
-      type: 'application/json'
-    }));
+    formData.append(
+      'profileId',
+      new Blob([JSON.stringify(payload)], {
+        type: 'application/json',
+      })
+    );
 
-    console.log('Input form data is:' + formData)
+    console.log('Input form data is:' + formData);
 
     this.profileService
-      .uploadImage(this.tokenService.getUser().id,formData, payload)
+      .uploadImage(this.tokenService.getUser().id, formData, payload)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (/* value */) => {
@@ -256,7 +272,7 @@ export class SettingsComponent {
           this.setImageFlags();
         },
         error: (error) => {
-          console.log(error)
+          console.log(error);
 
           this.messageService.add({
             severity: 'error',
@@ -268,4 +284,56 @@ export class SettingsComponent {
       });
   }
 
+  addTag(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our tag
+    if (value && this.tags.length < AppSettings.PROFILE_TAG_LIMIT) {
+      const index = this.tags.findIndex(
+        (tag: TagPayload) => tag.name.toLowerCase() === value.toLowerCase()
+      );
+      if (index < 0) {
+        this.tags.push({
+          name: value,
+        });
+
+        this.tagsForm.patchValue({
+          tags: this.tags,
+        });
+
+        this.loadProfileInterests();
+      }
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+
+  removeTag(tag: TagPayload) {
+    const index = this.tags.findIndex(
+      (tag: TagPayload) => tag.name === tag.name
+    );
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+      this.tagsForm.patchValue({
+        tags: this.tags,
+      });
+    }
+  }
+
+  loadProfileInterests() {
+    this.profileService
+      .getTags({
+        user_id: this.tokenService.getUser().id,
+        profile_id: this.profile.profileId,
+      })
+      .subscribe({
+        next: (resp: any) => {
+          console.log(resp);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
 }
