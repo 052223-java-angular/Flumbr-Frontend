@@ -19,7 +19,9 @@ import {
 import { ReportComponent } from '../../report/report.component';
 import { Bookmark } from '../../../models/post/bookmark';
 import { RemoveBookmark } from '../../../models/post/removeBookmark';
-
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -41,7 +43,8 @@ export class PostComponent implements OnInit {
     private postService: PostService,
     private tokenService: TokenService,
     private dialog: MatDialog,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -287,7 +290,8 @@ export class PostComponent implements OnInit {
 
     // Call the post service to like the post.
     this.postService.votePost(payload).subscribe({
-      next: (/* value */) => {
+      //Remember to comment out the value when
+      next: (value) => {
         //TODO: Call toaster service to msg?
         console.log('voted dislike for postId ' + id);
         this.thumbsUpEnabled = true; // Disable thumbs-up icon
@@ -308,6 +312,13 @@ export class PostComponent implements OnInit {
     });
   }
 
+  /**
+   * @param payload -
+   */
+  votePost(payload: Vote): Observable<any> {
+    return this.http.post<any>(`${environment.apiBaseUrl}/vote/post`, payload);
+  }
+
   sharePost() {
     console.log('sharing');
   }
@@ -324,6 +335,11 @@ export class PostComponent implements OnInit {
         id: id,
       },
     });
+  }
+
+  //I need this for my delete button that Im putting in the menu
+  getUsername(): string {
+    return this.tokenService.getUser().username;
   }
 
   openEditPostModal(post: PostRes): void {
