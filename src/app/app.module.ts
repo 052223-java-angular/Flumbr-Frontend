@@ -22,6 +22,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
 
 //import { NotificationComponent } from './components/notification/notification.component';
@@ -109,6 +111,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     MatChipsModule,
     MatTabsModule,
     PickerModule,
+    MatDialogModule,
   ],
   providers: [
     RouteguardService,
@@ -119,6 +122,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
       multi: true,
     },
     MessageService,
+    NgEventBus,
   ],
   bootstrap: [AppComponent],
 })
