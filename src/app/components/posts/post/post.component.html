@@ -40,13 +40,13 @@
               </button>
             </ng-container>
 
+            <ng-container *ngIf="this.post.username === this.getUsername()">
+              <app-delete-post [post]="this.post"></app-delete-post>
+            </ng-container>
+
             <button mat-menu-item>
               <span (click)="reportPost(post.id)" class="font-medium text-red-600">Report</span>
             </button>
-
-            <div *ngIf="this.post.username === this.getUsername()">
-                <app-delete-post [post]="this.post"></app-delete-post>
-            </div>
 
           </mat-menu>
         </div>

@@ -118,24 +118,25 @@ export class PostService {
     return this.http.get<PostRes>(url);
   }
 
-  getTrendingByDate(fromDate:Date, userId:string): Observable<Array<PostRes>>
-  {
-      let date = fromDate.toISOString().slice(0,10);
-      let url:string = environment.apiBaseUrl + `/posts/trending/${new Date(date)}`;
+  getTrendingByDate(
+    fromDate: Date,
+    userId: string
+  ): Observable<Array<PostRes>> {
+    let date = fromDate.toISOString().slice(0, 10);
+    let url: string =
+      environment.apiBaseUrl + `/posts/trending/${new Date(date)}`;
 
     return this.http.get<Array<PostRes>>(url);
   }
-  
-  deletePost(postId:string):Observable<string>
-  {
-      console.log("in postservice delete method")
-      let url:string =  environment.apiBaseUrl + `/posts/id/${postId}`;
 
-      return this.http.delete<string>(url);
+  deletePost(postId: string) {
+    const url: string = environment.apiBaseUrl + `/posts/id/${postId}`;
+    return this.http.delete(url, {
+      responseType: 'text',
+    });
   }
 
-
- /*updatePost(post_id:string formData:FormData):Observable<any>
+  /*updatePost(post_id:string formData:FormData):Observable<any>
   {
      let url = environment.apiBaseUrl + `/posts/id/${post_id}`;
 
