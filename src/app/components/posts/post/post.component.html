@@ -46,7 +46,7 @@
 
     <!-- Media types -->
     <div *ngIf="post.mediaType">
-      <img mat-card-image src="{{post.s3Url}}" *ngIf="post.mediaType.split('/')[0] == 'image'">
+      <img class="w-full" mat-card-image src="{{post.s3Url}}" *ngIf="post.mediaType.split('/')[0] == 'image'">
       <video *ngIf="post.mediaType.split('/')[0] == 'video'" controls>
         <source [src]="post.s3Url" type="video/mp4">
         <source [src]="post.s3Url" type="video/ogg">
@@ -158,8 +158,7 @@
               </div>
               <button
                 class="py-2 px-3 bg-emerald-600 text-white rounded-md ease-in-out transition-all duration-300 cursor-pointer hover:bg-emerald-800"
-                type="submit"
-                [ngClass]="{'bg-emerald-600/60 hover:bg-emerald-600/60 cursor-default': commentForm.invalid}"
+                type="submit" [ngClass]="{'bg-emerald-600/60 pointer-events-none': commentForm.invalid}"
                 [disabled]="commentForm.invalid">Reply</button>
             </div>
           </div>

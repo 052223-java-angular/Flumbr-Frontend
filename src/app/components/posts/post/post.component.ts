@@ -19,6 +19,7 @@ import {
 import { ReportComponent } from '../../report/report.component';
 import { Bookmark } from '../../../models/post/bookmark';
 import { RemoveBookmark } from '../../../models/post/removeBookmark';
+import { ProfileService } from 'src/app/services/profile-service';
 
 @Component({
   selector: 'app-post',
@@ -41,7 +42,8 @@ export class PostComponent implements OnInit {
     private postService: PostService,
     private tokenService: TokenService,
     private dialog: MatDialog,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private profileService: ProfileService
   ) {}
 
   ngOnInit(): void {
@@ -128,13 +130,17 @@ export class PostComponent implements OnInit {
           postId: this.post.id,
         };
 
+        // add in gifs and comments if present
         if (this.chosenGif) {
           newComment.gifUrl = this.chosenGif;
         }
-
         if (commentPayload.comment) {
           newComment.comment = commentPayload.comment;
         }
+
+        // add in profile img
+        this.profileService.setLocalStorageProfileImg();
+        newComment.profileImg = localStorage.getItem('profileImg') as string;
 
         // comments present so push new comment
         if (this.post.comments && this.post.comments.length > 0) {
@@ -166,6 +172,12 @@ export class PostComponent implements OnInit {
           detail: err.error.message,
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
+
+        // reset gif
+        this.chosenGif = '';
+
+        // clear form
+        this.commentForm.reset();
       },
     });
   }
