@@ -158,6 +158,12 @@ export class PostComponent implements OnInit {
           detail: 'Successful comment creation!',
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
+
+        // reset gif
+        this.chosenGif = '';
+
+        // clear form
+        this.commentForm.reset();
       },
       error: (err) => {
         this.messageService.add({
