@@ -94,4 +94,8 @@ export class PostService {
   createPost(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/posts/create`, formData);
   }
+
+  reportPost(data:any) {
+    return this.http.post(`${this.baseUrl}/reports`, data)
+  }
 }

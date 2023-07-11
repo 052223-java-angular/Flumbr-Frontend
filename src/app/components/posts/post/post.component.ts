@@ -1,6 +1,8 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
+import { ReportComponent } from '../../report/report.component';
 
 @Component({
   selector: 'app-post',
@@ -12,7 +14,7 @@ export class PostComponent {
   @Input() post!: PostRes;
   isChatOpen = false;
 
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService, private dialog: MatDialog) {}
 
   navigateToTag(id: string) {
     console.log(id);
@@ -38,7 +40,13 @@ export class PostComponent {
     this.isChatOpen = !this.isChatOpen;
   }
 
-  reportPost(postId: string): void {
-    // does this need to make a network request ?
+  reportPost(id: any) {
+    console.log(id);
+    this.dialog.open(ReportComponent,{
+      width: '40%',
+      data:{
+        id: id,
+      }
+    })
   }
 }

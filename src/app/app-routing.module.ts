@@ -23,12 +23,13 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
-    // canActivate: [RouteguardService],
+    canActivate: [RouteguardService],
   },
 
   {
     path: 'posts',
     component: ViewPostsComponent,
+    canActivate: [RouteguardService],
   },
   { path: '**', component: NotfoundComponent },
 ];
