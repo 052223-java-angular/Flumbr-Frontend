@@ -156,4 +156,8 @@ export class PostService {
       responseType: 'text',
     });
   }
+
+  reportPost(data: any) {
+    return this.http.post(`${this.baseUrl}/reports`, data);
+  }
 }

@@ -8,6 +8,8 @@ import { NotificationService } from 'src/app/services/notification/notification.
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import { ReportComponent } from '../../report/report.component';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -168,8 +170,14 @@ export class PostComponent implements OnInit {
     this.isChatOpen = !this.isChatOpen;
   }
 
-  reportPost(postId: string): void {
-    // does this need to make a network request ?
+  reportPost(id: any) {
+    console.log(id);
+    this.dialog.open(ReportComponent, {
+      width: '40%',
+      data: {
+        id: id,
+      },
+    });
   }
 
   openEditPostModal(post: PostRes): void {

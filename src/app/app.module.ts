@@ -25,6 +25,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 //import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
@@ -51,6 +52,7 @@ import { PostListComponent } from './components/posts/post-list/post-list.compon
 import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
 import { FeedPostsComponent } from './components/posts/feed-posts/feed-posts.component';
 import { FollowingPostsComponent } from './components/posts/following-posts/following-posts.component';
+import { ReportComponent } from './components/report/report.component';
 
 import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
@@ -85,6 +87,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     NewPasswordComponent,
     SettingsComponent,
     GifComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,6 +115,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     MatTabsModule,
     PickerModule,
     MatDialogModule,
+    MatToolbarModule,
   ],
   providers: [
     RouteguardService,
