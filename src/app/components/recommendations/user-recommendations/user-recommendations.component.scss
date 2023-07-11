@@ -21,13 +21,11 @@
 .cdk-virtual-scroll-data-source-example {
   .example-viewport {
     height: 38em;
-    ::ng-deep .cdk-virtual-scroll-content-wrapper {
-      display: flex;
-      flex-direction: row;
-      gap: 3em;
-    }
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 }
+
 
 mat-card img {
   object-fit: cover; /*this makes the image in src fit to the size specified below*/
