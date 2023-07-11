@@ -88,18 +88,18 @@ export class PostService {
   }
 
   getFeed(page: number): Observable<Array<PostRes>> {
-    let url: string = environment.apiBaseUrl + '/feed/{{page}}';
+    let url: string = environment.apiBaseUrl + `/posts/feed/${page}`;
 
     return this.http.get<Array<PostRes>>(url);
   }
   getPostsByUserId(user_id: string): Observable<Array<PostRes>> {
-    let url: string = environment.apiBaseUrl + '/posts/user/{{user_id}}';
+    let url: string = environment.apiBaseUrl + `/posts/user/${user_id}`;
 
     return this.http.get<Array<PostRes>>(url);
   }
 
   getPostsByTagname(tags: Tag[], pageNum: number): Observable<Array<PostRes>> {
-    let url: string = environment.apiBaseUrl + '/posts/tag/{{pagenum}}';
+    let url: string = environment.apiBaseUrl + `/posts/tag/${pageNum}`;
     let tagString: string = '';
 
     for (let tag of tags) {
@@ -115,7 +115,7 @@ export class PostService {
   }
 
   getPostById(postId: string): Observable<PostRes> {
-    let url: string = environment.apiBaseUrl + '/id/{{postId}}';
+    let url: string = environment.apiBaseUrl + `/posts/id/${postId}`;
 
     return this.http.get<PostRes>(url);
   }
@@ -124,12 +124,33 @@ export class PostService {
     fromDate: Date,
     userId: string
   ): Observable<Array<PostRes>> {
+    let date = fromDate.toISOString().slice(0, 10);
     let url: string =
-      environment.apiBaseUrl +
-      "/{{fromDate.toISOString().split('T')[0]}}/{{userId}}";
+      environment.apiBaseUrl + `/posts/trending/${new Date(date)}`;
 
     return this.http.get<Array<PostRes>>(url);
   }
+
+  deletePost(postId: string) {
+    const url: string = environment.apiBaseUrl + `/posts/id/${postId}`;
+    return this.http.delete(url, {
+      responseType: 'text',
+    });
+  }
+
+  /*updatePost(post_id:string formData:FormData):Observable<any>
+  {
+     let url = environment.apiBaseUrl + `/posts/id/${post_id}`;
+
+      let formData:FormData = new FormData();
+
+      formData.append("message", message);
+
+      formData.append("mediaType", mediaType);
+      
+      return this.http.put<any>(url, formData);
+      
+  }*/
 
   createPost(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/posts/create`, formData);

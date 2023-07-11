@@ -1,1 +1,5 @@
-<mat-slide-toggle (ngModelChange)="onChange($event)" [(ngModel)]="isDarkThemeActive">Dark Mode</mat-slide-toggle>
+
+<button mat-icon-button (click)="onChange()" name="themeSwitcher">
+  <mat-icon>{{ isDarkThemeActive ? 'brightness_2' : 'wb_sunny' }}</mat-icon>
+</button>
+
