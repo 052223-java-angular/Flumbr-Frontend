@@ -56,6 +56,8 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
 import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { GifComponent } from './components/gif/gif.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+
 
 @NgModule({
   declarations: [
@@ -83,7 +85,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     ResetPasswordComponent,
     NewPasswordComponent,
     SettingsComponent,
-    GifComponent,
+    GifComponent
   ],
   imports: [
     BrowserModule,
@@ -111,6 +113,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     MatTabsModule,
     PickerModule,
     MatDialogModule,
+    ClipboardModule
   ],
   providers: [
     RouteguardService,

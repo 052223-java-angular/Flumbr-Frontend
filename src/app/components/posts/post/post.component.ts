@@ -4,10 +4,11 @@ import { PostService } from 'src/app/services/post/post.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NotificationService } from 'src/app/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -23,6 +24,7 @@ export class PostComponent implements OnInit {
   commentForm!: FormGroup;
   thumbsUpEnabled: boolean = true;
   thumbsDownEnabled: boolean = true;
+  shareURL: string = '';
 
   constructor(
     private postService: PostService,
@@ -38,7 +40,9 @@ export class PostComponent implements OnInit {
         Validators.compose([Validators.required, Validators.maxLength(500)])
       ),
     });
+    this.shareURL = window.location.href + "/share/" + this.post.id;
   }
+
 
   updateIconState() {
     console.log('update icon state ');
