@@ -25,6 +25,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 //import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
@@ -58,6 +59,8 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { GifComponent } from './components/gif/gif.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import {UserRecommendationsComponent} from "./components/recommendations/user-recommendations/user-recommendations.component";
+import {CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -86,6 +89,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     NewPasswordComponent,
     SettingsComponent,
     GifComponent,
+    UserRecommendationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,6 +118,10 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     PickerModule,
     MatDialogModule,
     MatButtonToggleModule,
+    CdkVirtualScrollViewport,
+    CdkFixedSizeVirtualScroll,
+    CdkVirtualForOf,
+    ScrollingModule,
   ],
   providers: [
     RouteguardService,
