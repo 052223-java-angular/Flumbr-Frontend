@@ -12,6 +12,7 @@ import { CreatePostComponent } from 'src/app/pages/create-post/create-post.compo
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  userId!: string;
   constructor(
     private router: Router,
     private tokenService: TokenService,
@@ -22,6 +23,8 @@ export class NavbarComponent implements OnInit {
   notificationHasChanged: boolean = false;
 
   ngOnInit(): void {
+    this.userId = this.tokenService.getUser().id;
+
     this.notificationService.stateIsReload.subscribe((stateIsLoading) => {
       this.notificationHasChanged = stateIsLoading;
       setTimeout(() => {

@@ -1,12 +1,14 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
 import { PostRes } from 'src/app/models/post/post';
 import { Vote } from 'src/app/models/post/vote';
 import { Bookmark } from '../../models/post/bookmark';
+import { RemoveBookmark } from '../../models/post/removeBookmark';
 import { Tag } from 'src/app/models/tag/tag';
 import { environment } from 'src/environments/environment';
+import { NewCommentReq } from 'src/app/models/post/comment';
 
 @Injectable({
   providedIn: 'root',
@@ -148,12 +150,24 @@ export class PostService {
   }
 
   bookmarkPost(payload: Bookmark): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
+    return this.http.post<any>(`${this.baseUrl}/bookmark/addBookmark`, payload);
+  }
+
+  removeBookmark(payload: RemoveBookmark): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/bookmark/removeBookmark`);
   }
 
   updatePost(id: string, formData: FormData) {
     return this.http.put(`${this.baseUrl}/posts/id/${id}`, formData, {
       responseType: 'text',
     });
+  }
+
+  createComment(commentPayload: NewCommentReq) {
+    return this.http.post(`${this.baseUrl}/posts/comment`, commentPayload);
+  }
+
+  reportPost(data: any) {
+    return this.http.post(`${this.baseUrl}/reports`, data);
   }
 }
