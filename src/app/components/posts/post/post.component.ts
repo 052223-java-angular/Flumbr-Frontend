@@ -3,6 +3,8 @@ import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
+import { MatDialog } from '@angular/material/dialog';
+import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -38,7 +40,8 @@ export class PostComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private dialog: MatDialog
   ) {
     // Initialize the thumbsUpEnabled and thumbsDownEnabled properties
     //this.updateIconState();
@@ -128,5 +131,23 @@ export class PostComponent implements OnInit {
 
   reportPost(postId: string): void {
     // does this need to make a network request ?
+  }
+
+  openEditPostModal(post: PostRes): void {
+    const dialogRef = this.dialog.open(CreatePostComponent, {
+      width: '600px',
+      maxHeight: '800px',
+      data: {
+        post: post,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('dialog closed');
+    });
+  }
+
+  canEditPost(post: PostRes): boolean {
+    return this.tokenService.getUser().id === post.userId;
   }
 }
