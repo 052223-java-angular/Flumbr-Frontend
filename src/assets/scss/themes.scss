@@ -102,6 +102,11 @@ $dark-theme: mat.define-dark-theme(
   .bg-purple-600{
     background-color: #3c4043!important;
   }
+
+  //button for creating a post
+  .mat-mdc-unelevated-button.mat-primary{
+    --mdc-filled-button-label-text-color: whitesmoke!important;
+  }
 }
 
 
