@@ -65,22 +65,26 @@ $dark-theme: mat.define-dark-theme(
     border-radius: 5px;
   }
   //Element for styling notification panel
-  .icon-container-bg[_ngcontent-ng-c1172136928]{
-    background: #3c4043;
+  .icon-container{
+    background: #3c4043!important;
     color: whitesmoke!important;
+    border:none;
   }
 
   //Element for styling notification icons
-  .icon[_ngcontent-ng-c779092302]
+  .icon[_ngcontent-ng-c1304148653]
   {
     color: whitesmoke;
   }
 
 
   //Element for styling notification messages
-  .message-content-bg[_ngcontent-ng-c894287089]{
+  .message-content[_ngcontent-ng-c2079826204]{
     background: #3c4043;
     color: whitesmoke;
+    border-top: gray;
+    border-left: gray;
+    border-right: gray;
 
   }
 
