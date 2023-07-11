@@ -85,18 +85,18 @@ export class PostService {
   }
 
   getFeed(page: number): Observable<Array<PostRes>> {
-    let url: string = environment.apiBaseUrl + '/feed/{{page}}';
+    let url: string = environment.apiBaseUrl + `/posts/feed/${page}`;
 
     return this.http.get<Array<PostRes>>(url);
   }
   getPostsByUserId(user_id: string): Observable<Array<PostRes>> {
-    let url: string = environment.apiBaseUrl + '/posts/user/{{user_id}}';
+    let url: string = environment.apiBaseUrl + `/posts/user/${user_id}`;
 
     return this.http.get<Array<PostRes>>(url);
   }
 
   getPostsByTagname(tags: Tag[], pageNum: number): Observable<Array<PostRes>> {
-    let url: string = environment.apiBaseUrl + '/posts/tag/{{pagenum}}';
+    let url: string = environment.apiBaseUrl + `/posts/tag/${pageNum}`;
     let tagString: string = '';
 
     for (let tag of tags) {
@@ -112,7 +112,7 @@ export class PostService {
   }
 
   getPostById(postId: string): Observable<PostRes> {
-    let url: string = environment.apiBaseUrl + '/id/{{postId}}';
+    let url: string = environment.apiBaseUrl + `/posts/id/${postId}`;
 
     return this.http.get<PostRes>(url);
   }
@@ -120,7 +120,7 @@ export class PostService {
   getTrendingByDate(fromDate:Date, userId:string): Observable<Array<PostRes>>
   {
       let date = fromDate.toISOString().slice(0,10);
-      let url:string = environment.apiBaseUrl + "/{{date}}/{{userId}}";
+      let url:string = environment.apiBaseUrl + `/posts/trending/${new Date(date)}`;
 
     return this.http.get<Array<PostRes>>(url);
   }
@@ -136,7 +136,7 @@ export class PostService {
 
  updatePost(post_id:string, message:string, mediaType:string):Observable<any>
   {
-     let url = "";
+     let url = environment.apiBaseUrl + `/posts/id/${post_id}`;
 
       let formData:FormData = new FormData();
 
@@ -144,7 +144,7 @@ export class PostService {
 
       formData.append("mediaType", mediaType);
       
-      return this.http.put(url, formData);
+      return this.http.put<any>(url, formData);
       
   }
 
