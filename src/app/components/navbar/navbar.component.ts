@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from '../../services/tokenservice.service';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
 
@@ -10,12 +11,24 @@ import { CreatePostComponent } from 'src/app/pages/create-post/create-post.compo
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   constructor(
-    private dialog: MatDialog,
     private router: Router,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private notificationService: NotificationService,
+    private dialog: MatDialog
   ) {}
+
+  notificationHasChanged: boolean = false;
+
+  ngOnInit(): void {
+    this.notificationService.stateIsReload.subscribe((stateIsLoading) => {
+      this.notificationHasChanged = stateIsLoading;
+      setTimeout(() => {
+        this.notificationHasChanged = !this.notificationHasChanged;
+      }, 100);
+    });
+  }
 
   login() {}
 

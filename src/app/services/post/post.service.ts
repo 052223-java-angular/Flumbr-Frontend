@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
 import { PostRes } from 'src/app/models/post/post';
 import { Vote } from 'src/app/models/post/vote';
+import { Bookmark } from '../../models/post/bookmark';
 import { Tag } from 'src/app/models/tag/tag';
 import { environment } from 'src/environments/environment';
 
@@ -143,6 +144,10 @@ export class PostService {
    * @param payload -
    */
   likePost(payload: Vote): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
+  }
+
+  bookmarkPost(payload: Bookmark): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
   }
 

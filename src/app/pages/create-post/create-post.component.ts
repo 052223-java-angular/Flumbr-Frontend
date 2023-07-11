@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { NgEventBus } from 'ng-event-bus';
 import { MessageService } from 'primeng/api';
 import { finalize } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NgEventBus } from 'ng-event-bus';
 import { EventBusEvents } from 'src/app/global/event-bus-events';
 import { EditPostDialogData } from 'src/app/models/post/edit-post-dialog-data';
 import { PostRes } from 'src/app/models/post/post';
