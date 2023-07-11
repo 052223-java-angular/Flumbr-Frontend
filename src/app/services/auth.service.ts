@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegisterPayload } from '../models/register-payload';
 import { LoginPayload } from '../models/login-payload';
+import { NewPasswordPayload } from '../models/new-password';
 import { ResetPasswordPayload } from '../models/reset-password';
 import { EMPTY, Observable } from 'rxjs';
 import { AppSettings } from '../global/app-settings';
@@ -36,9 +37,8 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}/auth/reset`, payload);
   }
 
-
-  newPassword(formData: FormData): Observable<any> {
+  newPassword(payload: NewPasswordPayload): Observable<any> {
     //TODO: replace with api end point after backend implementation
-    return this.http.post<any>(`${this.baseUrl}/auth/newpassword`, formData);
+    return this.http.put<any>(`${this.baseUrl}/auth/newpassword`, payload);
   }
 }
