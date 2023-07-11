@@ -10,6 +10,7 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { ReportComponent } from '../../report/report.component';
 import { Bookmark } from '../../../models/post/bookmark';
 import { RemoveBookmark } from '../../../models/post/removeBookmark';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -26,6 +27,7 @@ export class PostComponent implements OnInit {
   thumbsUpEnabled: boolean = true;
   thumbsDownEnabled: boolean = true;
   bookmarked: boolean = false;
+  shareURL: string = '';
 
   constructor(
     private postService: PostService,
@@ -41,6 +43,7 @@ export class PostComponent implements OnInit {
         Validators.compose([Validators.required, Validators.maxLength(500)])
       ),
     });
+    this.shareURL = window.location.href + '/share/' + this.post.id;
   }
 
   updateIconState() {

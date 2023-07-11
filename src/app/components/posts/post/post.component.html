@@ -15,8 +15,11 @@
 
         <!-- Options/Info (create date, edit date and follow/follow and report actions) -->
         <div>
-          <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Options" matTooltipClass="tooltip"
-            matTooltipPosition="above"><mat-icon class="icon dark:text-whitesmoke">more_horiz</mat-icon></button>
+          <button mat-icon-button matTooltip="Options" matTooltipClass="tooltip" matTooltipPosition="above"
+            [matMenuTriggerFor]="menu">
+            <mat-icon class="icon dark:text-whitesmoke">more_horiz</mat-icon>
+          </button>
+
           <mat-menu #menu="matMenu">
             <div mat-menu-item>
               <p class="text-sm dark:text-whitesmoke">{{post.createTime}}</p>
@@ -25,8 +28,6 @@
               <p class="text-sm dark:text-whitesmoke">{{post.editTime}}</p>
             </div>
 
-            <!-- follow / unfollow  -->
-            <!-- {{post | json}} -->
             <app-follow viewTemplate="textView" [followIdentity]="{
                 loggedInUserId: 'this should be the logged in user id - may not be required',
                 ownerUserId: post.id,
@@ -71,9 +72,9 @@
     </mat-card-footer>
 
     <!-- Actions (like, dislike, share post, and open chat) -->
-    <mat-card-actions class="flex justify-between">
+    <mat-card-actions class="flex justify-between items-center">
 
-      <div class="flex gap-4">
+      <div class="flex gap-4 items-center">
         Likes: {{post.upVotes}}
         <mat-icon class="icon dark:text-whitesmoke" matTooltip="Like" matTooltipClass="tooltip"
           matTooltipPosition="above" [ngClass]="{ 'disabled': !thumbsUpEnabled }"
@@ -83,7 +84,11 @@
           matTooltipPosition="above" [ngClass]="{ 'disabled': !thumbsDownEnabled }"
           (click)="dislikePost(post.id)">thumb_down</mat-icon>
       </div>
-      <div class="flex gap-4">
+
+      <!--  div group for bookmark, share and chat icons  -->
+      <div class="flex items-center justify-end gap-4 pr-4">
+
+        <!-- for bookmark post  -->
         <mat-icon class="icon" matTooltip="Like" matTooltipClass="tooltip" matTooltipPosition="above"
           (click)="likePost(post.id)">bookmark_border</mat-icon>
         <mat-icon class="icon" matTooltip="Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
@@ -92,6 +97,24 @@
           *ngIf="bookmarked ">bookmark</mat-icon>
         <mat-icon class="icon" matTooltip="Share" matTooltipClass="tooltip" matTooltipPosition="above"
           (click)="sharePost()">share</mat-icon>
+
+        <!-- for share post link -->
+        <button mat-button [matMenuTriggerFor]="sharePostMenu" matTooltipPosition="below" matTooltip="Share"
+          matTooltipClass="tooltip">
+          <mat-icon class="icon dark:text-whitesmoke" color="primary">share</mat-icon>
+        </button>
+        <mat-menu class="w-full px-2 bg-amber-50" #sharePostMenu="matMenu">
+          <label>Share Link:</label>
+          <hr />
+          <label class="text-xs">{{shareURL}}</label>
+          <hr />
+          <div class="flex justify-end">
+            <button class="px-6 text-sm uppercase" color="primary" mat-flat-button
+              [cdkCopyToClipboard]="shareURL">Copy</button>
+          </div>
+        </mat-menu>
+
+        <!-- for chat / comments -->
         <mat-icon class="icon dark:text-whitesmoke" matTooltip="Comment" matTooltipClass="tooltip"
           matTooltipPosition="above" (click)="toggleChat()">chat</mat-icon>
       </div>

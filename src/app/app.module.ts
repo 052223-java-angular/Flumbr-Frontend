@@ -27,7 +27,6 @@ import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-//import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
@@ -59,6 +58,7 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
 import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { GifComponent } from './components/gif/gif.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [
@@ -116,6 +116,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     PickerModule,
     MatDialogModule,
     MatToolbarModule,
+    ClipboardModule,
   ],
   providers: [
     RouteguardService,
