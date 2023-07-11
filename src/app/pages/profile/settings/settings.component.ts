@@ -234,7 +234,9 @@ export class SettingsComponent {
       themeName: ""
     }
 
-    formData.append('profileId', JSON.stringify(payload));
+    formData.append('profileId', new Blob([JSON.stringify(payload)], {
+      type: 'application/json'
+    }));
 
     console.log('Input form data is:' + formData)
 

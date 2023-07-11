@@ -48,9 +48,11 @@ export class ProfileService {
   // upload an image file to send to back end, MUST be multiMedia but only an image
   uploadImage(userId: string, formData: FormData, payload: BioPayload): Observable<any> {
     console.log('hitting upload image service');
+
     console.log(formData.get('profileId'));
     console.log(formData.get('file'));
 
+    //const headers = new HttpHeaders().set('Authorization', this.tokenService.getToken()!);
     //const headers = new HttpHeaders().set('Authorization', this.tokenService.getToken()!);
 
     return this.http.patch<void>(`${this.baseUrl}/profile/upload/${userId}`, formData );
