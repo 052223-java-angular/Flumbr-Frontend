@@ -18,7 +18,6 @@ export class PostComponent implements OnInit {
   @Input() post!: PostRes;
   isChatOpen = false;
   isGifComponentOpen = false;
-  isEmojiMartOpen = false;
   chosenGif: string | null = null;
   commentForm!: FormGroup;
   thumbsUpEnabled: boolean = true;
@@ -70,9 +69,6 @@ export class PostComponent implements OnInit {
   }
 
   toggleGifComponent() {
-    if (this.isEmojiMartOpen) {
-      this.isEmojiMartOpen = false;
-    }
     this.isGifComponentOpen = !this.isGifComponentOpen;
   }
 
@@ -80,10 +76,6 @@ export class PostComponent implements OnInit {
     console.log(emoji);
     const control = this.commentForm.controls['comment'];
     control.setValue((control.value ? control.value : '') + emoji);
-  }
-
-  toggleEmojiMart() {
-    this.isEmojiMartOpen = !this.isEmojiMartOpen;
   }
 
   navigateToTag(id: string) {
