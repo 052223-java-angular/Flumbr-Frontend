@@ -14,5 +14,8 @@
             class="bg-purple-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"
             (click)="openPostDialog()">Post</button>
         <button (click)="logout()" *ngIf="isAuthenticated()" class="bg-red-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink=" ">Logout</a></button>
+        <app-notification-panel 
+            class="flex-1 pr-1" 
+            *ngIf="!notificationHasChanged && isAuthenticated()"></app-notification-panel>
     </ul>
 </nav>
