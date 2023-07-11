@@ -1,0 +1,27 @@
+::ng-deep #default{
+  @apply bg-gradient-to-r from-blue-300 to-indigo-300;
+}
+
+::ng-deep #theme-one{
+  @apply bg-gradient-to-r from-indigo-900 to-blue-200;
+}
+
+::ng-deep #theme-two{
+  @apply bg-gradient-to-r from-slate-700 to-gray-800;
+}
+
+::ng-deep #theme-three{
+  @apply bg-gradient-to-t from-yellow-600 to-amber-800;
+}
+
+::ng-deep #theme-four{
+  @apply bg-gradient-to-r from-indigo-500 to-blue-500;
+}
+
+::ng-deep #theme-five{
+  @apply bg-gradient-to-l from-pink-200 to-pink-900;
+}
+
+
+
+

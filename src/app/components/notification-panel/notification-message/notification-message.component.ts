@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Notification } from 'src/app/models/notification/notification';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 
@@ -22,39 +22,43 @@ const data = {
 export class NotificationMessageComponent {
   constructor(private notificationService: NotificationService) {}
 
-  // incoming attributes required to display data within the view
+  // incoming attributes for displaying data within the view
   @Input() notifications!: Notification[];
   @Input() activeNotificationType!: string;
-  @Output() totalUnreadChange = new EventEmitter<void>();
-  
+
+  // formats the notification message
+  formatMessage(message: string) : string {
+    let clippedMessage = message.substring(message.indexOf("User ")+5);
+    return clippedMessage.charAt(0).toUpperCase() + clippedMessage.substring(1) + ".";
+  }
 
   // updates the notification status as read
-  updateNotificationAsRead(notification: Notification) : void {
-    this.updateReadStatus(notification, this.notifications);
-    this.notificationService.updateNotificationAsRead(notification).subscribe({
-      next: (res) => this.totalUnreadChange.emit(),
-      error: (err) => console.log(err.error.message),
-      complete: () => null
-    });
+  updateAsViewed(notification: Notification) : void {
 
-    // send an update to the service that the message panel is empty
-    if (this.getMessageCount(notification.matIconName, this.notifications) <= 0) {
-      this.notificationService.raiseMessagePanelIsEmpty(true);
-    }
+    // call service to update, then do local updates
+    this.notificationService.httpUpdateAsViewed(notification).subscribe({
+      next: (res) => {
+        // remove el; close message panel when zero
+        this.removeNotification(notification, this.notifications);
+        if (this.getTypeMessageCount(notification.matIconName, this.notifications) <= 0) {
+          this.notificationService.raiseMessagePanelIsEmpty(true);
+        }
+      },
+      error: (err) => console.log(err.error.message)
+    });
 
   }
 
   // counts tthe number of messages remaining
-  private getMessageCount(notificationType: string, notifications: Notification[]) : number {
+  private getTypeMessageCount(notificationType: string, notifications: Notification[]) : number {
     return notifications.filter(notification => notification.matIconName === notificationType).length;
   }
 
   // update or remove the message having been read
-  private updateReadStatus(notification: Notification, notifications: Notification[]) : void {
+  private removeNotification(notification: Notification, notifications: Notification[]) : void {
     notifications.forEach((currNotification,idx) => {
       if (currNotification.id == notification.id) {
-        this.notifications[idx].hasRead = true;
-        this.notifications.splice(idx, 1);
+        this.notifications.splice(idx, 1); // remove the notification from the list
       }
     })
   }
