@@ -3,6 +3,12 @@ import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
+import { MatDialog } from '@angular/material/dialog';
+import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import { Comment, NewCommentReq } from 'src/app/models/post/comment';
+import { MessageService } from 'primeng/api';
+import { AppSettings } from 'src/app/global/app-settings';
 import {
   FormControl,
   FormGroup,
@@ -10,13 +16,10 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { NotificationService } from 'src/app/services/notification/notification.service';
-import { MatDialog } from '@angular/material/dialog';
-import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
-import { Comment, NewCommentReq } from 'src/app/models/post/comment';
-import { MessageService } from 'primeng/api';
-import { AppSettings } from 'src/app/global/app-settings';
+import { ReportComponent } from '../../report/report.component';
+import { Bookmark } from '../../../models/post/bookmark';
+import { RemoveBookmark } from '../../../models/post/removeBookmark';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -31,6 +34,8 @@ export class PostComponent implements OnInit {
   commentForm!: FormGroup;
   thumbsUpEnabled: boolean = true;
   thumbsDownEnabled: boolean = true;
+  bookmarked: boolean = false;
+  shareURL: string = '';
 
   constructor(
     private postService: PostService,
@@ -70,6 +75,13 @@ export class PostComponent implements OnInit {
             atLeastOne: true,
           };
     };
+    this.commentForm = new FormGroup({
+      comment: new FormControl(
+        null,
+        Validators.compose([Validators.required, Validators.maxLength(500)])
+      ),
+    });
+    this.shareURL = window.location.href + '/share/' + this.post.id;
   }
 
   updateIconState() {
@@ -86,6 +98,8 @@ export class PostComponent implements OnInit {
       this.thumbsUpEnabled = true; // Default state when userVote is null or post is undefined
       this.thumbsDownEnabled = true; // Default state when userVote is null or post is undefined
     }
+
+    console.log('update bookmarks');
   }
 
   onCommentSubmit() {
@@ -218,6 +232,49 @@ export class PostComponent implements OnInit {
     });
   }
 
+  bookmarkPost(id: string) {
+    console.log('post id is ' + id);
+
+    // define book mark payload
+    const payload: Bookmark = {
+      postId: id,
+      userId: this.tokenService.getUser().id,
+    };
+
+    // call bookmark service
+    this.postService.bookmarkPost(payload).subscribe({
+      next: () => {
+        console.log('Bookmark service hit, setting bookmark');
+        this.bookmarked = true;
+      },
+      error: (err) => {
+        console.log('error in bookmarking post: ' + err);
+      },
+    });
+  }
+
+  removeBookmark(id: string) {
+    console.log('post id is ' + id);
+
+    // define book mark payload
+    const payload: RemoveBookmark = {
+      bookmarkId: '',
+      postId: id,
+      userId: this.tokenService.getUser().id,
+    };
+
+    // call bookmark service
+    this.postService.bookmarkPost(payload).subscribe({
+      next: () => {
+        console.log('Remoe Bookmark service hit');
+        this.bookmarked = false;
+      },
+      error: (err) => {
+        console.log('error in removing post bookmark: ' + err);
+      },
+    });
+  }
+
   dislikePost(id: string) {
     console.log('id  is ' + id);
 
@@ -259,8 +316,14 @@ export class PostComponent implements OnInit {
     this.isChatOpen = !this.isChatOpen;
   }
 
-  reportPost(postId: string): void {
-    // does this need to make a network request ?
+  reportPost(id: any) {
+    console.log(id);
+    this.dialog.open(ReportComponent, {
+      width: '40%',
+      data: {
+        id: id,
+      },
+    });
   }
 
   openEditPostModal(post: PostRes): void {
