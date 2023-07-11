@@ -25,6 +25,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { DeletePostComponent } from './components/posts/delete-post/delete-post.component';
 
 //import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
@@ -86,6 +87,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     NewPasswordComponent,
     SettingsComponent,
     GifComponent,
+    DeletePostComponent
   ],
   imports: [
     BrowserModule,
