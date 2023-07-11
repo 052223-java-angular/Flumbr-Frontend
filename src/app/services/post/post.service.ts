@@ -7,6 +7,7 @@ import { Vote } from 'src/app/models/post/vote';
 import { Bookmark } from '../../models/post/bookmark';
 import { Tag } from 'src/app/models/tag/tag';
 import { environment } from 'src/environments/environment';
+import { NewCommentReq } from 'src/app/models/post/comment';
 
 @Injectable({
   providedIn: 'root',
@@ -155,5 +156,9 @@ export class PostService {
     return this.http.put(`${this.baseUrl}/posts/id/${id}`, formData, {
       responseType: 'text',
     });
+  }
+
+  createComment(commentPayload: NewCommentReq) {
+    return this.http.post(`${this.baseUrl}/posts/comment`, commentPayload);
   }
 }

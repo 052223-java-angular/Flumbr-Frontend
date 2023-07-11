@@ -3,11 +3,20 @@ import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import { Comment, NewCommentReq } from 'src/app/models/post/comment';
+import { MessageService } from 'primeng/api';
+import { AppSettings } from 'src/app/global/app-settings';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -26,17 +35,41 @@ export class PostComponent implements OnInit {
   constructor(
     private postService: PostService,
     private tokenService: TokenService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.updateIconState();
-    this.commentForm = new FormGroup({
-      comment: new FormControl(
-        null,
-        Validators.compose([Validators.required, Validators.maxLength(500)])
-      ),
-    });
+    this.commentForm = new FormGroup(
+      {
+        comment: new FormControl(null, Validators.maxLength(2000)),
+        gifUrl: new FormControl(null),
+      },
+      {
+        validators: this.atLeastOne(Validators.required, ['comment', 'gifUrl']),
+      }
+    );
+  }
+
+  // custom validator
+  atLeastOne(validator: ValidatorFn, controls: string[] | null = null): any {
+    return (group: FormGroup): ValidationErrors | null => {
+      if (!controls) {
+        controls = Object.keys(group.controls);
+      }
+
+      const hasAtLeastOne =
+        group &&
+        group.controls &&
+        controls.some((k) => !validator(group.controls[k]));
+
+      return hasAtLeastOne
+        ? null
+        : {
+            atLeastOne: true,
+          };
+    };
   }
 
   updateIconState() {
@@ -56,16 +89,82 @@ export class PostComponent implements OnInit {
   }
 
   onCommentSubmit() {
-    console.log(this.commentForm);
+    if (this.commentForm.invalid) {
+      return;
+    }
+
+    // create comment payload
+    const commentPayload: NewCommentReq = {
+      comment: this.commentForm.controls['comment'].value,
+      postId: this.post.id,
+      userId: this.tokenService.getUser().id,
+    };
+
+    if (this.chosenGif) {
+      commentPayload.gifUrl = this.chosenGif;
+    }
+
+    if (this.commentForm.controls['comment'].value) {
+      commentPayload.comment = this.commentForm.controls['comment'].value;
+    } else {
+      commentPayload.comment = '';
+    }
+
+    // attempt db creation of comment
+    this.postService.createComment(commentPayload).subscribe({
+      next: () => {
+        // create new comment
+        const newComment: Comment = {
+          username: this.tokenService.getUser().username,
+          createTime: new Date().toISOString(),
+          postId: this.post.id,
+        };
+
+        if (this.chosenGif) {
+          newComment.gifUrl = this.chosenGif;
+        }
+
+        if (commentPayload.comment) {
+          newComment.comment = commentPayload.comment;
+        }
+
+        // comments present so push new comment
+        if (this.post.comments && this.post.comments.length > 0) {
+          this.post.comments.push(newComment);
+        }
+        // no comments present so create new comment arr
+        else {
+          this.post.comments = [newComment];
+        }
+
+        // toaster responses
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Successful comment creation!',
+          life: AppSettings.DEFAULT_MESSAGE_LIFE,
+        });
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.error.message,
+          life: AppSettings.DEFAULT_MESSAGE_LIFE,
+        });
+      },
+    });
   }
 
   addGif(gifChosen: string) {
     this.chosenGif = gifChosen;
+    this.commentForm.controls['gifUrl'].setValue(gifChosen);
     this.toggleGifComponent();
   }
 
   removeGif() {
     this.chosenGif = null;
+    this.commentForm.controls['gifUrl'].setValue(null);
   }
 
   toggleGifComponent() {

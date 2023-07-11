@@ -106,7 +106,7 @@
               <!-- Message -->
               <textarea
                 class="flex-grow p-0 text-slate-950 bg-transparent outline-none border-none placeholder:text-slate-950/60 focus-within:placeholder:text-slate-950/30 focus:border-transparent focus:shadow-none"
-                rows="4" pInputTextarea [autoResize]="true" maxlength="2000" placeholder="Make your comment"
+                rows="1" pInputTextarea [autoResize]="true" maxlength="2000" placeholder="Make your comment"
                 formControlName="comment"></textarea>
               <!-- Gif preview -->
               <div class="relative mt-5 rounded-md overflow-hidden" *ngIf="chosenGif">
@@ -121,19 +121,24 @@
 
 
             <!-- Comment action options -->
-            <div class="flex gap-1 pt-1">
-              <div
-                class="flex justify-center items-center p-1 rounded-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-950/20"
-                (click)="toggleGifComponent()">
-                <mat-icon class="scale-[0.80]">gif</mat-icon>
+            <div class="flex justify-between pt-1">
+              <div class="flex gap-1">
+                <div
+                  class="flex justify-center items-center p-1 rounded-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-950/20"
+                  (click)="toggleGifComponent()">
+                  <mat-icon class="scale-[0.80]">gif</mat-icon>
+                </div>
+                <div
+                  class="flex justify-center items-center p-1 rounded-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-950/20"
+                  (click)="op.toggle($event)">
+                  <mat-icon class="scale-[0.80]">tag_faces</mat-icon>
+                </div>
               </div>
-              <div
-                class="flex justify-center items-center p-1 rounded-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-950/20"
-                (click)="op.toggle($event)">
-                <mat-icon class="scale-[0.80]">tag_faces</mat-icon>
-              </div>
-
-              <button type="submit">Reply</button>
+              <button
+                class="py-2 px-3 bg-emerald-600 text-white rounded-md ease-in-out transition-all duration-300 cursor-pointer hover:bg-emerald-800"
+                type="submit"
+                [ngClass]="{'bg-emerald-600/60 hover:bg-emerald-600/60 cursor-default': commentForm.invalid}"
+                [disabled]="commentForm.invalid">Reply</button>
             </div>
           </div>
 
@@ -166,6 +171,7 @@
           <div class="flex flex-col gap-2 p-2 border-[1px] border-solid border-slate-700 rounded-lg">
             <p class="m-0 font-semibold">{{comment.username}}</p>
             <p class="m-0">{{comment.comment}}</p>
+            <img class="w-full" [src]="comment.gifUrl" alt="Gif image" *ngIf="comment.gifUrl">
           </div>
         </li>
       </ul>
