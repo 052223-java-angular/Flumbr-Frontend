@@ -58,6 +58,8 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
 import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { GifComponent } from './components/gif/gif.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 
@@ -117,6 +119,8 @@ import { PostDetailComponent } from './pages/post-detail/post-detail.component';
     MatTabsModule,
     PickerModule,
     MatDialogModule,
+    OverlayPanelModule,
+    InputTextareaModule,
     MatToolbarModule,
     ClipboardModule,
   ],
