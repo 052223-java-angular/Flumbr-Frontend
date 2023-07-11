@@ -1,18 +1,14 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { NgEventBus } from 'ng-event-bus';
 import { MessageService } from 'primeng/api';
 import { finalize } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
 import { EventBusEvents } from 'src/app/global/event-bus-events';
+import { EditPostDialogData } from 'src/app/models/post/edit-post-dialog-data';
+import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
@@ -24,11 +20,11 @@ export class CreatePostComponent implements OnInit {
   loading: boolean = false;
   fileSizeLimit: number = AppSettings.CREATE_POST_SIZE_LIMIT;
   postForm!: FormGroup;
-  shortLink: string | null = null;
   files: File[] = [];
   isImage: boolean = false;
   isVideo: boolean = false;
   tags: string[] | null = [];
+  editPost: PostRes | null = null;
 
   constructor(
     public dialogRef: MatDialogRef<CreatePostComponent>,
@@ -36,7 +32,8 @@ export class CreatePostComponent implements OnInit {
     private router: Router,
     private messageService: MessageService,
     private postService: PostService,
-    private eventBus: NgEventBus
+    private eventBus: NgEventBus,
+    @Inject(MAT_DIALOG_DATA) public data: EditPostDialogData
   ) {}
 
   atLeastOneValidator = (keys: string[]) => {
@@ -48,19 +45,52 @@ export class CreatePostComponent implements OnInit {
     };
   };
 
-  ngOnInit(): void {
-    this.postForm = this.fb.group(
-      {
-        message: [''],
-        file: [''],
-      },
-      { validators: this.atLeastOneValidator(['message', 'file']) }
-    );
-    const messageFormControl = this.postForm.get('message');
-    if (messageFormControl) {
-      messageFormControl.valueChanges.subscribe((value) => {
-        this.onMessageChange(value);
-      });
+  async ngOnInit(): Promise<void> {
+    if (this.data) {
+      this.postForm = this.fb.group(
+        {
+          message: [this.data.post.message || ''],
+          file: [''],
+        },
+        { validators: this.atLeastOneValidator(['message', 'file']) }
+      );
+      const messageFormControl = this.postForm.get('message');
+      if (messageFormControl) {
+        messageFormControl.valueChanges.subscribe((value) => {
+          this.onMessageChange(value);
+        });
+      }
+    } else {
+      this.postForm = this.fb.group(
+        {
+          message: [''],
+          file: [''],
+        },
+        { validators: this.atLeastOneValidator(['message', 'file']) }
+      );
+      const messageFormControl = this.postForm.get('message');
+      if (messageFormControl) {
+        messageFormControl.valueChanges.subscribe((value) => {
+          this.onMessageChange(value);
+        });
+      }
+    }
+
+    if (this.data) {
+      if (this.data.post.s3Url) {
+        const media = await this.fetchBlob(this.data.post.s3Url);
+        const file = new File([media], 'file', {
+          type: this.data.post.mediaType,
+        });
+        this.postForm.patchValue({
+          file: file,
+        });
+        this.files = [file];
+        this.setImageAndVideoFlags();
+        if (this.data.post.message) {
+          this.onMessageChange(this.data.post.message);
+        }
+      }
     }
   }
 
@@ -109,7 +139,6 @@ export class CreatePostComponent implements OnInit {
   onRemove(event: any) {
     this.files.splice(this.files.indexOf(event), 1);
     this.setImageAndVideoFlags();
-    this.shortLink = null;
     this.postForm.patchValue({
       file: null,
     });
@@ -146,38 +175,74 @@ export class CreatePostComponent implements OnInit {
       }
     }
 
-    this.postService
-      .createPost(formData)
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe({
-        next: (/* value */) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Post created',
-            life: AppSettings.DEFAULT_MESSAGE_LIFE,
-          });
-          this.postForm.reset();
-          this.files = [];
-          this.setImageAndVideoFlags();
-          this.tags = [];
-          this.eventBus.cast(EventBusEvents.POST_CREATE, '');
-          this.router.navigate(['/posts']);
-          this.dialogRef.close([]);
-        },
-        error: (error) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: error.error.message || 'Error',
-            life: AppSettings.DEFAULT_MESSAGE_LIFE,
-          });
-        },
-      });
+    if (!this.data) {
+      this.postService
+        .createPost(formData)
+        .pipe(finalize(() => (this.loading = false)))
+        .subscribe({
+          next: (/* value */) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Post created',
+              life: AppSettings.DEFAULT_MESSAGE_LIFE,
+            });
+            this.postForm.reset();
+            this.files = [];
+            this.setImageAndVideoFlags();
+            this.tags = [];
+            this.eventBus.cast(EventBusEvents.POST_CREATE, '');
+            this.router.navigate(['/posts']);
+            this.dialogRef.close([]);
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.error.message || 'Error',
+              life: AppSettings.DEFAULT_MESSAGE_LIFE,
+            });
+          },
+        });
+    } else {
+      this.postService
+        .updatePost(this.data.post.id, formData)
+        .pipe(finalize(() => (this.loading = false)))
+        .subscribe({
+          next: (/* value */) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Post updated',
+              life: AppSettings.DEFAULT_MESSAGE_LIFE,
+            });
+            this.postForm.reset();
+            this.files = [];
+            this.setImageAndVideoFlags();
+            this.tags = [];
+            this.eventBus.cast(EventBusEvents.POST_UPDATE, '');
+            this.router.navigate(['/posts']);
+            this.dialogRef.close([]);
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.error.message || 'Error',
+              life: AppSettings.DEFAULT_MESSAGE_LIFE,
+            });
+          },
+        });
+    }
   }
 
   onCancelClick(event: any): void {
     event.preventDefault();
     this.dialogRef.close([]);
+  }
+
+  async fetchBlob(url: string) {
+    const response = await fetch(url);
+    return response.blob();
   }
 }

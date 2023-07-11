@@ -3,16 +3,15 @@
   <mat-spinner></mat-spinner>
 </ng-container>
 
-<ng-container
-  *ngIf="!loading">
-
+<ng-container>
   <div class="flex flex-col items-center">
     <form
+      [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}"
       class="bg-white flex flex-col p-10 w-full"
       (ngSubmit)="submitPostForm()"
       [formGroup]="postForm">
       <div class="flex flex-row items-start">
-        <h1 class="text-center text-slate-700 dark:text-slate-100 font-bold text-3xl tracking-wide">Create Post</h1>
+        <h1 class="text-center text-slate-700 dark:text-slate-100 font-bold text-3xl tracking-wide">{{ this.data ? 'Edit' : 'Create'}} Post</h1>
         <button 
           class="ml-auto text-slate-500 dark:text-slate-100"
           (click)="onCancelClick($event)"><mat-icon class="text-4xl h-auto w-auto">cancel</mat-icon></button>
@@ -80,7 +79,6 @@
         <button
           class="w-screen"
           mat-flat-button color="primary"
-          (submit)="submitPostForm()"
           [disabled]="!postForm.valid">Post</button>
       </div>
     </form>

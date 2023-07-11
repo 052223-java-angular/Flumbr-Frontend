@@ -19,4 +19,5 @@ export interface PostRes {
 
   // additional options
   animateDelete?: boolean;
+  userId?: string;
 }

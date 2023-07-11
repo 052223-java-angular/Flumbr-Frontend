@@ -13,14 +13,12 @@ import { PostService } from 'src/app/services/post/post.service';
 export class FeedPostsComponent implements OnInit {
   posts!: Array<PostRes>;
   isLoading = false;
-  createPostSub: Subscription;
+  postSub: Subscription;
 
   constructor(private postService: PostService, private eventBus: NgEventBus) {
-    this.createPostSub = this.eventBus
-      .on(EventBusEvents.POST_CREATE)
-      .subscribe(() => {
-        this.getPosts(1);
-      });
+    this.postSub = this.eventBus.on(`${EventBusEvents.POST}*`).subscribe(() => {
+      this.getPosts(1);
+    });
   }
 
   ngOnInit(): void {
