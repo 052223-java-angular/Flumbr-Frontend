@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-recommendations.component.scss'],
 })
 export class UserRecommendationsComponent {
+  /**
   users = [
     {
       id: 'tom-myspace',
@@ -68,4 +69,8 @@ export class UserRecommendationsComponent {
       },
     },
   ];
+   */
+  users: any;
+
+
 }

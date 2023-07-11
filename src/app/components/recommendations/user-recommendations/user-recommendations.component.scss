@@ -25,6 +25,11 @@
     overflow-y: auto;
   }
 }
+.example-scrollbar {
+  height: 200px; /* Add a fixed height here */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
 
 mat-card img {
