@@ -54,6 +54,9 @@ import { FollowingPostsComponent } from './components/posts/following-posts/foll
 import { DeletePostComponent } from './components/posts/delete-post/delete-post.component';
 import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
+import { SettingsComponent } from './pages/profile/settings/settings.component';
+import { GifComponent } from './components/gif/gif.component';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 
 @NgModule({
   declarations: [
@@ -80,7 +83,12 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
     FollowingPostsComponent,
     ResetPasswordComponent,
     NewPasswordComponent,
+<<<<<<< HEAD
     DeletePostComponent
+=======
+    SettingsComponent,
+    GifComponent,
+>>>>>>> 0660e272c36177861f6e131124ca6b02d967a637
   ],
   imports: 
   [
@@ -107,7 +115,12 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
     ToastModule,
     MatChipsModule,
     MatTabsModule,
+<<<<<<< HEAD
     MatDialogModule
+=======
+    PickerModule,
+    MatDialogModule,
+>>>>>>> 0660e272c36177861f6e131124ca6b02d967a637
   ],
   providers: [
     RouteguardService,

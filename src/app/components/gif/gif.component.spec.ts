@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditPostComponent } from './edit-post.component';
+import { GifComponent } from './gif.component';
 
-describe('EditPostComponent', () => {
-  let component: EditPostComponent;
-  let fixture: ComponentFixture<EditPostComponent>;
+describe('GifComponent', () => {
+  let component: GifComponent;
+  let fixture: ComponentFixture<GifComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EditPostComponent]
+      declarations: [GifComponent]
     });
-    fixture = TestBed.createComponent(EditPostComponent);
+    fixture = TestBed.createComponent(GifComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

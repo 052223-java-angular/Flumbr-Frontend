@@ -10,9 +10,9 @@ import { RouteguardService } from './services/routeguard.service';
 
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
-
 import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
+import { SettingsComponent } from './pages/profile/settings/settings.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // Route for the home page
@@ -20,10 +20,19 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Route for the login page
   { path: 'resetpassword', component: ResetPasswordComponent }, // Route for the reset password page
   { path: 'newpassword', component: NewPasswordComponent }, // Route for the setting new password password page
+
   {
-    path: 'profile',
+    // handle user settings and route IF logged in user matches profileId
+    path: 'profile/settings',
+    component: SettingsComponent,
+    canActivate: [RouteguardService],
+  },
+
+  {
+    // route to profile using userId, queries that user
+    path: 'profile/:userId',
     component: ProfileComponent,
-    // canActivate: [RouteguardService],
+    canActivate: [RouteguardService],
   },
 
   {
