@@ -1,23 +1,32 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {ProfilePayload} from "../models/profile/profile-payload";
 import { TagPayload} from "../models/tag-payload";
 import {AppSettings} from "../global/app-settings";
 import {BioPayload} from "../models/profile/bio-payload";
 import {ThemePayload} from "../models/profile/theme-payload";
+import {TokenService} from "./tokenservice.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Authorization': this.tokenService.getUser().id,
+      'Content type' : 'application/json'
+    }),
+  };
+
   jsonAsset: string = "assets/profile.json"
   profile!: ProfilePayload;
   baseUrl = AppSettings.API_URL;
 
   // Constructor for profile service
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient,
+              private tokenService: TokenService) {  }
 
   // retrieve user profile based on user id
   getUser(user_id: string): Observable<ProfilePayload> {
@@ -37,8 +46,14 @@ export class ProfileService {
   }
 
   // upload an image file to send to back end, MUST be multiMedia but only an image
-  uploadImage(formData: FormData): Observable<any> {
-    return this.http.patch<void>(`this.baseUrl}/profile/bio`, formData);
+  uploadImage(userId: string, formData: formData, payload: BioPayload): Observable<any> {
+    console.log('hitting upload image service');
+    console.log(formData.get('profileId'));
+    console.log(formData.get('file'));
+
+    //const headers = new HttpHeaders().set('Authorization', this.tokenService.getToken()!);
+
+    return this.http.patch<void>(`${this.baseUrl}/profile/upload/${userId}`, formData );
   }
 
   // retrieve this user

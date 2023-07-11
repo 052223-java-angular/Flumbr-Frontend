@@ -219,15 +219,27 @@ export class SettingsComponent {
     const file = this.imageForm.controls['file'].value;
     if (file) {
       formData.append('file', file, file.name);
-      formData.append('mediaType', file['type']);
+      //formData.append('mediaType', file['type']);
     }/* else {
       if (message) {
         formData.append('mediaType', 'text');
       }
     }*/
 
+    // add the payload for profileId
+    // create a biography payload to send to the back end
+    const payload: BioPayload = {
+      profileId: this.profile.profileId,
+      bio: "",
+      themeName: ""
+    }
+
+    formData.append('profileId', JSON.stringify(payload));
+
+    console.log('Input form data is:' + formData)
+
     this.profileService
-      .uploadImage(formData)
+      .uploadImage(this.tokenService.getUser().id,formData, payload)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe({
         next: (/* value */) => {
@@ -242,6 +254,8 @@ export class SettingsComponent {
           this.setImageFlags();
         },
         error: (error) => {
+          console.log(error)
+
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
