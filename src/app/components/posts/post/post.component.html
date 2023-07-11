@@ -26,9 +26,10 @@
             </div>
 
             <app-follow viewTemplate="textView" [followIdentity]="{
-                loggedInUserId: 'this should be the logged in user id - may not be required',
-                ownerUserId: post.id,
-                ownerUsername: post.username}"></app-follow>
+                  loggedInUserId: 'this should be the logged in user id',
+                  ownerUserId: post.id,
+                  ownerUsername: post.username}"></app-follow>
+  
 
             <ng-container *ngIf="canEditPost(post)">
               <button mat-menu-item (click)="openEditPostModal(post)">
@@ -36,9 +37,14 @@
               </button>
             </ng-container>
 
+            <ng-container *ngIf="this.post.username === this.getUsername()">
+              <app-delete-post [post]="this.post"></app-delete-post>
+            </ng-container>
+
             <button mat-menu-item>
               <span (click)="reportPost(post.id)" class="font-medium text-red-600">Report</span>
             </button>
+
           </mat-menu>
         </div>
       </div>
@@ -86,14 +92,10 @@
       <div class="flex items-center justify-end gap-4 pr-4">
 
         <!-- for bookmark post  -->
-        <mat-icon class="icon" matTooltip="Like" matTooltipClass="tooltip" matTooltipPosition="above"
-          (click)="likePost(post.id)">bookmark_border</mat-icon>
         <mat-icon class="icon" matTooltip="Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
           *ngIf="!bookmarked" (click)="bookmarkPost(post.id)">bookmark_border</mat-icon>
         <mat-icon class="icon" matTooltip="Remve Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
           *ngIf="bookmarked ">bookmark</mat-icon>
-        <mat-icon class="icon" matTooltip="Share" matTooltipClass="tooltip" matTooltipPosition="above"
-          (click)="sharePost()">share</mat-icon>
 
         <!-- for share post link -->
         <button mat-button [matMenuTriggerFor]="sharePostMenu" matTooltipPosition="below" matTooltip="Share"
@@ -129,7 +131,7 @@
             <div class="flex flex-col p-3 border-solid border-[1px] border-slate-700 rounded-xl">
               <!-- Message -->
               <textarea
-                class="flex-grow p-0 text-slate-950 bg-transparent outline-none border-none placeholder:text-slate-950/60 focus-within:placeholder:text-slate-950/30 focus:border-transparent focus:shadow-none"
+                class="flex-grow p-0 text-slate-950 bg-transparent outline-none border-none placeholder:text-slate-950/60 focus-within:placeholder:text-slate-950/30 focus:border-transparent focus:shadow-none dark:text-whitesmoke dark:placeholder:text-whitesmoke dark:group-focus-within:placeholder:text-gray-400"
                 rows="1" pInputTextarea [autoResize]="true" maxlength="2000" placeholder="Make your comment"
                 formControlName="comment"></textarea>
               <!-- Gif preview -->

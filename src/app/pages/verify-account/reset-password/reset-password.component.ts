@@ -49,21 +49,23 @@ export class ResetPasswordComponent {
         // Call the authentication service to register the user
         this.authService.resetPassword(payload).subscribe({
           next: (/* value */) => {
+            console.log("Success go and check your email ");
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
-              detail: 'ResetPassword successful',
+              detail: 'Instrctions sent to your email successfully',
               life: AppSettings.DEFAULT_MESSAGE_LIFE,
             });
             this.router.navigate(['/login']);
           },
           error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: error.error.message,
-              life: AppSettings.DEFAULT_MESSAGE_LIFE,
-            });
+            console.log("Error in resetPass " + error.message );
+            // this.messageService.add({
+            //   severity: 'error',
+            //   summary: 'Error',
+            //   detail: error.error.message,
+            //   life: AppSettings.DEFAULT_MESSAGE_LIFE,
+            // });
           },
         });
         return true;

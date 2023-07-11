@@ -31,7 +31,6 @@ export class FeedPostsComponent implements OnInit {
       next: (res) => {
         this.isLoading = false;
         this.posts = res;
-        console.log(res);
       },
       error: (err) => {
         this.isLoading = false;
