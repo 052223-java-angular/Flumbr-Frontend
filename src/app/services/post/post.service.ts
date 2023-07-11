@@ -145,4 +145,10 @@ export class PostService {
   likePost(payload: Vote): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/vote/post`, payload);
   }
+
+  updatePost(id: string, formData: FormData) {
+    return this.http.put(`${this.baseUrl}/posts/id/${id}`, formData, {
+      responseType: 'text',
+    });
+  }
 }
