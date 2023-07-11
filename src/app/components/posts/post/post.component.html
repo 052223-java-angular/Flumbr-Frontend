@@ -28,9 +28,10 @@
             <!-- follow / unfollow  -->
             <!-- {{post | json}} -->
             <app-follow viewTemplate="textView" [followIdentity]="{
-                loggedInUserId: 'this should be the logged in user id - may not be required',
-                ownerUserId: post.id,
-                ownerUsername: post.username}"></app-follow>
+                  loggedInUserId: 'this should be the logged in user id',
+                  ownerUserId: post.id,
+                  ownerUsername: post.username}"></app-follow>
+  
 
             <ng-container *ngIf="canEditPost(post)">
               <button mat-menu-item  
@@ -42,6 +43,11 @@
             <button mat-menu-item>
               <span (click)="reportPost(post.id)" class="font-medium text-red-600">Report</span>
             </button>
+
+            <div *ngIf="this.post.username === this.getUsername()">
+                <app-delete-post [post]="this.post"></app-delete-post>
+            </div>
+
           </mat-menu>
         </div>
       </div>
