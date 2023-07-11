@@ -38,3 +38,9 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+mat-dialog-container {
+  .mat-mdc-dialog-surface {
+    border-radius: 20px !important;
+  }
+}

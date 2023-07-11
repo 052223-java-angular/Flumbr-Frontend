@@ -5,6 +5,8 @@ import { TokenService } from 'src/app/services/tokenservice.service';
 import { Vote } from 'src/app/models/post/vote';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -23,7 +25,8 @@ export class PostComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -166,5 +169,23 @@ export class PostComponent implements OnInit {
 
   reportPost(postId: string): void {
     // does this need to make a network request ?
+  }
+
+  openEditPostModal(post: PostRes): void {
+    const dialogRef = this.dialog.open(CreatePostComponent, {
+      width: '600px',
+      maxHeight: '800px',
+      data: {
+        post: post,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('dialog closed');
+    });
+  }
+
+  canEditPost(post: PostRes): boolean {
+    return this.tokenService.getUser().id === post.userId;
   }
 }
