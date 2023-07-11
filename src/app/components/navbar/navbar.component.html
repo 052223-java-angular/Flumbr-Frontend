@@ -1,5 +1,5 @@
-<nav class="flex justify-between px-10 py-3 shadow-xl items-center">
-    <ul class="flex flex-1 gap-5 items-baseline">
+<nav class="flex flex-wrap justify-between pl-10 pr-3 py-3 shadow-xl items-center">
+    <ul class="flex flex-[2] gap-l items-baseline">
         <h1 class="font-bold text-4xl items-center">
             <a routerLink="/">Flumblr</a>
         </h1>
@@ -14,6 +14,8 @@
             class="bg-purple-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"
             (click)="openPostDialog()">Post</button>
         <button (click)="logout()" *ngIf="isAuthenticated()" class="bg-red-500 px-5 py-2 text-white rounded-md shadow-xl transition hover:ease-out hover:scale-110 duration-300"><a routerLink=" ">Logout</a></button>
+        <app-notification-panel 
+            class="flex-1 pr-1" 
+            *ngIf="!notificationHasChanged && isAuthenticated()"></app-notification-panel>
     </ul>
-    <app-notification-panel *ngIf="isAuthenticated()"></app-notification-panel>
 </nav>

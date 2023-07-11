@@ -1,11 +1,11 @@
-import {TagPayload} from "./tag-payload";
+import {TagPayload} from "../tag-payload";
 
 export interface ProfilePayload {
-  id: string;
   username: string;
+  profileId: string;
   profile_img: string;
   bio: string;
-  notification_id: string;
+  themeName: string;
 }
 
 
