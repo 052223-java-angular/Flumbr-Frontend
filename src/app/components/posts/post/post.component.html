@@ -86,14 +86,10 @@
       <div class="flex items-center justify-end gap-4 pr-4">
 
         <!-- for bookmark post  -->
-        <mat-icon class="icon" matTooltip="Like" matTooltipClass="tooltip" matTooltipPosition="above"
-          (click)="likePost(post.id)">bookmark_border</mat-icon>
         <mat-icon class="icon" matTooltip="Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
           *ngIf="!bookmarked" (click)="bookmarkPost(post.id)">bookmark_border</mat-icon>
         <mat-icon class="icon" matTooltip="Remve Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
           *ngIf="bookmarked ">bookmark</mat-icon>
-        <mat-icon class="icon" matTooltip="Share" matTooltipClass="tooltip" matTooltipPosition="above"
-          (click)="sharePost()">share</mat-icon>
 
         <!-- for share post link -->
         <button mat-button [matMenuTriggerFor]="sharePostMenu" matTooltipPosition="below" matTooltip="Share"
