@@ -7,7 +7,7 @@
 
   <a mat-button routerLink="/posts">Posts</a>
   <a mat-button routerLink="/notifications">Notifications</a>
-  <a mat-button routerLink="/profile">Profile</a>
+  <a mat-button routerLink="/profile/{{userId}}">Profile</a>
   <app-notification-panel *ngIf="isAuthenticated()"></app-notification-panel>
   <a (click)="logout()" *ngIf="isAuthenticated()" mat-raised-button color="warn" routerLink=" ">Logout</a>
 
