@@ -33,12 +33,11 @@
                 ownerUsername: post.username}"></app-follow>
 
             <ng-container *ngIf="canEditPost(post)">
-              <button mat-menu-item  
-                  (click)="openEditPostModal(post)">
-                  <span class="font-medium text-slate-900 dark:text-slate-100">Edit</span>
+              <button mat-menu-item (click)="openEditPostModal(post)">
+                <span class="font-medium text-slate-900 dark:text-slate-100">Edit</span>
               </button>
             </ng-container>
-            
+
             <button mat-menu-item>
               <span (click)="reportPost(post.id)" class="font-medium text-red-600">Report</span>
             </button>
@@ -76,19 +75,25 @@
 
       <div class="flex gap-4">
         Likes: {{post.upVotes}}
-        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Like" matTooltipClass="tooltip" matTooltipPosition="above"
-          [ngClass]="{ 'disabled': !thumbsUpEnabled }" (click)="likePost(post.id)">thumb_up</mat-icon>
+        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Like" matTooltipClass="tooltip"
+          matTooltipPosition="above" [ngClass]="{ 'disabled': !thumbsUpEnabled }"
+          (click)="likePost(post.id)">thumb_up</mat-icon>
         Dislikes: {{post.downVotes}}
-        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Dislike" matTooltipClass="tooltip" matTooltipPosition="above"
-          [ngClass]="{ 'disabled': !thumbsDownEnabled }" (click)="dislikePost(post.id)">thumb_down</mat-icon>
+        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Dislike" matTooltipClass="tooltip"
+          matTooltipPosition="above" [ngClass]="{ 'disabled': !thumbsDownEnabled }"
+          (click)="dislikePost(post.id)">thumb_down</mat-icon>
       </div>
       <div class="flex gap-4">
         <mat-icon class="icon" matTooltip="Like" matTooltipClass="tooltip" matTooltipPosition="above"
           (click)="likePost(post.id)">bookmark_border</mat-icon>
-        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Share" matTooltipClass="tooltip" matTooltipPosition="above"
+        <mat-icon class="icon" matTooltip="Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
+          *ngIf="!bookmarked" (click)="bookmarkPost(post.id)">bookmark_border</mat-icon>
+        <mat-icon class="icon" matTooltip="Remve Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
+          *ngIf="bookmarked ">bookmark</mat-icon>
+        <mat-icon class="icon" matTooltip="Share" matTooltipClass="tooltip" matTooltipPosition="above"
           (click)="sharePost()">share</mat-icon>
-        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Comment" matTooltipClass="tooltip" matTooltipPosition="above"
-          (click)="toggleChat()">chat</mat-icon>
+        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Comment" matTooltipClass="tooltip"
+          matTooltipPosition="above" (click)="toggleChat()">chat</mat-icon>
       </div>
     </mat-card-actions>
 
