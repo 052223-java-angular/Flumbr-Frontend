@@ -203,7 +203,8 @@
       </div>
 
       <!-- Displays comments -->
-      <div class="max-h-[400px] overflow-auto">
+      <!-- class="max-h-[400px] overflow-auto -->
+      <div [ngClass]="disableCommentMaxHeight ? '' : 'max-h-[400px] overflow-auto'">
         <ul class="flex flex-col p-4 gap-3" *ngIf="post.comments && post.comments.length > 0">
           <li class="flex gap-3" *ngFor="let comment of post.comments">
             <div mat-card-avatar class="m-0 bg-cover" style="background-image: url({{comment.profileImg}});">
