@@ -39,6 +39,7 @@ export class PostComponent implements OnInit {
 
   sessionId!: string;
   bookmarked!: boolean;
+  loading: boolean = false;
 
   constructor(
     private postService: PostService,
@@ -254,6 +255,7 @@ export class PostComponent implements OnInit {
 
   bookmarkPost(id: string) {
     console.log('post id is ' + id);
+    this.loading = true;
 
     // define book mark payload
     const payload: Bookmark = {
@@ -266,15 +268,20 @@ export class PostComponent implements OnInit {
       next: () => {
         console.log('Bookmark service hit, setting bookmark');
         this.bookmarked = true;
+        this.loading = false;
+
       },
       error: (err) => {
         console.log('error in bookmarking post: ' + err);
+        this.loading = false;
       },
     });
   }
 
   removeBookmark(id: string) {
     console.log('post id is ' + id);
+
+    this.loading = true;
 
     // define book mark payload
     const payload: RemoveBookmark = {
@@ -292,9 +299,11 @@ export class PostComponent implements OnInit {
       next: () => {
         console.log('Remove Bookmark service hit');
         this.bookmarked = false;
+        this.loading = false;
       },
       error: (err) => {
         console.log('error in removing post bookmark: ' + err);
+        this.loading = false;
       },
     });
   }
