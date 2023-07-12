@@ -72,7 +72,7 @@ export class PostService {
   }
 
   // get a post by its id
-  httpGetPostById(postId: string) : Observable<PostRes> {
+  httpGetPostById(postId: string): Observable<PostRes> {
     return this.http.get<any>(`${this.baseUrl}/posts/id/${postId}`);
   }
 
@@ -97,6 +97,7 @@ export class PostService {
 
     return this.http.get<Array<PostRes>>(url);
   }
+
   getPostsByUserId(user_id: string): Observable<Array<PostRes>> {
     let url: string = environment.apiBaseUrl + '/posts/user/{{user_id}}';
 
@@ -136,6 +137,11 @@ export class PostService {
     return this.http.get<Array<PostRes>>(url);
   }
 
+  getBookmarkedPosts(): Observable<Array<PostRes>> {
+    // need to implement
+    return this.http.get<any>(`${this.baseUrl}/posts/feed/${1}`);
+  }
+
   createPost(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/posts/create`, formData);
   }
@@ -159,7 +165,9 @@ export class PostService {
   }
 
   removeBookmark(payload: RemoveBookmark): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/bookmark/removeBookmark`, {body: payload});
+    return this.http.delete<any>(`${this.baseUrl}/bookmark/removeBookmark`, {
+      body: payload,
+    });
   }
 
   updatePost(id: string, formData: FormData) {
