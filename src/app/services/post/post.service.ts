@@ -8,6 +8,7 @@ import { Bookmark } from '../../models/post/bookmark';
 import { RemoveBookmark } from '../../models/post/removeBookmark';
 import { Tag } from 'src/app/models/tag/tag';
 import { environment } from 'src/environments/environment';
+import { NewCommentReq } from 'src/app/models/post/comment';
 
 @Injectable({
   providedIn: 'root',
@@ -70,6 +71,11 @@ export class PostService {
     return of(this.posts);
   }
 
+  // get a post by its id
+  httpGetPostById(postId: string): Observable<PostRes> {
+    return this.http.get<any>(`${this.baseUrl}/posts/id/${postId}`);
+  }
+
   // feed posts from db
   getFeedPosts(page: number): Observable<Array<PostRes>> {
     // return this.http.get<PostRes[]>("/assets/posts/posts.json");
@@ -87,18 +93,19 @@ export class PostService {
   }
 
   getFeed(page: number): Observable<Array<PostRes>> {
-    let url: string = environment.apiBaseUrl + '/feed/{{page}}';
+    let url: string = environment.apiBaseUrl + `/posts/feed/${page}`;
 
     return this.http.get<Array<PostRes>>(url);
   }
+
   getPostsByUserId(user_id: string): Observable<Array<PostRes>> {
-    let url: string = environment.apiBaseUrl + '/posts/user/{{user_id}}';
+    let url: string = environment.apiBaseUrl + `/posts/user/${user_id}`;
 
     return this.http.get<Array<PostRes>>(url);
   }
 
   getPostsByTagname(tags: Tag[], pageNum: number): Observable<Array<PostRes>> {
-    let url: string = environment.apiBaseUrl + '/posts/tag/{{pagenum}}';
+    let url: string = environment.apiBaseUrl + `/posts/tag/${pageNum}`;
     let tagString: string = '';
 
     for (let tag of tags) {
@@ -114,7 +121,7 @@ export class PostService {
   }
 
   getPostById(postId: string): Observable<PostRes> {
-    let url: string = environment.apiBaseUrl + '/id/{{postId}}';
+    let url: string = environment.apiBaseUrl + `/posts/id/${postId}`;
 
     return this.http.get<PostRes>(url);
   }
@@ -123,12 +130,38 @@ export class PostService {
     fromDate: Date,
     userId: string
   ): Observable<Array<PostRes>> {
+    let date = fromDate.toISOString().slice(0, 10);
     let url: string =
-      environment.apiBaseUrl +
-      "/{{fromDate.toISOString().split('T')[0]}}/{{userId}}";
+      environment.apiBaseUrl + `/posts/trending/${new Date(date)}`;
 
     return this.http.get<Array<PostRes>>(url);
   }
+
+  getBookmarkedPosts(): Observable<Array<PostRes>> {
+    // need to implement
+    return this.http.get<any>(`${this.baseUrl}/posts/feed/${1}`);
+  }
+
+  deletePost(postId: string) {
+    const url: string = environment.apiBaseUrl + `/posts/id/${postId}`;
+    return this.http.delete(url, {
+      responseType: 'text',
+    });
+  }
+
+  /*updatePost(post_id:string formData:FormData):Observable<any>
+  {
+     let url = environment.apiBaseUrl + `/posts/id/${post_id}`;
+
+      let formData:FormData = new FormData();
+
+      formData.append("message", message);
+
+      formData.append("mediaType", mediaType);
+
+      return this.http.put<any>(url, formData);
+
+  }*/
 
   createPost(formData: FormData): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/posts/create`, formData);
@@ -153,13 +186,19 @@ export class PostService {
   }
 
   removeBookmark(payload: RemoveBookmark): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/bookmark/removeBookmark`);
+    return this.http.delete<any>(`${this.baseUrl}/bookmark/removeBookmark`, {
+      body: payload,
+    });
   }
 
   updatePost(id: string, formData: FormData) {
     return this.http.put(`${this.baseUrl}/posts/id/${id}`, formData, {
       responseType: 'text',
     });
+  }
+
+  createComment(commentPayload: NewCommentReq) {
+    return this.http.post(`${this.baseUrl}/posts/comment`, commentPayload);
   }
 
   reportPost(data: any) {

@@ -12,6 +12,10 @@ import { CreatePostComponent } from 'src/app/pages/create-post/create-post.compo
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  userId!: string;
+  userName!: string;
+  role!: string;
+
   constructor(
     private router: Router,
     private tokenService: TokenService,
@@ -22,6 +26,11 @@ export class NavbarComponent implements OnInit {
   notificationHasChanged: boolean = false;
 
   ngOnInit(): void {
+    this.userId = this.tokenService.getUser().id;
+    this.userName = this.tokenService.getUser().username;
+    this.role = this.tokenService.getUser().role;
+    console.log(this.role);
+
     this.notificationService.stateIsReload.subscribe((stateIsLoading) => {
       this.notificationHasChanged = stateIsLoading;
       setTimeout(() => {
@@ -49,4 +58,6 @@ export class NavbarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {});
   }
+
+
 }

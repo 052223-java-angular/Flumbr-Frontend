@@ -22,4 +22,12 @@
     <!-- Trending posts component -->
     <app-trending-posts *ngIf="activeTab == 'Trending'"></app-trending-posts>
   </mat-tab>
+
+  <!-- User -->
+  <mat-tab label="User">
+    <mat-divider class="mb-5"></mat-divider>
+
+    <!-- User posts component -->
+    <app-trending-posts *ngIf="activeTab == 'User'"></app-trending-posts>
+  </mat-tab>
 </mat-tab-group>

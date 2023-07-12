@@ -57,11 +57,59 @@ $dark-theme: mat.define-dark-theme(
     color: whitesmoke !important;
   }
 
+  //Element for styling post
   [_nghost-ng-c2040221903] {
     background-color: #3c4043;
     color: whitesmoke;
     border: 2px dashed whitesmoke;
     border-radius: 5px;
+  }
+  //Element for styling notification panel
+  .icon-container{
+    background: #3c4043!important;
+    color: whitesmoke!important;
+    border:none;
+  }
+
+  //Element for styling notification icons
+  .icon[_ngcontent-ng-c1304148653]
+  {
+    color: whitesmoke;
+  }
+
+
+  //Element for styling notification messages
+  .message-content[_ngcontent-ng-c2079826204]{
+    background: #3c4043;
+    color: whitesmoke;
+    border-top: gray;
+    border-left: gray;
+    border-right: gray;
+
+  }
+
+  //element for styling menu (dates, follow, report) on a post
+  .mat-mdc-menu-content{
+    background: #3c4043;
+  }
+
+  //Posts component background color
+  .bg-indigo-700{
+    background-color: #333538!important;
+  }
+
+  //styling for posts component tabs (feed, following, trending)
+  .mat-mdc-tab-label-container{
+    background: #3c4043!important;
+  }
+  //search bar on posts component
+  .bg-purple-600{
+    background-color: #3c4043!important;
+  }
+
+  //button for creating a post
+  .mat-mdc-unelevated-button.mat-primary{
+    --mdc-filled-button-label-text-color: whitesmoke!important;
   }
 }
 
