@@ -20,7 +20,9 @@ import { ReportComponent } from '../../report/report.component';
 import { Bookmark } from '../../../models/post/bookmark';
 import { RemoveBookmark } from '../../../models/post/removeBookmark';
 import { ProfileService } from 'src/app/services/profile-service';
-
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -47,7 +49,8 @@ export class PostComponent implements OnInit {
     private tokenService: TokenService,
     private dialog: MatDialog,
     private messageService: MessageService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -98,14 +101,13 @@ export class PostComponent implements OnInit {
         this.thumbsUpEnabled = true;
         this.thumbsDownEnabled = false;
       }
-
     } else {
       this.thumbsUpEnabled = true; // Default state when userVote is null or post is undefined
       this.thumbsDownEnabled = true; // Default state when userVote is null or post is undefined
     }
 
     // bookmark icons
-    if(this.post && this.post.bookmarked) {
+    if (this.post && this.post.bookmarked) {
       // if bookmark has bookmark id that matches
       this.bookmarked = true;
     } else {
@@ -275,7 +277,6 @@ export class PostComponent implements OnInit {
         console.log('Bookmark service hit, setting bookmark');
         this.bookmarked = true;
         this.loading = false;
-
       },
       error: (err) => {
         console.log('error in bookmarking post: ' + err);
@@ -296,9 +297,9 @@ export class PostComponent implements OnInit {
       userId: this.tokenService.getUser().id,
     };
 
-    console.log(JSON.stringify('bookmarkId: ' + payload.bookmarkId))
-    console.log(JSON.stringify('postId: ' + payload.postId))
-    console.log(JSON.stringify('userid: ' + payload.userId))
+    console.log(JSON.stringify('bookmarkId: ' + payload.bookmarkId));
+    console.log(JSON.stringify('postId: ' + payload.postId));
+    console.log(JSON.stringify('userid: ' + payload.userId));
 
     // call bookmark service
     this.postService.removeBookmark(payload).subscribe({
@@ -326,7 +327,8 @@ export class PostComponent implements OnInit {
 
     // Call the post service to like the post.
     this.postService.votePost(payload).subscribe({
-      next: (/* value */) => {
+      //Remember to comment out the value when
+      next: (value) => {
         //TODO: Call toaster service to msg?
         console.log('voted dislike for postId ' + id);
         this.thumbsUpEnabled = true; // Disable thumbs-up icon
@@ -347,6 +349,13 @@ export class PostComponent implements OnInit {
     });
   }
 
+  /**
+   * @param payload -
+   */
+  votePost(payload: Vote): Observable<any> {
+    return this.http.post<any>(`${environment.apiBaseUrl}/vote/post`, payload);
+  }
+
   sharePost() {
     console.log('sharing');
   }
@@ -363,6 +372,11 @@ export class PostComponent implements OnInit {
         id: id,
       },
     });
+  }
+
+  //I need this for my delete button that Im putting in the menu
+  getUsername(): string {
+    return this.tokenService.getUser().username;
   }
 
   openEditPostModal(post: PostRes): void {
