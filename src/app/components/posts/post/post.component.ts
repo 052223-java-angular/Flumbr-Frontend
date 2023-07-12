@@ -40,6 +40,7 @@ export class PostComponent implements OnInit {
 
   shareURL: string = '';
 
+  // variables used by bookmark
   sessionId!: string;
   bookmarked!: boolean;
   loading: boolean = false;
@@ -262,6 +263,7 @@ export class PostComponent implements OnInit {
     });
   }
 
+  // bookmark a post if a user has not bookmarked it
   bookmarkPost(id: string) {
     console.log('post id is ' + id);
     this.loading = true;
@@ -286,8 +288,8 @@ export class PostComponent implements OnInit {
     });
   }
 
+  // remove bookmark if user has bookmarked post
   removeBookmark(id: string) {
-    console.log('post id is ' + id);
 
     this.loading = true;
 
@@ -297,10 +299,6 @@ export class PostComponent implements OnInit {
       postId: id,
       userId: this.tokenService.getUser().id,
     };
-
-    console.log(JSON.stringify('bookmarkId: ' + payload.bookmarkId));
-    console.log(JSON.stringify('postId: ' + payload.postId));
-    console.log(JSON.stringify('userid: ' + payload.userId));
 
     // call bookmark service
     this.postService.removeBookmark(payload).subscribe({
