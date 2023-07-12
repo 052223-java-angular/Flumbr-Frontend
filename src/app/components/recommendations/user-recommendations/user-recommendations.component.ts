@@ -4,6 +4,8 @@ import { ProfileService } from "../../../services/profile-service";
 import { TokenService } from "../../../services/tokenservice.service";
 import { Observable } from "rxjs";
 import {PotentialFollowRequestPayload} from "../../../models/potential-follow-request-payload";
+import {AppSettings} from "../../../global/app-settings";
+import {MessageService} from "primeng/api";
 
 
 @Component({
@@ -20,6 +22,7 @@ export class UserRecommendationsComponent implements OnInit {
     private followService: FollowService,
     private profileService: ProfileService,
     private tokenService: TokenService,
+    private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -98,7 +101,12 @@ export class UserRecommendationsComponent implements OnInit {
 
   followUser(username: string) {
     this.followService.httpFollow(username).subscribe(() => {
-      console.log(`Successfully followed ${username}`);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: `Successfully followed ${username}`,
+        life: AppSettings.DEFAULT_MESSAGE_LIFE,
+      });
     });
   }
 }
