@@ -25,17 +25,12 @@ export class UserRecommendationsComponent implements OnInit {
   ngOnInit(): void {
     try {
       this.sessionId = this.tokenService.getUser().id
-      const profile_id$: Observable<any> = this.profileService.getUser(this.sessionId);
-
-      profile_id$.subscribe((data: any) => {
+      this.profileService.getUser(this.sessionId).subscribe((data: any) => {
         console.log( data.profileId);
         const profile_id =data.profileId;
         console.log(profile_id);
         this.getUserTags(profile_id);
       });
-
-      console.log(this.tokenService.getUser().userId);
-
     } catch (error) {
       console.error('Error:', error);
     }
@@ -59,6 +54,7 @@ export class UserRecommendationsComponent implements OnInit {
     const payload: PotentialFollowRequestPayload = {
       tagList: tagNames,
       userId: this.tokenService.getUser().userId,
+      username:this.tokenService.getUser().username
     };
 
     console.log(payload);
