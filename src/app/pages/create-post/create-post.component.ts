@@ -167,6 +167,10 @@ export class CreatePostComponent implements OnInit {
       for (let i = 0; i < uniqueTags.length; i++) {
         formData.append('tags', uniqueTags[i]);
       }
+      const uniqueMentions = [...new Set(this.mentions)];
+      for (let i = 0; i < uniqueMentions.length; i++) {
+        formData.append('mentions', uniqueMentions[i]);
+      }
     }
 
     const file = this.postForm.controls['file'].value;
