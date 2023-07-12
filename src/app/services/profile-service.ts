@@ -7,6 +7,7 @@ import {AppSettings} from "../global/app-settings";
 import {BioPayload} from "../models/profile/bio-payload";
 import {ThemePayload} from "../models/profile/theme-payload";
 import {TokenService} from "./tokenservice.service";
+import {GetProfileInterests} from "../models/tag/get-profile-interests";
 
 @Injectable({
   providedIn: 'root'
@@ -63,4 +64,7 @@ export class ProfileService {
     return this.http.get(this.jsonAsset);
   }
 
+  getUserTags(payload: GetProfileInterests):Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/profile/tags/${payload.profile_id}/${payload.user_id}`);
+  }
 }
