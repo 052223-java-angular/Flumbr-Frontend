@@ -4,7 +4,7 @@
       <div class="flex justify-between w-full">
 
         <!-- Avatar and username -->
-        <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.username)">
+        <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.userId)">
 
           <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});"></div>
           <mat-card-title>{{post.username}}</mat-card-title>
@@ -17,7 +17,7 @@
             <mat-icon class="icon dark:text-whitesmoke">more_horiz</mat-icon>
           </button>
 
-          <mat-menu class="w-[18rem] py-1 px-2"  #menu="matMenu">
+          <mat-menu class="w-[18rem] py-1 px-2" #menu="matMenu">
             <div class="border border-gray-100 rounded-sm">
               <div class="w-full min-h-[24px] py-1" mat-menu-item>
                 <div class="flex flex-col p-0 m-0 items-start text-xs dark:text-whitesmoke">
@@ -27,21 +27,20 @@
               </div>
               <div class="w-full h-6" mat-menu-item *ngIf="post.editTime">
                 <div class="flex flex-col p-0 m-0 items-start text-xs dark:text-whitesmoke">
-                  <span class="text-[0.65rem]" >Last Edit: </span>
-                  <span >{{post.editTime | date : 'medium'}}</span>
+                  <span class="text-[0.65rem]">Last Edit: </span>
+                  <span>{{post.editTime | date : 'medium'}}</span>
                 </div>
               </div>
 
-              <hr/>
-              <app-follow viewTemplate="textView" 
-                [followIdentity]="{
+              <hr />
+              <app-follow viewTemplate="textView" [followIdentity]="{
                   loggedInUserId: 'this should be the logged in user id - may not be required',
                   ownerUserId: post.id,
                   ownerUsername: post.username}"></app-follow>
 
               <ng-container *ngIf="canEditPost(post)">
-                <hr/>
-                <button mat-menu-item  class="min-h-[32px]"  (click)="openEditPostModal(post)">
+                <hr />
+                <button mat-menu-item class="min-h-[32px]" (click)="openEditPostModal(post)">
                   <span class="text-xs text-slate-900 dark:text-slate-100">Edit</span>
                 </button>
               </ng-container>
@@ -50,11 +49,11 @@
                 <app-delete-post class="min-h-[32px]" [post]="this.post"></app-delete-post>
               </ng-container>
 
-              <hr/>
-              <button mat-menu-item class="min-h-[32px]" >
+              <hr />
+              <button mat-menu-item class="min-h-[32px]">
                 <span (click)="reportPost(post.id)" class="text-xs text-red-600">Report</span>
               </button>
-          </div>
+            </div>
           </mat-menu>
         </div>
       </div>
@@ -207,10 +206,12 @@
       <div [ngClass]="disableCommentMaxHeight ? '' : 'max-h-[400px] overflow-auto'">
         <ul class="flex flex-col p-4 gap-3" *ngIf="post.comments && post.comments.length > 0">
           <li class="flex gap-3" *ngFor="let comment of post.comments">
-            <div mat-card-avatar class="m-0 bg-cover" style="background-image: url({{comment.profileImg}});">
+            <div mat-card-avatar class="m-0 bg-cover cursor-pointer"
+              style="background-image: url({{comment.profileImg}});" (click)="navigateToUser(comment.userId)">
             </div>
             <div class="flex flex-col gap-2 p-2 border-[1px] border-solid border-slate-700 rounded-lg">
-              <p class="m-0 font-semibold">{{comment.username}}</p>
+              <p class="m-0 font-semibold cursor-pointer" (click)="navigateToUser(comment.userId)">{{comment.username}}
+              </p>
               <p class="m-0">{{comment.comment}}</p>
               <div class="rounded-md overflow-hidden">
                 <img class="w-full" [src]="comment.gifUrl" alt="Gif image" *ngIf="comment.gifUrl">

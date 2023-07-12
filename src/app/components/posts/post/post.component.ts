@@ -23,6 +23,7 @@ import { ProfileService } from 'src/app/services/profile-service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -52,7 +53,8 @@ export class PostComponent implements OnInit {
     private dialog: MatDialog,
     private messageService: MessageService,
     private profileService: ProfileService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +72,7 @@ export class PostComponent implements OnInit {
         validators: this.atLeastOne(Validators.required, ['comment', 'gifUrl']),
       }
     );
-    const urlParts = location.href.split("/");
+    const urlParts = location.href.split('/');
     this.shareURL = `${urlParts[0]}//${urlParts[2]}/posts/${this.post.id}`;
   }
 
@@ -145,6 +147,7 @@ export class PostComponent implements OnInit {
       next: () => {
         // create new comment
         const newComment: Comment = {
+          userId: this.tokenService.getUser().id,
           username: this.tokenService.getUser().username,
           createTime: new Date().toISOString(),
           postId: this.post.id,
@@ -218,7 +221,6 @@ export class PostComponent implements OnInit {
   }
 
   addEmoji(emoji: string) {
-    console.log(emoji);
     const control = this.commentForm.controls['comment'];
     control.setValue((control.value ? control.value : '') + emoji);
   }
@@ -228,7 +230,7 @@ export class PostComponent implements OnInit {
   }
 
   navigateToUser(id: string) {
-    console.log(id);
+    this.router.navigateByUrl(`/profile/${id}`);
   }
 
   likePost(id: string) {
@@ -291,7 +293,6 @@ export class PostComponent implements OnInit {
 
   // remove bookmark if user has bookmarked post
   removeBookmark(id: string) {
-
     this.loading = true;
 
     // define book mark payload
@@ -364,12 +365,12 @@ export class PostComponent implements OnInit {
     this.isChatOpen = !this.isChatOpen;
   }
 
-  reportPost(id: any) {
-    console.log(id);
+  reportPost(postId: any) {
+    console.log(postId);
     this.dialog.open(ReportComponent, {
       width: '40%',
       data: {
-        id: id,
+        postId: postId,
       },
     });
   }
