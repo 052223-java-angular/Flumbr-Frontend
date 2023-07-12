@@ -17,27 +17,37 @@
             <mat-icon class="icon dark:text-whitesmoke">more_horiz</mat-icon>
           </button>
 
-          <mat-menu #menu="matMenu">
-            <div mat-menu-item>
-              <p class="text-sm dark:text-whitesmoke">{{post.createTime}}</p>
+          <mat-menu class="w-[18rem]" #menu="matMenu">
+            <div class="w-full min-h-[24px]" mat-menu-item>
+              <div class="flex flex-col p-0 m-0 items-start text-xs dark:text-whitesmoke">
+                <span>Post Date: </span>
+                <span>{{post.createTime | date : 'medium'}}</span>
+              </div>
             </div>
-            <div mat-menu-item *ngIf="post.editTime">
-              <p class="text-sm dark:text-whitesmoke">{{post.editTime}}</p>
+            <div class="w-full h-6" mat-menu-item *ngIf="post.editTime">
+              <div class="flex flex-col p-0 m-0 items-start text-xs dark:text-whitesmoke">
+                <span >Last Edit: </span>
+                <span >{{post.editTime | date : 'medium'}}</span>
+              </div>
             </div>
 
-            <app-follow viewTemplate="textView" [followIdentity]="{
+            <hr/>
+            <app-follow viewTemplate="textView" 
+              [followIdentity]="{
                 loggedInUserId: 'this should be the logged in user id - may not be required',
                 ownerUserId: post.id,
                 ownerUsername: post.username}"></app-follow>
 
             <ng-container *ngIf="canEditPost(post)">
-              <button mat-menu-item (click)="openEditPostModal(post)">
-                <span class="font-medium text-slate-900 dark:text-slate-100">Edit</span>
+              <hr/>
+              <button mat-menu-item  class="min-h-[32px]"  (click)="openEditPostModal(post)">
+                <span class="text-xs text-slate-900 dark:text-slate-100">Edit</span>
               </button>
             </ng-container>
 
-            <button mat-menu-item>
-              <span (click)="reportPost(post.id)" class="font-medium text-red-600">Report</span>
+            <hr/>
+            <button class="min-h-[32px]" mat-menu-item>
+              <span (click)="reportPost(post.id)" class="text-xs text-red-600">Report</span>
             </button>
           </mat-menu>
         </div>

@@ -113,6 +113,14 @@ export class NotificationPanelComponent implements OnInit {
         notificationType.matIconName = "face";  
         break;
       }
+      case "postMention":{ 
+        notificationType.matIconName = "announcement";  
+        break;
+      }
+      case "commentMention": { 
+        notificationType.matIconName = "question_answer";  
+        break;
+      }
     }
     return notificationType;
   }

@@ -5,9 +5,16 @@
   <!-- for header icon notification menu  -->
   <div [ngClass]="notifications ? 'icon-menu icon-animate' : 'icon-menu'">
     <div class="flex items-baseline">
-      <mat-icon (click)="toggleTypeMenu()" class="scale-[1.45]">
-        notifications_active
-      </mat-icon>  
+      <ng-container *ngIf="notifications.length > 0; else notificationActive;">
+        <mat-icon (click)="toggleTypeMenu()" class="scale-[1.45]">
+          notifications_active
+        </mat-icon>
+      </ng-container>
+      <ng-template #notificationActive>
+        <mat-icon (click)="toggleTypeMenu()" class="scale-[1.45]">
+            notifications_none
+        </mat-icon>  
+      </ng-template>
       <div  
         [matBadge]="getTotalUnreadCount(notifications)"
         [matBadgeColor]="badgeColor"
