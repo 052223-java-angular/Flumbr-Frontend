@@ -110,12 +110,26 @@ export class SettingsComponent {
           this.profile = resp;
           this.theme = this.profile.themeName;
           console.log(this.profile);
+
+          this.messageService.add({
+            severity: 'success ',
+            summary: 'Success',
+            detail: 'Your About Me has been updated.',
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
         },
         error: (err) => {
           console.error('Issue with retrieving profile details.');
           console.log(
             'Error retrieving user with id: ' + this.user_id + ' : ' + err
           );
+
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error.message || 'Error',
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
         },
       });
 
@@ -139,12 +153,26 @@ export class SettingsComponent {
         next: (resp: any) => {
           console.log('Theme has successfully been set');
           this.theme = payload.themeName;
+
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Theme has been changed to' + this.theme,
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
         },
         error: (err) => {
           console.error('Issue with retrieving profile details.');
           console.log(
             'Error retrieving user with id: ' + this.user_id + ' : ' + err
           );
+
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.error.message || 'Error',
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
         },
       });
   }
