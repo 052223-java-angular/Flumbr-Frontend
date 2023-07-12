@@ -28,7 +28,7 @@
           ></textarea>
         <div class="flex">
           <mat-chip-set
-            *ngIf="tags && tags.length > 0"
+            *ngIf="tags && tags.length > 0 || mentions && mentions.length > 0"
             aria-label="tags">
             <div class="flex items-baseline">
               <small>tags:</small>
