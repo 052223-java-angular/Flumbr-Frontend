@@ -3,7 +3,8 @@ import { FollowService } from "../../../services/follow/follow.service";
 import { ProfileService } from "../../../services/profile-service";
 import { GetProfileInterests } from "../../../models/tag/get-profile-interests";
 import { TokenService } from "../../../services/tokenservice.service";
-import { PotentialFollowRequestPayload } from "../../../models/potential-follow-request-payload";
+import {PotentialFollowRequestPayload} from "../../../models/potential-follow-request-payload";
+
 
 @Component({
   selector: 'app-user-recommendations',
@@ -21,26 +22,24 @@ export class UserRecommendationsComponent implements OnInit {
     private tokenService: TokenService,
   ) {}
 
-  async ngOnInit(): Promise<void> {
-    await this.getUserTags();
+   ngOnInit(): void {
+     this.getUserTags();
   }
 
-  async getUserTags(): Promise<void> {
-    const userId = this.tokenService.getUser().user_id;
-    const profileId = this.tokenService.getUser().profile_id;
+   getUserTags(): void {
 
-    const payload: GetProfileInterests = {
-      user_id: "c1f3824c-21b0-405e-b3c8-ea216e975b94",
-      profile_id: "be139b97-7284-49f9-8aa3-bebb245d1507",
-      tag_name: ""
-    };
+   // const payload: GetProfileInterests = {
+     // user_id: "c1f3824c-21b0-405e-b3c8-ea216e975b94",
+     const profile_id = "be139b97-7284-49f9-8aa3-bebb245d1507";
+      //tag_name: ""
+    //};
 
-    await this.profileService.getUserTags(payload).subscribe({
+     this.profileService.getUserTags(profile_id).subscribe({
       next: (data: any) => {
         console.log(data.tags);
         this.tags = data.tags;
         const tagNames: string[] = this.tags.map((tag: any) => tag.name);
-        this.getRecommendedFollowers(tagNames);
+        //this.getRecommendedFollowers(tagNames);
       }
     });
   }

@@ -92,7 +92,7 @@ export class ProfileService {
     };
     return this.http.delete<any>(`${this.baseUrl}/profile/tags`, options);
   }
-  getUserTags(payload: GetProfileInterests):Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/profile/tags/${payload.profile_id}/${payload.user_id}`);
+  getUserTags(profile_id: string):Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/profile/tags/${profile_id}`);
   }
 }
