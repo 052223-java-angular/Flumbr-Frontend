@@ -130,9 +130,9 @@
 
         <!-- for chat / comments -->
         <div class="flex items-center gap-1" (click)="toggleChat()">
-          <mat-icon class="icon dark:text-whitesmoke scale-80" matTooltip="Comment" matTooltipClass="tooltip"
+          <mat-icon class="icon dark:text-whitesmoke scale-75" matTooltip="Comment" matTooltipClass="tooltip"
             matTooltipPosition="above">chat</mat-icon>
-          <span class="text-xs font-medium" *ngIf="post.comments">{{commentCountToString(1654)}}</span>
+          <span class="text-xs font-medium" *ngIf="post.comments">{{commentCountToString(post.comments.length)}}</span>
         </div>
       </div>
     </mat-card-actions>
