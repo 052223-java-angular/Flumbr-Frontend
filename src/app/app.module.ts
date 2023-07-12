@@ -62,6 +62,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
+import { BookmarkedPostsComponent } from './components/posts/bookmarked-posts/bookmarked-posts.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { PostDetailComponent } from './pages/post-detail/post-detail.component';
     SettingsComponent,
     GifComponent,
     ReportComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    BookmarkedPostsComponent
   ],
   imports: [
     BrowserModule,
