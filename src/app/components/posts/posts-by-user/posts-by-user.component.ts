@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 
@@ -7,7 +7,7 @@ import { PostService } from 'src/app/services/post/post.service';
   templateUrl: './posts-by-user.component.html',
   styleUrls: ['./posts-by-user.component.scss'],
 })
-export class PostsByUserComponent {
+export class PostsByUserComponent implements OnInit {
   @Input() userId!: string;
   posts!: Array<PostRes>;
   isLoading = false;

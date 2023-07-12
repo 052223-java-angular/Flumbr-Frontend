@@ -24,9 +24,9 @@
   <!-- Profile page display (logged in user) -->
   <div *ngIf="userId && userId == loggedInUserId">
     <!-- User -->
-    <mat-tab label="User">
+    <mat-tab label="Posts">
       <mat-divider class="mb-5"></mat-divider>
-      <app-posts-by-user [userId]="userId" *ngIf="activeTab == 'User'"></app-posts-by-user>
+      <app-posts-by-user [userId]="userId" *ngIf="activeTab == 'default'"></app-posts-by-user>
     </mat-tab>
 
     <!-- Following -->
@@ -41,9 +41,9 @@
   <!-- Profile page display (other users) -->
   <div *ngIf="userId && userId != loggedInUserId">
     <!-- User -->
-    <mat-tab label="User">
+    <mat-tab label="Posts">
       <mat-divider class="mb-5"></mat-divider>
-      <app-posts-by-user [userId]="userId" *ngIf="activeTab == 'User'"></app-posts-by-user>
+      <app-posts-by-user [userId]="userId" *ngIf="activeTab == 'default'"></app-posts-by-user>
     </mat-tab>
   </div>
 
