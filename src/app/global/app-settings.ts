@@ -7,4 +7,5 @@ export class AppSettings {
   public static CREATE_POST_SIZE_LIMIT = 128 * this.BYTES_PER_MEGABYTE;
   public static GIPHY_API_URL = environment.giphyApiBaseUrl;
   public static GIPHY_API_KEY = environment.giphyApiKey;
+  public static PROFILE_TAG_LIMIT = 5;
 }
