@@ -68,7 +68,7 @@ export class SettingsComponent {
         this.profile = resp;
         this.theme = this.profile.themeName;
         console.log(this.profile);
-        this.loadProfileInterests();
+        this.loadProfileTags();
       },
       error: (err) => {
         console.error('Issue with retrieving profile details.');
@@ -282,10 +282,23 @@ export class SettingsComponent {
       });
   }
 
+  loadProfileTags() {
+    this.profileService.getTags(this.profile.profileId).subscribe({
+      next: (data: any) => {
+        this.tags = data.tags;
+        this.tagsForm.patchValue({
+          tags: this.tags,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   addTag(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
-    // Add our tag
     if (value && this.tags.length < AppSettings.PROFILE_TAG_LIMIT) {
       const index = this.tags.findIndex(
         (tag: TagPayload) => tag.name.toLowerCase() === value.toLowerCase()
@@ -302,7 +315,6 @@ export class SettingsComponent {
               this.tags.push({
                 name: value,
               });
-
               this.tagsForm.patchValue({
                 tags: this.tags,
               });
@@ -340,20 +352,4 @@ export class SettingsComponent {
         });
     }
   }
-
-  loadProfileInterests() {
-    this.profileService.getTags(this.profile.profileId).subscribe({
-      next: (data: any) => {
-        this.tags = data.tags;
-        this.tagsForm.patchValue({
-          tags: this.tags,
-        });
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
-  }
-
-  addProfileInterest(tag: TagPayload) {}
 }
