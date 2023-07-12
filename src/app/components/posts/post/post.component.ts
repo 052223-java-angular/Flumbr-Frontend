@@ -147,6 +147,7 @@ export class PostComponent implements OnInit {
       next: () => {
         // create new comment
         const newComment: Comment = {
+          userId: this.tokenService.getUser().id,
           username: this.tokenService.getUser().username,
           createTime: new Date().toISOString(),
           postId: this.post.id,
