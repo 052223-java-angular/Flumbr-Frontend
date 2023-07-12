@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { DeletePostComponent } from './components/posts/delete-post/delete-post.component';
 
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -55,6 +56,7 @@ import { ReportComponent } from './components/report/report.component';
 
 import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { GifComponent } from './components/gif/gif.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
@@ -62,6 +64,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
+import { BookmarkedPostsComponent } from './components/posts/bookmarked-posts/bookmarked-posts.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +94,9 @@ import { PostDetailComponent } from './pages/post-detail/post-detail.component';
     SettingsComponent,
     GifComponent,
     ReportComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    BookmarkedPostsComponent,
+    DeletePostComponent,
   ],
   imports: [
     BrowserModule,
@@ -123,6 +128,7 @@ import { PostDetailComponent } from './pages/post-detail/post-detail.component';
     InputTextareaModule,
     MatToolbarModule,
     ClipboardModule,
+    MatButtonToggleModule,
   ],
   providers: [
     RouteguardService,

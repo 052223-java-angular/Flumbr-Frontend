@@ -1,6 +1,7 @@
 import { Tag } from '../tag/tag';
 import { Comment } from './comment';
 import { UserVote } from './userVote';
+import {UserBookmark} from "./userBookmark";
 
 export interface PostRes {
   id: string;
@@ -20,4 +21,7 @@ export interface PostRes {
   // additional options
   animateDelete?: boolean;
   userId?: string;
+
+  // bookmarks
+  bookmarked?: UserBookmark;
 }
