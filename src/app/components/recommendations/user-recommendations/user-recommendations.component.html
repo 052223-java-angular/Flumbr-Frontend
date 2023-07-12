@@ -27,16 +27,17 @@
     <h1 class="m-0 ml-4 text-white">Suggested Followers</h1>
     <mat-divider class="mt-2 mb-5 border-t-2 border-emerald-300 dark:border-gray-500"></mat-divider>
     <div class="example-scrollbar">
-<!--      <p class="text-white m-4" *ngIf="users.length === 0">Recommendations arent available.<br> Add interests to your profile!</p>-->
+     <p class="text-white m-4" *ngIf="users.length === 0">Recommendations arent available.<br> Add interests to your profile!
+     <br> </p>
       <ul class="flex flex-col gap-3" *cdkVirtualFor="let user of users">
         <li class="flex justify-between items-center gap-5">
           <div class="flex items-center gap-5">
             <div mat-card-avatar class="m-2">
-              <img [src]="user.profile.profile_img" alt="profile picture"  height="50" width="50" class="rounded-full">
+              <img [src]="user.profile_img" alt="profile picture"  height="50" width="50" class="rounded-full">
             </div>
             <p class="m-0 text-white">{{ user.username }}</p>
           </div>
-          <button mat-raised-button color="primary">Follow</button>
+          <button mat-raised-button color="primary" (click)="followUser(user.username)">Follow</button>
         </li>
       </ul>
     </div>
