@@ -38,6 +38,7 @@ export class PostComponent implements OnInit {
   thumbsDownEnabled: boolean = true;
   bookmarked: boolean = false;
   shareURL: string = '';
+  mentions: string[] = [];
 
   constructor(
     private postService: PostService,
@@ -59,6 +60,7 @@ export class PostComponent implements OnInit {
       }
     );
     this.shareURL = window.location.href + '/share/' + this.post.id;
+    this.fetchMentions();
   }
 
   // custom validator
@@ -359,5 +361,13 @@ export class PostComponent implements OnInit {
 
   canEditPost(post: PostRes): boolean {
     return this.tokenService.getUser().id === post.userId;
+  }
+
+  fetchMentions() {
+    this.mentions = this.post.message
+      ? (this.post.message.match(/@[A-Za-z0-9._]+/gi)! || []).map((x) =>
+          x.slice(1)
+        )
+      : [];
   }
 }

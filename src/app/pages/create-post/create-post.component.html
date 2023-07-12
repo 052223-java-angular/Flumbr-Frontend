@@ -26,18 +26,25 @@
           formControlName="message"
           cdkFocusInitial
           ></textarea>
-        <mat-chip-set
-          *ngIf="tags && tags.length > 0"
-          aria-label="tags">
-          <div class="flex items-baseline flex-wrap">
-            <small>Tags:</small>
-            <mat-chip
-              *ngFor="let tag of tags"
-              [style.background-color]="'#ff3f80'">
-              {{ tag }}
-            </mat-chip>
-          </div>
-        </mat-chip-set>
+        <div class="flex">
+          <mat-chip-set
+            *ngIf="tags && tags.length > 0 || mentions && mentions.length > 0"
+            aria-label="tags">
+            <div class="flex items-baseline">
+              <small>tags:</small>
+              <mat-chip
+                *ngFor="let tag of tags"
+                [style.background-color]="'#ff3f80'">
+                {{ tag }}
+              </mat-chip>
+              <mat-chip
+                *ngFor="let mention of mentions"
+                [style.background-color]="'#00c7ff'">
+                {{ mention }}
+              </mat-chip>
+            </div>
+          </mat-chip-set>
+        </div>
       </mat-form-field>
 
       <div 
