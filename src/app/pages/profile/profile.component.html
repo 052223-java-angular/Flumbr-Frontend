@@ -33,15 +33,16 @@
           <ng-container>
             <button *ngIf="sessionId == user_id" routerLink="/profile/settings" mat-raised-button
                     color="accent" class="w-1/5">Settings</button>
+          </ng-container>
 
-            <app-follow viewTemplate="iconView"
-                        [followIdentity]="{
+          <p>testing appearance</p>
+
+          <app-follow viewTemplate="iconView"
+                      [followIdentity]="{
                 loggedInUserId: sessionId,
                 ownerUserId: user_id,
                 ownerUsername: profile.username}">
-            </app-follow>
-
-          </ng-container>
+          </app-follow>
 
 
           <mat-card-header  class="shadow-2xl rounded-lg">
