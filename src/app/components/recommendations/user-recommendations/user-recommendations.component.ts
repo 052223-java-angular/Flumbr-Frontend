@@ -86,7 +86,7 @@ export class UserRecommendationsComponent implements OnInit{
   }
 
   //need to grab the tags of the logged in user
-  userTags()
+  getUserTags()
   {
     const payload: GetProfileInterests={
       user_id: "place",
