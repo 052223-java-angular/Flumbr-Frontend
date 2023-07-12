@@ -87,7 +87,7 @@ export class PostComponent implements OnInit {
   }
 
   updateIconState() {
-    console.log('update icon state ');
+    // console.log('update icon state ');
     if (this.post && this.post.userVote) {
       if (this.post.userVote.vote === true) {
         this.thumbsUpEnabled = false;
