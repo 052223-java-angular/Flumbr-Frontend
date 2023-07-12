@@ -38,6 +38,7 @@ const routes: Routes = [
   {
     path: 'posts',
     component: ViewPostsComponent,
+    canActivate: [RouteguardService],
   },
   { path: '**', component: NotfoundComponent },
 ];
