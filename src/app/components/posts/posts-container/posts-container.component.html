@@ -35,7 +35,11 @@
       <app-following-posts *ngIf="activeTab == 'Following'"></app-following-posts>
     </mat-tab>
 
-    <!-- Bookmarked **TODO** -->
+    <!-- Bookmarked -->
+    <mat-tab label="Bookmarked">
+      <mat-divider class="mb-5"></mat-divider>
+      <app-bookmarked-posts *ngIf="activeTab == 'Bookmarked'"></app-bookmarked-posts>
+    </mat-tab>
   </div>
 
   <!-- Profile page display (other users) -->
