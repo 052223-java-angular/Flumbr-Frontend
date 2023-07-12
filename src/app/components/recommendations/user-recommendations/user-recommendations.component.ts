@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FollowService } from "../../../services/follow/follow.service";
 import { ProfileService } from "../../../services/profile-service";
 import { TokenService } from "../../../services/tokenservice.service";
-import { PotentialFollowRequestPayload } from "../../../models/potential-follow-request-payload";
 import { Observable } from "rxjs";
+import {PotentialFollowRequestPayload} from "../../../models/potential-follow-request-payload";
 
 
 @Component({
