@@ -74,8 +74,21 @@ export class ProfileService {
     return this.http.get(this.jsonAsset);
   }
 
-  getTags(payload: any) {
-    console.log('inside getTags');
-    return this.http.get(`${this.baseUrl}/profile/tags`, payload);
+  getTags(profileId: string) {
+    return this.http.get(`${this.baseUrl}/profile/tags/${profileId}`);
+  }
+
+  addTag(payload: any): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/profile/tags`, payload);
+  }
+
+  deleteTag(payload: any): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: payload,
+    };
+    return this.http.delete<any>(`${this.baseUrl}/profile/tags`, options);
   }
 }

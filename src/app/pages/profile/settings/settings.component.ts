@@ -85,8 +85,6 @@ export class SettingsComponent {
     this.tagsForm = this.fb.group({
       tags: [[]],
     });
-
-    console.log('before getTags');
   }
 
   submitForm(): void {
@@ -293,15 +291,26 @@ export class SettingsComponent {
         (tag: TagPayload) => tag.name.toLowerCase() === value.toLowerCase()
       );
       if (index < 0) {
-        this.tags.push({
-          name: value,
-        });
+        this.profileService
+          .addTag({
+            user_id: this.tokenService.getUser().id,
+            profile_id: this.profile.profileId,
+            tag_name: value,
+          })
+          .subscribe({
+            next: (data: any) => {
+              this.tags.push({
+                name: value,
+              });
 
-        this.tagsForm.patchValue({
-          tags: this.tags,
-        });
-
-        this.loadProfileInterests();
+              this.tagsForm.patchValue({
+                tags: this.tags,
+              });
+            },
+            error: (error: any) => {
+              console.log(error);
+            },
+          });
       }
     }
 
@@ -310,30 +319,41 @@ export class SettingsComponent {
   }
 
   removeTag(tag: TagPayload) {
-    const index = this.tags.findIndex(
-      (tag: TagPayload) => tag.name === tag.name
-    );
+    const index = this.tags.findIndex((x: TagPayload) => x.name === tag.name);
     if (index >= 0) {
-      this.tags.splice(index, 1);
-      this.tagsForm.patchValue({
-        tags: this.tags,
-      });
+      this.profileService
+        .deleteTag({
+          user_id: this.tokenService.getUser().id,
+          profile_id: this.profile.profileId,
+          tag_name: tag.name,
+        })
+        .subscribe({
+          next: (data: any) => {
+            this.tags.splice(index, 1);
+            this.tagsForm.patchValue({
+              tags: this.tags,
+            });
+          },
+          error: (error: any) => {
+            console.log(error);
+          },
+        });
     }
   }
 
   loadProfileInterests() {
-    this.profileService
-      .getTags({
-        user_id: this.tokenService.getUser().id,
-        profile_id: this.profile.profileId,
-      })
-      .subscribe({
-        next: (resp: any) => {
-          console.log(resp);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+    this.profileService.getTags(this.profile.profileId).subscribe({
+      next: (data: any) => {
+        this.tags = data.tags;
+        this.tagsForm.patchValue({
+          tags: this.tags,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
+
+  addProfileInterest(tag: TagPayload) {}
 }
