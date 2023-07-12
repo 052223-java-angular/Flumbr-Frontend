@@ -21,13 +21,13 @@
             <div class="border border-gray-100 rounded-sm">
               <div class="w-full min-h-[24px] py-1" mat-menu-item>
                 <div class="flex flex-col p-0 m-0 items-start text-xs dark:text-whitesmoke">
-                  <span>Post Date: </span>
+                  <span class="text-[0.65rem]">Post Date: </span>
                   <span>{{post.createTime | date : 'medium'}}</span>
                 </div>
               </div>
               <div class="w-full h-6" mat-menu-item *ngIf="post.editTime">
                 <div class="flex flex-col p-0 m-0 items-start text-xs dark:text-whitesmoke">
-                  <span >Last Edit: </span>
+                  <span class="text-[0.65rem]" >Last Edit: </span>
                   <span >{{post.editTime | date : 'medium'}}</span>
                 </div>
               </div>
