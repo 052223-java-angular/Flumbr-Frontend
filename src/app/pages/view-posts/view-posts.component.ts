@@ -45,8 +45,8 @@ export class ViewPostsComponent implements OnInit {
       console.log("search Text len " + searchText.length );
       
       if ( !searchText || searchText.trim().length === 0 ){
-          alert("Enter a valid search text seperated by commas");
-          console.log("empty search string");
+          //alert("Enter a valid search text seperated by commas");
+          console.log("Empty search string");
       } else {
         const tagArray = searchText.split(",");
         console.log("Array of tags is " + tagArray); // Output: ["blank", "test"]
