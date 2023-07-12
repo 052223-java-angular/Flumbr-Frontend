@@ -19,7 +19,10 @@ import {
 import { ReportComponent } from '../../report/report.component';
 import { Bookmark } from '../../../models/post/bookmark';
 import { RemoveBookmark } from '../../../models/post/removeBookmark';
-
+import { ProfileService } from 'src/app/services/profile-service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -45,7 +48,9 @@ export class PostComponent implements OnInit {
     private postService: PostService,
     private tokenService: TokenService,
     private dialog: MatDialog,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private profileService: ProfileService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +61,7 @@ export class PostComponent implements OnInit {
 
     this.commentForm = new FormGroup(
       {
-        comment: new FormControl(null, Validators.maxLength(2000)),
+        comment: new FormControl(null, Validators.maxLength(4000)),
         gifUrl: new FormControl(null),
       },
       {
@@ -96,14 +101,13 @@ export class PostComponent implements OnInit {
         this.thumbsUpEnabled = true;
         this.thumbsDownEnabled = false;
       }
-
     } else {
       this.thumbsUpEnabled = true; // Default state when userVote is null or post is undefined
       this.thumbsDownEnabled = true; // Default state when userVote is null or post is undefined
     }
 
     // bookmark icons
-    if(this.post && this.post.bookmarked) {
+    if (this.post && this.post.bookmarked) {
       // if bookmark has bookmark id that matches
       this.bookmarked = true;
     } else {
@@ -143,13 +147,17 @@ export class PostComponent implements OnInit {
           postId: this.post.id,
         };
 
+        // add in gifs and comments if present
         if (this.chosenGif) {
           newComment.gifUrl = this.chosenGif;
         }
-
         if (commentPayload.comment) {
           newComment.comment = commentPayload.comment;
         }
+
+        // add in profile img
+        this.profileService.setLocalStorageProfileImg();
+        newComment.profileImg = localStorage.getItem('profileImg') as string;
 
         // comments present so push new comment
         if (this.post.comments && this.post.comments.length > 0) {
@@ -181,6 +189,12 @@ export class PostComponent implements OnInit {
           detail: err.error.message,
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
+
+        // reset gif
+        this.chosenGif = '';
+
+        // clear form
+        this.commentForm.reset();
       },
     });
   }
@@ -263,7 +277,6 @@ export class PostComponent implements OnInit {
         console.log('Bookmark service hit, setting bookmark');
         this.bookmarked = true;
         this.loading = false;
-
       },
       error: (err) => {
         console.log('error in bookmarking post: ' + err);
@@ -284,9 +297,9 @@ export class PostComponent implements OnInit {
       userId: this.tokenService.getUser().id,
     };
 
-    console.log(JSON.stringify('bookmarkId: ' + payload.bookmarkId))
-    console.log(JSON.stringify('postId: ' + payload.postId))
-    console.log(JSON.stringify('userid: ' + payload.userId))
+    console.log(JSON.stringify('bookmarkId: ' + payload.bookmarkId));
+    console.log(JSON.stringify('postId: ' + payload.postId));
+    console.log(JSON.stringify('userid: ' + payload.userId));
 
     // call bookmark service
     this.postService.removeBookmark(payload).subscribe({
@@ -314,7 +327,8 @@ export class PostComponent implements OnInit {
 
     // Call the post service to like the post.
     this.postService.votePost(payload).subscribe({
-      next: (/* value */) => {
+      //Remember to comment out the value when
+      next: (value) => {
         //TODO: Call toaster service to msg?
         console.log('voted dislike for postId ' + id);
         this.thumbsUpEnabled = true; // Disable thumbs-up icon
@@ -335,6 +349,13 @@ export class PostComponent implements OnInit {
     });
   }
 
+  /**
+   * @param payload -
+   */
+  votePost(payload: Vote): Observable<any> {
+    return this.http.post<any>(`${environment.apiBaseUrl}/vote/post`, payload);
+  }
+
   sharePost() {
     console.log('sharing');
   }
@@ -351,6 +372,11 @@ export class PostComponent implements OnInit {
         id: id,
       },
     });
+  }
+
+  //I need this for my delete button that Im putting in the menu
+  getUsername(): string {
+    return this.tokenService.getUser().username;
   }
 
   openEditPostModal(post: PostRes): void {
