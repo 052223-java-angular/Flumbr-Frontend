@@ -50,7 +50,7 @@ export class PostComponent implements OnInit {
     this.updateIconState();
     this.commentForm = new FormGroup(
       {
-        comment: new FormControl(null, Validators.maxLength(2000)),
+        comment: new FormControl(null, Validators.maxLength(4000)),
         gifUrl: new FormControl(null),
       },
       {
