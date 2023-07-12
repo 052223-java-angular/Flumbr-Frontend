@@ -17,7 +17,7 @@
             <mat-icon class="icon dark:text-whitesmoke">more_horiz</mat-icon>
           </button>
 
-          <mat-menu class="w-[18rem] py-1 px-2"  #menu="matMenu">
+          <mat-menu class="w-[18rem] py-1 px-2" #menu="matMenu">
             <div class="border border-gray-100 rounded-sm">
               <div class="w-full min-h-[24px] py-1" mat-menu-item>
                 <div class="flex flex-col p-0 m-0 items-start text-xs dark:text-whitesmoke">
@@ -27,21 +27,20 @@
               </div>
               <div class="w-full h-6" mat-menu-item *ngIf="post.editTime">
                 <div class="flex flex-col p-0 m-0 items-start text-xs dark:text-whitesmoke">
-                  <span class="text-[0.65rem]" >Last Edit: </span>
-                  <span >{{post.editTime | date : 'medium'}}</span>
+                  <span class="text-[0.65rem]">Last Edit: </span>
+                  <span>{{post.editTime | date : 'medium'}}</span>
                 </div>
               </div>
 
-              <hr/>
-              <app-follow viewTemplate="textView" 
-                [followIdentity]="{
+              <hr />
+              <app-follow viewTemplate="textView" [followIdentity]="{
                   loggedInUserId: 'this should be the logged in user id - may not be required',
                   ownerUserId: post.id,
                   ownerUsername: post.username}"></app-follow>
 
               <ng-container *ngIf="canEditPost(post)">
-                <hr/>
-                <button mat-menu-item  class="min-h-[32px]"  (click)="openEditPostModal(post)">
+                <hr />
+                <button mat-menu-item class="min-h-[32px]" (click)="openEditPostModal(post)">
                   <span class="text-xs text-slate-900 dark:text-slate-100">Edit</span>
                 </button>
               </ng-container>
@@ -50,11 +49,11 @@
                 <app-delete-post class="min-h-[32px]" [post]="this.post"></app-delete-post>
               </ng-container>
 
-              <hr/>
-              <button mat-menu-item class="min-h-[32px]" >
+              <hr />
+              <button mat-menu-item class="min-h-[32px]">
                 <span (click)="reportPost(post.id)" class="text-xs text-red-600">Report</span>
               </button>
-          </div>
+            </div>
           </mat-menu>
         </div>
       </div>

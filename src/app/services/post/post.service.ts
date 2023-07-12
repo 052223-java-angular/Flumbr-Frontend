@@ -16,60 +16,7 @@ import { NewCommentReq } from 'src/app/models/post/comment';
 export class PostService {
   baseUrl = AppSettings.API_URL;
 
-  posts: Array<PostRes> = [
-    {
-      id: '1',
-      upVotes: 2,
-      downVotes: 10,
-      username: 'John Doe',
-      profileImg:
-        'https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80',
-      message: 'Hello guys this is my first post',
-      tags: [
-        { id: '1', name: 'cute' },
-        { id: '2', name: 'fluffy' },
-      ],
-      createTime: '2003-04-13',
-      userVote: {
-        id: '3b92acce-d527-413d-af5d-f7ea8ea1ef58',
-        vote: true,
-        username: null,
-      },
-    },
-
-    {
-      id: '2',
-      upVotes: 100,
-      downVotes: 1,
-      username: 'Rachel453',
-      profileImg:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80',
-      message: 'Taking a long awaited vacation',
-      s3Url:
-        'https://images.unsplash.com/photo-1566404791232-af9fe0ae8f8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=436&q=80',
-      mediaType: 'image',
-      tags: [
-        { id: '3', name: 'vacation' },
-        { id: '4', name: 'landscape photo' },
-        { id: '5', name: 'city life' },
-        { id: '6', name: 'sunset' },
-        { id: '7', name: 'beautiful' },
-      ],
-      createTime: '2003-05-28',
-      userVote: {
-        id: '3b92acce-d527-413d-af5d-f7ea8ea1ef58',
-        vote: true,
-        username: null,
-      },
-    },
-  ];
-
   constructor(private http: HttpClient) {}
-
-  // for dummy data
-  getPosts(): Observable<Array<PostRes>> {
-    return of(this.posts);
-  }
 
   // get a post by its id
   httpGetPostById(postId: string): Observable<PostRes> {
@@ -110,7 +57,7 @@ export class PostService {
 
     for (let i = 0; i < tags.length; i++) {
       tagString += tags[i].name;
-      
+
       if (i !== tags.length - 1) {
         tagString += ', ';
       }
@@ -124,20 +71,22 @@ export class PostService {
   }
 
   getPostsByTag(tags: string[], pageNum: number): Observable<Array<PostRes>> {
-    
     let tagString: string = '';
 
     for (let tag of tags) {
       tagString += tag;
       tagString += ',';
     }
-    console.log("tagSTring is " + tagString );
+    console.log('tagSTring is ' + tagString);
 
     let params = new HttpParams();
 
     params = params.append('tags', tagString);
 
-    return this.http.get<Array<PostRes>>(`${this.baseUrl}/posts/tag/${pageNum}`, { params: params });
+    return this.http.get<Array<PostRes>>(
+      `${this.baseUrl}/posts/tag/${pageNum}`,
+      { params: params }
+    );
   }
 
   getPostById(postId: string): Observable<PostRes> {
