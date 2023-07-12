@@ -46,7 +46,7 @@
 
     <!-- Media types -->
     <div *ngIf="post.mediaType">
-      <img mat-card-image src="{{post.s3Url}}" *ngIf="post.mediaType.split('/')[0] == 'image'">
+      <img class="w-full" mat-card-image src="{{post.s3Url}}" *ngIf="post.mediaType.split('/')[0] == 'image'">
       <video *ngIf="post.mediaType.split('/')[0] == 'video'" controls>
         <source [src]="post.s3Url" type="video/mp4">
         <source [src]="post.s3Url" type="video/ogg">
@@ -87,13 +87,12 @@
 
         <!-- for bookmark post  -->
         <mat-icon class="icon" matTooltip="Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
-                  [ngClass]="{'disabled': loading}"
-                  *ngIf="!bookmarked" (click)="bookmarkPost(post.id)">bookmark_border</mat-icon>
+          [ngClass]="{'disabled': loading}" *ngIf="!bookmarked"
+          (click)="bookmarkPost(post.id)">bookmark_border</mat-icon>
 
 
         <mat-icon class="icon" matTooltip="Remove Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
-                  [ngClass]="{'disabled': loading}"
-                  *ngIf="bookmarked" (click)="removeBookmark(post.id)">bookmark</mat-icon>
+          [ngClass]="{'disabled': loading}" *ngIf="bookmarked" (click)="removeBookmark(post.id)">bookmark</mat-icon>
 
         <!-- for share post link -->
         <button mat-button [matMenuTriggerFor]="sharePostMenu" matTooltipPosition="below" matTooltip="Share"
@@ -130,7 +129,7 @@
               <!-- Message -->
               <textarea
                 class="flex-grow p-0 text-slate-950 bg-transparent outline-none border-none placeholder:text-slate-950/60 focus-within:placeholder:text-slate-950/30 focus:border-transparent focus:shadow-none"
-                rows="1" pInputTextarea [autoResize]="true" maxlength="2000" placeholder="Make your comment"
+                rows="1" pInputTextarea [autoResize]="true" maxlength="4000" placeholder="Make your comment"
                 formControlName="comment"></textarea>
               <!-- Gif preview -->
               <div class="relative mt-5 rounded-md overflow-hidden" *ngIf="chosenGif">
@@ -162,8 +161,7 @@
               </div>
               <button
                 class="py-2 px-3 bg-emerald-600 text-white rounded-md ease-in-out transition-all duration-300 cursor-pointer hover:bg-emerald-800"
-                type="submit"
-                [ngClass]="{'bg-emerald-600/60 hover:bg-emerald-600/60 cursor-default': commentForm.invalid}"
+                type="submit" [ngClass]="{'bg-emerald-600/60 pointer-events-none': commentForm.invalid}"
                 [disabled]="commentForm.invalid">Reply</button>
             </div>
           </div>
@@ -184,7 +182,7 @@
       <!-- No comments response -->
       <div class="flex flex-col justify-center items-center gap-5 h-[300px]"
         *ngIf="!post.comments || (post.comments && post.comments.length == 0)">
-        <mat-icon class="text-slate-700 scale-[1.7] dark: text-whitesmoke">chat</mat-icon>
+        <mat-icon class="text-slate-700 scale-[1.7] dark:text-whitesmoke">chat</mat-icon>
         <p class="font-medium text-lg dark:text-whitesmoke">Be the first to comment!</p>
       </div>
 
@@ -196,7 +194,9 @@
           <div class="flex flex-col gap-2 p-2 border-[1px] border-solid border-slate-700 rounded-lg">
             <p class="m-0 font-semibold">{{comment.username}}</p>
             <p class="m-0">{{comment.comment}}</p>
-            <img class="w-full" [src]="comment.gifUrl" alt="Gif image" *ngIf="comment.gifUrl">
+            <div class="rounded-md overflow-hidden">
+              <img class="w-full" [src]="comment.gifUrl" alt="Gif image" *ngIf="comment.gifUrl">
+            </div>
           </div>
         </li>
       </ul>
