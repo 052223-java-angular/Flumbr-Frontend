@@ -62,12 +62,12 @@
 <!--  </cdk-virtual-scroll-viewport>-->
 <!--</div>-->
 
-<div class="cdk-virtual-scroll-data-source-example">
+<div class="cdk-virtual-scroll-data-source-example" xmlns="http://www.w3.org/1999/html">
   <cdk-virtual-scroll-viewport orientation="vertical" itemSize="4" class="example-viewport">
     <h1 class="m-0 ml-4 text-white">Suggested Followers</h1>
     <mat-divider class="mt-2 mb-5 border-t-2 border-emerald-300 dark:border-gray-500"></mat-divider>
     <div class="example-scrollbar">
-      <p class="text-white m-4" *ngIf="users.length === 0">No users available.</p>
+      <p class="text-white m-4" *ngIf="users.length === 0">Recommendations arent available.<br> Add interests to your profile!</p>
       <ul class="flex flex-col gap-3" *cdkVirtualFor="let user of users">
         <li class="flex justify-between items-center gap-5">
           <div class="flex items-center gap-5">

@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FollowService} from "../../../services/follow/follow.service";
+import {ProfileService} from "../../../services/profile-service";
+import {GetProfileInterests} from "../../../models/tag/get-profile-interests";
 
 @Component({
   selector: 'app-user-recommendations',
   templateUrl: './user-recommendations.component.html',
   styleUrls: ['./user-recommendations.component.scss'],
 })
-export class UserRecommendationsComponent {
+export class UserRecommendationsComponent implements OnInit{
   /**
   users = [
     {
@@ -70,7 +73,36 @@ export class UserRecommendationsComponent {
     },
   ];
    */
-  users: any;
+  users: any = [];
+  tags:any = [];
+
+
+  constructor(private followService: FollowService,
+              private profileService: ProfileService,
+              ) {
+  }
+  ngOnInit(): void {
+
+  }
+
+  //need to grab the tags of the logged in user
+  userTags()
+  {
+    const payload: GetProfileInterests={
+      user_id: "place",
+      profile_id: "place",
+      tag_name: ""
+    }
+
+
+  }
+
+
+
+  //make a payload
+
+  //need to pass the tags into the get follow back end method
+
 
 
 }
