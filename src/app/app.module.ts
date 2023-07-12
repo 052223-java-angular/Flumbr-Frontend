@@ -65,6 +65,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 import { BookmarkedPostsComponent } from './components/posts/bookmarked-posts/bookmarked-posts.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -129,6 +130,7 @@ import { BookmarkedPostsComponent } from './components/posts/bookmarked-posts/bo
     MatToolbarModule,
     ClipboardModule,
     MatButtonToggleModule,
+    InfiniteScrollModule,
   ],
   providers: [
     RouteguardService,
