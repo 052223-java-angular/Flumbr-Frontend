@@ -54,11 +54,13 @@ export class UserRecommendationsComponent implements OnInit {
   }
 
   getRecommendedFollowers(tagNames: string[]) {
+
     const payload: PotentialFollowRequestPayload = {
       tagList: tagNames,
-      userId: this.tokenService.getUser().userId,
+      userId: this.tokenService.getUser().id,
       username:this.tokenService.getUser().username
     };
+    console.log(payload);
 
     console.log(payload);
     this.followService.potentialFollowers(payload).subscribe({
