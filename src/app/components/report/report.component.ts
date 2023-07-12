@@ -7,7 +7,7 @@ import { PostService } from 'src/app/services/post/post.service';
 @Component({
   selector: 'app-report',
   templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss']
+  styleUrls: ['./report.component.scss'],
 })
 export class ReportComponent implements OnInit {
   inputdata!: any;
@@ -29,7 +29,7 @@ export class ReportComponent implements OnInit {
   submitReport() {
      
     const payload: ReportPayload = {
-      id: this.inputdata,
+      postId: this.inputdata.postId,
       reason: this.reportForm.controls['reason'].value,
     };
     console.log(payload);

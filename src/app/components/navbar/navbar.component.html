@@ -1,19 +1,17 @@
-<nav class="flex w-full flex-wrap justify-between items-center pl-10 pr-3 py-3 shadow-xl bg-purple-600">
-  <ul>
-    <span class="text-white"><mat-icon>whatshot</mat-icon>Flumblr</span>
-  </ul>
+<mat-toolbar *ngIf="isAuthenticated()" color="primary" class="mat-elevation-z12">
+  <span><mat-icon>whatshot</mat-icon>Flumblr</span>
 
-  <ul class="flex gap-5">
-    <a class="text-white" mat-button routerLink="/posts">Posts</a>
-    <a class="text-white" mat-button routerLink="/notifications">Notifications</a>
-    <a class="text-white" mat-button routerLink="/profile">Profile</a>
-  </ul>
+  <div class="spacer"></div>
 
-  <ul class="flex items-center gap-2">
-    <app-theme-switcher></app-theme-switcher>
-    <app-notification-panel *ngIf="isAuthenticated()"></app-notification-panel>
-    <a (click)="logout()" *ngIf="isAuthenticated()" mat-raised-button color="warn" routerLink=" ">Logout</a>
-    <a *ngIf="!isAuthenticated()" mat-raised-button color="warn" routerLink="/login">Login</a>
-    <a *ngIf="!isAuthenticated()" mat-raised-button color="warn" routerLink="/register">Register</a>
-  </ul>
-</nav>
+  <app-theme-switcher></app-theme-switcher>
+  <app-notification-panel 
+        class="pr-2"
+        *ngIf="!notificationHasChanged && isAuthenticated()"></app-notification-panel>
+  
+  <a mat-button routerLink="/posts">Posts</a>
+  <a mat-button routerLink="/notifications">Notifications</a>
+  <a mat-button routerLink="/profile">Profile</a>
+  
+  <a (click)="logout()" *ngIf="isAuthenticated()" mat-raised-button color="warn" routerLink=" ">Logout</a>
+
+</mat-toolbar>
