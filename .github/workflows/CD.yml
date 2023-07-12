@@ -37,6 +37,6 @@ jobs:
 
       - name: Deploy to S3 bucket
         run: |
-          aws s3 sync dist/ddwar/ s3://flumblr-frontend
+          aws s3 sync dist/flumblr/ s3://flumblr-frontend
           echo "AWS CLI exit code: $?"
           aws s3 ls s3://flumblr-frontend
