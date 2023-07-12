@@ -1,0 +1,10 @@
+
+<ng-container *ngIf="post$ | async as post">
+  <div class="w-[60%] mx-auto my-auto pt-3">
+    <!-- {{post | json }} -->
+    <app-post 
+      [post]="post" 
+      [disableCommentMaxHeight]=true
+      [isChatOpen]="true"></app-post>
+  </div>
+</ng-container>

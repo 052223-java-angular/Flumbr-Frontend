@@ -1,10 +1,14 @@
 import { Tag } from '../tag/tag';
 import { Comment } from './comment';
 import { UserVote } from './userVote';
+import { UserBookmark } from './userBookmark';
+import { Share } from './share';
+import { User } from './user';
 
 export interface PostRes {
   id: string;
   username: string;
+  userId: string;
   message?: string;
   s3Url?: string;
   profileImg?: string;
@@ -12,12 +16,15 @@ export interface PostRes {
   upVotes: number;
   downVotes: number;
   userVote?: UserVote;
+  bookmarked?: UserBookmark;
+  shared?: Share;
   createTime: string;
   editTime?: string;
   comments?: Array<Comment>;
   tags?: Array<Tag>;
+  shareCount: number;
+  sharedBy?: Array<User>;
 
   // additional options
   animateDelete?: boolean;
-  userId?: string;
 }

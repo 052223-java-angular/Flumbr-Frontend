@@ -4,7 +4,7 @@
       <div class="flex justify-between w-full">
 
         <!-- Avatar and username -->
-        <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.username)">
+        <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.userId)">
 
           <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});"></div>
           <mat-card-title>{{post.username}}</mat-card-title>
@@ -17,34 +17,43 @@
             <mat-icon class="icon dark:text-whitesmoke">more_horiz</mat-icon>
           </button>
 
-          <mat-menu #menu="matMenu">
-            <div mat-menu-item>
-              <p class="text-sm dark:text-whitesmoke">{{post.createTime}}</p>
-            </div>
-            <div mat-menu-item *ngIf="post.editTime">
-              <p class="text-sm dark:text-whitesmoke">{{post.editTime}}</p>
-            </div>
+          <mat-menu class="w-[18rem] py-1 px-2" #menu="matMenu">
+            <div class="border border-gray-100 rounded-sm">
+              <div class="w-full min-h-[24px] py-1" mat-menu-item>
+                <div class="flex flex-col p-0 m-0 items-start text-xs dark:text-whitesmoke">
+                  <span class="text-[0.65rem]">Post Date: </span>
+                  <span>{{post.createTime | date : 'medium'}}</span>
+                </div>
+              </div>
+              <div class="w-full h-6" mat-menu-item *ngIf="post.editTime">
+                <div class="flex flex-col p-0 m-0 items-start text-xs dark:text-whitesmoke">
+                  <span class="text-[0.65rem]">Last Edit: </span>
+                  <span>{{post.editTime | date : 'medium'}}</span>
+                </div>
+              </div>
 
-            <app-follow viewTemplate="textView" [followIdentity]="{
-                  loggedInUserId: 'this should be the logged in user id',
+              <hr />
+              <app-follow viewTemplate="textView" [followIdentity]="{
+                  loggedInUserId: 'this should be the logged in user id - may not be required',
                   ownerUserId: post.id,
                   ownerUsername: post.username}"></app-follow>
-  
 
-            <ng-container *ngIf="canEditPost(post)">
-              <button mat-menu-item (click)="openEditPostModal(post)">
-                <span class="font-medium text-slate-900 dark:text-slate-100">Edit</span>
+              <ng-container *ngIf="canEditPost(post)">
+                <hr />
+                <button mat-menu-item class="min-h-[32px]" (click)="openEditPostModal(post)">
+                  <span class="text-xs text-slate-900 dark:text-slate-100">Edit</span>
+                </button>
+              </ng-container>
+
+              <ng-container *ngIf="this.post.username === this.getUsername()">
+                <app-delete-post class="min-h-[32px]" [post]="this.post"></app-delete-post>
+              </ng-container>
+
+              <hr />
+              <button mat-menu-item class="min-h-[32px]">
+                <span (click)="reportPost(post.id)" class="text-xs text-red-600">Report</span>
               </button>
-            </ng-container>
-
-            <ng-container *ngIf="this.post.username === this.getUsername()">
-              <app-delete-post [post]="this.post"></app-delete-post>
-            </ng-container>
-
-            <button mat-menu-item>
-              <span (click)="reportPost(post.id)" class="font-medium text-red-600">Report</span>
-            </button>
-
+            </div>
           </mat-menu>
         </div>
       </div>
@@ -52,7 +61,7 @@
 
     <!-- Media types -->
     <div *ngIf="post.mediaType">
-      <img mat-card-image src="{{post.s3Url}}" *ngIf="post.mediaType.split('/')[0] == 'image'">
+      <img class="w-full" mat-card-image src="{{post.s3Url}}" *ngIf="post.mediaType.split('/')[0] == 'image'">
       <video *ngIf="post.mediaType.split('/')[0] == 'video'" controls>
         <source [src]="post.s3Url" type="video/mp4">
         <source [src]="post.s3Url" type="video/ogg">
@@ -77,7 +86,7 @@
       </ul>
     </mat-card-footer>
 
-    <!-- Actions (like, dislike, share post, and open chat) -->
+    <!-- Actions (like, dislike, share post, bookmark and open chat) -->
     <mat-card-actions class="flex justify-between items-center">
 
       <div class="flex gap-4 items-center">
@@ -96,29 +105,35 @@
 
         <!-- for bookmark post  -->
         <mat-icon class="icon" matTooltip="Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
-          *ngIf="!bookmarked" (click)="bookmarkPost(post.id)">bookmark_border</mat-icon>
-        <mat-icon class="icon" matTooltip="Remve Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
-          *ngIf="bookmarked ">bookmark</mat-icon>
+          [ngClass]="{'disabled': loading}" *ngIf="!bookmarked"
+          (click)="bookmarkPost(post.id)">bookmark_border</mat-icon>
+
+
+        <mat-icon class="icon" matTooltip="Remove Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
+          [ngClass]="{'disabled': loading}" *ngIf="bookmarked" (click)="removeBookmark(post.id)">bookmark</mat-icon>
 
         <!-- for share post link -->
         <button mat-button [matMenuTriggerFor]="sharePostMenu" matTooltipPosition="below" matTooltip="Share"
           matTooltipClass="tooltip">
           <mat-icon class="icon dark:text-whitesmoke" color="primary">share</mat-icon>
         </button>
-        <mat-menu class="w-full px-2 bg-amber-50" #sharePostMenu="matMenu">
-          <label>Share Link:</label>
+        <mat-menu class="w-full px-2 bg-amber-50 dark:text-black" #sharePostMenu="matMenu">
+          <label class="text-xs">Share Link:</label>
           <hr />
           <label class="text-xs">{{shareURL}}</label>
           <hr />
           <div class="flex justify-end">
-            <button class="px-6 text-sm uppercase" color="primary" mat-flat-button
+            <button class="px-6 my-0 py-0 text-xs uppercase" color="primary" mat-flat-button
               [cdkCopyToClipboard]="shareURL">Copy</button>
           </div>
         </mat-menu>
 
         <!-- for chat / comments -->
-        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Comment" matTooltipClass="tooltip"
-          matTooltipPosition="above" (click)="toggleChat()">chat</mat-icon>
+        <div class="flex items-center gap-1" (click)="toggleChat()">
+          <mat-icon class="icon dark:text-whitesmoke scale-80" matTooltip="Comment" matTooltipClass="tooltip"
+            matTooltipPosition="above">chat</mat-icon>
+          <span class="text-xs font-medium" *ngIf="post.comments">{{commentCountToString(1654)}}</span>
+        </div>
       </div>
     </mat-card-actions>
 
@@ -167,8 +182,7 @@
               </div>
               <button
                 class="py-2 px-3 bg-emerald-600 text-white rounded-md ease-in-out transition-all duration-300 cursor-pointer hover:bg-emerald-800"
-                type="submit"
-                [ngClass]="{'bg-emerald-600/60 hover:bg-emerald-600/60 cursor-default': commentForm.invalid}"
+                type="submit" [ngClass]="{'bg-emerald-600/60 pointer-events-none': commentForm.invalid}"
                 [disabled]="commentForm.invalid">Reply</button>
             </div>
           </div>
@@ -189,22 +203,29 @@
       <!-- No comments response -->
       <div class="flex flex-col justify-center items-center gap-5 h-[300px]"
         *ngIf="!post.comments || (post.comments && post.comments.length == 0)">
-        <mat-icon class="text-slate-700 scale-[1.7] dark: text-whitesmoke">chat</mat-icon>
+        <mat-icon class="text-slate-700 scale-[1.7] dark:text-whitesmoke">chat</mat-icon>
         <p class="font-medium text-lg dark:text-whitesmoke">Be the first to comment!</p>
       </div>
 
       <!-- Displays comments -->
-      <ul class="flex flex-col p-4 gap-3" *ngIf="post.comments && post.comments.length > 0">
-        <li class="flex gap-3" *ngFor="let comment of post.comments">
-          <div mat-card-avatar class="m-0 bg-cover" style="background-image: url({{comment.profileImg}});">
-          </div>
-          <div class="flex flex-col gap-2 p-2 border-[1px] border-solid border-slate-700 rounded-lg">
-            <p class="m-0 font-semibold">{{comment.username}}</p>
-            <p class="m-0">{{comment.comment}}</p>
-            <img class="w-full" [src]="comment.gifUrl" alt="Gif image" *ngIf="comment.gifUrl">
-          </div>
-        </li>
-      </ul>
+      <!-- class="max-h-[400px] overflow-auto -->
+      <div [ngClass]="disableCommentMaxHeight ? '' : 'max-h-[400px] overflow-auto'">
+        <ul class="flex flex-col p-4 gap-3" *ngIf="post.comments && post.comments.length > 0">
+          <li class="flex gap-3" *ngFor="let comment of post.comments">
+            <div mat-card-avatar class="m-0 bg-cover cursor-pointer"
+              style="background-image: url({{comment.profileImg}});" (click)="navigateToUser(comment.userId)">
+            </div>
+            <div class="flex flex-col gap-2 p-2 border-[1px] border-solid border-slate-700 rounded-lg">
+              <p class="m-0 font-semibold cursor-pointer" (click)="navigateToUser(comment.userId)">{{comment.username}}
+              </p>
+              <p class="m-0">{{comment.comment}}</p>
+              <div class="rounded-md overflow-hidden">
+                <img class="w-full" [src]="comment.gifUrl" alt="Gif image" *ngIf="comment.gifUrl">
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </mat-card>
 </div>

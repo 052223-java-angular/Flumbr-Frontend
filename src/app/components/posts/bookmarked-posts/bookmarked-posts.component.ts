@@ -1,15 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
-  selector: 'app-posts-by-user',
-  templateUrl: './posts-by-user.component.html',
-  styleUrls: ['./posts-by-user.component.scss'],
+  selector: 'app-bookmarked-posts',
+  templateUrl: './bookmarked-posts.component.html',
+  styleUrls: ['./bookmarked-posts.component.scss'],
 })
-export class PostsByUserComponent implements OnInit {
-  @Input() userId!: string;
-  posts!: Array<PostRes>;
+export class BookmarkedPostsComponent implements OnInit {
+  posts: Array<PostRes> = [];
   isLoading = false;
 
   constructor(private postService: PostService) {}
@@ -20,7 +19,7 @@ export class PostsByUserComponent implements OnInit {
 
   getPosts() {
     this.isLoading = true;
-    this.postService.getPostsByUserId(this.userId).subscribe({
+    this.postService.getBookmarkedPosts().subscribe({
       next: (res) => {
         this.posts = res;
         this.isLoading = false;
