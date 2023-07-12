@@ -23,6 +23,7 @@ import { ProfileService } from 'src/app/services/profile-service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -52,7 +53,8 @@ export class PostComponent implements OnInit {
     private dialog: MatDialog,
     private messageService: MessageService,
     private profileService: ProfileService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +72,7 @@ export class PostComponent implements OnInit {
         validators: this.atLeastOne(Validators.required, ['comment', 'gifUrl']),
       }
     );
-    const urlParts = location.href.split("/");
+    const urlParts = location.href.split('/');
     this.shareURL = `${urlParts[0]}//${urlParts[2]}/posts/${this.post.id}`;
   }
 
@@ -218,7 +220,6 @@ export class PostComponent implements OnInit {
   }
 
   addEmoji(emoji: string) {
-    console.log(emoji);
     const control = this.commentForm.controls['comment'];
     control.setValue((control.value ? control.value : '') + emoji);
   }
@@ -228,7 +229,7 @@ export class PostComponent implements OnInit {
   }
 
   navigateToUser(id: string) {
-    console.log(id);
+    this.router.navigateByUrl(`/profile/${id}`);
   }
 
   likePost(id: string) {
@@ -291,7 +292,6 @@ export class PostComponent implements OnInit {
 
   // remove bookmark if user has bookmarked post
   removeBookmark(id: string) {
-
     this.loading = true;
 
     // define book mark payload

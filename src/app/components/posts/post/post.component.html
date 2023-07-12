@@ -4,7 +4,7 @@
       <div class="flex justify-between w-full">
 
         <!-- Avatar and username -->
-        <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.username)">
+        <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.userId)">
 
           <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});"></div>
           <mat-card-title>{{post.username}}</mat-card-title>
