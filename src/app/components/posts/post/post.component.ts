@@ -365,12 +365,12 @@ export class PostComponent implements OnInit {
     this.isChatOpen = !this.isChatOpen;
   }
 
-  reportPost(id: any) {
-    console.log(id);
+  reportPost(postId: any) {
+    console.log(postId);
     this.dialog.open(ReportComponent, {
       width: '40%',
       data: {
-        id: id,
+        postId: postId,
       },
     });
   }
