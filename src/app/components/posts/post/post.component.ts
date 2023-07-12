@@ -31,7 +31,7 @@ import { Observable } from 'rxjs';
 })
 export class PostComponent implements OnInit {
   @Input() post!: PostRes;
-  isChatOpen = false;
+  @Input() isChatOpen = false;
   isGifComponentOpen = false;
   chosenGif: string | null = null;
   commentForm!: FormGroup;
@@ -69,7 +69,8 @@ export class PostComponent implements OnInit {
         validators: this.atLeastOne(Validators.required, ['comment', 'gifUrl']),
       }
     );
-    this.shareURL = window.location.href + '/' + this.post.id;
+    const urlParts = location.href.split("/");
+    this.shareURL = `${urlParts[0]}//${urlParts[2]}/posts/${this.post.id}`;
   }
 
   // custom validator
@@ -93,7 +94,7 @@ export class PostComponent implements OnInit {
   }
 
   updateIconState() {
-    console.log('update icon state ');
+    // console.log('update icon state ');
     if (this.post && this.post.userVote) {
       if (this.post.userVote.vote === true) {
         this.thumbsUpEnabled = false;

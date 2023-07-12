@@ -5,14 +5,21 @@
   <!-- for header icon notification menu  -->
   <div [ngClass]="notifications ? 'icon-menu icon-animate' : 'icon-menu'">
     <div class="flex items-baseline">
-      <mat-icon (click)="toggleTypeMenu()" class="scale-[1.45]">
-        notifications_active
-      </mat-icon>  
+      <ng-container *ngIf="notifications.length > 0; else notificationActive;">
+        <mat-icon (click)="toggleTypeMenu()" class="scale-[1.45]">
+          notifications_active
+        </mat-icon>
+      </ng-container>
+      <ng-template #notificationActive>
+        <mat-icon (click)="toggleTypeMenu()" class="scale-[1.45]">
+            notifications_none
+        </mat-icon>  
+      </ng-template>
       <div  
-        [matBadge]="getTotalUnreadCount(notifications)"
+        [matBadge]="notifications.length"
         [matBadgeColor]="badgeColor"
         [matBadgeSize]="badgeSize"
-        [matBadgeHidden]="totalUnread == 0"
+        [matBadgeHidden]="notifications.length == 0"
         [matBadgePosition]="'below after'"
         class=" z-50 shadow-md">
       </div>
@@ -20,7 +27,8 @@
   </div>
 
   <!-- menu can open only when there are notifications -->
-  <div *ngIf="menuIsOpen && totalUnread > 0" class="wrapper">
+  <div *ngIf="menuIsOpen && totalUnread > 0" 
+      [ngClass]="panelIsOpen ? 'wrapper wrapper-max' : 'wrapper wrapper-min'">
 
     <!-- container for icon and notification messages -->
     <div class="notification-container icon-container-animate">
@@ -47,6 +55,7 @@
       <!-- notification should be greater then zero -->
       <app-notification-message 
         *ngIf="panelIsOpen && totalUnread > 0"
+        (notificationMessageIsEmpty)="toggleTypeMenu()"
         [notifications]="notifications"
         [activeNotificationType]="activeNotificationType"></app-notification-message>
 
