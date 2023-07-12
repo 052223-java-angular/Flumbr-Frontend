@@ -10,24 +10,22 @@ import {TokenService} from "./tokenservice.service";
 import {GetProfileInterests} from "../models/tag/get-profile-interests";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfileService {
-
   private httpOptions = {
     headers: new HttpHeaders({
-      'Authorization': this.tokenService.getUser().id,
-      'Content type' : 'application/json'
+      Authorization: this.tokenService.getUser().id,
+      'Content type': 'application/json',
     }),
   };
 
-  jsonAsset: string = "assets/profile.json"
+  jsonAsset: string = 'assets/profile.json';
   profile!: ProfilePayload;
   baseUrl = AppSettings.API_URL;
 
   // Constructor for profile service
-  constructor(private http: HttpClient,
-              private tokenService: TokenService) {  }
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   // retrieve user profile based on user id
   getUser(user_id: string): Observable<ProfilePayload> {
@@ -37,17 +35,27 @@ export class ProfileService {
 
   // update theme for user
   updateTheme(user_id: string, payload: ThemePayload): Observable<void> {
-    return this.http.patch<void>(`${this.baseUrl}/profile/theme/${user_id}`, payload)
+    return this.http.patch<void>(
+      `${this.baseUrl}/profile/theme/${user_id}`,
+      payload
+    );
   }
 
   // send updated bio to backend to update users bio field
-  updateUserBio(user_id: string, payload: BioPayload ): Observable<void> {
-    console.log("user id: " + user_id);
-    return this.http.patch<void>(`${this.baseUrl}/profile/bio/${user_id}`, payload);
+  updateUserBio(user_id: string, payload: BioPayload): Observable<void> {
+    console.log('user id: ' + user_id);
+    return this.http.patch<void>(
+      `${this.baseUrl}/profile/bio/${user_id}`,
+      payload
+    );
   }
 
   // upload an image file to send to back end, MUST be multiMedia but only an image
-  uploadImage(userId: string, formData: FormData, payload: BioPayload): Observable<any> {
+  uploadImage(
+    userId: string,
+    formData: FormData,
+    payload: BioPayload
+  ): Observable<any> {
     console.log('hitting upload image service');
 
     console.log(formData.get('profileId'));
@@ -56,7 +64,10 @@ export class ProfileService {
     //const headers = new HttpHeaders().set('Authorization', this.tokenService.getToken()!);
     //const headers = new HttpHeaders().set('Authorization', this.tokenService.getToken()!);
 
-    return this.http.patch<void>(`${this.baseUrl}/profile/upload/${userId}`, formData );
+    return this.http.patch<void>(
+      `${this.baseUrl}/profile/upload/${userId}`,
+      formData
+    );
   }
 
   // retrieve this user
@@ -64,6 +75,23 @@ export class ProfileService {
     return this.http.get(this.jsonAsset);
   }
 
+  getTags(profileId: string) {
+    return this.http.get(`${this.baseUrl}/profile/tags/${profileId}`);
+  }
+
+  addTag(payload: any): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/profile/tags`, payload);
+  }
+
+  deleteTag(payload: any): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: payload,
+    };
+    return this.http.delete<any>(`${this.baseUrl}/profile/tags`, options);
+  }
   getUserTags(payload: GetProfileInterests):Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/profile/tags/${payload.profile_id}/${payload.user_id}`);
   }
