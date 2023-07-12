@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { TokenService } from 'src/app/services/tokenservice.service';
 
 @Component({
   selector: 'app-posts-container',
@@ -8,7 +9,13 @@ import { NotificationService } from 'src/app/services/notification/notification.
   styleUrls: ['./posts-container.component.css'],
 })
 export class PostsContainerComponent {
-  constructor(private notificationService: NotificationService) {}
+  @Input() userId!: string;
+  loggedInUserId = this.tokenService.getUser().id;
+
+  constructor(
+    private notificationService: NotificationService,
+    private tokenService: TokenService
+  ) {}
 
   activeTab: string = 'default';
 

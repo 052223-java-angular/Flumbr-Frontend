@@ -66,6 +66,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 import { BookmarkedPostsComponent } from './components/posts/bookmarked-posts/bookmarked-posts.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-user.component';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     PostDetailComponent,
     BookmarkedPostsComponent,
     DeletePostComponent,
+    PostsByUserComponent,
   ],
   imports: [
     BrowserModule,
