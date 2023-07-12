@@ -3,5 +3,7 @@
   { "originName": "commentLike" },
   { "originName": "follow" },
   { "originName": "postLike" },
-  { "originName": "profileLike"}
+  { "originName": "profileLike"},
+  { "originName": "postMention" },
+  { "originName": "commentMention"}
 ]

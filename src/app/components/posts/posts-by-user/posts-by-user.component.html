@@ -1,1 +1,3 @@
-<p>posts-by-user works!</p>
+<div class="flex w-full justify-center items-center pt-5 py-10" *ngIf="isLoading"><mat-spinner></mat-spinner>
+</div>
+<app-post-list [posts]="posts" *ngIf="!isLoading"></app-post-list>

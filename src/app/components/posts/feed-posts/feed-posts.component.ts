@@ -36,11 +36,9 @@ export class FeedPostsComponent implements OnInit {
   onScroll() {
     // checks if no more posts available from db
     if (this.maxPostsReached || this.isLoadingMorePosts) {
-      console.log('max reached');
       return;
     }
 
-    console.log('scroll');
     this.page += 1;
     this.getMorePosts(this.page);
   }
@@ -69,7 +67,6 @@ export class FeedPostsComponent implements OnInit {
     this.isLoadingMorePosts = true;
     this.postService.getFeedPosts(page).subscribe({
       next: (res) => {
-        console.log('success');
         this.posts.push(...res);
 
         // no more posts available from db

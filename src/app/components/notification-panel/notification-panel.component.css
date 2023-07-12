@@ -1,5 +1,13 @@
 .wrapper {
-  @apply fixed top-[5.25rem] right-4 max-w-full w-[400px] z-50;
+  @apply fixed top-[5.25rem] right-4 max-w-full z-50;
+}
+
+.wrapper-max {
+  @apply w-[400px];
+}
+
+.wrapper-min {
+  @apply w-[100px];
 }
 
 .icon-menu {

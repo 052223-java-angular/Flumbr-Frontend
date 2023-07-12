@@ -45,6 +45,7 @@ import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
+import { SearchService } from './services/search/search.service';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
@@ -60,6 +61,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { GifComponent } from './components/gif/gif.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -67,6 +69,7 @@ import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 import { BookmarkedPostsComponent } from './components/posts/bookmarked-posts/bookmarked-posts.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AdminReportComponent } from './pages/admin-report/admin-report.component';
+import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-user.component';
 
 @NgModule({
   declarations: [
@@ -95,11 +98,13 @@ import { AdminReportComponent } from './pages/admin-report/admin-report.componen
     NewPasswordComponent,
     SettingsComponent,
     GifComponent,
+    SearchPageComponent,
     ReportComponent,
     PostDetailComponent,
     BookmarkedPostsComponent,
     DeletePostComponent,
     AdminReportComponent,
+    PostsByUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -143,6 +148,7 @@ import { AdminReportComponent } from './pages/admin-report/admin-report.componen
       multi: true,
     },
     MessageService,
+    SearchService,
     NgEventBus,
   ],
   bootstrap: [AppComponent],
