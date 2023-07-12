@@ -1,8 +1,7 @@
 
 <div id="{{theme}}" class="{{theme}} flex flex-col items-center pb-40 min-h-screen">
 
-  <button type="button" (click)="backClicked()" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-4 dark:focus:ring-yellow-900">Go Back</button>
-
+  <button  type="button" (click)="backClicked()" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-4 dark:focus:ring-yellow-900">Go Back</button>
     <div *ngIf="profile" class="flex space-x-16">
 
       <div class="bg-white flex flex-col gap-7 p-7 shadow-2xl rounded-lg mt-10">
@@ -50,7 +49,7 @@
               class="ml-auto mr-auto w-screen lg:w-1/2"
               mat-flat-button color="primary"
               (submit)="uploadImage()"
-              [disabled]="!imageForm.valid">Post</button>
+              [disabled]="!imageForm.valid">Upload Image</button>
           </div>
         </form>
 
@@ -66,7 +65,7 @@
             <mat-card class="w-full">
               <form [formGroup]="changeBioForm" (submit)="submitForm( )">
                 <mat-form-field class="form-field flex">
-                  <mat-label> {{profile.bio}} </mat-label>
+                  <mat-label> Write you About Me here... 1-254 characters </mat-label>
                   <input matInput formControlName="bio">
                 </mat-form-field>
                 <button mat-raised-button color="accent" type="submit" class="w-full">Submit bio</button>

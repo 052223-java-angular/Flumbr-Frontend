@@ -8,6 +8,7 @@
 
 ::ng-deep #theme-two{
   @apply bg-gradient-to-r from-slate-700 to-gray-800;
+
 }
 
 ::ng-deep #theme-three{
@@ -21,3 +22,5 @@
 ::ng-deep #theme-five{
   @apply bg-gradient-to-l from-pink-200 to-pink-900;
 }
+
+

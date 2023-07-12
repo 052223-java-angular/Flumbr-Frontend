@@ -63,6 +63,19 @@ export class SettingsComponent {
   }
 
   ngOnInit() {
+    this.callProfile();
+
+    this.imageForm = this.fb.group({
+      file: [''],
+    });
+
+    this.tagsForm = this.fb.group({
+      tags: [[]],
+    });
+  }
+
+  // handling updating settings for user
+  callProfile() {
     this.profileService.getUser(this.sessionId).subscribe({
       next: (resp: any) => {
         this.profile = resp;
@@ -76,14 +89,6 @@ export class SettingsComponent {
           'Error retrieving user with id: ' + this.user_id + ' : ' + err
         );
       },
-    });
-
-    this.imageForm = this.fb.group({
-      file: [''],
-    });
-
-    this.tagsForm = this.fb.group({
-      tags: [[]],
     });
   }
 
@@ -107,9 +112,6 @@ export class SettingsComponent {
       .updateUserBio(this.tokenService.getUser().id, payload)
       .subscribe({
         next: (resp: any) => {
-          this.profile = resp;
-          this.theme = this.profile.themeName;
-          console.log(this.profile);
 
           this.messageService.add({
             severity: 'success ',
@@ -134,6 +136,7 @@ export class SettingsComponent {
       });
 
     console.log('New bio is: ' + payload.bio);
+    this.callProfile();
   }
 
   selectTheme(choice: string) {
@@ -290,12 +293,15 @@ export class SettingsComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'Post created',
+            detail: 'Image uploaded successfully',
             life: AppSettings.DEFAULT_MESSAGE_LIFE,
+
           });
+
           this.imageForm.reset();
           this.files = [];
           this.setImageFlags();
+          this.callProfile();
         },
         error: (error) => {
           console.log(error);
@@ -308,6 +314,8 @@ export class SettingsComponent {
           });
         },
       });
+
+
   }
 
   loadProfileTags() {
