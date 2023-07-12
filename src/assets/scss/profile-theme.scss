@@ -96,6 +96,10 @@ $theme-five: mat.define-light-theme((
   mat-card-header.mat-mdc-card-header {
     background-color: #3F72AF !important
   }
+
+  mat-card-title.mat-mdc-card-title {
+    font-family: Blippo, fantasy;
+  }
 }
 
 // blue grey
@@ -110,8 +114,12 @@ $theme-five: mat.define-light-theme((
     background-color: #9BA4B5 !important;
   }
 
-  mat-card-header.mat-mdc-card-header {
+ mat-card-header.mat-mdc-card-header {
     background-color: #212A3E !important
+  }
+
+  mat-card-title.mat-mdc-card-title {
+    font-family: Arial, Helvetica, sans-serif;
   }
 }
 
@@ -127,8 +135,12 @@ $theme-five: mat.define-light-theme((
     background-color: #F29727 !important;
   }
 
-  .mat-mdc-card-header {
+  mat-card-header.mat-mdc-card-header {
     background-color: #E57C23 !important
+  }
+
+  mat-card-title.mat-mdc-card-title {
+    font-family: Luminari, fantasy;
   }
 }
 
@@ -147,6 +159,10 @@ $theme-five: mat.define-light-theme((
   mat-card-header.mat-mdc-card-header {
     background-color: #00C4FF !important
   }
+
+  mat-card-title.mat-mdc-card-title {
+    font-family: DejaVu Sans Mono, monospace;
+  }
 }
 
 .theme-five {
@@ -162,6 +178,10 @@ $theme-five: mat.define-light-theme((
 
   mat-card-header.mat-mdc-card-header {
     background-color: #E76161 !important
+  }
+
+  mat-card-title.mat-mdc-card-title {
+    font-family: Snell Roundhand, cursive;
   }
 }
 
