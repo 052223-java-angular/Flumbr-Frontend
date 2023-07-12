@@ -1,13 +1,18 @@
 <mat-toolbar color="primary" class="mat-elevation-z12">
-  <span><mat-icon>whatshot</mat-icon>Flumblr</span>
+  <a *ngIf="!isAuthenticated()" routerLink="/"><mat-icon>whatshot</mat-icon>Flumblr</a>
+  <a *ngIf="isAuthenticated()" routerLink="/posts"><mat-icon>whatshot</mat-icon>Flumblr</a>
 
   <div class="spacer"></div>
 
+  <div *ngIf="isAuthenticated()" class="cursor-pointer">
+    <a class="text-sm" (click)="routeToProfile()">Hello {{getUsername()}}</a>
+  </div>
+  
+
   <app-theme-switcher></app-theme-switcher>
 
-  <a mat-button routerLink="/posts">Posts</a>
-  <a mat-button routerLink="/notifications">Notifications</a>
-  <a mat-button routerLink="/profile/{{userId}}">Profile</a>
+  <a *ngIf="isAuthenticated()" mat-button routerLink="/posts">Posts</a>
+  <a *ngIf="isAuthenticated()" mat-button routerLink="/notifications">Notifications</a>
   <app-notification-panel class="pr-2" *ngIf="!notificationHasChanged && isAuthenticated()"></app-notification-panel>
   <a (click)="logout()" *ngIf="isAuthenticated()" mat-raised-button color="warn" routerLink=" ">Logout</a>
 
