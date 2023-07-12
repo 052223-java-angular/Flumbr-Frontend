@@ -2,13 +2,9 @@
   <div class="flex-grow w-2/3">
 
     <div class="h-screen flex flex-col justify-center items-center" style="background-image: url('https://i.imgur.com/zFNfei3.jpg');">
-     <div *ngIf="checkIfLoggedIn() === true">
-      <h1 class="text-white text-7xl font-bold"><a routerLink="/posts">Flumblr</a></h1>
-      <p class="text-white text-2xl">Random text until I think of something</p>
-     </div>
-     <div *ngIf="checkIfLoggedIn() === false">
+     <div>
       <h1 class="text-white text-7xl font-bold"><a routerLink="/home">Flumblr</a></h1>
-      <p class="text-white text-2xl">Random text until I think of something</p>
+      <p class="text-white text-2xl">It's whatever you want it to be</p>
      </div>
 
     </div>
@@ -20,7 +16,7 @@
     <div class="h-2/3 flex flex-col items-center justify-center">
 
       <header>
-        <h1 class="text-white font-bold text-4xl">Random text for now</h1>
+        <h1 class="text-white font-bold text-4xl">Connect with your friends</h1>
       </header>
 
       <div class="mt-10 text-center px-8">
