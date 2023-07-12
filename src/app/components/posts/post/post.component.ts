@@ -63,6 +63,7 @@ export class PostComponent implements OnInit {
         validators: this.atLeastOne(Validators.required, ['comment', 'gifUrl']),
       }
     );
+    this.shareURL = window.location.href + '/' + this.post.id;
   }
 
   // custom validator
@@ -83,13 +84,6 @@ export class PostComponent implements OnInit {
             atLeastOne: true,
           };
     };
-    this.commentForm = new FormGroup({
-      comment: new FormControl(
-        null,
-        Validators.compose([Validators.required, Validators.maxLength(500)])
-      ),
-    });
-    this.shareURL = window.location.href + '/share/' + this.post.id;
   }
 
   updateIconState() {

@@ -13,6 +13,7 @@ import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
 import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
 import { SettingsComponent } from './pages/profile/settings/settings.component';
+import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // Route for the home page
@@ -39,6 +40,10 @@ const routes: Routes = [
     path: 'posts',
     component: ViewPostsComponent,
     canActivate: [RouteguardService],
+  },
+  {
+    path: "posts/:id",
+    component: PostDetailComponent
   },
   { path: '**', component: NotfoundComponent },
 ];

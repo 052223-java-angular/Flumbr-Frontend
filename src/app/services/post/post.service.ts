@@ -71,6 +71,11 @@ export class PostService {
     return of(this.posts);
   }
 
+  // get a post by its id
+  httpGetPostById(postId: string) : Observable<PostRes> {
+    return this.http.get<any>(`${this.baseUrl}/posts/id/${postId}`);
+  }
+
   // feed posts from db
   getFeedPosts(page: number): Observable<Array<PostRes>> {
     // return this.http.get<PostRes[]>("/assets/posts/posts.json");
