@@ -2,8 +2,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { AppSettings } from 'src/app/global/app-settings';
-import {PotentialFollowRequestPayload} from "../../models/potential-follow-request-payload";
-
+import { PotentialFollowRequestPayload } from '../../models/potential-follow-request-payload';
 
 @Injectable({
   providedIn: 'root',
@@ -61,9 +60,14 @@ export class FollowService implements OnDestroy {
       );
   }
 
+  potentialFollowers(payload: PotentialFollowRequestPayload): Observable<any> {
+    return this.httpClient.post<any>(
+      `${this.baseUrl}/follows/getFollowers`,
+      payload
+    );
+  }
 
-  potentialFollowers(payload: PotentialFollowRequestPayload):Observable<any> {
-    return this.httpClient.post<any>(`${this.baseUrl}/follows/getFollowers`,payload)
-
+  getFollowing(): Observable<string[]> {
+    return this.httpClient.get<string[]>(`${this.baseUrl}/follows`);
   }
 }
