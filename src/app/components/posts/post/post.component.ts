@@ -32,6 +32,7 @@ import { Observable } from 'rxjs';
 export class PostComponent implements OnInit {
   @Input() post!: PostRes;
   @Input() isChatOpen = false;
+  @Input() disableCommentMaxHeight = false;
   isGifComponentOpen = false;
   chosenGif: string | null = null;
   commentForm!: FormGroup;
