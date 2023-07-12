@@ -44,6 +44,23 @@ export class NavbarComponent implements OnInit {
     return this.tokenService.isLoggedIn();
   }
 
+  getUsername()
+  {
+    return this.tokenService.getUser().username;
+  }
+
+  routeToProfile()
+  {
+    let userId:string = this.tokenService.getUser().id;
+
+    this.router.navigate([`/profile/${userId}`]);
+  }
+
+  routeToHome()
+  {
+      this.router.navigate(['']);
+  }
+
   openPostDialog(): void {
     const dialogRef = this.dialog.open(CreatePostComponent, {
       width: '600px',
