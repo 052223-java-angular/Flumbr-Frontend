@@ -34,8 +34,11 @@ export class PostComponent implements OnInit {
   commentForm!: FormGroup;
   thumbsUpEnabled: boolean = true;
   thumbsDownEnabled: boolean = true;
-  bookmarked: boolean = false;
+
   shareURL: string = '';
+
+  sessionId!: string;
+  bookmarked!: boolean;
 
   constructor(
     private postService: PostService,
@@ -45,7 +48,11 @@ export class PostComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.sessionId = this.tokenService.getUser().id;
     this.updateIconState();
+
+    console.log('Session id: ' + this.sessionId);
+
     this.commentForm = new FormGroup(
       {
         comment: new FormControl(null, Validators.maxLength(2000)),
@@ -94,12 +101,19 @@ export class PostComponent implements OnInit {
         this.thumbsUpEnabled = true;
         this.thumbsDownEnabled = false;
       }
+
     } else {
       this.thumbsUpEnabled = true; // Default state when userVote is null or post is undefined
       this.thumbsDownEnabled = true; // Default state when userVote is null or post is undefined
     }
 
-    console.log('update bookmarks');
+    // bookmark icons
+    if(this.post && this.post.bookmarked) {
+      // if bookmark has bookmark id that matches
+      this.bookmarked = true;
+    } else {
+      this.bookmarked = false; // set bookmarked false for this post
+    }
   }
 
   onCommentSubmit() {
@@ -264,15 +278,19 @@ export class PostComponent implements OnInit {
 
     // define book mark payload
     const payload: RemoveBookmark = {
-      bookmarkId: '',
+      bookmarkId: this.post.bookmarked?.id!,
       postId: id,
       userId: this.tokenService.getUser().id,
     };
 
+    console.log(JSON.stringify('bookmarkId: ' + payload.bookmarkId))
+    console.log(JSON.stringify('postId: ' + payload.postId))
+    console.log(JSON.stringify('userid: ' + payload.userId))
+
     // call bookmark service
-    this.postService.bookmarkPost(payload).subscribe({
+    this.postService.removeBookmark(payload).subscribe({
       next: () => {
-        console.log('Remoe Bookmark service hit');
+        console.log('Remove Bookmark service hit');
         this.bookmarked = false;
       },
       error: (err) => {
