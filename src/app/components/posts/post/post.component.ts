@@ -41,6 +41,7 @@ export class PostComponent implements OnInit {
   thumbsDownEnabled: boolean = true;
 
   shareURL: string = '';
+  mentions: string[] = [];
 
   // variables used by bookmark
   sessionId!: string;
@@ -74,6 +75,8 @@ export class PostComponent implements OnInit {
     );
     const urlParts = location.href.split('/');
     this.shareURL = `${urlParts[0]}//${urlParts[2]}/posts/${this.post.id}`;
+    // this.shareURL = window.location.href + '/share/' + this.post.id;
+    this.fetchMentions();
   }
 
   // custom validator
@@ -430,5 +433,13 @@ export class PostComponent implements OnInit {
     }
 
     return numStr;
+  }
+
+  fetchMentions() {
+    this.mentions = this.post.message
+      ? (this.post.message.match(/@[A-Za-z0-9._]+/gi)! || []).map((x) =>
+          x.slice(1)
+        )
+      : [];
   }
 }

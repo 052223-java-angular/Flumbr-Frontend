@@ -80,6 +80,9 @@
         <li class="cursor-pointer" *ngFor="let tag of post.tags" (click)="navigateToTag(tag.id)">
           #{{tag.name}}
         </li>
+        <li class="cursor-pointer" *ngFor="let mention of mentions" (click)="navigateToUser(mention)">
+          @{{mention}}
+        </li>
       </ul>
     </mat-card-footer>
 

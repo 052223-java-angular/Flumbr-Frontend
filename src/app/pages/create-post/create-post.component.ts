@@ -24,6 +24,7 @@ export class CreatePostComponent implements OnInit {
   isImage: boolean = false;
   isVideo: boolean = false;
   tags: string[] | null = [];
+  mentions: string[] | null = [];
   editPost: PostRes | null = null;
 
   constructor(
@@ -149,6 +150,9 @@ export class CreatePostComponent implements OnInit {
     this.tags = message
       ? (message.match(/#[A-Za-z0-9]+/gi)! || []).map((x) => x.slice(1))
       : [];
+    this.mentions = message
+      ? (message.match(/@[A-Za-z0-9._]+/gi)! || []).map((x) => x.slice(1))
+      : [];
   }
 
   submitPostForm() {
@@ -162,6 +166,10 @@ export class CreatePostComponent implements OnInit {
       const uniqueTags = [...new Set(this.tags)];
       for (let i = 0; i < uniqueTags.length; i++) {
         formData.append('tags', uniqueTags[i]);
+      }
+      const uniqueMentions = [...new Set(this.mentions)];
+      for (let i = 0; i < uniqueMentions.length; i++) {
+        formData.append('mentions', uniqueMentions[i]);
       }
     }
 
