@@ -61,6 +61,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     SettingsComponent,
     GifComponent,
     ReportComponent,
+    PostDetailComponent
   ],
   imports: [
     BrowserModule,

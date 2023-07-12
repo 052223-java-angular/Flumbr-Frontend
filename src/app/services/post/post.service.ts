@@ -71,6 +71,11 @@ export class PostService {
     return of(this.posts);
   }
 
+  // get a post by its id
+  httpGetPostById(postId: string) : Observable<PostRes> {
+    return this.http.get<any>(`${this.baseUrl}/posts/id/${postId}`);
+  }
+
   // feed posts from db
   getFeedPosts(page: number): Observable<Array<PostRes>> {
     // return this.http.get<PostRes[]>("/assets/posts/posts.json");
@@ -154,7 +159,7 @@ export class PostService {
   }
 
   removeBookmark(payload: RemoveBookmark): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/bookmark/removeBookmark`);
+    return this.http.delete<any>(`${this.baseUrl}/bookmark/removeBookmark`, {body: payload});
   }
 
   updatePost(id: string, formData: FormData) {
