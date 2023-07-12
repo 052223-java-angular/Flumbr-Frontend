@@ -24,6 +24,7 @@ export class CreatePostComponent implements OnInit {
   isImage: boolean = false;
   isVideo: boolean = false;
   tags: string[] | null = [];
+  mentions: string[] | null = [];
   editPost: PostRes | null = null;
 
   constructor(
@@ -148,6 +149,9 @@ export class CreatePostComponent implements OnInit {
     // get all strings that begin with #
     this.tags = message
       ? (message.match(/#[A-Za-z0-9]+/gi)! || []).map((x) => x.slice(1))
+      : [];
+    this.mentions = message
+      ? (message.match(/@[A-Za-z0-9._]+/gi)! || []).map((x) => x.slice(1))
       : [];
   }
 
