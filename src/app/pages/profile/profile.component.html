@@ -31,9 +31,9 @@
             </mat-card-title-group>
           </mat-card-header>
 
-          <ng-container>
+          <ng-container class="items-center">
             <button *ngIf="sessionId == user_id" routerLink="/profile/settings" mat-raised-button
-                    color="accent" class="w-1/5">Settings</button>
+                    color="accent" class="w-1/5">Edit Profile</button>
 
             <app-follow class="{{theme}}" viewTemplate="iconView"
                         [followIdentity]="{
