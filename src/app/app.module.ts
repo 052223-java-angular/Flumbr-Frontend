@@ -25,8 +25,9 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { DeletePostComponent } from './components/posts/delete-post/delete-post.component';
 
-//import { NotificationComponent } from './components/notification/notification.component';
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotfoundComponent } from './pages/notfound/notfound.component';
@@ -44,8 +45,7 @@ import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
-import {SearchService} from './services/search/search.service';
-
+import { SearchService } from './services/search/search.service';
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
@@ -53,13 +53,18 @@ import { PostListComponent } from './components/posts/post-list/post-list.compon
 import { TrendingPostsComponent } from './components/posts/trending-posts/trending-posts.component';
 import { FeedPostsComponent } from './components/posts/feed-posts/feed-posts.component';
 import { FollowingPostsComponent } from './components/posts/following-posts/following-posts.component';
+import { ReportComponent } from './components/report/report.component';
 
 import { ResetPasswordComponent } from './pages/verify-account/reset-password/reset-password.component';
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { GifComponent } from './components/gif/gif.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [
@@ -89,6 +94,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
     SettingsComponent,
     GifComponent,
     SearchPageComponent,
+    ReportComponent,
+    DeletePostComponent,
   ],
   imports: [
     BrowserModule,
@@ -116,6 +123,11 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
     MatTabsModule,
     PickerModule,
     MatDialogModule,
+    OverlayPanelModule,
+    InputTextareaModule,
+    MatToolbarModule,
+    ClipboardModule,
+    MatButtonToggleModule,
   ],
   providers: [
     RouteguardService,

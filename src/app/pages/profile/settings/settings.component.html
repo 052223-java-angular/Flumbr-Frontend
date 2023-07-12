@@ -1,77 +1,120 @@
 
 <div class="flex flex-col items-center pb-40  bg-gradient-to-r from-purple-500 to-blue-500 min-h-screen">
 
-  <button (click)="backClicked()" class="m-2 bg-amber-400 top-0 pt-10 pl-10 px-5 py-3 shadow rounded-md ">Go Back</button>
+  <button type="button" (click)="backClicked()" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 mt-4 dark:focus:ring-yellow-900">Go Back</button>
 
     <div class="flex space-x-16">
 
-      <div class="bg-white flex flex-col gap-7 p-10 shadow-2xl rounded-lg  mt-20 w-1/3">
-        <p>Change Profile Image</p>
+      <div class="bg-white flex flex-col gap-7 p-7 shadow-2xl rounded-lg mt-10">
+        <h1 class="text-slate-500 text-lg">Change Profile Image</h1>
 
         <div class="w-full h-96">
           <img mat-card-image src="{{profile.profile_img}}" class="p-11 w-full h-full object-cover">
         </div>
 
-        <div *ngIf="!isImage" >
-          <ngx-dropzone (change)="onSetImage($event)" [multiple]=false>
-            <ngx-dropzone-label>Drag and drop image or<span class="border-2 rounded-full p-2">Upload</span></ngx-dropzone-label>
-            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-            </ngx-dropzone-preview>
-          </ngx-dropzone>
-        </div>
+        <form
+          class=" w-full"
+          (ngSubmit)="uploadImage()"
+          [formGroup]="imageForm">
 
-        <div
-          class="w-screen lg:w-1/2"
-          *ngIf="isImage && modifyBio">
-          <h3 class="font-bold">Preview:</h3>
-          <ng-container *ngIf="isImage">
-            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
-              <ngx-dropzone-label></ngx-dropzone-label>
-            </ngx-dropzone-image-preview>
-          </ng-container>
-        </div>
-
-      </div>
-
-
-
-
-      <div class="bg-white flex flex-col gap-7 p-10 shadow-2xl rounded-lg  mt-20  w-1/3">
-        <p>Change your `About Me`</p>
-        <p>{{profile.bio}}</p>
-
-        <!-- Form for submitting bio, only toggled when modify is set to true -->
-        <mat-card-header class="pb-5">
-          <mat-card class="w-full">
-            <form [formGroup]="changeBioForm" (submit)="submitForm( )">
-              <mat-form-field class="form-field flex">
-                <mat-label> {{profile.bio}} </mat-label>
-                <input matInput formControlName="bio">
-              </mat-form-field>
-              <button mat-raised-button color="accent" type="submit" class="w-full">Submit bio</button>
-            </form>
-          </mat-card>
-        </mat-card-header>
-      </div>
-
-      <div class="bg-white flex flex-col gap-7 p-10 shadow-2xl rounded-lg  mt-20  w-1/3">
-        <p>Change your theme</p>
-        <p>{{profile.themeName}}</p>
-
-        <div >
-          <!-- Button for user to start/stop modifying bio -->
-            <mat-form-field >
-              <mat-label>Select a theme</mat-label>
-              <mat-select>
-                <mat-option (click)="selectTheme('theme-one')" value="theme-one">Theme One</mat-option>
-                <mat-option (click)="selectTheme('theme-two')" value="theme-two">Theme Two</mat-option>
-                <mat-option (click)="selectTheme('theme-three')" value="theme-three">Theme Three</mat-option>
-                <mat-option (click)="selectTheme('theme-four')" value="theme-four">Theme Four</mat-option>
-                <mat-option (click)="selectTheme('theme-five') "value="theme-five">Theme Five</mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="media-drop w-full">
+            <ngx-dropzone
+              (change)="onSelectFile($event)"
+              [multiple]=false
+              [maxFileSize]=fileSizeLimit>
+              <ngx-dropzone-label>Drag and drop image or <span class="border-2 rounded-full p-2">Upload</span><br /><br />Only images supported</ngx-dropzone-label>
+              <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+              </ngx-dropzone-preview>
+            </ngx-dropzone>
           </div>
+
+          <input
+            hidden="true"
+            formControlName="file">
+
+
+          <div
+            class="w-full"
+            *ngIf="isImage && modifyBio">
+            <h3 class="font-bold">Preview:</h3>
+            <ng-container *ngIf="isImage">
+              <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+                <ngx-dropzone-label></ngx-dropzone-label>
+              </ngx-dropzone-image-preview>
+            </ng-container>
+          </div>
+
+          <div class="flex mt-8">
+            <button
+              class="ml-auto mr-auto w-screen lg:w-1/2"
+              mat-flat-button color="primary"
+              (submit)="uploadImage()"
+              [disabled]="!imageForm.valid">Post</button>
+          </div>
+        </form>
+
+      </div>
+
+      <div class="flex flex-col mt-10">
+        <div class="bg-white flex flex-col gap-7 p-7 shadow-2xl rounded-lg">
+          <h1 class="text-slate-500 text-lg">Change your About Me</h1>
+          <p *ngIf="profile && profile.bio">{{profile.bio}}</p>
+  
+          <!-- Form for submitting bio, only toggled when modify is set to true -->
+          <mat-card-header class="pb-5">
+            <mat-card class="w-full">
+              <form [formGroup]="changeBioForm" (submit)="submitForm( )">
+                <mat-form-field class="form-field flex">
+                  <mat-label> {{profile.bio}} </mat-label>
+                  <input matInput formControlName="bio">
+                </mat-form-field>
+                <button mat-raised-button color="accent" type="submit" class="w-full">Submit bio</button>
+              </form>
+            </mat-card>
+          </mat-card-header>
+        </div>
+  
+        <div class="bg-white flex flex-col gap-7 p-7 shadow-2xl rounded-lg mt-4">
+          <h1 class="text-slate-500 text-lg">Change your theme</h1>
+          <p class="text-slate-500">{{profile.themeName}}</p>
+
+          <div >
+            <!-- Button for user to start/stop modifying bio -->
+              <mat-form-field class="text-slate-500">
+                <mat-label>Select a theme</mat-label>
+                <mat-select>
+                  <mat-option (click)="selectTheme('theme-one')" value="theme-one">Theme One</mat-option>
+                  <mat-option (click)="selectTheme('theme-two')" value="theme-two">Theme Two</mat-option>
+                  <mat-option (click)="selectTheme('theme-three')" value="theme-three">Theme Three</mat-option>
+                  <mat-option (click)="selectTheme('theme-four')" value="theme-four">Theme Four</mat-option>
+                  <mat-option (click)="selectTheme('theme-five') "value="theme-five">Theme Five</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+        </div>
+
+        <div class="bg-white flex flex-col gap-7 p-7 shadow-2xl rounded-lg mt-4">
+          <form [formGroup]="tagsForm" class="flex flex-col">
+            <mat-form-field class="form-field">
+              <mat-label>Profile interests</mat-label>
+              <mat-chip-grid #chipGrid aria-label="Enter interests" formControlName="tags">
+                <mat-chip-row 
+                  *ngFor="let tag of tags"
+                  (removed)="removeTag(tag)"
+                  [style.background-color]="'#ff3f80'">
+                  {{tag.name}}
+                  <button matChipRemove aria-label="'remove ' + keyword">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              </mat-chip-grid>
+              <input placeholder="New interest..."
+                      [matChipInputFor]="chipGrid"
+                      (matChipInputTokenEnd)="addTag($event)"/>
+            </mat-form-field>
+          </form>
+        </div>
       </div>
 
     </div>

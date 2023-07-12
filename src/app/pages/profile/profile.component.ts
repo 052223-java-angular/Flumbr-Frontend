@@ -54,10 +54,12 @@ export class ProfileComponent {
   // Retrieve profile information of user
   ngOnInit () {
     this.user_id = this.route.snapshot.params['userId']
+
     this.sessionId = this.tokenService.getUser().id
-    this.username = this.tokenService.getUser().username;
-    console.log(this.username);
-    this.profileService.getUser(this.sessionId).subscribe( {
+
+    console.log("Profile of user with id: " + this.user_id);
+
+    this.profileService.getUser(this.user_id).subscribe( {
 
       next: (resp: any) => {
         this.profile = resp;
