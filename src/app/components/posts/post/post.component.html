@@ -83,7 +83,7 @@
       </ul>
     </mat-card-footer>
 
-    <!-- Actions (like, dislike, share post, and open chat) -->
+    <!-- Actions (like, dislike, share post, bookmark and open chat) -->
     <mat-card-actions class="flex justify-between items-center">
 
       <div class="flex gap-4 items-center">
@@ -126,8 +126,11 @@
         </mat-menu>
 
         <!-- for chat / comments -->
-        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Comment" matTooltipClass="tooltip"
-          matTooltipPosition="above" (click)="toggleChat()">chat</mat-icon>
+        <div class="flex items-center gap-1" (click)="toggleChat()">
+          <mat-icon class="icon dark:text-whitesmoke scale-80" matTooltip="Comment" matTooltipClass="tooltip"
+            matTooltipPosition="above">chat</mat-icon>
+          <span class="text-xs font-medium" *ngIf="post.comments">{{commentCountToString(1654)}}</span>
+        </div>
       </div>
     </mat-card-actions>
 
