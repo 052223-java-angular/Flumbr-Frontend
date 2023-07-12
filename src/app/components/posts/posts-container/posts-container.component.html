@@ -1,33 +1,50 @@
 <mat-tab-group animationDuration="0ms" (selectedTabChange)="activateTab($event)">
-  <!-- Main feed -->
-  <mat-tab label="Feed">
-    <mat-divider class="mb-5"></mat-divider>
 
-    <!-- Feed posts component -->
-    <app-feed-posts *ngIf="activeTab == 'default'"></app-feed-posts>
-  </mat-tab>
+  <!-- Main page display -->
+  <div *ngIf="!userId">
+    <!-- Main feed -->
+    <mat-tab label="Feed">
+      <mat-divider class="mb-5"></mat-divider>
+      <app-feed-posts *ngIf="activeTab == 'default'"></app-feed-posts>
+    </mat-tab>
 
-  <!-- Following -->
-  <mat-tab label="Following">
-    <mat-divider class="mb-5"></mat-divider>
+    <!-- Following -->
+    <mat-tab label="Following">
+      <mat-divider class="mb-5"></mat-divider>
+      <app-following-posts *ngIf="activeTab == 'Following'"></app-following-posts>
+    </mat-tab>
 
-    <!-- Following posts component-->
-    <app-following-posts *ngIf="activeTab == 'Following'"></app-following-posts>
-  </mat-tab>
+    <!-- Trending -->
+    <mat-tab label="Trending">
+      <mat-divider class="mb-5"></mat-divider>
+      <app-trending-posts *ngIf="activeTab == 'Trending'"></app-trending-posts>
+    </mat-tab>
+  </div>
 
-  <!-- Trending -->
-  <mat-tab label="Trending">
-    <mat-divider class="mb-5"></mat-divider>
+  <!-- Profile page display (logged in user) -->
+  <div *ngIf="userId && userId == loggedInUserId">
+    <!-- User -->
+    <mat-tab label="Posts">
+      <mat-divider class="mb-5"></mat-divider>
+      <app-posts-by-user [userId]="userId" *ngIf="activeTab == 'default'"></app-posts-by-user>
+    </mat-tab>
 
-    <!-- Trending posts component -->
-    <app-trending-posts *ngIf="activeTab == 'Trending'"></app-trending-posts>
-  </mat-tab>
+    <!-- Following -->
+    <mat-tab label="Following">
+      <mat-divider class="mb-5"></mat-divider>
+      <app-following-posts *ngIf="activeTab == 'Following'"></app-following-posts>
+    </mat-tab>
 
-  <!-- User -->
-  <mat-tab label="User">
-    <mat-divider class="mb-5"></mat-divider>
+    <!-- Bookmarked **TODO** -->
+  </div>
 
-    <!-- User posts component -->
-    <app-trending-posts *ngIf="activeTab == 'User'"></app-trending-posts>
-  </mat-tab>
+  <!-- Profile page display (other users) -->
+  <div *ngIf="userId && userId != loggedInUserId">
+    <!-- User -->
+    <mat-tab label="Posts">
+      <mat-divider class="mb-5"></mat-divider>
+      <app-posts-by-user [userId]="userId" *ngIf="activeTab == 'default'"></app-posts-by-user>
+    </mat-tab>
+  </div>
+
 </mat-tab-group>
