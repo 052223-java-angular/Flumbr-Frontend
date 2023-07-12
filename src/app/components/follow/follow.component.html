@@ -1,14 +1,14 @@
-<div *ngIf="isFollowingUsernames">
+<ng-container *ngIf="isFollowingUsernames">
   <!-- this is for displaying the follow action buttons in text view -->
   <ng-container *ngIf="viewTemplate == 'textView' && !isLoggedInOwner(followIdentity)">
     <!-- {{isFollowingUsernames | json}} -->
-    <button mat-menu-item *ngIf="!isFollowing(followIdentity); else unfollow" (click)="followHandler(followIdentity)">
-      <span class="font-medium text-slate-950 dark:text-whitesmoke">Follow</span>
+    <button mat-menu-item class="border min-h-[32px]" *ngIf="!isFollowing(followIdentity); else unfollow" (click)="followHandler(followIdentity)">
+      <span class="text-xs text-slate-950 dark:text-whitesmoke">Follow</span>
     </button>
 
     <ng-template #unfollow>
-      <button mat-menu-item (click)="followHandler(followIdentity)">
-        <span class="font-medium text-slate-950 dark:text-whitesmoke">Unfollow</span>
+      <button mat-menu-item  class="border min-h-[32px]"(click)="followHandler(followIdentity)">
+        <span class="text-xs text-slate-950 dark:text-whitesmoke">Unfollow</span>
       </button>
     </ng-template>
 
@@ -34,4 +34,4 @@
     <p>{{errorMessage | titlecase }}</p>
   </div>
 
-</div>
+</ng-container>

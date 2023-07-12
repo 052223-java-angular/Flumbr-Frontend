@@ -1,4 +1,9 @@
 
 <ng-container *ngIf="post$ | async as post">
-  <app-post [post]="post"></app-post>
+  <div class="w-[60%] mx-auto pt-3">
+    <!-- {{post | json }} -->
+    <app-post 
+      [post]="post" 
+      [isChatOpen]="true"></app-post>
+  </div>
 </ng-container>
