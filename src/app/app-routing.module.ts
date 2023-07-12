@@ -14,6 +14,8 @@ import { ResetPasswordComponent } from './pages/verify-account/reset-password/re
 import { NewPasswordComponent } from './pages/verify-account/new-password/new-password.component';
 import { SettingsComponent } from './pages/profile/settings/settings.component';
 
+import { SearchPageComponent } from './pages/search-page/search-page.component';
+
 const routes: Routes = [
   { path: '', component: HomeComponent }, // Route for the home page
   { path: 'register', component: RegisterComponent }, // Route for the register page
@@ -35,11 +37,15 @@ const routes: Routes = [
     canActivate: [RouteguardService],
   },
 
+  { path: 'search', component: SearchPageComponent },
+
   {
     path: 'posts',
     component: ViewPostsComponent,
   },
   { path: '**', component: NotfoundComponent },
+
+
 ];
 
 @NgModule({

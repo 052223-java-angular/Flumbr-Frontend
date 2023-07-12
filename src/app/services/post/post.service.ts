@@ -100,9 +100,12 @@ export class PostService {
     let url: string = environment.apiBaseUrl + '/posts/tag/{{pagenum}}';
     let tagString: string = '';
 
-    for (let tag of tags) {
-      tagString += tag.name;
-      tagString += ', ';
+    for (let i = 0; i < tags.length; i++) {
+      tagString += tags[i].name;
+      
+      if (i !== tags.length - 1) {
+        tagString += ', ';
+      }
     }
 
     let params = new HttpParams();
@@ -110,6 +113,23 @@ export class PostService {
     params = params.append('tags', tagString);
 
     return this.http.get<Array<PostRes>>(url, { params: params });
+  }
+
+  getPostsByTag(tags: string[], pageNum: number): Observable<Array<PostRes>> {
+    
+    let tagString: string = '';
+
+    for (let tag of tags) {
+      tagString += tag;
+      tagString += ',';
+    }
+    console.log("tagSTring is " + tagString );
+
+    let params = new HttpParams();
+
+    params = params.append('tags', tagString);
+
+    return this.http.get<Array<PostRes>>(`${this.baseUrl}/posts/tag/${pageNum}`, { params: params });
   }
 
   getPostById(postId: string): Observable<PostRes> {

@@ -44,6 +44,8 @@ import { ToastModule } from 'primeng/toast';
 import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
+import {SearchService} from './services/search/search.service';
+
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { ViewPostsComponent } from './pages/view-posts/view-posts.component';
@@ -57,6 +59,7 @@ import { NewPasswordComponent } from './pages/verify-account/new-password/new-pa
 import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { GifComponent } from './components/gif/gif.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { SearchPageComponent } from './pages/search-page/search-page.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +88,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
     NewPasswordComponent,
     SettingsComponent,
     GifComponent,
+    SearchPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,6 +126,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
       multi: true,
     },
     MessageService,
+    SearchService,
     NgEventBus,
   ],
   bootstrap: [AppComponent],
