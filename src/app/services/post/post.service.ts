@@ -159,7 +159,7 @@ export class PostService {
   }
 
   removeBookmark(payload: RemoveBookmark): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/bookmark/removeBookmark`);
+    return this.http.delete<any>(`${this.baseUrl}/bookmark/removeBookmark`, {body: payload});
   }
 
   updatePost(id: string, formData: FormData) {

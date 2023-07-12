@@ -87,9 +87,13 @@
 
         <!-- for bookmark post  -->
         <mat-icon class="icon" matTooltip="Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
-          *ngIf="!bookmarked" (click)="bookmarkPost(post.id)">bookmark_border</mat-icon>
-        <mat-icon class="icon" matTooltip="Remve Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
-          *ngIf="bookmarked ">bookmark</mat-icon>
+                  [ngClass]="{'disabled': loading}"
+                  *ngIf="!bookmarked" (click)="bookmarkPost(post.id)">bookmark_border</mat-icon>
+
+
+        <mat-icon class="icon" matTooltip="Remove Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
+                  [ngClass]="{'disabled': loading}"
+                  *ngIf="bookmarked" (click)="removeBookmark(post.id)">bookmark</mat-icon>
 
         <!-- for share post link -->
         <button mat-button [matMenuTriggerFor]="sharePostMenu" matTooltipPosition="below" matTooltip="Share"
