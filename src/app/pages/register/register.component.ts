@@ -85,7 +85,7 @@ export class RegisterComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'Registration successful, Check your email ',
+            detail: 'Registration successful, Check your email',
             life: AppSettings.DEFAULT_MESSAGE_LIFE,
           });
           this.router.navigate(['/login']);
