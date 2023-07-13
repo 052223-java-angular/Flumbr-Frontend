@@ -1,15 +1,14 @@
 <div id="{{theme}}" class="{{theme}} flex flex-col items-center">
 
-  <div *ngIf="profile" class="flex m-20">
+  <div *ngIf="profile" class="flex m-20 w-4/5">
 
     <div class="flex flex-wrap-reverse">
 
-      <div class="w-500px dark:text-black">
+      <div class="sm:w-full lg:w-3/5 dark:text-black">
         <app-posts-container [userId]="user_id"></app-posts-container>
       </div>
 
-      <div>
-        <div class="sticky top-0 z-49 shadow-2xl rounded-lg">
+        <div class="sticky z-49 rounded-lg sm:w-full lg:w-2/5">
           <div class=" p-5 shadow-2xl space-y-5 justify-between">
 
             <mat-card-header class="shadow-2xl rounded-lg">
@@ -70,6 +69,5 @@
 
       </div>
     </div>
-  </div>
 
 </div>

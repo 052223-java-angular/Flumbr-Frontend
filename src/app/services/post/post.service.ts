@@ -166,7 +166,9 @@ export class PostService {
   }
 
   createComment(commentPayload: NewCommentReq) {
-    return this.http.post(`${this.baseUrl}/posts/comment`, commentPayload);
+    return this.http.post(`${this.baseUrl}/posts/comment`, commentPayload, {
+      responseType: 'text',
+    });
   }
 
   reportPost(data: any) {
