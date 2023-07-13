@@ -241,7 +241,8 @@
                 <p class="m-0 font-semibold cursor-pointer" (click)="navigateToUser(comment.userId)">
                   {{comment.username}}
                 </p>
-                <span class="font-medium text-red-500 cursor-pointer" (click)="deleteComment()">delete</span>
+                <span class="font-medium text-red-500 cursor-pointer"
+                  (click)="deleteComment(comment.commentId)">delete</span>
               </div>
               <p class="m-0">{{comment.comment}}</p>
               <div class="rounded-md overflow-hidden">

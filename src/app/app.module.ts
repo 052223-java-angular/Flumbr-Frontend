@@ -80,6 +80,7 @@ import {
   CdkVirtualForOf,
   CdkVirtualScrollViewport,
 } from '@angular/cdk/scrolling';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 @NgModule({
   declarations: [
@@ -156,6 +157,7 @@ import {
     CdkFixedSizeVirtualScroll,
     CdkVirtualForOf,
     ScrollingModule,
+    ScrollTopModule,
   ],
   providers: [
     RouteguardService,

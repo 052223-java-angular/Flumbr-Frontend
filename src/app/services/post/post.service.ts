@@ -165,8 +165,12 @@ export class PostService {
     });
   }
 
-  createComment(commentPayload: NewCommentReq) {
+  createComment(commentPayload: NewCommentReq): Observable<any> {
     return this.http.post(`${this.baseUrl}/posts/comment`, commentPayload);
+  }
+
+  deleteComment(id: string) {
+    return this.http.delete(`${this.baseUrl}/posts/comments/${id}`);
   }
 
   reportPost(data: any) {
