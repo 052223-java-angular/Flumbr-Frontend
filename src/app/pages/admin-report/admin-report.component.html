@@ -12,31 +12,31 @@
             <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-            <!-- Position Column -->
+            <!-- Report Id Column -->
             <ng-container matColumnDef="id">
-                <th mat-header-cell mat-sort-header *matHeaderCellDef> Id </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                <th mat-header-cell mat-sort-header *matHeaderCellDef> Report Id </th>
+                <td (click)="getPost(element.postId)" mat-cell *matCellDef="let element"> {{element.id}} </td>
             </ng-container>
 
-            <!-- Name Column -->
+            <!-- Created Column -->
             <ng-container matColumnDef="createTime">
                 <th mat-header-cell mat-sort-header *matHeaderCellDef> Created </th>
-                <td mat-cell *matCellDef="let element"> {{element.createTime}} </td>
+                <td mat-cell *matCellDef="let element"> {{element.createTime | date : 'medium'}} </td>
             </ng-container>
 
-            <!-- Weight Column -->
+            <!-- Reason Column -->
             <ng-container matColumnDef="reason">
                 <th mat-header-cell *matHeaderCellDef> Reason </th>
                 <td mat-cell *matCellDef="let element"> {{element.reason}} </td>
             </ng-container>
 
-            <!-- Symbol Column -->
+            <!-- Reported Column -->
             <ng-container matColumnDef="userId">
                 <th mat-header-cell mat-sort-header *matHeaderCellDef> Reporter </th>
                 <td mat-cell *matCellDef="let element"> {{element.userId}} </td>
             </ng-container>
 
-            <!-- Symbol Column -->
+            <!-- delete Column -->
             <ng-container matColumnDef="delete">
                 <th mat-header-cell *matHeaderCellDef>Delete</th>
                 <td mat-cell *matCellDef="let element"> <button (click)="deletePost(element.postId)" mat-raised-button color="warn">Post</button> |
@@ -45,7 +45,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr (click)="getRow(row)" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-row  *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
         <mat-paginator [pageSizeOptions]="[5,10,20]" showFirstLastButtons="">

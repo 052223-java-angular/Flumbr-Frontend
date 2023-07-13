@@ -1,0 +1,37 @@
+
+<h1 mat-dialog-title>Reported Post: {{inputData.postId}}</h1>
+<div mat-dialog-content>
+
+    
+<div *ngIf="post">
+    <div class="flex items-center gap-2 sm:gap-4 cursor-pointer">
+        <div mat-card-avatar class="mb-0 ml-3 bg-cover w-8 h-8 sm:w-10 sm:h-10"
+          style="background-image: url({{post.profileImg}});"></div>
+        <mat-card-title class="text-sm sm:text-2xl">{{post.username}}</mat-card-title>
+      </div>
+
+    <div *ngIf="post.mediaType">
+        <img class="w-full" mat-card-image src="{{post.s3Url}}" *ngIf="post.mediaType.split('/')[0] == 'image'">
+        <video *ngIf="post.mediaType.split('/')[0] == 'video'" controls>
+          <source [src]="post.s3Url" type="video/mp4">
+          <source [src]="post.s3Url" type="video/ogg">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <mat-card-content>
+        <p class="!mt-3" *ngIf="post.message">
+          {{post.message}}
+        </p>
+
+     </mat-card-content>
+
+
+</div>
+
+</div>
+
+
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+</div>

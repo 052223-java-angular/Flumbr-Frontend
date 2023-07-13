@@ -3,8 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ReportService } from 'src/app/services/report.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
-import { Report } from 'src/app/models/report'; 
+import { Report } from 'src/app/models/report';
 import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupPostComponent } from 'src/app/components/popup-post/popup-post.component';
 
 @Component({
   selector: 'app-admin-report',
@@ -21,9 +23,9 @@ export class AdminReportComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private reportService: ReportService,
-              private tokenService: TokenService,
-              
-              ) {}
+    private tokenService: TokenService,
+    private dialog: MatDialog,
+  ) { }
 
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class AdminReportComponent implements OnInit {
   }
 
   getReports() {
-    this.reportService.getReports(1).subscribe(result =>{
+    this.reportService.getReports().subscribe(result => {
       this.reportdata = result;
 
       this.dataSource = new MatTableDataSource<Report>(this.reportdata)
@@ -40,23 +42,36 @@ export class AdminReportComponent implements OnInit {
     })
   }
 
-  filterChange(event:Event) {
-    const filvalue=(event.target as HTMLInputElement).value;
+  filterChange(event: Event) {
+    const filvalue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filvalue;
   }
 
-  getRow(row:any) {
-    console.log(row);
-  }
-
-  deletePost(postId: any) {
+  getPost(postId: string) {
     console.log(postId);
-    this.reportService.deletePost(postId);
+    var __popup = this.dialog.open(PopupPostComponent, {
+      width: '50%',
+      data: {
+        postId: postId,
+      }
+    });
+    __popup.afterClosed().subscribe(item => {
+      console.log(item);
+    })
   }
 
-  deleteReport(id: any) {
+  deletePost(postId: string) {
+    console.log(postId);
+    this.reportService.deletePost(postId).subscribe(item => {
+      console.log(item);
+    });
+  }
+
+  deleteReport(id: string) {
     console.log(id);
-    this.reportService.deleteReport(id);
+    this.reportService.deleteReport(id).subscribe(item => {
+      console.log(item);;
+    });
   }
 
 }

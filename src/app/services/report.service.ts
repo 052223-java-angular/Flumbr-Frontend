@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppSettings } from '../global/app-settings';
 import { Observable } from 'rxjs';
@@ -12,15 +12,21 @@ export class ReportService {
 
   constructor(private http: HttpClient) {}
 
-  getReports(page: number): Observable<Report> {
-    return this.http.get<any>(`${this.baseUrl}/reports/all/${page}`);
+  getReports(): Observable<Report> {
+    //delete the 1 when backend removes pages
+    return this.http.get<any>(`${this.baseUrl}/reports/all/1`);
   }
 
-  deletePost(postId: any) {
-    this.http.delete(`${this.baseUrl}/posts/id/${postId}`);
+  deletePost(postId: string): Observable<HttpResponse<any>> {
+    console.log(postId);
+    return this.http.delete<HttpResponse<any>>(`${this.baseUrl}/posts/id/${postId}`);
   }
 
-  deleteReport(reportId: any) {
-    this.http.delete(`${this.baseUrl}/reports/${reportId}`);
+  deleteReport(reportId: string) : Observable<HttpResponse<any>> {
+    return this.http.delete<HttpResponse<any>>(`${this.baseUrl}/reports/${reportId}`);
+  }
+
+  getPost(postId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/posts/id/${postId}`);
   }
 }

@@ -80,6 +80,7 @@ import {
   CdkVirtualForOf,
   CdkVirtualScrollViewport,
 } from '@angular/cdk/scrolling';
+import { PopupPostComponent } from './components/popup-post/popup-post.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +117,7 @@ import {
     AdminReportComponent,
     PostsByUserComponent,
     UserRecommendationsComponent,
+    PopupPostComponent,
   ],
   imports: [
     BrowserModule,
