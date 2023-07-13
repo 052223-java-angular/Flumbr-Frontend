@@ -23,15 +23,10 @@ export class NotificationService {
     this.stateIsReload.next(isReloading)
   }
 
-  // notifies subscribers the message panel list is emoty
-  raiseMessagePanelIsEmpty(isEmpty: boolean) : void {
-    this.messagePanelIsEmpty.next(isEmpty);
-  }
-
   // fetch notifications
   httpFetch() : Observable<Notification[]> {
     return this.httpClient
-      .get<Notification[]>(`${this.baseUrl}/notifications/all/${(this.tokenService.getUser()).id}`);
+      .get<Notification[]>(`${this.baseUrl}/notifications/unread/${(this.tokenService.getUser()).id}`);
   }
 
   // fetch notification types

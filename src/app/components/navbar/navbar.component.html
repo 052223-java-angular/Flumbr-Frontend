@@ -1,13 +1,27 @@
-<mat-toolbar color="primary" class="mat-elevation-z12">
-  <a *ngIf="!isAuthenticated()" routerLink="/"><mat-icon>whatshot</mat-icon>Flumblr</a>
-  <a *ngIf="isAuthenticated()" routerLink="/posts"><mat-icon>whatshot</mat-icon>Flumblr</a>
+<mat-toolbar *ngIf="isAuthenticated()" color="primary" class="mat-elevation-z12">
+  <span routerLink="/posts" class="cursor-pointer"><mat-icon>whatshot</mat-icon>Flumblr</span>
+
   <div class="spacer"></div>
-  <app-theme-switcher></app-theme-switcher>
-  <div *ngIf="isAuthenticated()" class="cursor-pointer">
-    <a mat-button (click)="routeToProfile()">{{getUsername()}}</a>
-  </div>
-  <a *ngIf="isAuthenticated()" mat-button routerLink="/posts">Posts</a>
-  <a *ngIf="isAuthenticated()" mat-button routerLink="/notifications">Notifications</a>
-  <app-notification-panel class="pr-2" *ngIf="!notificationHasChanged && isAuthenticated()"></app-notification-panel>
-  <a (click)="logout()" *ngIf="isAuthenticated()" mat-raised-button color="warn" routerLink=" ">Logout</a>
+
+
+
+  <app-notification-panel class="pr-2" *ngIf="!notificationHasChanged"></app-notification-panel>
+
+
+  <button mat-button [matMenuTriggerFor]="user">
+    <div class="valign-center">
+      <span>{{userName}}</span>
+      <i class="material-icons">arrow_drop_down</i>
+    </div>
+  </button>
+
+  <mat-menu #user="matMenu" class="flex flex-col items-center">
+    <a mat-menu-item class="" routerLink="/profile/{{userId}}">Profile</a>
+    <a mat-menu-item class="" routerLink="/posts">Posts</a>
+    <a *ngIf="role==='ADMIN'" mat-menu-item class="" routerLink="/reports">Reports</a>
+    <span mat-menu-item class="items-center"><app-theme-switcher></app-theme-switcher></span>
+
+    <a (click)="logout()" *ngIf="isAuthenticated()" mat-menu-item class="" routerLink=" ">Logout</a>
+  </mat-menu>
+
 </mat-toolbar>

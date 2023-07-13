@@ -66,8 +66,17 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import {UserRecommendationsComponent} from "./components/recommendations/user-recommendations/user-recommendations.component";
-import {CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
+import { PostDetailComponent } from './pages/post-detail/post-detail.component';
+import { BookmarkedPostsComponent } from './components/posts/bookmarked-posts/bookmarked-posts.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AdminReportComponent } from './pages/admin-report/admin-report.component';
+import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-user.component';
+import { UserRecommendationsComponent } from './components/recommendations/user-recommendations/user-recommendations.component';
+import {
+  CdkFixedSizeVirtualScroll,
+  CdkVirtualForOf,
+  CdkVirtualScrollViewport,
+} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -98,7 +107,11 @@ import {CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport} fr
     GifComponent,
     SearchPageComponent,
     ReportComponent,
+    PostDetailComponent,
+    BookmarkedPostsComponent,
     DeletePostComponent,
+    AdminReportComponent,
+    PostsByUserComponent,
     UserRecommendationsComponent,
   ],
   imports: [
@@ -132,6 +145,7 @@ import {CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport} fr
     MatToolbarModule,
     ClipboardModule,
     MatButtonToggleModule,
+    InfiniteScrollModule,
     CdkVirtualScrollViewport,
     CdkFixedSizeVirtualScroll,
     CdkVirtualForOf,

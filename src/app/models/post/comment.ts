@@ -1,6 +1,7 @@
 import { UserVote } from './userVote';
 
 export interface Comment {
+  userId: string;
   username: string;
   profileImg?: string;
   comment?: string;
