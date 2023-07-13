@@ -16,6 +16,7 @@ import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { AdminReportComponent } from './pages/admin-report/admin-report.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // Route for the home page
@@ -30,6 +31,8 @@ const routes: Routes = [
     component: SettingsComponent,
     canActivate: [RouteguardService],
   },
+
+  { path: 'reports', component: AdminReportComponent, canActivate: [RouteguardService], },
 
   {
     // route to profile using userId, queries that user
