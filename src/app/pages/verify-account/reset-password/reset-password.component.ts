@@ -15,7 +15,7 @@ import { AppSettings } from 'src/app/global/app-settings';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent {
   resetPasswordForm!: FormGroup;
@@ -28,63 +28,52 @@ export class ResetPasswordComponent {
   ) {}
 
   ngOnInit(): void {
-    this.resetPasswordForm = this.fb.group(
-      {
-        email: ['', [Validators.required, Validators.email]]
-      }
-    );
+    this.resetPasswordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+    });
   }
 
   handleSubmit() {
     if (this.resetPasswordForm.valid) {
       // Handle form submission here
       console.log('Form submitted successfully');
-      
+
       // The payload to be sent to the backend API
-      const payload: ResetPasswordPayload  = {
-        email:
-          this.resetPasswordForm.controls['email'].value,
+      const payload: ResetPasswordPayload = {
+        email: this.resetPasswordForm.controls['email'].value,
       };
 
-        // Call the authentication service to register the user
-        this.authService.resetPassword(payload).subscribe({
-          next: (/* value */) => {
-            console.log("Success go and check your email ");
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Instrctions sent to your email successfully',
-              life: AppSettings.DEFAULT_MESSAGE_LIFE,
-            });
-            this.router.navigate(['/login']);
-          },
-          error: (error) => {
-            console.log("Error in resetPass " + error.message );
-            // this.messageService.add({
-            //   severity: 'error',
-            //   summary: 'Error',
-            //   detail: error.error.message,
-            //   life: AppSettings.DEFAULT_MESSAGE_LIFE,
-            // });
-          },
-        });
-        return true;
-      } else {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Registration form is invalid!',
-          life: AppSettings.DEFAULT_MESSAGE_LIFE,
-        });
-        return false;
-      }
+      // Call the authentication service to register the user
+      this.authService.resetPassword(payload).subscribe({
+        next: (/* value */) => {
+          console.log('Success go and check your email ');
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Instructions sent to your email successfully!',
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          console.log('Error in resetPass ' + error.message);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.message,
+            life: AppSettings.DEFAULT_MESSAGE_LIFE,
+          });
+        },
+      });
+      return true;
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Registration form is invalid!',
+        life: AppSettings.DEFAULT_MESSAGE_LIFE,
+      });
+      return false;
     }
-
-     
+  }
 }
-
-
-
-
-
-

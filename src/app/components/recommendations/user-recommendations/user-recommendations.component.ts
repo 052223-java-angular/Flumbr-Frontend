@@ -1,71 +1,111 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FollowService } from '../../../services/follow/follow.service';
+import { ProfileService } from '../../../services/profile-service';
+import { TokenService } from '../../../services/tokenservice.service';
+import { Observable, Subscription } from 'rxjs';
+import { PotentialFollowRequestPayload } from '../../../models/potential-follow-request-payload';
+import { AppSettings } from '../../../global/app-settings';
+import { MessageService } from 'primeng/api';
+import { NgEventBus } from 'ng-event-bus';
+import { EventBusEvents } from 'src/app/global/event-bus-events';
 
 @Component({
   selector: 'app-user-recommendations',
   templateUrl: './user-recommendations.component.html',
   styleUrls: ['./user-recommendations.component.scss'],
 })
-export class UserRecommendationsComponent {
-  users = [
-    {
-      id: 'tom-myspace',
-      username: 'MySpace Tom',
-      profile: {
-        profile_img:
-          'https://i.insider.com/4efd9b8b69bedd682c000022?width=1300&format=jpeg&auto=webp',
-        bio: "Hi, I'm Tom!",
-        theme: '',
+export class UserRecommendationsComponent implements OnInit {
+  users: any = [];
+  tags: any = [];
+  sessionId: any;
+  followSub: Subscription;
+
+  constructor(
+    private followService: FollowService,
+    private profileService: ProfileService,
+    private tokenService: TokenService,
+    private messageService: MessageService,
+    private eventBus: NgEventBus
+  ) {
+    this.followSub = this.eventBus
+      .on(`${EventBusEvents.FOLLOW}*`)
+      .subscribe(() => {
+        const tagNames: string[] = this.tags.map((tag: any) => tag.name);
+        this.getRecommendedFollowers(tagNames);
+      });
+  }
+
+  ngOnInit(): void {
+    try {
+      this.sessionId = this.tokenService.getUser().id;
+      this.profileService.getUser(this.sessionId).subscribe((data: any) => {
+        console.log(data.profileId);
+        const profile_id = data.profileId;
+        console.log(profile_id);
+        this.getUserTags(profile_id);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }
+
+  getUserTags(profile_id: any): void {
+    this.profileService.getUserTags(profile_id).subscribe({
+      next: (data: any) => {
+        console.log(data.tags);
+        this.tags = data.tags;
+        const tagNames: string[] = this.tags.map((tag: any) => tag.name);
+        this.getRecommendedFollowers(tagNames);
       },
-    },
-    {
-      id: 'squidward',
-      username: 'Squidward',
-      profile: {
-        profile_img:
-          'https://static.wikia.nocookie.net/76b2e582-cb23-47eb-980f-46be017c86bc/scale-to-width/370',
-        bio: 'I order the food, you cook the food, the customer gets the food.',
-        theme: '',
+      error: (error: any) => {
+        console.error('Error:', error);
       },
-    },
-    {
-      id: 'gigachad',
-      username: 'Gigachad',
-      profile: {
-        profile_img:
-          'https://i.kym-cdn.com/entries/icons/original/000/026/152/gigachadd.jpg',
-        bio: 'Average enjoyer',
-        theme: '',
+    });
+  }
+
+  async getRecommendedFollowers(tagNames: string[]) {
+    const payload: PotentialFollowRequestPayload = {
+      tagList: tagNames,
+      userId: this.tokenService.getUser().id,
+      username: this.tokenService.getUser().username,
+    };
+
+    this.followService.potentialFollowers(payload).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.followService.getFollowing().subscribe({
+          next: (following) => {
+            const loggedInUsername = this.tokenService.getUser().username; // Replace with the logged-in username
+            const resultUsers: any[] = data.filter((user: any) => {
+              //exclude the user
+              if (user.username === loggedInUsername) {
+                return false;
+              }
+              // Exclude the users already being followed
+              return !following.includes(user.username);
+            });
+            this.users = resultUsers;
+            console.log(resultUsers);
+          },
+          error: (error) => {},
+        });
       },
-    },
-    {
-      id: 'tom-myspace',
-      username: 'MySpace Tom',
-      profile: {
-        profile_img:
-          'https://i.insider.com/4efd9b8b69bedd682c000022?width=1300&format=jpeg&auto=webp',
-        bio: "Hi, I'm Tom!",
-        theme: '',
+      error: (error: any) => {
+        console.error('Error:', error);
       },
-    },
-    {
-      id: 'squidward',
-      username: 'Squidward',
-      profile: {
-        profile_img:
-          'https://static.wikia.nocookie.net/76b2e582-cb23-47eb-980f-46be017c86bc/scale-to-width/370',
-        bio: 'I order the food, you cook the food, the customer gets the food.',
-        theme: '',
-      },
-    },
-    {
-      id: 'gigachad',
-      username: 'Gigachad',
-      profile: {
-        profile_img:
-          'https://i.kym-cdn.com/entries/icons/original/000/026/152/gigachadd.jpg',
-        bio: 'Average enjoyer',
-        theme: '',
-      },
-    },
-  ];
+    });
+  }
+
+  followUser(username: string) {
+    this.followService.httpFollow(username).subscribe(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: `Successfully followed ${username}`,
+        life: AppSettings.DEFAULT_MESSAGE_LIFE,
+      });
+      const tagNames: string[] = this.tags.map((tag: any) => tag.name);
+      this.getRecommendedFollowers(tagNames);
+    });
+  }
 }
