@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from '../../services/tokenservice.service';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification/notification.service';
@@ -53,6 +52,16 @@ export class NavbarComponent implements OnInit {
 
   isAuthenticated() {
     return this.tokenService.isLoggedIn();
+  }
+
+  getUsername() {
+    return this.tokenService.getUser().username;
+  }
+
+  routeToProfile() {
+    let userId: string = this.tokenService.getUser().id;
+
+    this.router.navigate([`/profile/${userId}`]);
   }
 
   openPostDialog(): void {

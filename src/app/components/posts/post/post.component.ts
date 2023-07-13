@@ -41,6 +41,7 @@ export class PostComponent implements OnInit {
   thumbsDownEnabled: boolean = true;
 
   shareURL: string = '';
+  mentions: string[] = [];
 
   // variables used by bookmark
   sessionId!: string;
@@ -74,6 +75,8 @@ export class PostComponent implements OnInit {
     );
     const urlParts = location.href.split('/');
     this.shareURL = `${urlParts[0]}//${urlParts[2]}/posts/${this.post.id}`;
+    // this.shareURL = window.location.href + '/share/' + this.post.id;
+    this.fetchMentions();
   }
 
   // custom validator
@@ -397,5 +400,46 @@ export class PostComponent implements OnInit {
 
   canEditPost(post: PostRes): boolean {
     return this.tokenService.getUser().id === post.userId;
+  }
+
+  commentCountToString(count: number): string {
+    let numStr = count.toString();
+    console.log(numStr.substring(2, 1));
+
+    // 1 million comments
+    if (count >= 1000000) {
+      if (numStr.substring(1, 2) != '0') {
+        return numStr.substring(0, 1) + '.' + numStr.substring(1, 3) + 'm';
+      }
+      return numStr.substring(0, 1) + 'm';
+    }
+    // 100,000 comments
+    if (count >= 100000) {
+      if (numStr.substring(3, 4) != '0') {
+        return numStr.substring(0, 3) + '.' + numStr.substring(3, 4) + 'k';
+      }
+      return numStr.substring(0, 3) + 'k';
+    }
+    // 10,000 comments
+    if (count >= 10000) {
+      if (numStr.substring(2, 3) != '0') {
+        return numStr.substring(0, 2) + '.' + numStr.substring(2, 3) + 'k';
+      }
+      return numStr.slice(0, 2) + 'k';
+    }
+    // 1,000 comments
+    if (count >= 1000) {
+      return numStr.substring(0, 1) + ',' + numStr.substring(1);
+    }
+
+    return numStr;
+  }
+
+  fetchMentions() {
+    this.mentions = this.post.message
+      ? (this.post.message.match(/@[A-Za-z0-9._]+/gi)! || []).map((x) =>
+          x.slice(1)
+        )
+      : [];
   }
 }

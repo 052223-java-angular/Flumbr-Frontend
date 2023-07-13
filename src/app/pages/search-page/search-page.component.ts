@@ -25,22 +25,39 @@ export class SearchPageComponent implements OnInit{
      // Retrieve the search terms from the service in the OnInit hook
      this.searchTerms = this.searchService.getSearchTerms();
      // Use the search terms as needed
-     console.log("in sc " + this.searchTerms);
+     console.log("SearchStrings " + this.searchTerms);
+     let pageNum = 1; // Grabs the first 20 posts
 
-     // Call the post service
-     this.postService.getPostsByTag(this.searchTerms, 1).subscribe({
-      next: (value ) => {
-        //console.log("value from search " + value[0].id);
+     do {
+      this.postService.getPostsByTag(this.searchTerms, pageNum).subscribe({
+        next: (value) => {
+          this.posts = value;
+          const posts1 = value;
+          console.log("Number of results is " + this.posts.length);
+        },
+        error: (error) => {
+          console.log(error.message);
+        },
+      });
+      
+      pageNum++;
+    } while (this.posts.length > 20);
+
+    //  // Call the post service
+    //  this.postService.getPostsByTag(this.searchTerms, pageNum).subscribe({
+    //   next: (value ) => {
+    //     //console.log("value from search " + value[0].id);
        
-        this.posts = value;
-        const posts1 = value;
-        console.log("value from search " + this.posts[0].username);
-        console.log("num of results is " + this.posts.length);
-      },
-      error: (error) => {
-          
-      },
-    });
+    //     this.posts = value;
+    //     const posts1 = value;
+    //     //console.log("value from search " + this.posts[0].username);
+    //     console.log("num of results is " + this.posts.length);
+        
+    //   },
+    //   error: (error) => {
+    //       console.log(error.message);
+    //   },
+    // });
      
   }
 

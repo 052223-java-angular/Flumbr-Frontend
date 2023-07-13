@@ -1,9 +1,9 @@
-<mat-toolbar *ngIf="isAuthenticated()" color="primary" class="mat-elevation-z12">
-  <span><mat-icon>whatshot</mat-icon>Flumblr</span>
+<mat-toolbar *ngIf="isAuthenticated()" color="primary" class="mat-elevation-z22">
+  <span routerLink="/posts" class="cursor-pointer"><mat-icon>whatshot</mat-icon>Flumblr</span>
 
   <div class="spacer"></div>
 
-  
+
 
   <app-notification-panel class="pr-2" *ngIf="!notificationHasChanged"></app-notification-panel>
 

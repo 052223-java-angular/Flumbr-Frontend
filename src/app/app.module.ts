@@ -27,6 +27,9 @@ import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DeletePostComponent } from './components/posts/delete-post/delete-post.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -138,6 +141,9 @@ import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-
     ClipboardModule,
     MatButtonToggleModule,
     InfiniteScrollModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [
     RouteguardService,

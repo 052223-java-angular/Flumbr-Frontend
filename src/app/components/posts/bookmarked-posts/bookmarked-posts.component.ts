@@ -13,7 +13,9 @@ export class BookmarkedPostsComponent implements OnInit {
 
   constructor(private postService: PostService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getPosts();
+  }
 
   getPosts() {
     this.isLoading = true;
