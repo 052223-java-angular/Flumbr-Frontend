@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
+import { Subscription } from 'rxjs';
+import { NgEventBus } from 'ng-event-bus';
+import { EventBusEvents } from 'src/app/global/event-bus-events';
 
 @Component({
   selector: 'app-navbar',
@@ -14,21 +17,26 @@ export class NavbarComponent implements OnInit {
   userId!: string;
   userName!: string;
   role!: string;
+  loginSub: Subscription;
 
   constructor(
     private router: Router,
     private tokenService: TokenService,
     private notificationService: NotificationService,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private eventBus: NgEventBus
+  ) {
+    this.loginSub = this.eventBus
+      .on(`${EventBusEvents.LOGIN}*`)
+      .subscribe(() => {
+        this.updateLoggedInStatus();
+      });
+  }
 
   notificationHasChanged: boolean = false;
 
   ngOnInit(): void {
-    this.userId = this.tokenService.getUser().id;
-    this.userName = this.tokenService.getUser().username;
-    this.role = this.tokenService.getUser().role;
-    console.log(this.role);
+    this.updateLoggedInStatus();
 
     this.notificationService.stateIsReload.subscribe((stateIsLoading) => {
       this.notificationHasChanged = stateIsLoading;
@@ -68,5 +76,9 @@ export class NavbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {});
   }
 
-
+  updateLoggedInStatus() {
+    this.userId = this.tokenService.getUser().id;
+    this.userName = this.tokenService.getUser().username;
+    this.role = this.tokenService.getUser().role;
+  }
 }
