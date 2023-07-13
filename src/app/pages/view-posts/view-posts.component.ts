@@ -45,7 +45,7 @@ export class ViewPostsComponent implements OnInit {
     } else {
       const tagArray = searchText.split(',');
       console.log('Array of tags is ' + tagArray); // Output: ["blank", "test"]
-      if (tagArray.length === 1) {
+      if (tagArray.length <= 1) {
         this.authService.getUserByUsername(searchText.trim()).subscribe({
           next: (resp: any) => {
             this.router.navigateByUrl(`/profile/${resp.id}`);
@@ -55,6 +55,9 @@ export class ViewPostsComponent implements OnInit {
             this.router.navigate(['/search']);
           },
         });
+      } else {
+        this.searchService.setSearchTerms(tagArray);
+        this.router.navigate(['/search']);
       }
     }
   }
