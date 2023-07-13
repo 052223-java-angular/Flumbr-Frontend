@@ -211,4 +211,16 @@ export class PostService {
   reportPost(data: any) {
     return this.http.post(`${this.baseUrl}/reports`, data);
   }
+
+  getPostsByUsername(username:string): Observable<Array<PostRes>>
+  {
+
+
+
+
+
+
+    
+      return this.http.get<Array<PostRes>>(`${environment.apiBaseUrl}/posts/user/name/${username}`);
+  }
 }
