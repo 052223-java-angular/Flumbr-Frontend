@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<div class="flex w-50% justify-center items-center pt-5 py-10" *ngIf="isLoading"><mat-spinner></mat-spinner>
-=======
 <div class="flex w-full h-full justify-center items-center" *ngIf="isLoading"><mat-spinner></mat-spinner>
->>>>>>> 94e147ceb0645238c77785c27e62e58131638b78
 </div>
 <div infiniteScroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle"
   [infiniteScrollContainer]="'body'" [fromRoot]="true" (scrolled)="onScroll()" *ngIf="!isLoading">
