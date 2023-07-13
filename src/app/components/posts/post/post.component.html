@@ -50,8 +50,8 @@
               </ng-container>
 
               <hr />
-              <button mat-menu-item class="min-h-[32px]">
-                <span (click)="reportPost(post.id)" class="text-xs text-red-600">Report</span>
+              <button mat-menu-item class="min-h-[32px]" (click)="reportPost(post.id)">
+                <span class="text-xs text-red-600">Report</span>
               </button>
             </div>
           </mat-menu>
@@ -132,7 +132,8 @@
         <div class="flex items-center gap-1" (click)="toggleChat()">
           <mat-icon class="icon dark:text-whitesmoke scale-75" matTooltip="Comment" matTooltipClass="tooltip"
             matTooltipPosition="above">chat</mat-icon>
-          <span class="text-xs font-medium" *ngIf="post.comments">{{commentCountToString(post.comments.length)}}</span>
+          <span class="text-xs font-medium"
+            *ngIf="post.comments && post.comments.length > 0">{{commentCountToString(post.comments.length)}}</span>
         </div>
       </div>
     </mat-card-actions>
