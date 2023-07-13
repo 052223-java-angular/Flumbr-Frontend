@@ -63,8 +63,8 @@
         <app-gif (gifChosenEvent)="addGif($event)" (closeGifComponentEvent)="toggleGifComponent()"></app-gif>
       </div>
 
-      <p-overlayPanel #op styleClass="[&_.p-overlaypanel-content]:p-0">
-        <emoji-mart title="Pick your emoji" set="facebook" [showPreview]="true" [emojiTooltip]="true"
+      <p-overlayPanel #op styleClass="[&_.p-overlaypanel-content]:p-0 bg-indigo-700">
+        <emoji-mart [darkMode]="isDarkModeActive()" title="Pick your emoji" set="facebook" [showPreview]="true" [emojiTooltip]="true"
           (emojiClick)="addEmoji($event.emoji.native)"></emoji-mart>
       </p-overlayPanel>
 
