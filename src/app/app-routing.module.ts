@@ -46,12 +46,11 @@ const routes: Routes = [
     canActivate: [RouteguardService],
   },
   {
-    path: "posts/:id",
-    component: PostDetailComponent
+    path: 'posts/:id',
+    component: PostDetailComponent,
+    canActivate: [RouteguardService],
   },
   { path: '**', component: NotfoundComponent },
-
-
 ];
 
 @NgModule({

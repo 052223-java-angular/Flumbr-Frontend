@@ -77,11 +77,11 @@
     <!-- Tags -->
     <mat-card-footer>
       <ul class="m-4 flex gap-2 flex-wrap">
-        <li class="cursor-pointer" *ngFor="let tag of post.tags" (click)="navigateToTag(tag.id)">
+        <li class="cursor-pointer" *ngFor="let tag of post.tags" (click)="navigateToSearch(tag.name)">
           #{{tag.name}}
         </li>
-        <li class="cursor-pointer" *ngFor="let mention of mentions" (click)="navigateToUser(mention)">
-          @{{mention}}
+        <li class="cursor-pointer" *ngFor="let mention of post.mentions" (click)="navigateToUser(mention.id)">
+          @{{mention.username}}
         </li>
       </ul>
     </mat-card-footer>
