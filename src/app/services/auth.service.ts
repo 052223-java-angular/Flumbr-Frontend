@@ -6,7 +6,7 @@ import { NewPasswordPayload } from '../models/new-password';
 import { ResetPasswordPayload } from '../models/reset-password';
 import { EMPTY, Observable } from 'rxjs';
 import { AppSettings } from '../global/app-settings';
-import {Auth} from "../models/auth/auth";
+import { Auth } from '../models/auth/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -40,5 +40,9 @@ export class AuthService {
   newPassword(payload: NewPasswordPayload): Observable<any> {
     //TODO: replace with api end point after backend implementation
     return this.http.put<any>(`${this.baseUrl}/auth/newpassword`, payload);
+  }
+
+  getUserByUsername(username: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/auth/user/${username}`);
   }
 }

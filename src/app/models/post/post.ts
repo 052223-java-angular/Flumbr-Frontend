@@ -4,6 +4,7 @@ import { UserVote } from './userVote';
 import { UserBookmark } from './userBookmark';
 import { Share } from './share';
 import { User } from './user';
+import { Mention } from './mention';
 
 export interface PostRes {
   id: string;
@@ -22,7 +23,7 @@ export interface PostRes {
   editTime?: string;
   comments?: Array<Comment>;
   tags?: Array<Tag>;
-  mentions?: Array<string>;
+  mentions?: Array<Mention>;
   shareCount: number;
   sharedBy?: Array<User>;
 

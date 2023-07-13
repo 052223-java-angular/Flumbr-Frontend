@@ -2,13 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PostService } from 'src/app/services/post/post.service';
-import { MessageService } from 'primeng/api';
-import { AppSettings } from 'src/app/global/app-settings';
-import { Router, NavigationExtras } from '@angular/router';
 import { PostRes } from 'src/app/models/post/post';
+import { AuthService } from 'src/app/services/auth.service';
 import { SearchService } from 'src/app/services/search/search.service';
-import { ProfileService } from 'src/app/services/profile-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-posts',
@@ -23,11 +20,9 @@ export class ViewPostsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private postService: PostService,
     private router: Router,
-    private messageService: MessageService,
     private searchService: SearchService,
-    private profileService: ProfileService
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -51,20 +46,16 @@ export class ViewPostsComponent implements OnInit {
       const tagArray = searchText.split(',');
       console.log('Array of tags is ' + tagArray); // Output: ["blank", "test"]
       if (tagArray.length === 1) {
-        this.profileService.getUserByUsername(searchText.trim()).subscribe({
+        this.authService.getUserByUsername(searchText.trim()).subscribe({
           next: (resp: any) => {
-            console.log(resp);
-            if (resp) {
-            } else {
-            }
+            this.router.navigateByUrl(`/profile/${resp.id}`);
           },
           error: (err) => {
-            /* ignore */
+            this.searchService.setSearchTerms(tagArray);
+            this.router.navigate(['/search']);
           },
         });
       }
-      // this.searchService.setSearchTerms(tagArray);
-      // this.router.navigate(['/search']);
     }
   }
 

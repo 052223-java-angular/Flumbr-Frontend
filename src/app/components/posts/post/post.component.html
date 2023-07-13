@@ -80,8 +80,8 @@
         <li class="cursor-pointer" *ngFor="let tag of post.tags" (click)="navigateToSearch(tag.name)">
           #{{tag.name}}
         </li>
-        <li class="cursor-pointer" *ngFor="let mention of post.mentions" (click)="navigateToUserByUsername(mention)">
-          @{{mention}}
+        <li class="cursor-pointer" *ngFor="let mention of post.mentions" (click)="navigateToUser(mention.id)">
+          @{{mention.username}}
         </li>
       </ul>
     </mat-card-footer>
