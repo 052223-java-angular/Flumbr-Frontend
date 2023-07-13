@@ -1,3 +1,7 @@
+:host {
+  @apply flex flex-col flex-grow;
+}
+
 ::ng-deep mat-tab-header.mat-mdc-tab-header {
   @apply sticky top-0 z-40 bg-purple-600 rounded-sm;
 }
@@ -15,4 +19,12 @@
   --mat-tab-header-active-hover-label-text-color: rgb(155, 243, 123);
   --mat-tab-header-active-focus-indicator-color: rgb(155, 243, 123);
   --mat-tab-header-active-hover-indicator-color: rgb(155, 243, 123);
+}
+
+::ng-deep .mat-mdc-tab-body-wrapper {
+  @apply flex-grow;
+}
+
+::ng-deep .mat-mdc-tab-body-content {
+  @apply flex flex-col;
 }

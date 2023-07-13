@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {ProfilePayload} from "../../models/profile/profile-payload";
 import {TagPayload} from "../../models/tag-payload";
 import {ProfileService} from "../../services/profile-service";
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {BioPayload} from "../../models/profile/bio-payload";
 import {PostService} from "../../services/post/post.service";
 import {PostRes} from "../../models/post/post";
@@ -24,6 +24,7 @@ export class ProfileComponent {
   theme: string = "default";
   username!: string;
 
+
   //utilize file upload service
   files: File[] = [];
   isImage: boolean = false;
@@ -39,11 +40,13 @@ export class ProfileComponent {
   })
 
   tags: TagPayload[] = [];
+  tagsForm!: FormGroup;
 
   constructor(private profileService: ProfileService,
               private postService: PostService,
               private route: ActivatedRoute,
-              private tokenService: TokenService
+              private tokenService: TokenService,
+              private fb: FormBuilder
               ) {
 
     // this.user_id = this.route.snapshot.params['userId']
@@ -53,11 +56,13 @@ export class ProfileComponent {
 
   // Retrieve profile information of user
   ngOnInit () {
-    this.user_id = this.route.snapshot.params['userId']
+    this.user_id = this.route.snapshot.params['userId'] // Id of the user from profile
+    this.sessionId = this.tokenService.getUser().id //id from the logged in user/client
 
-    this.sessionId = this.tokenService.getUser().id
-
-    console.log("Profile of user with id: " + this.user_id);
+    // store users tags if exists
+    this.tagsForm = this.fb.group({
+      tags: [[]],
+    });
 
     this.profileService.getUser(this.user_id).subscribe( {
 
@@ -65,12 +70,35 @@ export class ProfileComponent {
         this.profile = resp;
         this.theme = this.profile.themeName;
         console.log(this.profile);
+
+        this.loadProfileTags();
       },
       error: (err) => {
         console.error("Issue with retrieving profile details.");
         console.log("Error retrieving user with id: "  + this.user_id + " : " + err);
       }
-    })
+    });
+
+
+  }
+
+  loadProfileTags() {
+    console.log('profile id is: ' + this.profile.profileId)
+    this.profileService.getTags(this.profile.profileId).subscribe({
+      next: (data: any) => {
+        this.tags = data.tags;
+        console.log('Returned tags are: '+data.tags);
+        this.tagsForm.patchValue({
+          tags: this.tags,
+        });
+
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+
+    console.log(this.tags)
   }
 
   // boolean toggle for modifying biography
