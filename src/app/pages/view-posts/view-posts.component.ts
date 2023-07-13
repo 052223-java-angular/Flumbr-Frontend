@@ -55,8 +55,6 @@ export class ViewPostsComponent implements OnInit {
       }
     } 
   
-    
-
   openPostDialog(): void {
     const dialogRef = this.dialog.open(CreatePostComponent, {
       width: '600px',
