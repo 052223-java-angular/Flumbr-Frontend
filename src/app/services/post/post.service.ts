@@ -107,8 +107,7 @@ export class PostService {
   }
 
   getBookmarkedPosts(): Observable<Array<PostRes>> {
-    // need to implement
-    return this.http.get<any>(`${this.baseUrl}/posts/feed/${1}`);
+    return this.http.get<any>(`${this.baseUrl}/posts/bookmarked`);
   }
 
   deletePost(postId: string) {
