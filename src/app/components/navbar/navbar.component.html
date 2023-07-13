@@ -10,16 +10,18 @@
 
   <button mat-button [matMenuTriggerFor]="user">
     <div class="valign-center">
-      <span>{{userName}}</span>
+      <div mat-card-avatar class="bg-cover" style="background-image: url({{profile.profileImg}});"></div>
+          <mat-card-title>{{userName}}</mat-card-title>
+      <!-- <span style="background-image: url({{profile.profileImg}});">{{userName}}</span> -->
       <i class="material-icons">arrow_drop_down</i>
     </div>
   </button>
 
   <mat-menu #user="matMenu" class="flex flex-col items-center">
-    <a mat-menu-item class="" routerLink="/profile">Profile</a>
+    <a mat-menu-item class="" routerLink="/profile/{{userId}}">Profile</a>
     <a mat-menu-item class="" routerLink="/posts">Posts</a>
     <a *ngIf="role==='ADMIN'" mat-menu-item class="" routerLink="/reports">Reports</a>
-    <span mat-menu-item class="items-center">Light/Dark Mode: <app-theme-switcher></app-theme-switcher></span>
+    <span mat-menu-item class="items-center">Light/Dark: <app-theme-switcher></app-theme-switcher></span>
 
     <a (click)="logout()" *ngIf="isAuthenticated()" mat-menu-item class="" routerLink=" ">Logout</a>
   </mat-menu>

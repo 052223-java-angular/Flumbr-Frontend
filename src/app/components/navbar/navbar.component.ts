@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
+import { ProfileService } from 'src/app/services/profile-service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,12 +16,14 @@ export class NavbarComponent implements OnInit {
   userId!: string;
   userName!: string;
   role!: string;
+  profile!: any;
 
   constructor(
     private router: Router,
     private tokenService: TokenService,
     private notificationService: NotificationService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private profileService: ProfileService,
   ) {}
 
   notificationHasChanged: boolean = false;
@@ -30,6 +33,8 @@ export class NavbarComponent implements OnInit {
     this.userName = this.tokenService.getUser().username;
     this.role = this.tokenService.getUser().role;
     console.log(this.role);
+
+    this.profile = this.profileService.getUser(this.userId);
 
     this.notificationService.stateIsReload.subscribe((stateIsLoading) => {
       this.notificationHasChanged = stateIsLoading;
