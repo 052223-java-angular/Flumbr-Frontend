@@ -25,6 +25,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DeletePostComponent } from './components/posts/delete-post/delete-post.component';
 
@@ -70,6 +71,12 @@ import { BookmarkedPostsComponent } from './components/posts/bookmarked-posts/bo
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AdminReportComponent } from './pages/admin-report/admin-report.component';
 import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-user.component';
+import { UserRecommendationsComponent } from './components/recommendations/user-recommendations/user-recommendations.component';
+import {
+  CdkFixedSizeVirtualScroll,
+  CdkVirtualForOf,
+  CdkVirtualScrollViewport,
+} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -105,6 +112,7 @@ import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-
     DeletePostComponent,
     AdminReportComponent,
     PostsByUserComponent,
+    UserRecommendationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -138,6 +146,10 @@ import { PostsByUserComponent } from './components/posts/posts-by-user/posts-by-
     ClipboardModule,
     MatButtonToggleModule,
     InfiniteScrollModule,
+    CdkVirtualScrollViewport,
+    CdkFixedSizeVirtualScroll,
+    CdkVirtualForOf,
+    ScrollingModule,
   ],
   providers: [
     RouteguardService,

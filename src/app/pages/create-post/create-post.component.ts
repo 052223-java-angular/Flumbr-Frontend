@@ -26,6 +26,7 @@ export class CreatePostComponent implements OnInit {
   tags: string[] | null = [];
   mentions: string[] | null = [];
   editPost: PostRes | null = null;
+  isGifComponentOpen: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<CreatePostComponent>,
@@ -252,5 +253,27 @@ export class CreatePostComponent implements OnInit {
   async fetchBlob(url: string) {
     const response = await fetch(url);
     return response.blob();
+  }
+
+  addEmoji(emoji: string) {
+    const control = this.postForm.controls['message'];
+    control.setValue((control.value ? control.value : '') + emoji);
+  }
+
+  toggleGifComponent() {
+    this.isGifComponentOpen = !this.isGifComponentOpen;
+  }
+
+  async addGif(gifChosen: string) {
+    const media = await this.fetchBlob(gifChosen);
+    const file = new File([media], 'file', {
+      type: 'image/gif',
+    });
+    this.postForm.patchValue({
+      file: file,
+    });
+    this.files = [file];
+    this.setImageAndVideoFlags();
+    this.toggleGifComponent();
   }
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ProfilePayload } from '../models/profile/profile-payload';
-import { TagPayload } from '../models/tag-payload';
 import { AppSettings } from '../global/app-settings';
 import { BioPayload } from '../models/profile/bio-payload';
 import { ThemePayload } from '../models/profile/theme-payload';
@@ -115,5 +114,8 @@ export class ProfileService {
       body: payload,
     };
     return this.http.delete<any>(`${this.baseUrl}/profile/tags`, options);
+  }
+  getUserTags(profile_id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/profile/tags/${profile_id}`);
   }
 }

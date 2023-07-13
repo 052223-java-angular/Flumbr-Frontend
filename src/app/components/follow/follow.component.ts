@@ -1,5 +1,7 @@
 import { HttpResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { NgEventBus } from 'ng-event-bus';
+import { EventBusEvents } from 'src/app/global/event-bus-events';
 import { FollowService } from 'src/app/services/follow/follow.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 
@@ -23,7 +25,8 @@ type FollowSubject = {
 export class FollowComponent implements OnInit {
   constructor(
     private followService: FollowService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private eventBus: NgEventBus
   ) {}
 
   // assign the view type to display
@@ -83,6 +86,7 @@ export class FollowComponent implements OnInit {
           // console.log("following ...")
           // add the username to the list of followers
           this.isFollowingUsernames.push(followSubject.ownerUsername);
+          this.eventBus.cast(EventBusEvents.FOLLOW_FOLLOW, '');
         },
         error: (err) => {
           this.errorMessage = err.error.message;
@@ -101,6 +105,7 @@ export class FollowComponent implements OnInit {
             this.isFollowingUsernames.indexOf(followSubject.ownerUsername),
             1
           );
+          this.eventBus.cast(EventBusEvents.FOLLOW_UNFOLLOW, '');
         },
         error: (err) => {
           this.errorMessage = err.error.message;
