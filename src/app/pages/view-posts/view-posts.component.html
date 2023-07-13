@@ -1,12 +1,10 @@
-<div class="flex justify-center gap-5 py-10 px-5 w-full bg-indigo-700">
+<div class="flex flex-grow justify-center gap-5 py-10 px-1 w-full bg-indigo-700">
   <!-- Main -->
   <div class="flex flex-col gap-5 w-full max-w-[540px]">
     <!-- Create post button -->
-    <div
-      class="flex justify-center items-center gap-3 p-5 border-4 border-dashed border-emerald-300 text-white ease-in-out duration-200 cursor-pointer hover:bg-indigo-800
-        dark:border-gray-500 dark:hover:bg-gray-700"
-      (click)="openPostDialog()">
-      <h1 class="m-0 font-medium">Create New Post</h1>
+    <div class="flex justify-center items-center gap-3 p-5 border-4 border-dashed border-emerald-300 text-white ease-in-out duration-200 cursor-pointer hover:bg-indigo-800
+        dark:border-gray-500 dark:hover:bg-gray-700" (click)="openPostDialog()">
+      <h1 class="text-center m-0 font-medium">Create New Post</h1>
       <mat-icon class="text-white scale-125">add_circle_outline</mat-icon>
     </div>
 
@@ -18,7 +16,7 @@
         <input
           class="searchbar-input flex-grow text-white/80 bg-transparent outline-none placeholder:text-white/80 group-focus-within:text-slate-950 group-focus-within:placeholder:text-slate-950/60"
           type="text" formControlName="searchtext" placeholder="Search Flumblr">
-          <button mat-raised-button type="submit" color="primary">Search</button>
+        <button mat-raised-button type="submit" color="primary">Search</button>
       </div>
     </form>
 
@@ -30,35 +28,39 @@
   <div class="hidden flex-col gap-5 w-full max-w-[300px] lg:flex">
     <!-- Search bar -->
     <form [formGroup]="searchForm" (ngSubmit)="search()">
-      <div
-        class="group transition-all ease-in-out duration-200 flex gap-2 pl-3 py-2 pr-1 bg-purple-600 rounded-sm focus-within:bg-white
+      <div class="group transition-all ease-in-out duration-200 flex gap-2 pl-3 py-2 pr-1 bg-purple-600 rounded-sm focus-within:bg-white
         dark:focus-within:bg-neutral-700">
-        <mat-icon class=" text-white/80 group-focus-within:text-slate-950 dark:text-whitesmoke dark:group-focus-within:text-whitesmoke">search</mat-icon>
+        <mat-icon
+          class=" text-white/80 group-focus-within:text-slate-950 dark:text-whitesmoke dark:group-focus-within:text-whitesmoke">search</mat-icon>
         <input
           class="searchbar-input flex-grow text-white/80 bg-transparent outline-none placeholder:text-white/80 group-focus-within:text-slate-950 group-focus-within:placeholder:text-slate-950/60
             dark:text-whitesmoke dark:placeholder:text-whitesmoke dark:group-focus-within:text-whitesmoke dark:group-focus-within:placeholder:text-whitesmoke"
           type="text" formControlName="searchtext" placeholder="Search Flumblr">
-          <button mat-raised-button type="submit" color="primary">Search</button>
+        <button mat-raised-button type="submit" color="primary">Search</button>
       </div>
-     
     </form>
 
     <!-- Following users-->
+<!--    <div class="h-[400px]">-->
+<!--      <h1 class="m-0 ml-4 text-white">100 Following</h1>-->
+<!--      <mat-divider class="mt-2 mb-5 border-t-2 border-emerald-300-->
+<!--      dark:border-gray-500"></mat-divider>-->
+<!--      <ul class="flex flex-col gap-3">-->
+<!--        <li class="flex justify-between items-center" *ngFor="let index of [0,1,3,4,5]">-->
+<!--          <div class="flex items-center gap-3">-->
+<!--            <div mat-card-avatar class="m-0 bg-cover"-->
+<!--              style="background-image: url('https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80');">-->
+<!--            </div>-->
+<!--            <p class="m-0 text-white">FakeUser</p>-->
+<!--          </div>-->
+<!--          <p class="m-0 text-white">Follow</p>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
     <div class="h-[400px]">
-      <h1 class="m-0 ml-4 text-white">100 Following</h1>
-      <mat-divider class="mt-2 mb-5 border-t-2 border-emerald-300
-      dark:border-gray-500"></mat-divider>
-      <ul class="flex flex-col gap-3">
-        <li class="flex justify-between items-center" *ngFor="let index of [0,1,3,4,5]">
-          <div class="flex items-center gap-3">
-            <div mat-card-avatar class="m-0 bg-cover"
-              style="background-image: url('https://images.unsplash.com/photo-1517849845537-4d257902454a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80');">
-            </div>
-            <p class="m-0 text-white">FakeUser</p>
-          </div>
-          <p class="m-0 text-white">Follow</p>
-        </li>
-      </ul>
+      <app-user-recommendations></app-user-recommendations>
     </div>
   </div>
 </div>

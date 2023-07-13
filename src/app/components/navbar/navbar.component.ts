@@ -5,6 +5,9 @@ import { NotificationService } from 'src/app/services/notification/notification.
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
 import { ProfileService } from 'src/app/services/profile-service';
+import { Subscription } from 'rxjs';
+import { NgEventBus } from 'ng-event-bus';
+import { EventBusEvents } from 'src/app/global/event-bus-events';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +19,7 @@ export class NavbarComponent implements OnInit {
   userName!: string;
   role!: string;
   profile!: any;
+  loginSub: Subscription;
 
   constructor(
     private router: Router,
@@ -23,15 +27,19 @@ export class NavbarComponent implements OnInit {
     private notificationService: NotificationService,
     private dialog: MatDialog,
     private profileService: ProfileService,
-  ) {}
+    private eventBus: NgEventBus
+  ) {
+    this.loginSub = this.eventBus
+      .on(`${EventBusEvents.LOGIN}*`)
+      .subscribe(() => {
+        this.updateLoggedInStatus();
+      });
+  }
 
   notificationHasChanged: boolean = false;
 
   ngOnInit(): void {
-    this.userId = this.tokenService.getUser().id;
-    this.userName = this.tokenService.getUser().username;
-    this.role = this.tokenService.getUser().role;
-    console.log(this.role);
+    this.updateLoggedInStatus();
 
     this.profile = this.profileService.getUser(this.userId);
 
@@ -43,7 +51,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  login() {}
+  login() { }
 
   logout() {
     this.tokenService.signOut();
@@ -70,8 +78,12 @@ export class NavbarComponent implements OnInit {
       maxHeight: '800px',
     });
 
-    dialogRef.afterClosed().subscribe(() => {});
+    dialogRef.afterClosed().subscribe(() => { });
   }
 
-
+  updateLoggedInStatus() {
+    this.userId = this.tokenService.getUser().id;
+    this.userName = this.tokenService.getUser().username;
+    this.role = this.tokenService.getUser().role;
+  }
 }

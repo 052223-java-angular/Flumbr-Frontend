@@ -11,7 +11,7 @@ import { PostService } from 'src/app/services/post/post.service';
   styleUrls: ['./feed-posts.component.css'],
 })
 export class FeedPostsComponent implements OnInit {
-  posts!: Array<PostRes>;
+  posts: Array<PostRes> = [];
   isLoading = false;
   postSub: Subscription;
 

@@ -1,3 +1,10 @@
-<div class="flex w-full justify-center items-center pt-5 py-10" *ngIf="isLoading"><mat-spinner></mat-spinner>
+<div class="flex w-full h-full justify-center items-center pt-5 py-10" *ngIf="isLoading"><mat-spinner></mat-spinner>
 </div>
 <app-post-list [posts]="posts" *ngIf="!isLoading"></app-post-list>
+
+<!-- No posts -->
+<div class="flex flex-col gap-10 w-full h-full justify-center items-center text-white"
+  *ngIf="!isLoading && posts.length == 0">
+  <mat-icon class="scale-[3]">cancel_presentation</mat-icon>
+  <p class="font-bold text-2xl">You have no posts</p>
+</div>
