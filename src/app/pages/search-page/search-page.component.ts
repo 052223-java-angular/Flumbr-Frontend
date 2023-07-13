@@ -62,14 +62,17 @@ export class SearchPageComponent implements OnInit{
       pageNum++;
     } while (this.posts.length > 20);*/
 
-    this.getPostsByTagName(this.searchTerms, 1);
+    this.getPostsByTagName(this.searchTerms);
 
    
   }
 
- getPostsByUsername(searchTerms:string[])
+ async getPostsByUsername(searchTerms:string[])
   {
-      
+      const promise = await this.getPostsByTagName(searchTerms);
+
+      if(promise === "empty")
+      {
           this.postService.getPostsByUsername(searchTerms[0]).subscribe({
             next: (res) => {
                this.posts = res;
@@ -81,42 +84,49 @@ export class SearchPageComponent implements OnInit{
           })
 
           let length = this.posts.length;
-    
-      return new Promise((resolve, reject) => {
-          if(length !== 0)
-          {
-              resolve(null)
-          }
-          else{
-            reject(this.posts);
-          }
+      }
 
-      });
 
   }
 
-  async getPostsByTagName(searchTerms:string[], pageNum:number)
+getPostsByTagName(searchTerms:string[])
   {
 
-    let response:any = await this.getPostsByUsername(searchTerms);
+      
+    console.log("SearchStrings " + this.searchTerms);
+    let pageNum = 1; // Grabs the first 20 posts
 
-   
+    do {
+     this.postService.getPostsByTag(this.searchTerms, pageNum).subscribe({
+       next: (value) => {
+         this.posts = value;
+         const posts1 = value;
+         console.log("Number of results is " + this.posts.length);
+       },
+       error: (error) => {
+         console.log(error.message);
+       },
+     });
+     
+     pageNum++;
+   } while (this.posts.length > 20);
+      
+   let array = this.posts;
 
-      if(response !== null)
-      {
-          this.postService.getPostsByTag(this.searchTerms, pageNum).subscribe({
-            next: (value) => {
-              this.posts = value;
-              const posts1 = value;
-              console.log("Number of results is " + this.posts.length);
-            },
-            error: (error) => {
-              console.log(error.message);
-            },
-          });   
-      }
-   
-    
+    return new Promise((resolve, reject) => {
+
+          if(array.length == 0)
+          {
+              resolve("Empty");
+          }
+          else 
+          {
+             reject("Not Empty");
+          }
+        
+
+    })
+          
    
   }
 

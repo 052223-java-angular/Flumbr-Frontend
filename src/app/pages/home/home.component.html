@@ -2,8 +2,12 @@
   <div class="flex-grow w-2/3">
 
     <div class="h-screen flex flex-col justify-center items-center" style="background-image: url('https://i.imgur.com/zFNfei3.jpg');">
-     <div>
-      <h1 class="text-white text-7xl font-bold"><a routerLink="/home">Flumblr</a></h1>
+     <div *ngIf="checkIfLoggedIn() === false">
+      <h1 class="text-white text-7xl font-bold"><a routerLink="">Flumblr</a></h1>
+      <p class="text-white text-2xl">Better than Threads</p>
+     </div>
+     <div *ngIf="checkIfLoggedIn() === true">
+      <h1 class="text-white text-7xl font-bold"><a routerLink="/feed">Flumblr</a></h1>
       <p class="text-white text-2xl">Better than Threads</p>
      </div>
 
