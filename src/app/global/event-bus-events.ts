@@ -6,4 +6,7 @@ export class EventBusEvents {
   public static FOLLOW = 'follow:';
   public static FOLLOW_FOLLOW = `${this.FOLLOW}follow`;
   public static FOLLOW_UNFOLLOW = `${this.FOLLOW}unfollow`;
+  public static LOGIN = 'login:';
+  public static LOGIN_LOGIN = `${this.LOGIN}login`;
+  public static LOGIN_LOGOUT = `${this.LOGIN}logout`;
 }

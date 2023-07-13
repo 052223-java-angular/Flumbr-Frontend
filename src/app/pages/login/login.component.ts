@@ -6,6 +6,8 @@ import { LoginPayload } from '../../models/login-payload';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AppSettings } from '../../global/app-settings';
+import { NgEventBus } from 'ng-event-bus';
+import { EventBusEvents } from 'src/app/global/event-bus-events';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +25,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private tokenService: TokenService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private eventBus: NgEventBus
   ) {}
 
   ngOnInit(): void {
@@ -53,13 +56,14 @@ export class LoginComponent implements OnInit {
         this.tokenService.saveToken(result.token);
         //this.tokenService.saveRefreshToken(result.token)
         //Add toaster
-        console.log(this.tokenService.getUser())
+        console.log(this.tokenService.getUser());
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
           detail: 'Login successful',
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
+        this.eventBus.cast(EventBusEvents.LOGIN_LOGIN, '');
         this.router.navigate(['/posts']);
       },
       error: (error) => {
