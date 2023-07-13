@@ -325,6 +325,7 @@ export class SettingsComponent {
         this.tagsForm.patchValue({
           tags: this.tags,
         });
+
       },
       error: (err) => {
         console.log(err);

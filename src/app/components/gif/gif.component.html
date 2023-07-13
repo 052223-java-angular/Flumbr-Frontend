@@ -7,7 +7,8 @@
       <mat-icon>arrow_back</mat-icon>
     </div>
     <input
-      class="p-3 w-full outline-none border-solid border-[1px] border-slate-700 rounded-xl bg-amber-50 placeholder:text-slate-950/60 group-focus-within:placeholder:text-slate-950/30"
+      class="p-3 w-full outline-none border-solid border-[1px] border-slate-700 rounded-xl bg-amber-50 placeholder:text-slate-950/60 group-focus-within:placeholder:text-slate-950/30
+        dark:placeholder:text-whitesmoke dark:group-focus-within:placeholder:text-whitesmoke dark:focus-within:bg-neutral-700"
       type="text" placeholder="Search for GIF" #gif (keyup)="debounceSearch(gif.value)">
   </div>
 

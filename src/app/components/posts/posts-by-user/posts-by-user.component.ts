@@ -9,7 +9,7 @@ import { PostService } from 'src/app/services/post/post.service';
 })
 export class PostsByUserComponent implements OnInit {
   @Input() userId!: string;
-  posts!: Array<PostRes>;
+  posts: Array<PostRes> = [];
   isLoading = false;
 
   constructor(private postService: PostService) {}

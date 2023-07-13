@@ -1,4 +1,4 @@
-<mat-tab-group animationDuration="0ms" (selectedTabChange)="activateTab($event)">
+<mat-tab-group class="flex flex-col flex-grow" animationDuration="0ms" (selectedTabChange)="activateTab($event)">
 
   <!-- Main page display -->
   <div *ngIf="!userId">
@@ -45,7 +45,7 @@
   <!-- Profile page display (other users) -->
   <div *ngIf="userId && userId != loggedInUserId">
     <!-- User -->
-    <mat-tab label="Posts">
+    <mat-tab [disabled]="true" label="Posts">
       <mat-divider class="mb-5"></mat-divider>
       <app-posts-by-user [userId]="userId" *ngIf="activeTab == 'default'"></app-posts-by-user>
     </mat-tab>
