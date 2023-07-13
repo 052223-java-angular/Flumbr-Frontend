@@ -237,6 +237,18 @@ export class PostComponent implements OnInit {
     this.router.navigateByUrl(`/profile/${id}`);
   }
 
+  navigateToUserByUsername(username: string) {
+    this.profileService.getUserByUsername(username).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        this.router.navigateByUrl(`/profile/${resp.profileId}`);
+      },
+      error: (err) => {
+        /* ignore */
+      },
+    });
+  }
+
   likePost(id: string) {
     console.log('id is ' + id);
     console.log('userId is ' + this.tokenService.getUser().id);
@@ -405,7 +417,6 @@ export class PostComponent implements OnInit {
 
   commentCountToString(count: number): string {
     let numStr = count.toString();
-    console.log(numStr.substring(2, 1));
 
     // 1 million comments
     if (count >= 1000000) {
