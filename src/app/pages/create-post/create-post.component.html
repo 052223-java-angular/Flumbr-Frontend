@@ -12,7 +12,7 @@
       [formGroup]="postForm">
       <div class="flex flex-row items-start">
         <h1 class="text-center text-slate-700 dark:text-slate-100 font-bold text-3xl tracking-wide">{{ this.data ? 'Edit' : 'Create'}} Post</h1>
-        <button 
+        <button
           class="ml-auto text-slate-500 dark:text-slate-100"
           (click)="onCancelClick($event)"><mat-icon class="text-4xl h-auto w-auto">cancel</mat-icon></button>
       </div>
@@ -68,7 +68,7 @@
           (emojiClick)="addEmoji($event.emoji.native)"></emoji-mart>
       </p-overlayPanel>
 
-      <div 
+      <div
         class="media-drop"
         *ngIf="!(isImage || isVideo)">
         <ngx-dropzone

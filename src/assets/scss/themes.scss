@@ -111,7 +111,44 @@ $dark-theme: mat.define-dark-theme(
   .mat-mdc-unelevated-button.mat-primary{
     --mdc-filled-button-label-text-color: whitesmoke!important;
   }
-}
+
+  //gif search bar
+  .bg-amber-50{
+    background-color: #3c4043!important;
+    border-color: rgb(107,114,128)!important;
+  }
+
+  //bookmark icon on feed
+  .icon{
+    color:whitesmoke;
+  }
+  //other icons on post feed
+  :is(.dark .dark\:text-whitesmoke){
+    color:whitesmoke!important;
+  }
+
+  //more post option (post date, last edit, follow, report)
+  .mat-mdc-menu-panel.mat-mdc-menu-panel{
+    background-color: #3c4043!important;
+
+  }
+
+  //border for post options
+  .border-gray-100{
+    border: rgb(107,114,128);
+  }
+
+  //targets all button primary button text on feed
+  .mat-mdc-raised-button.mat-primary{
+    color:whitesmoke!important;
+  }
+
+  //nav bar
+  .mat-toolbar.mat-primary{
+    background: rgba(33, 33, 33, 0.8);
+    color:#F06292;
+  }
+  }
 
 
 

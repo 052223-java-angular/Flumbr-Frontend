@@ -10,6 +10,7 @@ module.exports = {
         materialPink:"#F06292",
         materialPurple:"#673AB7",
         googleGray:"#3c4043",
+        matGray:'#3c4043',
       },
     },
   },

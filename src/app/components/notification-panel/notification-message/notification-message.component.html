@@ -4,19 +4,19 @@
   <ng-container *ngFor="let notification of notifications; index as idx">
 
     <!-- when notification type matches the active-icon, then display the messages -->
-    <li  *ngIf="notification.notificationType === activeNotificationType && !notification.viewed" 
-      (click)="updateAsViewed(notification)" 
+    <li  *ngIf="notification.notificationType === activeNotificationType && !notification.viewed"
+      (click)="updateAsViewed(notification)"
       class="message-wrap message-content message-content-bg">
 
-      <mat-icon class="message-icon">{{notification.matIconName}}</mat-icon> 
-      <span class="message-text text-xs" > 
+      <mat-icon class="message-icon">{{notification.matIconName}}</mat-icon>
+      <span class="message-text text-xs" >
         <span class="text-[0.6rem]">
         <span class="font-normal">Note:</span> {{ formatMessage(notification.message) }} <br />
-        <span class="font-normal">Date:</span> {{notification.createTime | date : 'medium'}}</span> 
+        <span class="font-normal">Date:</span> {{notification.createTime | date : 'medium'}}</span>
       </span>
 
     </li>
 
   </ng-container>
-  
+
 </ul>
