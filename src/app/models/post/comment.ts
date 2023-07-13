@@ -2,6 +2,7 @@ import { UserVote } from './userVote';
 
 export interface Comment {
   userId: string;
+  commentId: string;
   username: string;
   profileImg?: string;
   comment?: string;
