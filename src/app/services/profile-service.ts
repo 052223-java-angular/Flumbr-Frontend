@@ -33,6 +33,12 @@ export class ProfileService {
     return this.http.get<ProfilePayload>(`${this.baseUrl}/profile/${user_id}`);
   }
 
+  getUserByUsername(username: string): Observable<ProfilePayload> {
+    return this.http.get<ProfilePayload>(
+      `${this.baseUrl}/profile/user/${username}`
+    );
+  }
+
   // update theme for user
   updateTheme(user_id: string, payload: ThemePayload): Observable<void> {
     return this.http.patch<void>(

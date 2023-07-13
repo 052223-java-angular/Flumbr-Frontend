@@ -22,6 +22,7 @@ export interface PostRes {
   editTime?: string;
   comments?: Array<Comment>;
   tags?: Array<Tag>;
+  mentions?: Array<string>;
   shareCount: number;
   sharedBy?: Array<User>;
 
