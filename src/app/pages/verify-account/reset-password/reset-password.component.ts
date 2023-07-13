@@ -53,19 +53,19 @@ export class ResetPasswordComponent {
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
-              detail: 'Instrctions sent to your email successfully',
+              detail: 'Instructions sent to your email successfully!.',
               life: AppSettings.DEFAULT_MESSAGE_LIFE,
             });
             this.router.navigate(['/login']);
           },
           error: (error) => {
             console.log("Error in resetPass " + error.message );
-            // this.messageService.add({
-            //   severity: 'error',
-            //   summary: 'Error',
-            //   detail: error.error.message,
-            //   life: AppSettings.DEFAULT_MESSAGE_LIFE,
-            // });
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.error.message,
+              life: AppSettings.DEFAULT_MESSAGE_LIFE,
+            });
           },
         });
         return true;
