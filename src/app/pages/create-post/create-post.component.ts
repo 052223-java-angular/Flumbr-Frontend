@@ -10,6 +10,7 @@ import { EventBusEvents } from 'src/app/global/event-bus-events';
 import { EditPostDialogData } from 'src/app/models/post/edit-post-dialog-data';
 import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
 
 @Component({
   selector: 'app-create-post',
@@ -35,6 +36,7 @@ export class CreatePostComponent implements OnInit {
     private messageService: MessageService,
     private postService: PostService,
     private eventBus: NgEventBus,
+    private darkModeService: DarkModeService,
     @Inject(MAT_DIALOG_DATA) public data: EditPostDialogData
   ) {}
 
@@ -275,5 +277,9 @@ export class CreatePostComponent implements OnInit {
     this.files = [file];
     this.setImageAndVideoFlags();
     this.toggleGifComponent();
+  }
+
+  isDarkModeActive() {
+    return this.darkModeService.getDarkMode() === 'true';
   }
 }
