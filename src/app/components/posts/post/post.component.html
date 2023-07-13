@@ -1,20 +1,20 @@
 <div [ngClass]="{'ease-in-out transition-all duration-500 opacity-0 -translate-x-full': post.animateDelete}">
   <mat-card class="bg-amber-50">
-    <mat-card-header>
-      <div class="flex justify-between w-full">
+    <mat-card-header class="py-2 px-1 sm:px-4">
+      <div class="flex flex-wrap-reverse justify-between items-center gap-1 w-full">
 
         <!-- Avatar and username -->
-        <div class="flex gap-4 cursor-pointer" (click)="navigateToUser(post.userId)">
-
-          <div mat-card-avatar class="bg-cover" style="background-image: url({{post.profileImg}});"></div>
-          <mat-card-title>{{post.username}}</mat-card-title>
+        <div class="flex items-center gap-2 sm:gap-4 cursor-pointer" (click)="navigateToUser(post.userId)">
+          <div mat-card-avatar class="mb-0 ml-3 bg-cover w-8 h-8 sm:w-10 sm:h-10"
+            style="background-image: url({{post.profileImg}});"></div>
+          <mat-card-title class="text-sm sm:text-2xl">{{post.username}}</mat-card-title>
         </div>
 
         <!-- Options/Info (create date, edit date and follow/follow and report actions) -->
-        <div>
+        <div class="self-end">
           <button mat-icon-button matTooltip="Options" matTooltipClass="tooltip" matTooltipPosition="above"
             [matMenuTriggerFor]="menu">
-            <mat-icon class="icon dark:text-whitesmoke">more_horiz</mat-icon>
+            <mat-icon class="icon dark:text-whitesmoke scale-[0.85] sm:scale-100">more_horiz</mat-icon>
           </button>
 
           <mat-menu class="w-[18rem] py-1 px-2" #menu="matMenu">
@@ -87,36 +87,43 @@
     </mat-card-footer>
 
     <!-- Actions (like, dislike, share post, bookmark and open chat) -->
-    <mat-card-actions class="flex justify-between items-center">
+    <mat-card-actions class="flex justify-between items-center px-1 sm:px-2">
 
-      <div class="flex gap-4 items-center">
-        Likes: {{post.upVotes}}
-        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Like" matTooltipClass="tooltip"
-          matTooltipPosition="above" [ngClass]="{ 'disabled': !thumbsUpEnabled }"
-          (click)="likePost(post.id)">thumb_up</mat-icon>
-        Dislikes: {{post.downVotes}}
-        <mat-icon class="icon dark:text-whitesmoke" matTooltip="Dislike" matTooltipClass="tooltip"
-          matTooltipPosition="above" [ngClass]="{ 'disabled': !thumbsDownEnabled }"
-          (click)="dislikePost(post.id)">thumb_down</mat-icon>
+      <div class="flex gap-3 items-center">
+        <!-- Likes -->
+        <div class="flex items-center gap-1">
+          <mat-icon class="icon dark:text-whitesmoke scale-[0.85] sm:scale-100" matTooltip="Like"
+            matTooltipClass="tooltip" matTooltipPosition="above" [ngClass]="{ 'disabled': !thumbsUpEnabled }"
+            (click)="likePost(post.id)">thumb_up</mat-icon>
+          <span class="text-sm font-medium sm:text-base" *ngIf="post.upVotes > 0">{{countToString(post.upVotes)}}</span>
+        </div>
+        <!-- Dislikes-->
+        <div class="flex items-center gap-1">
+          <mat-icon class="icon dark:text-whitesmoke scale-[0.85] sm:scale-100" matTooltip="Dislike"
+            matTooltipClass="tooltip" matTooltipPosition="above" [ngClass]="{ 'disabled': !thumbsDownEnabled }"
+            (click)="dislikePost(post.id)">thumb_down</mat-icon>
+          <span class="text-sm font-medium sm:text-base"
+            *ngIf="post.downVotes > 0">{{countToString(post.downVotes)}}</span>
+        </div>
       </div>
 
       <!--  div group for bookmark, share and chat icons  -->
-      <div class="flex items-center justify-end gap-4 pr-4">
+      <div class="flex items-center justify-end gap-3">
 
         <!-- for bookmark post  -->
-        <mat-icon class="icon" matTooltip="Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
-          [ngClass]="{'disabled': loading}" *ngIf="!bookmarked"
+        <mat-icon class="icon scale-[0.85] sm:scale-100" matTooltip="Bookmark" matTooltipClass="tooltip"
+          matTooltipPosition="above" [ngClass]="{'disabled': loading}" *ngIf="!bookmarked"
           (click)="bookmarkPost(post.id)">bookmark_border</mat-icon>
 
 
-        <mat-icon class="icon" matTooltip="Remove Bookmark" matTooltipClass="tooltip" matTooltipPosition="above"
-          [ngClass]="{'disabled': loading}" *ngIf="bookmarked" (click)="removeBookmark(post.id)">bookmark</mat-icon>
+        <mat-icon class="icon scale-[0.85] sm:scale-100" matTooltip="Remove Bookmark" matTooltipClass="tooltip"
+          matTooltipPosition="above" [ngClass]="{'disabled': loading}" *ngIf="bookmarked"
+          (click)="removeBookmark(post.id)">bookmark</mat-icon>
 
         <!-- for share post link -->
-        <button mat-button [matMenuTriggerFor]="sharePostMenu" matTooltipPosition="below" matTooltip="Share"
-          matTooltipClass="tooltip">
-          <mat-icon class="icon dark:text-whitesmoke" color="primary">share</mat-icon>
-        </button>
+        <mat-icon class="icon dark:text-whitesmoke scale-[0.85] sm:scale-100" color="primary"
+          [matMenuTriggerFor]="sharePostMenu" matTooltipPosition="above" matTooltip="Share"
+          matTooltipClass="tooltip">share</mat-icon>
         <mat-menu class="w-full px-2 bg-amber-50 dark:text-black" #sharePostMenu="matMenu">
           <label class="text-xs">Share Link:</label>
           <hr />
@@ -130,10 +137,10 @@
 
         <!-- for chat / comments -->
         <div class="flex items-center gap-1" (click)="toggleChat()">
-          <mat-icon class="icon dark:text-whitesmoke scale-75" matTooltip="Comment" matTooltipClass="tooltip"
-            matTooltipPosition="above">chat</mat-icon>
-          <span class="text-xs font-medium"
-            *ngIf="post.comments && post.comments.length > 0">{{commentCountToString(post.comments.length)}}</span>
+          <mat-icon class="icon dark:text-whitesmoke scale-[0.85] sm:scale-100" matTooltip="Comment"
+            matTooltipClass="tooltip" matTooltipPosition="above">chat</mat-icon>
+          <span class="text-sm font-medium sm:text-base"
+            *ngIf="post.comments && post.comments.length > 0">{{countToString(post.comments.length)}}</span>
         </div>
       </div>
     </mat-card-actions>
@@ -142,7 +149,7 @@
     <div *ngIf="isChatOpen">
       <mat-divider></mat-divider>
 
-      <div class="py-4 px-2">
+      <div class="py-4 px-1 sm:px-2">
         <!-- Comment form -->
         <form [formGroup]="commentForm" (ngSubmit)="onCommentSubmit()">
           <div *ngIf="!isGifComponentOpen">
@@ -171,12 +178,12 @@
             <div class="flex justify-between pt-1">
               <div class="flex gap-1">
                 <div
-                  class="flex justify-center items-center p-1 rounded-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-950/20"
+                  class="flex justify-center items-center p-[6px] rounded-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-950/20"
                   (click)="toggleGifComponent()">
                   <mat-icon class="scale-[0.80]">gif</mat-icon>
                 </div>
                 <div
-                  class="flex justify-center items-center p-1 rounded-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-950/20"
+                  class="flex justify-center items-center p-[6px] rounded-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-950/20"
                   (click)="op.toggle($event)">
                   <mat-icon class="scale-[0.80]">tag_faces</mat-icon>
                 </div>
@@ -195,8 +202,16 @@
 
           <!-- Emoji mart -->
           <p-overlayPanel #op styleClass="[&_.p-overlaypanel-content]:p-0">
-            <emoji-mart title="Pick your emoji" set="facebook" [showPreview]="true" [emojiTooltip]="true"
-              (emojiClick)="addEmoji($event.emoji.native)"></emoji-mart>
+            <!-- Smaller screens -->
+            <div class="sm:hidden">
+              <emoji-mart title="Pick your emoji" set="facebook" [showPreview]="true" [emojiTooltip]="true"
+                (emojiClick)="addEmoji($event.emoji.native)" [perLine]="8"></emoji-mart>
+            </div>
+            <!-- Larger screens -->
+            <div class="hidden sm:block">
+              <emoji-mart title="Pick your emoji" set="facebook" [showPreview]="true" [emojiTooltip]="true"
+                (emojiClick)="addEmoji($event.emoji.native)"></emoji-mart>
+            </div>
           </p-overlayPanel>
         </form>
       </div>
@@ -211,7 +226,7 @@
       <!-- Displays comments -->
       <!-- class="max-h-[400px] overflow-auto -->
       <div [ngClass]="disableCommentMaxHeight ? '' : 'max-h-[400px] overflow-auto'">
-        <ul class="flex flex-col p-4 gap-3" *ngIf="post.comments && post.comments.length > 0">
+        <ul class="flex flex-col p-4 px-2 sm:px-4 gap-3" *ngIf="post.comments && post.comments.length > 0">
           <li class="flex gap-3" *ngFor="let comment of post.comments">
             <div mat-card-avatar class="m-0 bg-cover cursor-pointer"
               style="background-image: url({{comment.profileImg}});" (click)="navigateToUser(comment.userId)">
