@@ -205,7 +205,7 @@
             <!-- Smaller screens -->
             <div class="sm:hidden">
               <emoji-mart title="Pick your emoji" set="facebook" [showPreview]="true" [emojiTooltip]="true"
-                (emojiClick)="addEmoji($event.emoji.native)" [perLine]="8"></emoji-mart>
+                (emojiClick)="addEmoji($event.emoji.native)" [perLine]="7"></emoji-mart>
             </div>
             <!-- Larger screens -->
             <div class="hidden sm:block">
@@ -232,8 +232,17 @@
               style="background-image: url({{comment.profileImg}});" (click)="navigateToUser(comment.userId)">
             </div>
             <div class="flex flex-col gap-2 p-2 border-[1px] border-solid border-slate-700 rounded-lg">
-              <p class="m-0 font-semibold cursor-pointer" (click)="navigateToUser(comment.userId)">{{comment.username}}
+              <!-- Non comment owner view (delete) -->
+              <p class="m-0 font-semibold cursor-pointer" (click)="navigateToUser(comment.userId)"
+                *ngIf="sessionId != comment.userId">{{comment.username}}
               </p>
+              <!-- Comment owner view (delete) -->
+              <div class="flex justify-between" *ngIf="sessionId == comment.userId">
+                <p class="m-0 font-semibold cursor-pointer" (click)="navigateToUser(comment.userId)">
+                  {{comment.username}}
+                </p>
+                <span class="font-medium text-red-500 cursor-pointer" (click)="deleteComment()">delete</span>
+              </div>
               <p class="m-0">{{comment.comment}}</p>
               <div class="rounded-md overflow-hidden">
                 <img class="w-full" [src]="comment.gifUrl" alt="Gif image" *ngIf="comment.gifUrl">

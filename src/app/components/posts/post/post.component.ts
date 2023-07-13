@@ -208,6 +208,10 @@ export class PostComponent implements OnInit {
     });
   }
 
+  deleteComment() {
+    console.log('comment deleted');
+  }
+
   addGif(gifChosen: string) {
     this.chosenGif = gifChosen;
     this.commentForm.controls['gifUrl'].setValue(gifChosen);
@@ -404,7 +408,6 @@ export class PostComponent implements OnInit {
 
   countToString(count: number): string {
     let numStr = count.toString();
-    console.log(numStr.substring(2, 1));
 
     // 1 million comments
     if (count >= 1000000) {
