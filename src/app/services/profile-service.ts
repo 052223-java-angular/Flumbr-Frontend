@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ProfilePayload } from '../models/profile/profile-payload';
-import { TagPayload } from '../models/tag-payload';
 import { AppSettings } from '../global/app-settings';
 import { BioPayload } from '../models/profile/bio-payload';
 import { ThemePayload } from '../models/profile/theme-payload';
@@ -24,7 +23,9 @@ export class ProfileService {
   baseUrl = AppSettings.API_URL;
 
   // Constructor for profile service
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {
+    this.setLocalStorageProfileImg();
+  }
 
   // retrieve user profile based on user id
   getUser(user_id: string): Observable<ProfilePayload> {
@@ -63,15 +64,38 @@ export class ProfileService {
     //const headers = new HttpHeaders().set('Authorization', this.tokenService.getToken()!);
     //const headers = new HttpHeaders().set('Authorization', this.tokenService.getToken()!);
 
-    return this.http.patch<void>(
-      `${this.baseUrl}/profile/upload/${userId}`,
-      formData
-    );
+    return this.http
+      .patch<void>(`${this.baseUrl}/profile/upload/${userId}`, formData)
+      .pipe(
+        tap({
+          next: () => {
+            localStorage.removeItem('profileImg');
+            this.setLocalStorageProfileImg();
+          },
+        })
+      );
   }
 
   // retrieve this user
   getUserTest(userId: string): Observable<any> {
     return this.http.get(this.jsonAsset);
+  }
+
+  // sets a field for profileImg in local storage
+  setLocalStorageProfileImg() {
+    if (localStorage.getItem('profileImg')) {
+      console.log('profile img is present');
+      return;
+    }
+
+    this.getUser(this.tokenService.getUser().id).subscribe({
+      next: (res) => {
+        localStorage.setItem('profileImg', res.profile_img);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   getTags(profileId: string) {
@@ -90,5 +114,8 @@ export class ProfileService {
       body: payload,
     };
     return this.http.delete<any>(`${this.baseUrl}/profile/tags`, options);
+  }
+  getUserTags(profile_id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/profile/tags/${profile_id}`);
   }
 }

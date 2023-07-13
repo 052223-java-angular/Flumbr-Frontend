@@ -19,9 +19,11 @@ import {
 import { ReportComponent } from '../../report/report.component';
 import { Bookmark } from '../../../models/post/bookmark';
 import { RemoveBookmark } from '../../../models/post/removeBookmark';
+import { ProfileService } from 'src/app/services/profile-service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -30,36 +32,50 @@ import { Observable } from 'rxjs';
 })
 export class PostComponent implements OnInit {
   @Input() post!: PostRes;
-  isChatOpen = false;
+  @Input() isChatOpen = false;
+  @Input() disableCommentMaxHeight = false;
   isGifComponentOpen = false;
   chosenGif: string | null = null;
   commentForm!: FormGroup;
   thumbsUpEnabled: boolean = true;
   thumbsDownEnabled: boolean = true;
-  bookmarked: boolean = false;
+
   shareURL: string = '';
   mentions: string[] = [];
+
+  // variables used by bookmark
+  sessionId!: string;
+  bookmarked!: boolean;
+  loading: boolean = false;
 
   constructor(
     private postService: PostService,
     private tokenService: TokenService,
     private dialog: MatDialog,
     private messageService: MessageService,
-    private http: HttpClient
+    private profileService: ProfileService,
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.sessionId = this.tokenService.getUser().id;
     this.updateIconState();
+
+    console.log('Session id: ' + this.sessionId);
+
     this.commentForm = new FormGroup(
       {
-        comment: new FormControl(null, Validators.maxLength(2000)),
+        comment: new FormControl(null, Validators.maxLength(4000)),
         gifUrl: new FormControl(null),
       },
       {
         validators: this.atLeastOne(Validators.required, ['comment', 'gifUrl']),
       }
     );
-    this.shareURL = window.location.href + '/share/' + this.post.id;
+    const urlParts = location.href.split('/');
+    this.shareURL = `${urlParts[0]}//${urlParts[2]}/posts/${this.post.id}`;
+    // this.shareURL = window.location.href + '/share/' + this.post.id;
     this.fetchMentions();
   }
 
@@ -84,7 +100,7 @@ export class PostComponent implements OnInit {
   }
 
   updateIconState() {
-    console.log('update icon state ');
+    // console.log('update icon state ');
     if (this.post && this.post.userVote) {
       if (this.post.userVote.vote === true) {
         this.thumbsUpEnabled = false;
@@ -98,7 +114,13 @@ export class PostComponent implements OnInit {
       this.thumbsDownEnabled = true; // Default state when userVote is null or post is undefined
     }
 
-    console.log('update bookmarks');
+    // bookmark icons
+    if (this.post && this.post.bookmarked) {
+      // if bookmark has bookmark id that matches
+      this.bookmarked = true;
+    } else {
+      this.bookmarked = false; // set bookmarked false for this post
+    }
   }
 
   onCommentSubmit() {
@@ -128,18 +150,23 @@ export class PostComponent implements OnInit {
       next: () => {
         // create new comment
         const newComment: Comment = {
+          userId: this.tokenService.getUser().id,
           username: this.tokenService.getUser().username,
           createTime: new Date().toISOString(),
           postId: this.post.id,
         };
 
+        // add in gifs and comments if present
         if (this.chosenGif) {
           newComment.gifUrl = this.chosenGif;
         }
-
         if (commentPayload.comment) {
           newComment.comment = commentPayload.comment;
         }
+
+        // add in profile img
+        this.profileService.setLocalStorageProfileImg();
+        newComment.profileImg = localStorage.getItem('profileImg') as string;
 
         // comments present so push new comment
         if (this.post.comments && this.post.comments.length > 0) {
@@ -171,6 +198,12 @@ export class PostComponent implements OnInit {
           detail: err.error.message,
           life: AppSettings.DEFAULT_MESSAGE_LIFE,
         });
+
+        // reset gif
+        this.chosenGif = '';
+
+        // clear form
+        this.commentForm.reset();
       },
     });
   }
@@ -191,7 +224,6 @@ export class PostComponent implements OnInit {
   }
 
   addEmoji(emoji: string) {
-    console.log(emoji);
     const control = this.commentForm.controls['comment'];
     control.setValue((control.value ? control.value : '') + emoji);
   }
@@ -201,7 +233,7 @@ export class PostComponent implements OnInit {
   }
 
   navigateToUser(id: string) {
-    console.log(id);
+    this.router.navigateByUrl(`/profile/${id}`);
   }
 
   likePost(id: string) {
@@ -237,8 +269,10 @@ export class PostComponent implements OnInit {
     });
   }
 
+  // bookmark a post if a user has not bookmarked it
   bookmarkPost(id: string) {
     console.log('post id is ' + id);
+    this.loading = true;
 
     // define book mark payload
     const payload: Bookmark = {
@@ -251,31 +285,36 @@ export class PostComponent implements OnInit {
       next: () => {
         console.log('Bookmark service hit, setting bookmark');
         this.bookmarked = true;
+        this.loading = false;
       },
       error: (err) => {
         console.log('error in bookmarking post: ' + err);
+        this.loading = false;
       },
     });
   }
 
+  // remove bookmark if user has bookmarked post
   removeBookmark(id: string) {
-    console.log('post id is ' + id);
+    this.loading = true;
 
     // define book mark payload
     const payload: RemoveBookmark = {
-      bookmarkId: '',
+      bookmarkId: this.post.bookmarked?.id!,
       postId: id,
       userId: this.tokenService.getUser().id,
     };
 
     // call bookmark service
-    this.postService.bookmarkPost(payload).subscribe({
+    this.postService.removeBookmark(payload).subscribe({
       next: () => {
-        console.log('Remoe Bookmark service hit');
+        console.log('Remove Bookmark service hit');
         this.bookmarked = false;
+        this.loading = false;
       },
       error: (err) => {
         console.log('error in removing post bookmark: ' + err);
+        this.loading = false;
       },
     });
   }
@@ -329,12 +368,12 @@ export class PostComponent implements OnInit {
     this.isChatOpen = !this.isChatOpen;
   }
 
-  reportPost(id: any) {
-    console.log(id);
+  reportPost(postId: any) {
+    console.log(postId);
     this.dialog.open(ReportComponent, {
       width: '40%',
       data: {
-        id: id,
+        postId: postId,
       },
     });
   }
@@ -361,6 +400,39 @@ export class PostComponent implements OnInit {
 
   canEditPost(post: PostRes): boolean {
     return this.tokenService.getUser().id === post.userId;
+  }
+
+  commentCountToString(count: number): string {
+    let numStr = count.toString();
+    console.log(numStr.substring(2, 1));
+
+    // 1 million comments
+    if (count >= 1000000) {
+      if (numStr.substring(1, 2) != '0') {
+        return numStr.substring(0, 1) + '.' + numStr.substring(1, 3) + 'm';
+      }
+      return numStr.substring(0, 1) + 'm';
+    }
+    // 100,000 comments
+    if (count >= 100000) {
+      if (numStr.substring(3, 4) != '0') {
+        return numStr.substring(0, 3) + '.' + numStr.substring(3, 4) + 'k';
+      }
+      return numStr.substring(0, 3) + 'k';
+    }
+    // 10,000 comments
+    if (count >= 10000) {
+      if (numStr.substring(2, 3) != '0') {
+        return numStr.substring(0, 2) + '.' + numStr.substring(2, 3) + 'k';
+      }
+      return numStr.slice(0, 2) + 'k';
+    }
+    // 1,000 comments
+    if (count >= 1000) {
+      return numStr.substring(0, 1) + ',' + numStr.substring(1);
+    }
+
+    return numStr;
   }
 
   fetchMentions() {

@@ -1,5 +1,5 @@
 export interface ReportPayload {
-    id: any;
+    postId: any;
     reason: any;
   }
   

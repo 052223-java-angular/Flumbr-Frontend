@@ -10,6 +10,7 @@ import { EventBusEvents } from 'src/app/global/event-bus-events';
 import { EditPostDialogData } from 'src/app/models/post/edit-post-dialog-data';
 import { PostRes } from 'src/app/models/post/post';
 import { PostService } from 'src/app/services/post/post.service';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
 
 @Component({
   selector: 'app-create-post',
@@ -26,6 +27,7 @@ export class CreatePostComponent implements OnInit {
   tags: string[] | null = [];
   mentions: string[] | null = [];
   editPost: PostRes | null = null;
+  isGifComponentOpen: boolean = false;
 
   constructor(
     public dialogRef: MatDialogRef<CreatePostComponent>,
@@ -34,6 +36,7 @@ export class CreatePostComponent implements OnInit {
     private messageService: MessageService,
     private postService: PostService,
     private eventBus: NgEventBus,
+    private darkModeService: DarkModeService,
     @Inject(MAT_DIALOG_DATA) public data: EditPostDialogData
   ) {}
 
@@ -252,5 +255,31 @@ export class CreatePostComponent implements OnInit {
   async fetchBlob(url: string) {
     const response = await fetch(url);
     return response.blob();
+  }
+
+  addEmoji(emoji: string) {
+    const control = this.postForm.controls['message'];
+    control.setValue((control.value ? control.value : '') + emoji);
+  }
+
+  toggleGifComponent() {
+    this.isGifComponentOpen = !this.isGifComponentOpen;
+  }
+
+  async addGif(gifChosen: string) {
+    const media = await this.fetchBlob(gifChosen);
+    const file = new File([media], 'file', {
+      type: 'image/gif',
+    });
+    this.postForm.patchValue({
+      file: file,
+    });
+    this.files = [file];
+    this.setImageAndVideoFlags();
+    this.toggleGifComponent();
+  }
+
+  isDarkModeActive() {
+    return this.darkModeService.getDarkMode() === 'true';
   }
 }
