@@ -211,7 +211,8 @@ export class PostComponent implements OnInit {
 
   deleteComment(id: string) {
     this.postService.deleteComment(id).subscribe({
-      next: () => {
+      next: (res) => {
+        console.log(res);
         this.post.comments = this.post.comments?.filter((comment) => {
           return comment.commentId != id;
         });
