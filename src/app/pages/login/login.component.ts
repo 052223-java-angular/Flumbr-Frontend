@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         this.tokenService.saveToken(result.token);
         //this.tokenService.saveRefreshToken(result.token)
         //Add toaster
-        this.loginForm.reset();
+        console.log(this.tokenService.getUser())
         this.messageService.add({
           severity: 'success',
           summary: 'Success',

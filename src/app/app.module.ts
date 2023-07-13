@@ -25,6 +25,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgEventBus } from 'ng-event-bus';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DeletePostComponent } from './components/posts/delete-post/delete-post.component';
 
@@ -65,6 +66,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import {UserRecommendationsComponent} from "./components/recommendations/user-recommendations/user-recommendations.component";
+import {CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -96,6 +99,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     SearchPageComponent,
     ReportComponent,
     DeletePostComponent,
+    UserRecommendationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -128,6 +132,10 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
     MatToolbarModule,
     ClipboardModule,
     MatButtonToggleModule,
+    CdkVirtualScrollViewport,
+    CdkFixedSizeVirtualScroll,
+    CdkVirtualForOf,
+    ScrollingModule,
   ],
   providers: [
     RouteguardService,
