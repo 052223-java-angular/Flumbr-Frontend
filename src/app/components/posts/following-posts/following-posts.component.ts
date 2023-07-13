@@ -17,18 +17,26 @@ export class FollowingPostsComponent implements OnInit, OnDestroy {
   followingSubscription!: Subscription;
   postSub: Subscription;
 
+  // scroll
+  isLoadingMorePosts = false;
+  page = 1;
+  postsPerPage = 20;
+  maxPostsReached = false;
+  scrollDistance = 2;
+  scrollThrottle = 150;
+
   constructor(
     private postService: PostService,
     private followService: FollowService,
     private eventBus: NgEventBus
   ) {
     this.postSub = this.eventBus.on(`${EventBusEvents.POST}*`).subscribe(() => {
-      this.getPosts(1);
+      this.getPosts();
     });
   }
 
   ngOnInit(): void {
-    this.getPosts(1);
+    this.getPosts();
 
     // subscribe to following behavior subject
     this.followingSubscription = this.followService
@@ -65,17 +73,50 @@ export class FollowingPostsComponent implements OnInit, OnDestroy {
     this.followingSubscription.unsubscribe();
   }
 
-  getPosts(page: number) {
+  onScroll() {
+    // checks if no more posts available from db
+    if (this.maxPostsReached || this.isLoadingMorePosts) {
+      return;
+    }
+
+    this.page += 1;
+    this.getMorePosts(this.page);
+  }
+
+  getPosts() {
     this.isLoading = true;
-    this.postService.getFollowingPosts(page).subscribe({
+    this.postService.getFollowingPosts(1).subscribe({
       next: (res) => {
         this.isLoading = false;
         this.posts = res;
-        console.log(res);
+        // no more posts available from db
+        if (res.length < this.postsPerPage) {
+          this.maxPostsReached = true;
+        }
       },
       error: (err) => {
         this.isLoading = false;
         console.log(err);
+      },
+    });
+  }
+
+  getMorePosts(page: number) {
+    this.isLoadingMorePosts = true;
+    this.postService.getFollowingPosts(page).subscribe({
+      next: (res) => {
+        this.posts.push(...res);
+
+        // no more posts available from db
+        if (res.length < this.postsPerPage) {
+          this.maxPostsReached = true;
+        }
+
+        this.isLoadingMorePosts = false;
+      },
+      error: (err) => {
+        console.log(err);
+        this.isLoadingMorePosts = false;
       },
     });
   }

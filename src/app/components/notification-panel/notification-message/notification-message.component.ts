@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Notification } from 'src/app/models/notification/notification';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 
@@ -25,11 +25,11 @@ export class NotificationMessageComponent {
   // incoming attributes for displaying data within the view
   @Input() notifications!: Notification[];
   @Input() activeNotificationType!: string;
+  @Output() notificationMessageIsEmpty: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   // formats the notification message
   formatMessage(message: string) : string {
-    let clippedMessage = message.substring(message.indexOf("User ")+5);
-    return clippedMessage.charAt(0).toUpperCase() + clippedMessage.substring(1) + ".";
+    return message.charAt(0).toUpperCase() + message.substring(1) + ".";
   }
 
   // updates the notification status as read
@@ -40,8 +40,9 @@ export class NotificationMessageComponent {
       next: (res) => {
         // remove el; close message panel when zero
         this.removeNotification(notification, this.notifications);
-        if (this.getTypeMessageCount(notification.matIconName, this.notifications) <= 0) {
-          this.notificationService.raiseMessagePanelIsEmpty(true);
+        const remainingEl = this.getTypeMessageCount(notification.matIconName, this.notifications);
+        if (remainingEl <= 0) {
+          this.notificationMessageIsEmpty.emit(true);
         }
       },
       error: (err) => console.log(err.error.message)

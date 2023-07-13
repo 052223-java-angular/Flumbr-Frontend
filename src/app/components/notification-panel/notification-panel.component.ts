@@ -20,6 +20,7 @@ export class NotificationPanelComponent implements OnInit {
   panelIsOpen: boolean = false;
   notifications$!: Observable<Notification[]>;
   notificationTypes$!: Observable<NotificationType[]>;
+  filteredNotification$!: Observable<Notification[]>;
 
   // atttribute fields for passing values down to notification-type component
   indexOfType!: number;
@@ -35,29 +36,20 @@ export class NotificationPanelComponent implements OnInit {
   ngOnInit(): void {
     this.stateIsReload = true;
 
-    this.notifications$ = this.notificationService.httpFetch().pipe(
+    // filter the results for only those not viewed
+    this.filteredNotification$ = this.notificationService.httpFetch().pipe(
+      map((el) => el.filter(notification => !notification.viewed)));
+
+    // add the message count for each mat-icon badge and assign the mat-icon symbol
+    this.notifications$ = this.filteredNotification$.pipe(
       map((el) => { 
         this.totalUnread = this.getTotalUnreadCount(el);
         return el.map(notification => this.assignProps(notification));
       }));
 
+    // retrieve the notifcation types
     this.notificationTypes$ = this.notificationService.httpFetchTypesFromFile().pipe(
       map((el) => el.map(type => this.assignProps(type) )))
-
-    // this.notificationService.stateIsReload.subscribe((isReloading) => {
-
-    //   this.notifications$ = this.notificationService.httpFetch().pipe(
-    //     map((el) => { 
-    //       this.totalUnread = this.getTotalUnreadCount(el);
-    //       return el.map(notification => this.assignProps(notification));
-    //     }));
-    // })
-
-
-    // for detecting when no messages are left, so update the panelOpenState
-    this.notificationService.messagePanelIsEmpty.subscribe((panelState) => {
-      this.panelIsOpen = !panelState;
-    });
 
   }
 
@@ -121,6 +113,14 @@ export class NotificationPanelComponent implements OnInit {
       }
       case "profileLike": { 
         notificationType.matIconName = "face";  
+        break;
+      }
+      case "postMention":{ 
+        notificationType.matIconName = "announcement";  
+        break;
+      }
+      case "commentMention": { 
+        notificationType.matIconName = "question_answer";  
         break;
       }
     }

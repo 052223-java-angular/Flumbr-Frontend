@@ -1,5 +1,5 @@
 .message-wrap {
-  @apply w-[18rem] z-50;
+  @apply w-[18rem] z-50 text-black;
 }
 
 .message-content {
@@ -11,7 +11,7 @@
 }
 
 .message-text {
-  @apply flex-[8] text-left font-normal tracking-wider;
+  @apply flex-[8]  text-left font-normal tracking-wider;
 }
 
 /* width */

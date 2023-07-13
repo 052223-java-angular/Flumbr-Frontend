@@ -22,7 +22,7 @@ export class GifService {
 
   getSearchGifs(search: string) {
     return this.http.get<{ data: any[] }>(
-      `${this.giphyApiUrl}/search?api_key=${this.giphyApiKey}&q=${search}`,
+      `${this.giphyApiUrl}/search?api_key=${this.giphyApiKey}&q=${search}&limit=20`,
       {
         headers: { skip: '' },
       }
