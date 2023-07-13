@@ -5,11 +5,11 @@
 
 
 
-  <app-notification-panel class="pr-2" *ngIf="!notificationHasChanged"></app-notification-panel>
+  <app-notification-panel class="pr-2 dark:text-whitesmoke" *ngIf="!notificationHasChanged"></app-notification-panel>
 
 
   <button mat-button [matMenuTriggerFor]="user">
-    <div class="valign-center">
+    <div class="valign-center dark:text-whitesmoke">
       <span>{{userName}}</span>
       <i class="material-icons">arrow_drop_down</i>
     </div>

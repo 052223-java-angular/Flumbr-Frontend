@@ -24,6 +24,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { SearchService } from 'src/app/services/search/search.service';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -41,7 +42,6 @@ export class PostComponent implements OnInit {
   thumbsDownEnabled: boolean = true;
 
   shareURL: string = '';
-  mentions: string[] = [];
 
   // variables used by bookmark
   sessionId!: string;
@@ -55,7 +55,8 @@ export class PostComponent implements OnInit {
     private messageService: MessageService,
     private profileService: ProfileService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +77,6 @@ export class PostComponent implements OnInit {
     const urlParts = location.href.split('/');
     this.shareURL = `${urlParts[0]}//${urlParts[2]}/posts/${this.post.id}`;
     // this.shareURL = window.location.href + '/share/' + this.post.id;
-    this.fetchMentions();
   }
 
   // custom validator
@@ -232,8 +232,9 @@ export class PostComponent implements OnInit {
     control.setValue((control.value ? control.value : '') + emoji);
   }
 
-  navigateToTag(id: string) {
-    console.log(id);
+  navigateToSearch(tag: string) {
+    this.searchService.setSearchTerms([tag]);
+    this.router.navigate(['/search']);
   }
 
   navigateToUser(id: string) {
@@ -436,13 +437,5 @@ export class PostComponent implements OnInit {
     }
 
     return numStr;
-  }
-
-  fetchMentions() {
-    this.mentions = this.post.message
-      ? (this.post.message.match(/@[A-Za-z0-9._]+/gi)! || []).map((x) =>
-          x.slice(1)
-        )
-      : [];
   }
 }
