@@ -2,14 +2,14 @@
 
   <div *ngIf="profile" class="flex m-20">
 
-    <div class="flex flex-wrap-reverse">
+    <div class="flex flex-wrap-reverse md:space-x-20">
 
-      <div class="w-500px dark:text-black">
+      <div class="w-500px max-w dark:text-black" style="widith:100%; max-width:500px">
         <app-posts-container [userId]="user_id"></app-posts-container>
       </div>
 
       <div>
-        <div class="sticky top-0 z-49 shadow-2xl rounded-lg">
+        <div class="w-500px sticky top-0 z-49 shadow-2xl rounded-lg">
           <div class=" p-5 shadow-2xl space-y-5 justify-between">
 
             <mat-card-header class="shadow-2xl rounded-lg">
