@@ -13,9 +13,9 @@
       <ng-template #notificationActive>
         <mat-icon (click)="toggleTypeMenu()" class="scale-[1.45]">
             notifications_none
-        </mat-icon>  
+        </mat-icon>
       </ng-template>
-      <div  
+      <div
         [matBadge]="notifications.length"
         [matBadgeColor]="badgeColor"
         [matBadgeSize]="badgeSize"
@@ -27,7 +27,7 @@
   </div>
 
   <!-- menu can open only when there are notifications -->
-  <div *ngIf="menuIsOpen && totalUnread > 0" 
+  <div *ngIf="menuIsOpen && totalUnread > 0"
       [ngClass]="panelIsOpen ? 'wrapper wrapper-max' : 'wrapper wrapper-min'">
 
     <!-- container for icon and notification messages -->
@@ -38,7 +38,7 @@
         <app-notification-type *ngFor="let notificationType of notificationTypes$ | async ; index as iconIdx"
           [matIcon]="notificationType.matIconName"
           [badgeContent]="getBadgeUnreadCount(notificationType.originName, notifications)"
-          [badgeColor]="badgeColor" 
+          [badgeColor]="badgeColor"
           [badgeSize]="badgeSize"
           [activeMatIcon]="activeMatIcon"
           (click)="toggleMessagePanel(iconIdx, notificationType)" ></app-notification-type>
@@ -46,14 +46,14 @@
         <!-- add a close option -->
         <app-notification-type
           [matIcon]="'cancel_presentation'"
-          [badgeColor]="badgeColor" 
+          [badgeColor]="badgeColor"
           [badgeSize]="badgeSize"
           (click)="toggleTypeMenu()" ></app-notification-type>
 
       </div>
 
       <!-- notification should be greater then zero -->
-      <app-notification-message 
+      <app-notification-message
         *ngIf="panelIsOpen && totalUnread > 0"
         (notificationMessageIsEmpty)="toggleTypeMenu()"
         [notifications]="notifications"
