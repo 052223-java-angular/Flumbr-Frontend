@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Report } from '../models/report';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ReportService {
   baseUrl = AppSettings.API_URL;
@@ -17,10 +17,10 @@ export class ReportService {
   }
 
   deletePost(postId: any) {
-    this.http.delete(`${this.baseUrl}/posts/id/${postId}`);
+    return this.http.delete(`${this.baseUrl}/posts/id/${postId}`);
   }
 
   deleteReport(reportId: any) {
-    this.http.delete(`${this.baseUrl}/reports/${reportId}`);
+    return this.http.delete(`${this.baseUrl}/reports/${reportId}`);
   }
 }
