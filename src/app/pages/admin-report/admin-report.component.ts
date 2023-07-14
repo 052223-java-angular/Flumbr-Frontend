@@ -60,7 +60,6 @@ export class AdminReportComponent implements OnInit {
   deletePost(postId: any) {
     this.reportService.deletePost(postId).subscribe({
       next: () => {
-        console.log('report deleted');
         this.router.navigateByUrl('/reports');
       },
       error: (err) => {
