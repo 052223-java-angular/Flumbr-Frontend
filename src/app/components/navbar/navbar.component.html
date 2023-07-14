@@ -1,5 +1,5 @@
 <mat-toolbar *ngIf="isAuthenticated()" color="primary" class="mat-elevation-z12">
-  <span routerLink="/posts" class="cursor-pointer"><mat-icon>whatshot</mat-icon><a routerLink=""></a>Flumblr</span>
+  <span routerLink="/posts" class="cursor-pointer"><mat-icon>whatshot</mat-icon><a (click)="routeToHome()">Flumblr</a></span>
 
   <div class="spacer"></div>
 

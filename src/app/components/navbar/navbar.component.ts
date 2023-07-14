@@ -76,6 +76,12 @@ export class NavbarComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {});
   }
 
+  routeToHome()
+  {
+    console.log("In routeToHome");
+      this.router.navigate(['']);
+  }
+
   updateLoggedInStatus() {
     this.userId = this.tokenService.getUser().id;
     this.userName = this.tokenService.getUser().username;

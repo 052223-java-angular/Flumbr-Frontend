@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
   constructor(private tokenService: TokenService, private router: Router) {}
 
   ngOnInit(): void {
+    console.log("In homeComponent.ngOnInit()");
     if (this.checkIfLoggedIn()) {
       this.router.navigate(['/posts']);
     }
