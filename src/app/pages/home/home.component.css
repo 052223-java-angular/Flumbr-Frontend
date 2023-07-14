@@ -1,0 +1,17 @@
+
+.custom-button {
+  height: 50px;
+  width: 150px;
+  font-size: medium;
+  font-weight: bolder;
+  margin-left: 40px;
+  margin-right: 40px;
+  color:white!important;
+}
+@media (max-width: 768px) {
+  .flex-row {
+    flex-direction: column;
+  }
+
+
+}

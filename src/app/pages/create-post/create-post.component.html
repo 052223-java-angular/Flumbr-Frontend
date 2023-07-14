@@ -1,0 +1,114 @@
+<ng-container
+  *ngIf="loading">
+  <mat-spinner></mat-spinner>
+</ng-container>
+
+<ng-container>
+  <div class="flex flex-col items-center">
+    <form
+      [ngStyle]="{'visibility': loading ? 'hidden' : 'visible'}"
+      class="bg-white flex flex-col p-6 w-full"
+      (ngSubmit)="submitPostForm()"
+      [formGroup]="postForm">
+      <div class="flex flex-row items-start">
+        <h1 class="text-center text-slate-700 dark:text-slate-100 font-bold text-3xl tracking-wide">{{ this.data ? 'Edit' : 'Create'}} Post</h1>
+        <button
+          class="ml-auto text-slate-500 dark:text-slate-100"
+          (click)="onCancelClick($event)"><mat-icon class="text-4xl h-auto w-auto">cancel</mat-icon></button>
+      </div>
+      <hr class="border-b-1 mb-4">
+
+      <mat-form-field class="">
+        <mat-label class="dark:text-slate-100">What's on your mind?</mat-label>
+        <textarea
+          class="disable-resize"
+          matInput
+          formControlName="message"
+          cdkFocusInitial
+          ></textarea>
+        <div class="flex">
+          <mat-chip-set
+            *ngIf="tags && tags.length > 0 || mentions && mentions.length > 0"
+            aria-label="tags">
+            <div class="flex items-baseline">
+              <small>tags:</small>
+              <mat-chip
+                *ngFor="let tag of tags"
+                [style.background-color]="'#ff3f80'">
+                {{ tag }}
+              </mat-chip>
+              <mat-chip
+                *ngFor="let mention of mentions"
+                [style.background-color]="'#00c7ff'">
+                {{ mention }}
+              </mat-chip>
+            </div>
+          </mat-chip-set>
+        </div>
+        <div class="flex gap-1 ml-auto">
+          <div
+            class="flex justify-center items-center p-1 rounded-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-950/20 ml-auto"
+            (click)="toggleGifComponent()">
+            <mat-icon class="scale-[0.80]">gif</mat-icon>
+          </div>
+          <div
+            class="flex justify-center items-center p-1 rounded-full cursor-pointer transition-all ease-in-out duration-300 hover:bg-slate-950/20"
+            (click)="op.toggle($event)">
+            <mat-icon class="scale-[0.80]">tag_faces</mat-icon>
+          </div>
+        </div>
+      </mat-form-field>
+
+      <div *ngIf="isGifComponentOpen">
+        <app-gif (gifChosenEvent)="addGif($event)" (closeGifComponentEvent)="toggleGifComponent()"></app-gif>
+      </div>
+
+      <p-overlayPanel #op styleClass="[&_.p-overlaypanel-content]:p-0 bg-indigo-700">
+        <emoji-mart [darkMode]="isDarkModeActive()" title="Pick your emoji" set="facebook" [showPreview]="true" [emojiTooltip]="true"
+          (emojiClick)="addEmoji($event.emoji.native)"></emoji-mart>
+      </p-overlayPanel>
+
+      <div
+        class="media-drop"
+        *ngIf="!(isImage || isVideo)">
+        <ngx-dropzone
+          (change)="onSelectFile($event)"
+          [multiple]=false
+          [maxFileSize]=fileSizeLimit>
+          <ngx-dropzone-label>Drag and drop media or <span class="border-2 rounded-full p-2">Upload</span><br /><br />Only images/videos supported</ngx-dropzone-label>
+          <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+          </ngx-dropzone-preview>
+        </ngx-dropzone>
+      </div>
+
+      <input
+        hidden="true"
+        formControlName="file">
+
+
+      <div
+        class=""
+        *ngIf="isImage || isVideo">
+        <h3 class="font-bold">Preview:</h3>
+        <ng-container *ngIf="isImage">
+          <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label></ngx-dropzone-label>
+          </ngx-dropzone-image-preview>
+        </ng-container>
+        <ng-container *ngIf="isVideo">
+          <ngx-dropzone-video-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label></ngx-dropzone-label>
+          </ngx-dropzone-video-preview>
+        </ng-container>
+      </div>
+
+      <div class="flex mt-8">
+        <button
+          class="w-screen"
+          mat-flat-button color="primary"
+          [disabled]="!postForm.valid">Post</button>
+      </div>
+    </form>
+  </div>
+</ng-container>

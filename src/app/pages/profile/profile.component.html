@@ -1,0 +1,71 @@
+<div id="{{theme}}" class="{{theme}} flex flex-col items-center">
+
+    <div *ngIf="profile" class="flex m-20 w-4/5">
+
+        <div class="flex flex-wrap-reverse w-full">
+
+            <div class="sm:w-full lg:w-3/5 dark:text-black">
+                <app-posts-container [userId]="user_id"></app-posts-container>
+            </div>
+
+            <div class="sticky z-49 rounded-lg sm:w-full lg:w-2/5">
+                <div class=" p-5 shadow-2xl space-y-5 justify-between">
+
+                    <mat-card-header class="shadow-2xl rounded-lg">
+                        <mat-card class="w-full items-center">
+                            <mat-card-title class="text-5xl dark:text-black">{{profile.username}}</mat-card-title>
+                        </mat-card>
+                    </mat-card-header>
+
+                    <mat-card-header class="shadow-2xl rounded-lg">
+                        <mat-card-title-group class="flex-row">
+                            <mat-card class="flex items-center w-full">
+
+                                <div class="w-full h-96 md:shrink-0">
+                                    <img mat-card-image src="{{profile.profile_img}}"
+                                        class="p-11 w-full h-full object-cover">
+                                </div>
+
+                            </mat-card>
+                        </mat-card-title-group>
+                    </mat-card-header>
+
+                    <ng-container class="items-center">
+                        <button *ngIf="sessionId == user_id" routerLink="/profile/settings" mat-raised-button
+                            color="accent" class="w-1/5">Edit Profile</button>
+
+                        <app-follow class="{{theme}}" viewTemplate="iconView" [followIdentity]="{
+                  loggedInUserId: sessionId,
+                  ownerUserId: user_id,
+                  ownerUsername: profile.username}">
+                        </app-follow>
+                    </ng-container>
+
+
+
+                    <mat-card-header class="shadow-2xl rounded-lg">
+                        <mat-card-title>About me</mat-card-title>
+                        <mat-card class="w-full">
+                            <mat-card-content class="dark:text-black">{{profile.bio}}</mat-card-content>
+                        </mat-card>
+                    </mat-card-header>
+
+
+
+                    <mat-card class="p-5 shadow-2xl rounded-lg items-center">
+                        <mat-card-title class="p-5 text-2xl dark:text-black">My Interests</mat-card-title>
+                        <mat-chip-set aria-label="Enter interests" formControlName="tags">
+                            <mat-chip *ngFor="let tag of tags" color="primary">
+                                {{tag.name}}
+                            </mat-chip>
+                        </mat-chip-set>
+                    </mat-card>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

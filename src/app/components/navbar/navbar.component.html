@@ -1,0 +1,27 @@
+<mat-toolbar *ngIf="isAuthenticated()" color="primary" class="mat-elevation-z22">
+  <span routerLink="/posts" class="cursor-pointer"><mat-icon>whatshot</mat-icon>Flumblr</span>
+
+  <div class="spacer"></div>
+
+
+
+  <app-notification-panel class="pr-2 dark:text-whitesmoke" *ngIf="!notificationHasChanged"></app-notification-panel>
+
+
+  <button mat-button [matMenuTriggerFor]="user">
+    <div class="valign-center dark:text-whitesmoke">
+      <span>{{userName}}</span>
+      <i class="material-icons">arrow_drop_down</i>
+    </div>
+  </button>
+
+  <mat-menu #user="matMenu" class="flex flex-col items-center">
+    <a mat-menu-item class="" routerLink="/profile/{{userId}}">Profile</a>
+    <a mat-menu-item class="" routerLink="/posts">Posts</a>
+    <a *ngIf="role==='ADMIN'" mat-menu-item class="" routerLink="/reports">Reports</a>
+    <span mat-menu-item class="items-center"><app-theme-switcher></app-theme-switcher></span>
+
+    <a (click)="logout()" *ngIf="isAuthenticated()" mat-menu-item class="" routerLink=" ">Logout</a>
+  </mat-menu>
+
+</mat-toolbar>

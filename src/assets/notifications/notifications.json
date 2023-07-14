@@ -1,0 +1,86 @@
+[
+  { "id": "1",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "matIconName": "comment"
+  }, 
+  { "id": "2",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "matIconName": "comment"
+  }, 
+  { "id": "3",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "matIconName": "comment"
+  }, 
+  { "id": "4",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "matIconName": "comment"
+  }, 
+  { "id": "5",
+  "message": "This will be for showing posts in which you receive a direct messages - if implemented",
+  "profileId": "1111-1111-1111-1111",
+  "hasRead": false, 
+  "matIconName": "favorite_border"
+  }, 
+  { "id": "6",
+  "message": "This will be for showing posts in which you receive a direct message or comment - if implemented",
+  "profileId": "1111-1111-1111-1111",
+  "hasRead": false, 
+  "matIconName": "favorite_border"
+  },
+  { "id": "7",
+  "message": "This will be trending posts for categories that a user follows - if implemented",
+  "profileId": "1111-1111-1111-1111",
+  "hasRead": false, 
+  "matIconName": "favorite_border"
+  }, 
+  { "id": "8",
+  "message": "This will be for posts you review that are receiving indirect comments - if implemented",
+  "profileId": "1111-1111-1111-1111",
+  "hasRead": false, 
+  "matIconName": "thumb_up"
+  },
+  { "id": "9",
+  "message": "This will be posts you own receiving new likes - if implemented",
+  "profileId": "1111-1111-1111-1111",
+  "hasRead": false, 
+  "matIconName": "face"
+  }, 
+  { "id": "10",
+  "message": "This will be any friends requests - if implemented",
+  "profileId": "1111-1111-1111-1111",
+  "hasRead": false, 
+  "matIconName": "repeat_icon"
+  },
+  { "id": "11",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "matIconName": "thumb_up"
+  }, 
+  { "id": "12",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "matIconName": "comment"
+  }, 
+  { "id": "13",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "matIconName": "comment"
+  }, 
+  { "id": "14",
+  "message": "This will be for showing posts you made comment on and directly receiving comments - if implemented",
+  "profileId": "1111-1111-1111-1111", 
+  "hasRead": false, 
+  "matIconName": "comment"
+  }
+]

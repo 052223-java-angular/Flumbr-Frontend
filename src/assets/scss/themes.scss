@@ -1,0 +1,154 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+/**
+ * colors in hex
+ * deep purple 500- #673AB7
+ * pink 300- #F06292
+ * source for picking colors https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
+ */
+$light-theme: mat.define-light-theme(
+      (
+        //defining colors for components with primary, accent and warn colors
+        color: (
+          primary: mat.define-palette(mat.$deep-purple-palette,500),
+          accent: mat.define-palette(mat.$pink-palette,300),
+          warn: mat.define-palette(mat.$deep-purple-palette,500)
+        ),
+        typography: mat.define-typography-config(),
+        density: 0,
+      )
+);
+
+$dark-theme: mat.define-dark-theme(
+      (
+        //defining colors for components with primary, accent and warn colors
+        color: (
+          primary: mat.define-palette(mat.$pink-palette,300),
+          accent: mat.define-palette(mat.$deep-purple-palette,500),
+          warn: mat.define-palette(mat.$pink-palette,300)
+        ),
+        typography: mat.define-typography-config(),
+        density: 0,
+      )
+);
+
+@include mat.all-component-themes($light-theme);
+
+.dark-mode {
+  @include mat.all-component-colors($dark-theme);
+  background-color: #3c4043 !important; //background color is set
+  color: whitesmoke !important; //text-color is set
+
+  //targets all form element, !important is necessary for changes to persist
+  form {
+    background-color: #3c4043 !important;
+    color: whitesmoke !important;
+  }
+
+  mat-card {
+    background-color: #3c4043 !important;
+    color: whitesmoke !important;
+  }
+
+  //targets button with custom-button class in login and register
+  .custom-button {
+
+    color: whitesmoke !important;
+  }
+
+  //Element for styling post
+  [_nghost-ng-c2040221903] {
+    background-color: #3c4043;
+    color: whitesmoke;
+    border: 2px dashed whitesmoke;
+    border-radius: 5px;
+  }
+  //Element for styling notification panel
+  .icon-container{
+    background: #3c4043!important;
+    color: whitesmoke!important;
+    border:none;
+  }
+
+  //Element for styling notification icons
+  .icon[_ngcontent-ng-c1304148653]
+  {
+    color: whitesmoke;
+  }
+
+
+  //Element for styling notification messages
+  .message-content[_ngcontent-ng-c2079826204]{
+    background: #3c4043;
+    color: whitesmoke;
+    border-top: gray;
+    border-left: gray;
+    border-right: gray;
+
+  }
+
+  //element for styling menu (dates, follow, report) on a post
+  .mat-mdc-menu-content{
+    background: #3c4043;
+  }
+
+  //Posts component background color
+  .bg-indigo-700{
+    background-color: #333538!important;
+  }
+
+  //styling for posts component tabs (feed, following, trending)
+  .mat-mdc-tab-label-container{
+    background: #3c4043!important;
+  }
+  //search bar on posts component
+  .bg-purple-600{
+    background-color: #3c4043!important;
+  }
+
+  //button for creating a post
+  .mat-mdc-unelevated-button.mat-primary{
+    --mdc-filled-button-label-text-color: whitesmoke!important;
+  }
+
+  //gif search bar
+  .bg-amber-50{
+    background-color: #3c4043!important;
+    border-color: rgb(107,114,128)!important;
+  }
+
+  //bookmark icon on feed
+  .icon{
+    color:whitesmoke;
+  }
+  //other icons on post feed
+  :is(.dark .dark\:text-whitesmoke){
+    color:whitesmoke!important;
+  }
+
+  //more post option (post date, last edit, follow, report)
+  .mat-mdc-menu-panel.mat-mdc-menu-panel{
+    background-color: #3c4043!important;
+
+  }
+
+  //border for post options
+  .border-gray-100{
+    border: rgb(107,114,128);
+  }
+
+  //targets all button primary button text on feed
+  .mat-mdc-raised-button.mat-primary{
+    color:whitesmoke!important;
+  }
+
+  //nav bar
+  .mat-toolbar.mat-primary{
+    background: rgba(33, 33, 33, 0.8);
+    color:#F06292;
+  }
+  }
+
+
+

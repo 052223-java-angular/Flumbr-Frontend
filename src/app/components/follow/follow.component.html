@@ -1,0 +1,38 @@
+<ng-container *ngIf="isFollowingUsernames">
+  <!-- this is for displaying the follow action buttons in text view -->
+  <ng-container *ngIf="viewTemplate == 'textView' && !isLoggedInOwner(followIdentity)">
+    <!-- {{isFollowingUsernames | json}} -->
+    <button mat-menu-item class="border min-h-[32px]" *ngIf="!isFollowing(followIdentity); else unfollow"
+      (click)="followHandler(followIdentity)">
+      <span class="text-xs text-slate-950 dark:text-whitesmoke">Follow</span>
+    </button>
+
+    <ng-template #unfollow>
+      <button mat-menu-item class="border min-h-[32px]" (click)="followHandler(followIdentity)">
+        <span class="text-xs text-slate-950 dark:text-whitesmoke">Unfollow</span>
+      </button>
+    </ng-template>
+
+  </ng-container>
+
+  <!-- this is for displaying the follow action buttons in icon view -->
+  <ng-container *ngIf="viewTemplate == 'iconView' && !isLoggedInOwner(followIdentity)">
+
+    <button *ngIf="!isFollowing(followIdentity); else unfollow" (click)="followHandler(followIdentity)" mat-fab
+      color="none" aria-label="follow">
+      <mat-icon>perm_identity</mat-icon>
+    </button>
+
+    <ng-template #unfollow>
+      <button (click)="followHandler(followIdentity)" mat-fab color="primary" aria-label="Already follow">
+        <mat-icon #follow>how_to_reg</mat-icon>
+      </button>
+    </ng-template>
+
+  </ng-container>
+
+  <div *ngIf="hasFollowError" class="flex px-6 text-red-500 text-xs">
+    <p>{{errorMessage | titlecase }}</p>
+  </div>
+
+</ng-container>

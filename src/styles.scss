@@ -1,0 +1,46 @@
+@import "./assets/scss/themes.scss";
+@import "./assets/scss/profile-theme.scss";
+//importing it not sure if it will be good in the long run or best practice
+//@import "src/app/pages/login/login.component";
+
+//Option #2: show ruben for a reason the styling has only been working back here
+//with an id im able to target specific elements
+//this method only works when importing from the login component because it is targeting a login element id
+//#test {
+//  .mdc-text-field--filled:not(.mdc-text-field--disabled)
+//  {
+//  background-color: red;
+//  }
+//}
+//
+// @import "./assets/scss/profile-theme.scss";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+// emoji mart
+@import "@ctrl/ngx-emoji-mart/picker";
+
+@import "@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* You can add global styles to this file,
+and also import other style files */
+html,
+body {
+  width: 100vw;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-dialog-container {
+  .mat-mdc-dialog-surface {
+    border-radius: 20px !important;
+  }
+}

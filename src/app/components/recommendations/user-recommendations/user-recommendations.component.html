@@ -1,0 +1,47 @@
+<!--<h1 class="font-bold text-3xl text-indigo-500">User Recommendations</h1>-->
+<!-- <div class="flex gap-5 flex-wrap">
+    <mat-card
+        *ngFor="let user of users"
+        class="example-card">
+        <mat-card-header>
+            <div class="flex items-center">
+                <mat-card-title>{{ user.username }}</mat-card-title>
+            </div>
+        </mat-card-header>
+        <img
+            mat-card-image
+            [src]="user.profile.profile_img"
+            alt="">
+        <mat-card-content>
+            <p>"{{ user.profile.bio }}"</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button>FOLLOW</button>
+        </mat-card-actions>
+  </mat-card> -->
+
+
+
+<div class="cdk-virtual-scroll-data-source-example" xmlns="http://www.w3.org/1999/html">
+  <cdk-virtual-scroll-viewport orientation="vertical" itemSize="4" class="example-viewport">
+    <h1 class="m-0 ml-4 text-white">Suggested Followers</h1>
+    <mat-divider class="mt-2 mb-5 border-t-2 border-emerald-300 dark:border-gray-500"></mat-divider>
+    <div class="example-scrollbar">
+     <p class="text-white m-4" *ngIf="users.length === 0">Recommendations arent available.<br> Add interests to your profile!
+     <br> </p>
+      <ul class="flex flex-col gap-3" *cdkVirtualFor="let user of users">
+        <li class="flex justify-between items-center gap-5">
+          <div class="flex items-center gap-5">
+            <div mat-card-avatar class="m-2">
+              <img [src]="user.profile_img" alt="profile picture"  height="50" width="50" class="rounded-full">
+            </div>
+            <p class="m-0 text-white">{{ user.username }}</p>
+          </div>
+          <button mat-raised-button color="primary" (click)="followUser(user.username)">Follow</button>
+        </li>
+      </ul>
+    </div>
+  </cdk-virtual-scroll-viewport>
+</div>
+
+

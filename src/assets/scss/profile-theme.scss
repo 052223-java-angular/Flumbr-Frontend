@@ -1,0 +1,393 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+
+$default: mat.define-light-theme((
+  color: (
+    primary: mat.define-palette(mat.$indigo-palette, 500),
+    accent: mat.define-palette(mat.$indigo-palette, 300),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+));
+
+$theme-one: mat.define-light-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$indigo-palette, 200),
+    accent: mat.define-palette(mat.$indigo-palette, 800),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+)
+);
+
+
+$theme-two: mat.define-light-theme((
+
+  color: (
+    primary:  mat.define-palette(mat.$blue-grey-palette, 800),
+    accent: mat.define-palette(mat.$blue-grey-palette, 400),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+)
+);
+
+
+$theme-three: mat.define-light-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$amber-palette, 800),
+    accent: mat.define-palette(mat.$amber-palette, 400),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+)
+);
+
+$theme-four: mat.define-light-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$cyan-palette, 800),
+    accent: mat.define-palette(mat.$cyan-palette, 400),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+)
+);
+
+$theme-five: mat.define-light-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$pink-palette, 800),
+    accent: mat.define-palette(mat.$pink-palette, 400),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+)
+);
+$default-dark: mat.define-dark-theme((
+  color: (
+    primary: mat.define-palette(mat.$indigo-palette, 500),
+    accent: mat.define-palette(mat.$indigo-palette, 300),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+));
+
+//@include mat.all-component-themes($default);
+
+
+//default Flumblr theme: new users get this
+.default {
+  @include mat.all-component-colors($default);
+  mat-card.mat-mdc-card {
+    background-color: #F7FBFC !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #769FCD !important
+  }
+
+}
+
+.dark-mode{
+  .default{
+    @include mat.all-component-colors($default-dark);
+    mat-card.mat-mdc-card {
+      background-color: #F7FBFC !important;
+      color:black!important;
+    }
+
+    mat-card-header.mat-mdc-card-header {
+      background-color: #769FCD !important
+    }
+
+    .bg-white{
+      background: #3c4043!important;
+    }
+  }
+}
+
+$theme-one-dark: mat.define-dark-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$indigo-palette, 200),
+    accent: mat.define-palette(mat.$indigo-palette, 800),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+)
+);
+$theme-two-dark: mat.define-dark-theme((
+
+  color: (
+    primary:  mat.define-palette(mat.$blue-grey-palette, 800),
+    accent: mat.define-palette(mat.$blue-grey-palette, 400),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+)
+);
+$theme-three-dark: mat.define-dark-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$amber-palette, 800),
+    accent: mat.define-palette(mat.$amber-palette, 400),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+)
+);
+
+$theme-four-dark: mat.define-dark-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$cyan-palette, 800),
+    accent: mat.define-palette(mat.$cyan-palette, 400),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+)
+);
+
+$theme-five-dark: mat.define-dark-theme((
+
+  color: (
+    primary: mat.define-palette(mat.$pink-palette, 800),
+    accent: mat.define-palette(mat.$pink-palette, 400),
+    warn: mat.define-palette(mat.$red-palette,800),
+  ),
+
+)
+);
+
+.dark-mode{
+  .theme-one {
+    @include mat.all-component-colors($theme-one-dark);
+
+    mat-card.mat-mdc-card {
+      background-color: #DBE2EF !important;
+      color:black!important;
+    }
+
+    mat-card-header.mat-mdc-card-header {
+      background-color: #3F72AF !important
+    }
+
+    mat-card-title.mat-mdc-card-title {
+      font-family: Blippo, fantasy;
+    }
+    .mat-mdc-card-content{
+      color:black;
+    }
+    .mdc-card__actions{
+      background-color: #212A3E;
+      color:whitesmoke;
+    }
+    .bg-white{
+      background: #3c4043!important;
+    }
+  }
+}
+// indigo
+.theme-one {
+  @include mat.all-component-colors($theme-one);
+
+  mat-card.mat-mdc-card {
+    background-color: #DBE2EF !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #3F72AF !important
+  }
+
+  mat-card-title.mat-mdc-card-title {
+    font-family: Blippo, fantasy;
+  }
+}
+.dark-mode{
+  .theme-two{
+    @include mat.all-component-colors($theme-two-dark);
+    ::ng-deep #test {
+      background-color: indigo !important;
+    }
+
+    mat-card.mat-mdc-card {
+      background-color: #9BA4B5 !important;
+
+    }
+
+    mat-card-header.mat-mdc-card-header {
+      background-color: #212A3E !important
+    }
+
+    mat-card-title.mat-mdc-card-title {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .bg-white{
+      background: #3c4043!important;
+    }
+  }
+}
+// blue grey
+.theme-two {
+  @include mat.all-component-colors($theme-two);
+
+  ::ng-deep #test {
+    background-color: indigo !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: #9BA4B5 !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #212A3E !important
+  }
+
+  mat-card-title.mat-mdc-card-title {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+.dark-mode{
+  .theme-three {
+    @include mat.all-component-colors($theme-three-dark);
+
+    #test {
+      background-color: crimson !important;
+    }
+
+    mat-card {
+      background-color: #F29727 !important;
+    }
+
+    mat-card-header.mat-mdc-card-header {
+      background-color: #E57C23 !important
+    }
+
+    mat-card-title.mat-mdc-card-title {
+      font-family: Luminari, fantasy;
+    }
+    .bg-white{
+      background: #3c4043!important;
+    }
+  }
+}
+// amber scheme
+.theme-three {
+  @include mat.all-component-colors($theme-three);
+
+  #test {
+    background-color: crimson !important;
+  }
+
+  mat-card {
+    background-color: #F29727 !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #E57C23 !important
+  }
+
+  mat-card-title.mat-mdc-card-title {
+    font-family: Luminari, fantasy;
+  }
+}
+
+
+.dark-mode{
+  .theme-four {
+    @include mat.all-component-colors($theme-four-dark);
+
+    #test {
+      background-color: crimson !important;
+    }
+
+    mat-card.mat-mdc-card {
+      background-color: #79E0EE !important;
+    }
+
+    mat-card-header.mat-mdc-card-header {
+      background-color: #00C4FF !important
+    }
+
+    mat-card-title.mat-mdc-card-title {
+      font-family: DejaVu Sans Mono, monospace;
+    }
+
+  }
+  .bg-white{
+    background: #3c4043!important;
+  }
+
+}
+
+// cyan scheme
+.theme-four {
+  @include mat.all-component-colors($theme-four);
+
+  #test {
+    background-color: crimson !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: #79E0EE !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #00C4FF !important
+  }
+
+  mat-card-title.mat-mdc-card-title {
+    font-family: DejaVu Sans Mono, monospace;
+  }
+
+}
+
+.dark-mode{
+  .theme-five {
+    @include mat.all-component-colors($theme-five-dark);
+
+    #test {
+      background-color: crimson !important;
+    }
+
+    mat-card.mat-mdc-card {
+      background-color: #F99B7D !important;
+    }
+
+    mat-card-header.mat-mdc-card-header {
+      background-color: #E76161 !important
+    }
+
+    mat-card-title.mat-mdc-card-title {
+      font-family: Snell Roundhand, cursive;
+    }
+    .bg-white{
+      background: #3c4043!important;
+    }
+  }
+}
+
+.theme-five {
+  @include mat.all-component-colors($theme-five);
+
+  #test {
+    background-color: crimson !important;
+  }
+
+  mat-card.mat-mdc-card {
+    background-color: #F99B7D !important;
+  }
+
+  mat-card-header.mat-mdc-card-header {
+    background-color: #E76161 !important
+  }
+
+  mat-card-title.mat-mdc-card-title {
+    font-family: Snell Roundhand, cursive;
+  }
+}

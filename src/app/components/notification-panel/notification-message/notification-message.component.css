@@ -1,0 +1,36 @@
+.message-wrap {
+  @apply w-[18rem] z-50 text-black;
+}
+
+.message-content {
+  @apply flex items-center h-[3rem] max-h-16 pr-2 py-2 shadow-md rounded-sm cursor-pointer bg-white border-gray-300 border;
+}
+
+.message-icon {
+  @apply mx-4 flex-1;
+}
+
+.message-text {
+  @apply flex-[8]  text-left font-normal tracking-wider;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #242323;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

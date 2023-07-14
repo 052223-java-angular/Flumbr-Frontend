@@ -1,0 +1,16 @@
+<!-- <div class="m-10">
+    Search Results:<app-post-list [posts]="posts"></app-post-list>
+</div> -->
+
+<div class="fixed top-0 w-screen h-screen bg-indigo-700 -z-10"></div>
+
+<div class="flex flex-col gap5 justify-center items-center">
+  <div *ngIf="posts.length === 0">
+    <h1 class="mt-10">No search results found.</h1>
+  </div>
+
+  <div class="mx-24 mt-10 w-1/2">
+    <!-- Content here -->
+    Search Results:<app-post-list [posts]="posts"></app-post-list>
+  </div>
+</div>

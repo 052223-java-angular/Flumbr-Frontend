@@ -1,0 +1,15 @@
+<div class="parent h-full overflow-auto">
+  <!-- Scroll to top -->
+  <p-scrollTop class="absolute bottom-3 right-7" [target]="'parent'" [threshold]="100"></p-scrollTop>
+  <main class="mat-app-background"></main>
+  <div class="flex w-full flex-col min-h-screen">
+    <app-navbar class=""></app-navbar>
+    <p-toast position="top-center"></p-toast>
+    <div class="flex flex-col flex-grow">
+      <router-outlet></router-outlet>
+    </div>
+    <footer>
+      <p class="text-center text-black dark:text-whitesmoke">Created By Team Flumblr</p>
+    </footer>
+  </div>
+</div>

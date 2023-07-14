@@ -1,0 +1,39 @@
+.example-card {
+  width: 300px;
+  height: 35em;
+}
+
+.example-header-image {
+  // background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.cdk-virtual-scroll-data-source-example {
+  .example-viewport {
+    height: 38em;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+.example-scrollbar {
+  height: 200px; /* Add a fixed height here */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+mat-card img {
+  object-fit: cover; /*this makes the image in src fit to the size specified below*/
+  width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: 60%;
+}

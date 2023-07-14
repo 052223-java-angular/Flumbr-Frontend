@@ -1,0 +1,9 @@
+[
+  { "originName": "postComment"},
+  { "originName": "commentLike" },
+  { "originName": "follow" },
+  { "originName": "postLike" },
+  { "originName": "profileLike"},
+  { "originName": "postMention" },
+  { "originName": "commentMention"}
+]
