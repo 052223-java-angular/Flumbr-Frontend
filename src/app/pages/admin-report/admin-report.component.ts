@@ -6,6 +6,8 @@ import { TokenService } from 'src/app/services/tokenservice.service';
 import { Report } from 'src/app/models/report';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupPostComponent } from 'src/app/components/popup-post/popup-post.component';
 
 @Component({
   selector: 'app-admin-report',
@@ -29,7 +31,8 @@ export class AdminReportComponent implements OnInit {
   constructor(
     private reportService: ReportService,
     private tokenService: TokenService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
@@ -41,7 +44,7 @@ export class AdminReportComponent implements OnInit {
   }
 
   getReports() {
-    this.reportService.getReports(1).subscribe((result) => {
+    this.reportService.getReports().subscribe((result) => {
       this.reportdata = result;
 
       this.dataSource = new MatTableDataSource<Report>(this.reportdata);
@@ -76,6 +79,19 @@ export class AdminReportComponent implements OnInit {
       error: (err) => {
         console.log(err);
       },
+    });
+  }
+
+  getPost(postId: string) {
+    console.log(postId);
+    var __popup = this.dialog.open(PopupPostComponent, {
+      width: '50%',
+      data: {
+        postId: postId,
+      },
+    });
+    __popup.afterClosed().subscribe((item) => {
+      console.log(item);
     });
   }
 }

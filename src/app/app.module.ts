@@ -81,6 +81,7 @@ import {
   CdkVirtualScrollViewport,
 } from '@angular/cdk/scrolling';
 import { ScrollTopModule } from 'primeng/scrolltop';
+import { PopupPostComponent } from './components/popup-post/popup-post.component';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     AdminReportComponent,
     PostsByUserComponent,
     UserRecommendationsComponent,
+    PopupPostComponent,
   ],
   imports: [
     BrowserModule,
