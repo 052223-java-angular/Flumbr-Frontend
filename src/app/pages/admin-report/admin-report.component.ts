@@ -65,6 +65,7 @@ export class AdminReportComponent implements OnInit {
     this.reportService.deletePost(postId).subscribe(item => {
       console.log(item);
     });
+    console.log(this.dataSource);
   }
 
   deleteReport(id: string) {
