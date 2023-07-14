@@ -12,35 +12,33 @@ import { PostService } from 'src/app/services/post/post.service';
 export class ReportComponent implements OnInit {
   inputdata!: any;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, 
-              private ref: MatDialogRef<ReportComponent>,
-              private builder: FormBuilder,
-              private postService: PostService){}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ref: MatDialogRef<ReportComponent>,
+    private builder: FormBuilder,
+    private postService: PostService
+  ) {}
 
   ngOnInit(): void {
     this.inputdata = this.data;
-    console.log(this.inputdata);
   }
 
-  closepopup(){
+  closepopup() {
     this.ref.close();
   }
 
   submitReport() {
-     
     const payload: ReportPayload = {
       postId: this.inputdata.postId,
       reason: this.reportForm.controls['reason'].value,
     };
-    console.log(payload);
 
-    this.postService.reportPost(payload).subscribe(res=>{
-      this.closepopup()
+    this.postService.reportPost(payload).subscribe((res) => {
+      this.closepopup();
     });
   }
 
   reportForm = this.builder.group({
-    reason: this.builder.control('', Validators.required)
-  })
-  
+    reason: this.builder.control('', Validators.required),
+  });
 }

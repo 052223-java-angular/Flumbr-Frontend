@@ -171,6 +171,12 @@ export class PostService {
     });
   }
 
+  deleteComment(id: string) {
+    return this.http.delete(`${this.baseUrl}/posts/comments/${id}`, {
+      responseType: 'text',
+    });
+  }
+
   reportPost(data: any) {
     return this.http.post(`${this.baseUrl}/reports`, data);
   }

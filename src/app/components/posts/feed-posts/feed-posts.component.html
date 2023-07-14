@@ -1,7 +1,7 @@
 <div class="flex w-full h-full justify-center items-center" *ngIf="isLoading"><mat-spinner></mat-spinner>
 </div>
 <div infiniteScroll [infiniteScrollDistance]="scrollDistance" [infiniteScrollThrottle]="scrollThrottle"
-  [infiniteScrollContainer]="'body'" [fromRoot]="true" (scrolled)="onScroll()" *ngIf="!isLoading">
+  [infiniteScrollContainer]="'.parent'" [fromRoot]="true" (scrolled)="onScroll()" *ngIf="!isLoading">
   <app-post-list [posts]="posts"></app-post-list>
 </div>
 <div class="flex w-full justify-center items-center pt-5 py-10" *ngIf="isLoadingMorePosts"><mat-spinner></mat-spinner>

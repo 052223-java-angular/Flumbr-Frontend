@@ -28,6 +28,9 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DeletePostComponent } from './components/posts/delete-post/delete-post.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 import { NotificationTypeComponent } from './components/notification-panel/notification-type/notification-type.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -77,6 +80,7 @@ import {
   CdkVirtualForOf,
   CdkVirtualScrollViewport,
 } from '@angular/cdk/scrolling';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 @NgModule({
   declarations: [
@@ -146,10 +150,14 @@ import {
     ClipboardModule,
     MatButtonToggleModule,
     InfiniteScrollModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     CdkVirtualScrollViewport,
     CdkFixedSizeVirtualScroll,
     CdkVirtualForOf,
     ScrollingModule,
+    ScrollTopModule,
   ],
   providers: [
     RouteguardService,

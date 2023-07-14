@@ -147,9 +147,10 @@ export class PostComponent implements OnInit {
 
     // attempt db creation of comment
     this.postService.createComment(commentPayload).subscribe({
-      next: () => {
+      next: (res) => {
         // create new comment
         const newComment: Comment = {
+          commentId: res,
           userId: this.tokenService.getUser().id,
           username: this.tokenService.getUser().username,
           createTime: new Date().toISOString(),
@@ -192,6 +193,7 @@ export class PostComponent implements OnInit {
         this.commentForm.reset();
       },
       error: (err) => {
+        console.log(err);
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -208,8 +210,30 @@ export class PostComponent implements OnInit {
     });
   }
 
-  deleteComment() {
-    console.log('comment deleted');
+  deleteComment(id: string) {
+    this.postService.deleteComment(id).subscribe({
+      next: (res) => {
+        this.post.comments = this.post.comments?.filter((comment) => {
+          return comment.commentId != id;
+        });
+        // toaster responses
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Successful comment deletion!',
+          life: AppSettings.DEFAULT_MESSAGE_LIFE,
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.error.message,
+          life: AppSettings.DEFAULT_MESSAGE_LIFE,
+        });
+      },
+    });
   }
 
   addGif(gifChosen: string) {

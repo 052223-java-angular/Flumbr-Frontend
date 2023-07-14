@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/pages/create-post/create-post.component';
+import { ProfileService } from 'src/app/services/profile-service';
 import { Subscription } from 'rxjs';
 import { NgEventBus } from 'ng-event-bus';
 import { EventBusEvents } from 'src/app/global/event-bus-events';
@@ -17,6 +18,7 @@ export class NavbarComponent implements OnInit {
   userId!: string;
   userName!: string;
   role!: string;
+  profile!: any;
   loginSub: Subscription;
 
   constructor(
@@ -24,6 +26,7 @@ export class NavbarComponent implements OnInit {
     private tokenService: TokenService,
     private notificationService: NotificationService,
     private dialog: MatDialog,
+    private profileService: ProfileService,
     private eventBus: NgEventBus
   ) {
     this.loginSub = this.eventBus
@@ -38,6 +41,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.updateLoggedInStatus();
 
+    this.profile = this.profileService.getUser(this.userId);
+
     this.notificationService.stateIsReload.subscribe((stateIsLoading) => {
       this.notificationHasChanged = stateIsLoading;
       setTimeout(() => {
@@ -46,7 +51,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  login() {}
+  login() { }
 
   logout() {
     this.tokenService.signOut();
@@ -73,7 +78,7 @@ export class NavbarComponent implements OnInit {
       maxHeight: '800px',
     });
 
-    dialogRef.afterClosed().subscribe(() => {});
+    dialogRef.afterClosed().subscribe(() => { });
   }
 
   updateLoggedInStatus() {

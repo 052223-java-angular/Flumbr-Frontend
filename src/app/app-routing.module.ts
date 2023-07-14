@@ -16,6 +16,7 @@ import { SettingsComponent } from './pages/profile/settings/settings.component';
 import { PostDetailComponent } from './pages/post-detail/post-detail.component';
 
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { AdminReportComponent } from './pages/admin-report/admin-report.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent }, // Route for the home page
@@ -28,6 +29,12 @@ const routes: Routes = [
     // handle user settings and route IF logged in user matches profileId
     path: 'profile/settings',
     component: SettingsComponent,
+    canActivate: [RouteguardService],
+  },
+
+  {
+    path: 'reports',
+    component: AdminReportComponent,
     canActivate: [RouteguardService],
   },
 
@@ -54,7 +61,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
