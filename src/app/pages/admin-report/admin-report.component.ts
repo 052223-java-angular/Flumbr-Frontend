@@ -5,6 +5,7 @@ import { ReportService } from 'src/app/services/report.service';
 import { TokenService } from 'src/app/services/tokenservice.service';
 import { Report } from 'src/app/models/report';
 import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-report',
@@ -27,8 +28,13 @@ export class AdminReportComponent implements OnInit {
 
   constructor(
     private reportService: ReportService,
-    private tokenService: TokenService
-  ) {}
+    private tokenService: TokenService,
+    private router: Router
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
+      return false;
+    };
+  }
 
   ngOnInit(): void {
     this.getReports();
@@ -53,7 +59,10 @@ export class AdminReportComponent implements OnInit {
 
   deletePost(postId: any) {
     this.reportService.deletePost(postId).subscribe({
-      next: () => {},
+      next: () => {
+        console.log('report deleted');
+        this.router.navigateByUrl('/reports');
+      },
       error: (err) => {
         console.log(err);
       },
@@ -62,6 +71,9 @@ export class AdminReportComponent implements OnInit {
 
   deleteReport(id: any) {
     this.reportService.deleteReport(id).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/reports');
+      },
       error: (err) => {
         console.log(err);
       },

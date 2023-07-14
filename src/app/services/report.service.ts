@@ -17,7 +17,9 @@ export class ReportService {
   }
 
   deletePost(postId: any) {
-    return this.http.delete(`${this.baseUrl}/posts/id/${postId}`);
+    return this.http.delete(`${this.baseUrl}/posts/id/${postId}`, {
+      responseType: 'text',
+    });
   }
 
   deleteReport(reportId: any) {

@@ -32,7 +32,11 @@ const routes: Routes = [
     canActivate: [RouteguardService],
   },
 
-  { path: 'reports', component: AdminReportComponent, canActivate: [RouteguardService], },
+  {
+    path: 'reports',
+    component: AdminReportComponent,
+    canActivate: [RouteguardService],
+  },
 
   {
     // route to profile using userId, queries that user
@@ -57,7 +61,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
